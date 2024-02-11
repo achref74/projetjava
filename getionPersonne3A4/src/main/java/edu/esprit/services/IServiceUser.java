@@ -1,5 +1,6 @@
 package edu.esprit.services;
 
+import java.util.List;
 import java.util.Set;
 
 public interface IServiceUser<T> {
@@ -7,5 +8,5 @@ public interface IServiceUser<T> {
     public void modifier(T t);
     public void supprimer(int id);
     public T getOneById(int id);
-    public Set<T> getAll();
+    public List<T> getAll();
 }
