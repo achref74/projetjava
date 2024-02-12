@@ -1,7 +1,9 @@
 package edu.esprit.tests;
 
+import edu.esprit.entities.Admin;
 import edu.esprit.entities.Client;
 import edu.esprit.entities.Formateur;
+import edu.esprit.services.ServiceAdmin;
 import edu.esprit.services.ServiceClient;
 import edu.esprit.services.ServiceFormateur;
 import edu.esprit.services.ServiceUser;
@@ -11,7 +13,7 @@ import java.sql.Date;
 public class Main {
     public static void main(String[] args) {
 
-        Client c=new Client("achref","prenom","ffh",new Date(2002,12,5),"hahahah",1522222,"achref","ffff");
+       /* Client c=new Client("achref","prenom","ffh",new Date(2002,12,5),"hahahah",1522222,"achref","ffff");
         ServiceClient c1=new ServiceClient();
         c1.ajouter(c);
         System.out.println(c1.getAll());
@@ -24,8 +26,10 @@ public class Main {
 
         c2.modifier(f);
 
-        System.out.println(c2.getAll());
-
+        System.out.println(c2.getAll());*/
+        Admin a=new Admin("achref","mouaddeb","achref.mouaddeb@esprit.tn",new Date(2009,12,5),"bizerte",25580212,"achref");
+        ServiceAdmin s=new ServiceAdmin();
+        s.ajouter(a);
 
 
 
