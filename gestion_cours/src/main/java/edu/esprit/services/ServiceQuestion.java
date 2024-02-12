@@ -75,7 +75,7 @@ public class ServiceQuestion implements IService<Question>{
         Set<Question> questions = new HashSet<>();
 
         String req = "Select * from question WHERE id_e ="+id_e;
-        try {
+        try {  
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
             while (res.next()){
