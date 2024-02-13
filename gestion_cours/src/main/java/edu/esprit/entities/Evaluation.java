@@ -69,8 +69,8 @@ public class Evaluation {
 
     @Override
     public String toString() {
-        return "Evaluation{" +
-                "duree=" + duree +
+        return "Evaluation   {  id : " +id_e +", "+
+        "duree=" + duree +
                 ", note=" + note +
                 ", questions=" + questions +
                 '}';

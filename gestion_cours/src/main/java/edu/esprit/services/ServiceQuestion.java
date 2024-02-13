@@ -93,6 +93,19 @@ public class ServiceQuestion implements IService<Question>{
 
 
     }
+
+    public void supprimerQuestionsById(int id) {
+        String req = "DELETE FROM `question` WHERE id_e = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+            System.out.println(rowsAffected + " question(s) supprimée(s) !");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression des questions : " + e.getMessage());
+        }
+    }
+
     @Override
     public Set<Question> getAll() {
 

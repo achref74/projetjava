@@ -23,8 +23,20 @@ public class ServiceEvaluation implements IService <Evaluation>{
 
     @Override
     public void supprimer(int id) {
+        String req ="DELETE FROM `evaluation` WHERE id_e=?" ;
+        try {ServiceQuestion s =new ServiceQuestion();
+            s.supprimerQuestionsById(id);
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+            System.out.println("Evaluationnnnnnn supprimée !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
+
 
     @Override
     public Evaluation getOneById(int id) {
