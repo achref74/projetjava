@@ -12,9 +12,6 @@ import java.util.Set;
 
 public  class  ServiceClient implements IServiceUser<Client>{
 
-
-
-
         Connection cnx = DataSource.getInstance().getCnx();
         @Override
         public void ajouter(Client client) {

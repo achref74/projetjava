@@ -26,10 +26,10 @@ public class Main {
 
         c2.modifier(f);
 
-        System.out.println(c2.getAll());*/
-        Admin a=new Admin("achref","mouaddeb","achref.mouaddeb@esprit.tn",new Date(2009,12,5),"bizerte",25580212,"achref");
+        System.out.println(c2.getAll());
+        Admin a=new Admin(22,"n","n","n.n@esprit.tn",new Date(2009,12,5),"n",25580212,"n");*/
         ServiceAdmin s=new ServiceAdmin();
-        s.ajouter(a);
+        System.out.println(s.getAll());
 
 
 
