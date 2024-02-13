@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class ServiceCours implements IService<Cours>{
 
-    Connection cnx = DataSource.getInstance().getCnx();
+    static Connection cnx = DataSource.getInstance().getCnx();
     @Override
     public void ajouter(Cours cours) {
 
@@ -76,8 +76,19 @@ public class ServiceCours implements IService<Cours>{
 
      */     return set_cours;
   }
+    public static boolean existe(int i)
+    {
+        String req = "Select * from cours WHERE id_cours="+i;
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery(req);
+            if  (res.next()){
+                return true ;
+            } return false ;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
 
-
-
-}
+        return false;
+    }}

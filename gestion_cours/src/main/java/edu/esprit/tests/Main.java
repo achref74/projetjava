@@ -1,6 +1,7 @@
 package edu.esprit.tests;
 
 
+import edu.esprit.entities.Evaluation;
 import edu.esprit.entities.Question;
 
 import edu.esprit.services.ServiceEvaluation;
@@ -13,14 +14,17 @@ public class Main {
         Question q = new Question("hbvq");
         s.ajouter(q,1);
  // s.supprimer(19);
-        System.out.println(s.getAll());
+       // System.out.println(s.getAll());
 
         Question q1 = new Question(4,"ressourceeeeeeeeee");
         //s.modifier(q1);
         ServiceEvaluation c = new ServiceEvaluation();
-        c.supprimer(1);
-        System.out.println(c.getAll());
-
+        //c.supprimer(1);
+       // System.out.println(c.getAll());
+        ServiceEvaluation ev =new ServiceEvaluation();
+        Evaluation e =new Evaluation(44,4,"jh",4);
+        ev.ajouter(e,8);
+        System.out.println(ev.getAll());
 
     }
 

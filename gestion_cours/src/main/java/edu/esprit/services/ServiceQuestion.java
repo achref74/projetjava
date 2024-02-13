@@ -25,7 +25,6 @@ public class ServiceQuestion implements IService<Question>{
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, question.getRessource());
             ps.setInt(2, id_e);
-
             ps.executeUpdate();
             System.out.println("Question added !");
         } catch (

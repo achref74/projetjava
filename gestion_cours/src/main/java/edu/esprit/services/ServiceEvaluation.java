@@ -11,8 +11,30 @@ import java.util.Set;
 
 public class ServiceEvaluation implements IService <Evaluation>{
     static Connection cnx = DataSource.getInstance().getCnx();
-    @Override
-    public void ajouter(Evaluation evaluation) {
+    public void ajouter(Evaluation evaluation){}
+
+    public void ajouter(Evaluation evaluation,int id_cours) {
+
+
+        if (ServiceCours.existe(id_cours)) {
+
+
+            String req = "INSERT INTO `evaluation`(`duree`, `note`,`nom`) VALUES (?,?,?)";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setInt(1,evaluation.getDuree());
+                ps.setInt(2,evaluation.getNote());
+                ps.setString(3,evaluation.getNom());
+                ps.executeUpdate();
+               // ServiceQuestion s =new ServiceQuestion();
+                /*Set<Question> questions = s.getQuestionsById(evaluation.getId_e());
+                evaluation.setQuestions(questions); */
+                System.out.println("Question added !");
+            } catch (
+                    SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        } else System.out.println("On ne peut pas ajouter la question ");
 
     }
 
