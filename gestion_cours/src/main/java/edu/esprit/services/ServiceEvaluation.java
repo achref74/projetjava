@@ -19,27 +19,43 @@ public class ServiceEvaluation implements IService <Evaluation>{
         if (ServiceCours.existe(id_cours)) {
 
 
-            String req = "INSERT INTO `evaluation`(`duree`, `note`,`nom`) VALUES (?,?,?)";
+            String req = "INSERT INTO `evaluation`(`duree`, `note`,`nom`,`id_cours`) VALUES (?,?,?,?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setInt(1,evaluation.getDuree());
                 ps.setInt(2,evaluation.getNote());
                 ps.setString(3,evaluation.getNom());
+                ps.setInt(4, id_cours);
                 ps.executeUpdate();
-               // ServiceQuestion s =new ServiceQuestion();
-                /*Set<Question> questions = s.getQuestionsById(evaluation.getId_e());
-                evaluation.setQuestions(questions); */
-                System.out.println("Question added !");
+
+                System.out.println("Evaluation  added !");
             } catch (
                     SQLException e) {
                 System.out.println(e.getMessage());
             }
-        } else System.out.println("On ne peut pas ajouter la question ");
+        } else System.out.println("On ne peut pas ajouter l'évaluation' ");
 
     }
 
     @Override
     public void modifier(Evaluation evaluation) {
+        String req =" UPDATE `evaluation` SET `duree` =?,`note`=?,`nom`=? WHERE `id_e`=?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, evaluation.getDuree());
+            ps.setInt(2, evaluation.getNote());
+            ps.setString(3, evaluation.getNom());
+
+            ps.setInt(4, evaluation.getId_e());
+            ps.executeUpdate();
+            System.out.println("Ev modified  !");
+
+        } catch (
+                SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
 
     }
 
@@ -50,19 +66,52 @@ public class ServiceEvaluation implements IService <Evaluation>{
             s.supprimerQuestionsById(id);
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
-
             ps.executeUpdate();
-            System.out.println("Evaluationnnnnnn supprimée !");
+            System.out.println("Evaluation supprimée !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }}
+
+
+
+    public void supprimerEvaluationById(int id) {
+        try {
+            ServiceQuestion s = new ServiceQuestion();
+
+            s.supprimerQuestionsById(id);
+            String req = "DELETE FROM `evaluation` WHERE id_e = ?";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+            System.out.println(rowsAffected + " évaluation supprimée !");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression des évaluations : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Evaluation getOneById(int id) {
+
+Evaluation ev = null ;
+        String req = "Select * from evaluation WHERE id_e ="+id;
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery(req);
+            if (res.next()){
+                 int id_e = res.getInt("id_e");
+                int duree = res.getInt("duree");
+                String nom = res.getString("nom");
+                int note = res.getInt("note");
+                ServiceQuestion s =new ServiceQuestion();
+                Set<Question> questions = s.getQuestionsById(id);
+                ev = new Evaluation(id_e,duree,nom,note,questions);
+
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-    }
-
-
-    @Override
-    public Evaluation getOneById(int id) {
-        return null;
+        return ev;
     }
 
     @Override
