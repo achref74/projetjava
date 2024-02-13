@@ -11,23 +11,30 @@ import java.util.List;
 public class ServiceOffre implements IService<Offre> {
 
     private Connection cnx = DataSource.getInstance().getCnx();
-     @Override
-    public void ajouter(Offre offre) {
-        String req = "INSERT INTO `offre`(`codePromo`, `prixOffre`, `description`, `dateD`, `dateF`) VALUES (?,?,?,?,?)";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
 
-            ps.setString(1, offre.getCodePromo());
-            ps.setDouble(2, offre.getPrixOffre());
-            ps.setString(3, offre.getDescription());
-            ps.setDate(4, new java.sql.Date(offre.getDateD().getTime()));
-            ps.setDate(5, new java.sql.Date(offre.getDateF().getTime()));
-           // ps.setInt(6, outil.getIdFormation());
-            ps.executeUpdate();
-            System.out.println("Outil ajouté !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    @Override
+    public void ajouter(Offre offre) {
+
+    }
+
+    public void ajouter(Offre offre, int idFormation) {
+         if (ServiceFormation.existe(idFormation)) {
+             String req = "INSERT INTO `offre`(`codePromo`, `prixOffre`, `description`, `dateD`, `dateF`,`idFormation`) VALUES (?,?,?,?,?,?)";
+             try {
+                 PreparedStatement ps = cnx.prepareStatement(req);
+
+                 ps.setString(1, offre.getCodePromo());
+                 ps.setDouble(2, offre.getPrixOffre());
+                 ps.setString(3, offre.getDescription());
+                 ps.setDate(4, new java.sql.Date(offre.getDateD().getTime()));
+                 ps.setDate(5, new java.sql.Date(offre.getDateF().getTime()));
+                 ps.setInt(6, offre.getIdFormation());
+                 ps.executeUpdate();
+                 System.out.println("offre ajouté !");
+             } catch (SQLException e) {
+                 System.out.println(e.getMessage());
+             }
+         }
     }
     @Override
     public void modifier(Offre offre) {
@@ -124,6 +131,17 @@ public class ServiceOffre implements IService<Offre> {
     }
 
 
+    public void supprimeroffreById(int id) {
+        try {
 
+            String req = "DELETE FROM `offre` WHERE idFormation = ?";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+            System.out.println(rowsAffected + " offre supprimée !");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression des évaluations : " + e.getMessage());
+        }
+    }
 }
 

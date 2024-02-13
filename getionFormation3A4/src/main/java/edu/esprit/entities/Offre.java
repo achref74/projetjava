@@ -2,8 +2,11 @@ package edu.esprit.entities;
 
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.*;
+
 
 public class Offre {
+
     private int idOffre;
     private String codePromo;
     private double prixOffre;
@@ -11,6 +14,8 @@ public class Offre {
     private Date dateD;
     private Date dateF;
     private int idFormation;
+
+
 
 
 
@@ -31,6 +36,16 @@ public class Offre {
         this.dateD = dateD;
         this.dateF = dateF;
        // this.idFormation = idFormation;
+    }
+
+    public Offre(String codePromo, double prixOffre, String description, Date dateD, Date dateF,int idFormation) {
+
+        this.codePromo = codePromo;
+        this.prixOffre = prixOffre;
+        this.description = description;
+        this.dateD = dateD;
+        this.dateF = dateF;
+         this.idFormation = idFormation;
     }
     public int getIdOffre() {
         return idOffre;
@@ -87,6 +102,8 @@ public class Offre {
     public void setIdFormation(int idFormation) {
         this.idFormation = idFormation;
     }
+
+
 
     @Override
     public String toString() {

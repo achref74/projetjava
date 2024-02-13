@@ -13,7 +13,7 @@ public class ServiceCertificat implements IService<Certificat>{
     private Connection cnx = DataSource.getInstance().getCnx();
 
     public void ajouter(Certificat certificat) {
-        String req = "INSERT INTO `certificat`(`titre`, `description`, `dateObtention`, `nbrCours`) VALUES (?,?,?,?)";
+        String req = "INSERT INTO `certificat`(`titre`, `description`, `dateObtention`, `nbrCours`,`idFormation`) VALUES (?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
 
@@ -22,7 +22,7 @@ public class ServiceCertificat implements IService<Certificat>{
             ps.setDate(3, new java.sql.Date(certificat.getDateObtention().getTime()));
             ps.setInt(4, certificat.getNbrCours());
             //ps.setInt(5, certificat.getIdUser());
-           // ps.setInt(6, certificat.getIdFormation());
+            ps.setInt(5, certificat.getIdFormation());
             ps.executeUpdate();
             System.out.println("Certificat ajouté !");
         } catch (SQLException e) {
@@ -130,6 +130,17 @@ public class ServiceCertificat implements IService<Certificat>{
 
         return certificats;
     }
+    public void supprimerCertificatById(int id) {
+        try {
 
+            String req = "DELETE FROM `certificat` WHERE idFormation = ?";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+            System.out.println(rowsAffected + " certificat supprimée !");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression des évaluations : " + e.getMessage());
+        }
+    }
 }
 

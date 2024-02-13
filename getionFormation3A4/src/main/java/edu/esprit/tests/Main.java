@@ -18,6 +18,20 @@ public class Main {
         ServiceOffre so = new ServiceOffre();
         ServiceCertificat sc = new ServiceCertificat();
 
+        //ajouter offre
+
+            Date dateD = new Date(2024-03-30);// Remplacez par la date de début souhaitée
+            Date dateF =new Date(2024-03-30); // Remplacez par la date de fin souhaitée
+
+        Offre nouvelOffre = new Offre("promo8",50,"reduction speciale",dateD,dateF,8);
+        so.ajouter(nouvelOffre,8); // Ajouter l'offre après l'association
+
+        // Ajouter un nouveau certificat
+
+        Date dateObtention = new Date(2024-05-21);
+
+        Certificat nouveauCertificat = new Certificat("Certificat Java", "Maîtrise de la programmation Java", dateObtention, 10,9);
+        sc.ajouter(nouveauCertificat);
         //ajouter formation
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateDebut = null;
@@ -28,36 +42,14 @@ public class Main {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Formation nouvelleFormation = new Formation("Formation Java", "Apprendre la programmation Java",dateDebut, dateFin, 100.0, 10);
-        Formation nouvelleFormation1 = new Formation("Formation python", "Apprendre python",dateDebut, dateFin, 20, 5);
-        //sp.ajouter(nouvelleFormation1);
+        Formation nouvelleFormation = new Formation("Formation c", "Apprendre la programmation c",dateDebut, dateFin, 100.0, 10,nouveauCertificat,nouvelOffre);
+        //Formation nouvelleFormation1 = new Formation("Formation python", "Apprendre python",dateDebut, dateFin, 20, 5);
+        sp.ajouter(nouvelleFormation);
 
-        //ajouter offre
-        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateD = null;
-        Date dateF = null;
-        try {
-            dateD = dateFormat.parse("2024-02-15"); // Remplacez par la date de début souhaitée
-            dateF = dateFormat.parse("2024-03-30"); // Remplacez par la date de fin souhaitée
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Offre nouvelOffre = new Offre("promo123",50,"reduction speciale",dateD,dateF);
-        //so.ajouter(nouvelOffre);
 
-        // Ajouter un nouveau certificat
-        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateObtention = null;
-        try {
-            dateObtention = dateFormat.parse("2024-02-15"); // Remplacez par la date d'obtention souhaitée
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Certificat nouveauCertificat = new Certificat("Certificat Java", "Maîtrise de la programmation Java", dateObtention, 10);
-        //sc.ajouter(nouveauCertificat);
 
         // Modifier une formation existante (par exemple, avec l'ID 1)
-        Formation formationAModifier = sp.getOneById(3);
+        Formation formationAModifier = sp.getOneById(18);
         if (formationAModifier != null) {
             formationAModifier.setNom("Formation Java Avancée");
             formationAModifier.setDescription("Approfondir les connaissances en Java");
@@ -67,8 +59,8 @@ public class Main {
             //System.out.println(formationAModifier.getIdFormation());
         }
 
-        // Modifier un outil existant (par exemple, avec l'ID 3)
-        Offre offreAModifier = so.getOneById(2);
+        // Modifier un offre existant (par exemple, avec l'ID 3)
+        Offre offreAModifier = so.getOneById(11);
         if (offreAModifier != null) {
             offreAModifier.setCodePromo("NEWCODE");
             offreAModifier.setPrixOffre(30.0);
@@ -78,7 +70,7 @@ public class Main {
         }
 
         // Modifier un certificat existant (par exemple, avec l'ID 3)
-        Certificat certificatAModifier = sc.getOneById(2);
+        Certificat certificatAModifier = sc.getOneById(12);
         if (certificatAModifier != null) {
             certificatAModifier.setTitre("Certificat Java Avancé");
             certificatAModifier.setDescription("Approfondissement des connaissances en Java");
@@ -89,6 +81,7 @@ public class Main {
         }
 
         //supp
+       //
         sp.supprimer(1);
         // Supprimer un outil (par exemple, avec l'ID 1)
         so.supprimer(3);

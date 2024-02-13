@@ -1,8 +1,13 @@
 package edu.esprit.entities;
+import javax.annotation.processing.Generated;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
+
 public class Formation {
+
+
     private int idFormation;
     private String nom;
     private String description;
@@ -10,8 +15,10 @@ public class Formation {
     private Date dateFin;
     private double prix;
     private int nbrCours;
-   // private int idUser;
-    //private int idCategorie;
+   private int idUser;
+    private int idCategorie;
+  private Certificat certificat;
+  private Offre offre;
 
 
 
@@ -26,7 +33,21 @@ public class Formation {
         this.nbrCours = nbrCours;
 
     }
-    public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours) {
+
+    public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours,int idUser,int idCategorie,Certificat certificat,Offre offre) {
+
+        this.nom = nom;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.prix = prix;
+        this.nbrCours = nbrCours;
+        this.idUser=0;
+        this.idCategorie=0;
+        this.certificat=certificat;
+        this.offre=offre;
+    }
+    public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours,Certificat certificat,Offre offre) {
 
         this.nom = nom;
         this.description = description;
@@ -35,6 +56,8 @@ public class Formation {
         this.prix = prix;
         this.nbrCours = nbrCours;
 
+        this.certificat=certificat;
+        this.offre=offre;
     }
 
     public int getIdFormation() {

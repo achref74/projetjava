@@ -23,6 +23,7 @@ public class Certificat {
         //this.idUser = idUser;
        // this.idFormation = idFormation;
     }
+
     public Certificat(String titre, String description, Date dateObtention, int nbrCours) {
 
         this.titre = titre;
@@ -32,6 +33,17 @@ public class Certificat {
         //this.idUser = idUser;
         //this.idFormation = idFormation;
     }
+    public Certificat(String titre, String description, Date dateObtention, int nbrCours,int idFormation) {
+
+        this.titre = titre;
+        this.description = description;
+        this.dateObtention = dateObtention;
+        this.nbrCours = nbrCours;
+        //this.idUser = idUser;
+        this.idFormation = idFormation;
+    }
+
+
 
     public int getIdCertificat() {
         return idCertificat;

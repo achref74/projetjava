@@ -1,6 +1,8 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.Certificat;
 import edu.esprit.entities.Formation;
+import edu.esprit.entities.Offre;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -9,7 +11,7 @@ import java.util.*;
 
 public class ServiceFormation implements IService<Formation> {
 
-    Connection cnx = DataSource.getInstance().getCnx();
+    static Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
     public void ajouter(Formation formation) {
@@ -57,6 +59,10 @@ public class ServiceFormation implements IService<Formation> {
 
     @Override
     public void supprimer(int idFormation) {
+        ServiceOffre so=new ServiceOffre();
+        so.supprimeroffreById(idFormation);
+        ServiceCertificat sc=new ServiceCertificat();
+        sc.supprimerCertificatById(idFormation);
         String req = "DELETE FROM formation WHERE idFormation = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -112,15 +118,20 @@ public class ServiceFormation implements IService<Formation> {
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
             while (res.next()) {
+                int idF=res.getInt("idFormation");
                 String nom = res.getString("nom");
                 String description = res.getString("description");
                 Date dateDebut = res.getDate("dateD");
                 Date dateFin = res.getDate("dateF");
                 double prix = res.getDouble("prix");
                 int nbrCours = res.getInt("nbrCours");
-               /* int idUser = res.getInt("idUser");
-                int idCategorie = res.getInt("idCategorie");*/
-                Formation formation = new Formation(nom, description, dateDebut, dateFin, prix, nbrCours);
+                int idUser = res.getInt("idUser");
+                int idCategorie = res.getInt("idCategorie");
+                ServiceCertificat so=new ServiceCertificat();
+                Certificat certificat=so.getOneById(idF);
+                ServiceOffre so1=new ServiceOffre();
+                Offre offre=so1.getOneById(idF);
+                Formation formation = new Formation(nom, description, dateDebut, dateFin, prix, nbrCours,idUser,idCategorie,certificat,offre);
                 formations.add(formation);
             }
         } catch (SQLException e) {
@@ -128,6 +139,22 @@ public class ServiceFormation implements IService<Formation> {
         }
 
         return formations;
+    }
+    public static boolean existe(int i)
+    {
+        String req = "Select * from formation WHERE idFormation="+i;
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery(req);
+            if  (res.next()){
+                return true ;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        return false;
     }
 }
 
