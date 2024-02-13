@@ -5,13 +5,18 @@ import java.util.Date;
 
 import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
+import edu.esprit.entities.Certificat;
+
 import edu.esprit.services.ServiceFormation;
 import edu.esprit.services.ServiceOffre;
+import edu.esprit.services.ServiceCertificat;
+
 
 public class Main {
     public static void main(String[] args) {
         ServiceFormation sp = new ServiceFormation();
         ServiceOffre so = new ServiceOffre();
+        ServiceCertificat sc = new ServiceCertificat();
 
         //ajouter formation
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -40,6 +45,16 @@ public class Main {
         Offre nouvelOffre = new Offre("promo123",50,"reduction speciale",dateD,dateF);
         //so.ajouter(nouvelOffre);
 
+        // Ajouter un nouveau certificat
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateObtention = null;
+        try {
+            dateObtention = dateFormat.parse("2024-02-15"); // Remplacez par la date d'obtention souhaitée
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Certificat nouveauCertificat = new Certificat("Certificat Java", "Maîtrise de la programmation Java", dateObtention, 10);
+        //sc.ajouter(nouveauCertificat);
 
         // Modifier une formation existante (par exemple, avec l'ID 1)
         Formation formationAModifier = sp.getOneById(3);
@@ -49,7 +64,7 @@ public class Main {
             formationAModifier.setPrix(20);
             // Mettez à jour les autres attributs si nécessaire
             sp.modifier(formationAModifier);
-            System.out.println(formationAModifier.getIdFormation());
+            //System.out.println(formationAModifier.getIdFormation());
         }
 
         // Modifier un outil existant (par exemple, avec l'ID 3)
@@ -59,18 +74,32 @@ public class Main {
             offreAModifier.setPrixOffre(30.0);
             // Mettez à jour les autres attributs si nécessaire
             so.modifier(offreAModifier);
-            System.out.println(offreAModifier.getIdOffre());
+            //System.out.println(offreAModifier.getIdOffre());
+        }
+
+        // Modifier un certificat existant (par exemple, avec l'ID 3)
+        Certificat certificatAModifier = sc.getOneById(2);
+        if (certificatAModifier != null) {
+            certificatAModifier.setTitre("Certificat Java Avancé");
+            certificatAModifier.setDescription("Approfondissement des connaissances en Java");
+            certificatAModifier.setNbrCours(20);
+            // Mettez à jour les autres attributs si nécessaire
+            sc.modifier(certificatAModifier);
+            //System.out.println(certificatAModifier.getIdCertificat());
         }
 
         //supp
         sp.supprimer(1);
         // Supprimer un outil (par exemple, avec l'ID 1)
         so.supprimer(3);
-
+// Supprimer un certificat (par exemple, avec l'ID 1)
+        sc.supprimer(2);
         //afficher
         System.out.println(sp.getAll());
         // Afficher tous les outils
         System.out.println(so.getAll());
+        // Afficher tous les certificats
+        System.out.println(sc.getAll());
     }
 
 }
