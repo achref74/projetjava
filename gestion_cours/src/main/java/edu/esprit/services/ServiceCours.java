@@ -3,12 +3,19 @@ package edu.esprit.services;
 import edu.esprit.entities.Cours;
 
 import edu.esprit.entities.Evaluation;
+import edu.esprit.entities.Question;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import java.sql.SQLException;
+import java.sql.Date;
+
+
+
+// nkoul l yass tzid existe formation
 public class ServiceCours implements IService<Cours>{
 
     static Connection cnx = DataSource.getInstance().getCnx();
@@ -21,8 +28,8 @@ public class ServiceCours implements IService<Cours>{
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1,cours.getNom());
             ps.setString(2, cours.getDescrption());
-            ps.setDate(3, cours.getDate());
-            ps.setInt(4, cours.getDuree());
+             ps.setDate(3, cours.getDate());
+             ps.setInt(4, cours.getDuree());
             ps.setString(5, cours.getPrerequis());
             ps.setString(6, cours.getRessource());
             ps.setInt(7,cours.getIdFormation());
@@ -78,7 +85,33 @@ public class ServiceCours implements IService<Cours>{
 
     @Override
     public Cours getOneById(int id) {
-        return null;
+
+
+            Cours c = null ;
+            String req = "Select * from cours WHERE id_cours ="+id;
+            try {
+                Statement st = cnx.createStatement();
+                ResultSet res = st.executeQuery(req);
+                if (res.next()){
+                    int id_cours = res.getInt("id_cours");
+                    String nom = res.getString("nom");
+                    String description = res.getString("description");
+                    Date date = res.getDate("date");
+                    int duree = res.getInt("duree");
+                    String prerequis = res.getString("prerequis");
+                    String ressource = res.getString("ressource");
+                    ServiceEvaluation s =new ServiceEvaluation() ;
+                    Evaluation evaluation =s.getEvaluationByIdCours(id) ;
+                     c = new Cours(id_cours,nom, description,prerequis,ressource,date,duree,evaluation);
+
+
+                }return null;
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+            return c;
+
     }
 
     @Override
@@ -123,4 +156,40 @@ public class ServiceCours implements IService<Cours>{
 
 
         return false;
-    }}
+    }
+    public int getDureeById(int id) {
+
+
+        Cours c = null ;
+        String req = "Select * from cours WHERE id_cours ="+id;
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery(req);
+            if (res.next()){
+                int id_cours = res.getInt("id_cours");
+                String nom = res.getString("nom");
+                String description = res.getString("description");
+                Date date = res.getDate("date");
+                int duree = res.getInt("duree");
+                String prerequis = res.getString("prerequis");
+                String ressource = res.getString("ressource");
+                ServiceEvaluation s =new ServiceEvaluation() ;
+                Evaluation evaluation =s.getOneById(id) ;
+                c = new Cours(id_cours,nom, description,prerequis,ressource,date,duree,evaluation);
+
+
+            }return 0;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return c.getDuree();
+
+    }
+
+
+
+
+}
+
+

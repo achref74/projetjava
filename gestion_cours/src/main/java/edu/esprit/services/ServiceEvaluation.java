@@ -22,6 +22,7 @@ public class ServiceEvaluation implements IService <Evaluation>{
             String req = "INSERT INTO `evaluation`(`duree`, `note`,`nom`,`id_cours`) VALUES (?,?,?,?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
+
                 ps.setInt(1,evaluation.getDuree());
                 ps.setInt(2,evaluation.getNote());
                 ps.setString(3,evaluation.getNom());
@@ -103,10 +104,10 @@ Evaluation ev = null ;
                 String nom = res.getString("nom");
                 int note = res.getInt("note");
                 ServiceQuestion s =new ServiceQuestion();
-                Set<Question> questions = s.getQuestionsById(id);
+                Set<Question> questions = s.getQuestionsByIdEvaluation(id);
                 ev = new Evaluation(id_e,duree,nom,note,questions);
 
-            }
+            }return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -128,7 +129,7 @@ Evaluation ev = null ;
                 String nom = res.getString("nom");
                 int note = res.getInt("note");
                 ServiceQuestion s =new ServiceQuestion();
-                Set<Question> questions = s.getQuestionsById(id);
+                Set<Question> questions = s.getQuestionsByIdEvaluation(id);
                 Evaluation e = new Evaluation(id,duree,nom,note,questions);
                 evs.add(e);
             }
@@ -153,4 +154,34 @@ Evaluation ev = null ;
 
 
 
-return false ; }}
+return false ; }
+
+
+
+    public Evaluation getEvaluationByIdCours(int id) {
+
+        Evaluation ev = null ;
+        String req = "Select * from evaluation WHERE id_cours ="+id;
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery(req);
+            if (res.next()){
+                int id_e = res.getInt("id_e");
+                int duree = res.getInt("duree");
+                String nom = res.getString("nom");
+                int note = res.getInt("note");
+                ServiceQuestion s =new ServiceQuestion();
+                Set<Question> questions = s.getQuestionsByIdEvaluation(id);
+                ev = new Evaluation(id_e,duree,nom,note,questions);
+
+            }return null;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return ev;
+    }
+
+
+
+}

@@ -68,20 +68,34 @@ public class ServiceQuestion implements IService<Question>{
 
     @Override
     public Question getOneById(int id) {
-        return null;
-    }
-    public Set<Question> getQuestionsById(int id_e){
-        Set<Question> questions = new HashSet<>();
 
-        String req = "Select * from question WHERE id_e ="+id_e;
+        Question q = null ;
+        String req = "Select * from question WHERE id_q ="+id;
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery(req);
+            if (res.next()){
+                int id_q = res.getInt("id_q");
+                String ressource = res.getString("ressource");
+                q= new Question(id_q,ressource);
+            }return null;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return q;
+    }
+    public Set<Question> getQuestionsByIdEvaluation(int id){
+     Set<Question> questions = new HashSet<>();
+
+        String req = "Select * from question WHERE id_e ="+id;
         try {
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
             while (res.next()){
-                int id = res.getInt("id_q");
+                int id_q = res.getInt("id_q");
                 String ressource = res.getString("ressource");
-
-                Question q = new Question(id,ressource);
+                Question q = new Question(id_q,ressource);
                 questions.add(q);
             }
         } catch (SQLException e) {
@@ -126,4 +140,9 @@ public class ServiceQuestion implements IService<Question>{
         }
 
         return questions;}
+
+
+
+
+
 }

@@ -35,6 +35,11 @@ public class Evaluation {
     }
 
     public void setDuree(int duree) {
+
+        if (duree <= 0) {
+            throw new IllegalArgumentException("La durée doit être supérieure à zéro.");
+        }
+
         this.duree = duree;
     }
 
@@ -43,6 +48,11 @@ public class Evaluation {
     }
 
     public void setNote(int note) {
+
+        if ((note < 0)||(note >20)) {
+            throw new IllegalArgumentException("La note doit être comprise entre zéro et 1 .");
+        }
+
         this.note = note;
     }
 
@@ -63,17 +73,17 @@ public class Evaluation {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id_e, duree, note, questions);
-    }
-
-    @Override
     public String toString() {
-        return "Evaluation   {  id : " +id_e +", "+
-        "duree=" + duree +
-                ", note=" + note +
-                ", questions=" + questions +
-                '}';
+        long heures = duree / 3600;
+        long minutes = (duree % 3600) / 60;
+        long secondes = duree % 60;
+
+        return String.format("Evaluation%n" +
+                        "----------------------------------------------%n" +
+                        "| ID  | Durée     | Note | Questions           |%n" +
+                        "----------------------------------------------%n" +
+                        "| %-3d | %-2dh %-2dmin %-2dsc | %-5s | %-20s |%n",
+                id_e, heures, minutes, secondes, note, questions);
     }
 
     public Evaluation(int id_e, int duree, String nom, int note) {

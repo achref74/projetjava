@@ -23,6 +23,9 @@ public class Question {
     }
 
     public void setRessource(String ressource) {
+        if (!ressource.endsWith(".mp3") && !ressource.endsWith(".mp4") && !ressource.endsWith(".jpg") && !ressource.endsWith(".pdf") && !ressource.endsWith(".txt")) {
+            throw new IllegalArgumentException("La ressource doit être un fichier avec l'extension mp3, mp4, jpg, pdf ou txt.");
+        }
         this.ressource = ressource;
     }
 

@@ -14,28 +14,32 @@ import java.sql.Date;
 
 public class Main {
     public static void main(String[] args) {
-        ServiceQuestion s =new ServiceQuestion();
-        Question q = new Question("hbvq");
-      //s.ajouter(q,1);
-//  s.supprimer(19);
-        System.out.println(s.getAll());
-/*
-        Question q1 = new Question(4,"ressourceeeeeeeeee");
-        //s.modifier(q1);
-        ServiceEvaluation c = new ServiceEvaluation();
-        //c.supprimer(1);
-       // System.out.println(c.getAll());
-        ServiceEvaluation ev =new ServiceEvaluation();
-       */ Evaluation e =new Evaluation(44,4,"jh",4);/*
-        Evaluation e1 =new Evaluation(10,0000,"jh",4);
-        ev.modifier( e1);
-        */
-        //System.out.println(ev.getAll());
-        Cours c =new Cours(8,"loujein","r","rf","r", new Date(2003,12,12),4,e);
-        ServiceCours se =new ServiceCours();
-        //se.modifier(c);
-        System.out.println(se.getAll());
-        se.supprimer(10);
+
+        Cours intro =new Cours("Intro","//","algorithmique","hello.txt",new Date(2023,12,12),600);
+ Cours InstallationEnv =new Cours("Installation Environnement Python","1er pas en python ","algorithmique","fichier.txt",new Date(2023,12,12),600);
+ ServiceCours service_cours =new ServiceCours();
+ //service_cours.ajouter(InstallationEnv);
+      //  service_cours.ajouter(intro);
+       //  service_cours.supprimer(13);
+        System.out.println(service_cours.getAll());
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 }

@@ -25,6 +25,29 @@ public class Cours {
         this.duree = duree;
         this.evaluation = evaluation;
     }
+    public Cours( String nom, String descrption, String prerequis, String ressource, Date date, int duree, Evaluation evaluation) {
+
+        this.nom = nom;
+        this.descrption = descrption;
+        this.prerequis = prerequis;
+        this.ressource = ressource;
+        this.date = date;
+        this.idFormation = 3;
+        this.duree = duree;
+        this.evaluation = evaluation;
+    }
+    public Cours( String nom, String descrption, String prerequis, String ressource, Date date, int duree) {
+
+        this.nom = nom;
+        this.descrption = descrption;
+        this.prerequis = prerequis;
+        this.ressource = ressource;
+        this.date = date;
+        this.idFormation = 3;
+        this.duree = duree;
+
+    }
+
 
     public int getId_cours() {
         return id_cours;
@@ -63,15 +86,23 @@ public class Cours {
     }
 
     public void setRessource(String ressource) {
+        if (!ressource.endsWith(".mp3") && !ressource.endsWith(".mp4") && !ressource.endsWith(".jpg") && !ressource.endsWith(".pdf") && !ressource.endsWith(".txt")) {
+            throw new IllegalArgumentException("La ressource doit être un fichier avec l'extension mp3, mp4, jpg, pdf ou txt.");
+        }
         this.ressource = ressource;
     }
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+
+        Date coursDate = date;
+        if (coursDate == null || coursDate.after(new Date(System.currentTimeMillis()))) {
+            throw new IllegalArgumentException("La date du cours doit être dans le passé.");
+        }
+        else
+            this.date = date;
     }
 
 
@@ -80,6 +111,9 @@ public class Cours {
     }
 
     public void setDuree(int duree) {
+        if (duree <= 0) {
+            throw new IllegalArgumentException("La durée doit être supérieure à zéro.");
+        }
         this.duree = duree;
     }
 
@@ -112,19 +146,18 @@ public class Cours {
         return Objects.hash(id_cours, nom, descrption, prerequis, ressource, date, idFormation, duree, evaluation);
     }
 
+
     @Override
     public String toString() {
-        return "Cours{" +
-                "nom='" + nom + '\'' +
-                ", descrption='" + descrption + '\'' +
-                ", prerequis='" + prerequis + '\'' +
-                ", ressource='" + ressource + '\'' +
-                ", date=" + date +
-                ", idFormation=" + idFormation +
-                ", duree='" + duree + '\'' +
-                ", evaluation=" + evaluation +
-                '}';
+        long heures = duree / 3600;
+        long minutes = (duree % 3600) / 60;
+        long secondes = duree % 60;
+
+        return String.format("Cours%n" +
+                        "-------------------------------------------------%n" +
+                        "| Nom           | Description     | Prérequis | Ressource | Date                | ID Formation | Durée                       | Evaluation  |%n" +
+                        "-------------------------------------------------%n" +
+                        "| %-13s | %-15s | %-9s | %-9s | %-20s | %-11d | %-2dh %-2dmin %-2dsc | %-12s |%n",
+                nom, descrption, prerequis, ressource, date, idFormation, heures, minutes, secondes, evaluation);
     }
-
-
 }
