@@ -36,7 +36,7 @@ public class OutilsService2 implements IService<Outils> {
 
     @Override
     public void modifier(Outils outils) {
-        String req = "UPDATE outils set nom = ?, description = ?,prix = ?,ressources = ?,stock = ?,etat = ?, where id = ?;";
+        String req = "UPDATE outils set nom = ?, description = ?,prix = ?,ressources = ?,stock = ?,etat = ? where id = ?;";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setInt(7, outils.getId());
@@ -68,9 +68,9 @@ public class OutilsService2 implements IService<Outils> {
 
     @Override
     public List<Outils> afficher() {
-        List<Outils> travails = new ArrayList<>();
+        List<Outils> outilss = new ArrayList<>();
 
-        String req = "SELECT * FROM travail";
+        String req = "SELECT * FROM Outils";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             ResultSet rs = pst.executeQuery();
@@ -82,16 +82,16 @@ public class OutilsService2 implements IService<Outils> {
                 String ressources = rs.getString("ressources");
                 String stock = rs.getString("stock");
 
-                EtatOutils status = EtatOutils.valueOf(rs.getString("status"));
+                EtatOutils etat = EtatOutils.valueOf(rs.getString("etat"));
 
 
-                travails.add(new Outils(id, nom, description, prix, ressources, stock,status));
+                outilss.add(new Outils(id, nom, description, prix, ressources, stock,etat));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        return travails;
+        return outilss;
     }
 
 }

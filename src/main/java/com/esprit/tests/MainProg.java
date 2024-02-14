@@ -13,9 +13,17 @@ public class MainProg {
         CategorieService2 categorieService = new CategorieService2();
 
         // Testing Outils
-        outilsService.ajouter(new Outils(1, "omar", "abidi", 10.5, "s", "s", EtatOutils.Attente));
+       // outilsService.ajouter(new Outils(1, "omar", "abidi", 10.5, "s", "s", EtatOutils.Attente));
+       // outilsService.modifier(new Outils(1, "omar", "abidi", 10.5, "s", "s", EtatOutils.Attente));
+        //System.out.println(outilsService.afficher());
 
         // Testing Categorie
-        categorieService.ajouter(new Categorie(1, "omar", "ss"));
+        //categorieService.ajouter(new Categorie(1, "omar", "ss"));
+        //categorieService.modifier(new Categorie(1, "omar", "mm"));
+        //categorieService.supprimer(new Categorie(1, "omar", "mm"));
+        System.out.println(categorieService.afficher());
+
+
+
     }
 }
