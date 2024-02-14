@@ -43,10 +43,6 @@ public class ServiceAchat implements IService<Achat>{
             preparedStatement.setInt(3, achat.getOutil());
             preparedStatement.setString(4, achat.getCode_promo());
             preparedStatement.setInt(5, achat.getTotal());
-
-
-
-
             preparedStatement.setInt(6, id);
 
             int rowCount = preparedStatement.executeUpdate();

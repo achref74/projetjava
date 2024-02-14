@@ -1,6 +1,7 @@
 package edu.esprit.entites;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Achat {
     private int id_achat;
@@ -100,6 +101,19 @@ public class Achat {
                 ", total=" + total +
                 ", date_achat=" + date_achat +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Achat achat = (Achat) o;
+        return id_achat == achat.id_achat;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_achat);
     }
 }
 
