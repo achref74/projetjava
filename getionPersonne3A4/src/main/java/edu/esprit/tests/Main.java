@@ -3,35 +3,28 @@ package edu.esprit.tests;
 import edu.esprit.entities.Admin;
 import edu.esprit.entities.Client;
 import edu.esprit.entities.Formateur;
-import edu.esprit.services.ServiceAdmin;
-import edu.esprit.services.ServiceClient;
-import edu.esprit.services.ServiceFormateur;
+
 import edu.esprit.services.ServiceUser;
 
 import java.sql.Date;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-       /* Client c=new Client("achref","prenom","ffh",new Date(2002,12,5),"hahahah",1522222,"achref","ffff");
-        ServiceClient c1=new ServiceClient();
-        c1.ajouter(c);
-        System.out.println(c1.getAll());
-        ServiceUser su=new ServiceUser();
+       Formateur f2=new Formateur(29,"llll","lolita","atat",new Date(2002,1,1),"hdhdh",525452,"hgh","fhd","hgxf",5,"fx");
+       ServiceUser su =new ServiceUser() ;
+
+
+       // su.modifier(f2);
+       // su.supprimer(11);
         System.out.println(su.getAll());
-        System.out.println(c1.getOneById(1));
-        Formateur f=new Formateur(19,"mouaddeb","mouaddeb","mouaddeb",new Date(2002,12,5),"hihihihi",24954442,"mouaddeb","math","bac",2,"cv2");
-
-        ServiceFormateur c2=new ServiceFormateur();
-
-        c2.modifier(f);
-
-        System.out.println(c2.getAll());
-        Admin a=new Admin(22,"n","n","n.n@esprit.tn",new Date(2009,12,5),"n",25580212,"n");*/
-        ServiceAdmin s=new ServiceAdmin();
-        System.out.println(s.getAll());
+        System.out.println(su.getOneById(3));
 
 
 
     }
+
+
 }
+
