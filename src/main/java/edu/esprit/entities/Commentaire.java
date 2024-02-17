@@ -1,54 +1,47 @@
 package edu.esprit.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
 public class Commentaire {
     private int idCommentaire ;
-    private LocalDate dateCreation;
-    private String description;
-    private int idForum;
-
+    private LocalDateTime dateCreation;
     private String contenu;
+    private int idUser;
+    private int idP;
+    private int rating;
+
+
 
     public Commentaire() {
 
     }
 
-    public Commentaire(int idCommentaire, String description, int idForum, String contenu) {
+    public Commentaire( String contenu, int idUser, int idP, int rating) {
+        this.dateCreation = LocalDateTime.now();
+        this.contenu = contenu;
+        this.idUser = idUser;
+        this.idP = idP;
+        this.rating = rating;
+    }
+
+    public Commentaire(int idCommentaire, String contenu, int idUser, int idP, int rating) {
         this.idCommentaire = idCommentaire;
-        this.description = description;
-        this.idForum = idForum;
         this.contenu = contenu;
+        this.idUser = idUser;
+        this.idP = idP;
+        this.rating = rating;
     }
 
-    public Commentaire(String description, int idForum, String contenu) {
-        this.dateCreation = LocalDate.now();
-        this.description = description;
-        this.idForum = idForum;
-        this.contenu = contenu;
-
-    }
-
-    public Commentaire( LocalDate dateCreation,String description, int idForum, String contenu) {
+    public Commentaire(LocalDateTime dateCreation, String contenu, int idUser, int idP, int rating) {
         this.dateCreation = dateCreation;
-        this.description = description;
-        this.idForum = idForum;
         this.contenu = contenu;
-
+        this.idUser = idUser;
+        this.idP = idP;
+        this.rating = rating;
     }
-
-    @Override
-    public String toString() {
-        return "Commentaire{" +
-                "dateCreation=" + dateCreation +
-                ", description='" + description + '\'' +
-                ", contenu='" + contenu + '\'' +
-                ", idForum=" + idForum +
-                '}';
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -66,21 +59,17 @@ public class Commentaire {
         this.idCommentaire = idCommentaire;
     }
 
-    public void setDateCreation(LocalDate dateCreation) {
+    public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+
 
     public void setContenu(String contenu) {
         this.contenu = contenu;
     }
 
-    public void setIdForum(int idForum) {
-        this.idForum = idForum;
-    }
+
 
 
 
@@ -88,19 +77,48 @@ public class Commentaire {
         return idCommentaire;
     }
 
-    public LocalDate getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return dateCreation;
     }
 
-    public String getDescription() {
-        return description;
-    }
+
 
     public String getContenu() {
         return contenu;
     }
 
-    public int getIdForum() {
-        return idForum;
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public int getIdP() {
+        return idP;
+    }
+
+    public void setIdP(int idP) {
+        this.idP = idP;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "Commentaire{" +
+                "dateCreation=" + dateCreation +
+                ", contenu='" + contenu + '\'' +
+                ", idUser=" + idUser +
+                ", idP=" + idP +
+                ", rating=" + rating +
+                '}';
     }
 }

@@ -15,14 +15,13 @@ public class ServiceForum implements IService<Forum> {
     Connection cnx = DataSource.getInstance().getCnx();
     public void ajouter(Forum forum){
 
-        String req = "INSERT INTO `forum`(`titre`,`dateCreation`, `nbrMessage`, `idUser`, `idFormation`) VALUES (?, ?, ?, ?,?)";
+        String req = "INSERT INTO `forum`(`titre`,`dateCreation`, `description`, `idFormation`) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, forum.getTitre());
             ps.setObject(2, Date.valueOf(forum.getDateCreation())); // Utilisez setObject pour LocalDate
-            ps.setInt(3, forum.getNbrMessage());
-            ps.setInt(4, forum.getIdUser());
-            ps.setInt(5, forum.getIdFormation());
+            ps.setString(3, forum.getDescription());
+            ps.setInt(4, forum.getIdFormation());
             ps.executeUpdate();
             System.out.println("forum ajouté !");
         } catch (SQLException e) {
@@ -30,18 +29,18 @@ public class ServiceForum implements IService<Forum> {
         }
     }
     public void modifier(Forum forum) throws SQLException {
-        String req = "UPDATE forum SET titre = ?, nbrMessage = ?, idUser = ?,idFormation=? WHERE idForum = ?";
+        String req = "UPDATE forum SET titre = ?, description = ?,idFormation=? WHERE idForum = ?";
         PreparedStatement  prepardstatement = cnx.prepareStatement(req);
         prepardstatement.setString(1, forum.getTitre());
-        prepardstatement.setInt(2, forum.getNbrMessage());
-        prepardstatement.setInt(3, forum.getIdUser());
-        prepardstatement.setInt(4, forum.getIdFormation());
+        prepardstatement.setString(2, forum.getDescription());
 
-        prepardstatement.setInt(5, forum.getIdForum());
+        prepardstatement.setInt(3, forum.getIdFormation());
+
+        prepardstatement.setInt(4, forum.getIdForum());
 
         // prepardstatement.setInt(5, commentaire.getIdCommentaire());
         prepardstatement.executeUpdate();
-        System.out.println("commentaire modifié");
+        System.out.println("forum modifié");
     }
     public void supprimer(int id){ String req = "DELETE FROM forum WHERE idforum = ?";
 
@@ -61,14 +60,12 @@ public class ServiceForum implements IService<Forum> {
             ps.setInt(1, id);
             ResultSet res = ps.executeQuery();
             if (res.next()) {
-
                 String titre = res.getString("titre");
-                int nbrMessage = res.getInt("nbrMessage");
-                int idUser = res.getInt("idUser");
+                String description = res.getString("description");
                 int idFormation = res.getInt("idFormation");
                 LocalDate dateCreation = res.getDate("dateCreation").toLocalDate();
 
-                forum = new Forum(titre, dateCreation,  nbrMessage,  idUser,  idFormation);
+                forum = new Forum(titre, dateCreation,  description,  idFormation);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -77,7 +74,7 @@ public class ServiceForum implements IService<Forum> {
 
 
     @Override
-    public List<Forum> recuperer() throws SQLException {
+    public List<Forum> getAll() throws SQLException {
         String req = "select * from forum";
         Statement statement = cnx.createStatement();
 
@@ -85,12 +82,11 @@ public class ServiceForum implements IService<Forum> {
         List<Forum> list = new ArrayList<>();
         while (cs.next()) {
             Forum forum = new Forum();
-            forum.setIdForum(cs.getInt("idForum"));
             forum.setTitre(cs.getString("titre"));
-            forum.setNbrMessage(cs.getInt("nbrMessage"));
+            forum.setDescription(cs.getString("description"));
             forum.setDateCreation(cs.getDate("dateCreation").toLocalDate());
             forum.setIdFormation(cs.getInt("idformation"));
-            forum.setIdUser(cs.getInt("idUser"));
+
 
 
 

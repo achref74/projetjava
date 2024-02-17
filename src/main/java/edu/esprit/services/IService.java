@@ -9,5 +9,5 @@ public interface IService<T> {
     public void modifier(T t)throws SQLException;
     public void supprimer(int id);
     public T getOneById(int id);
-    public List<T> recuperer() throws SQLException;
+    public List<T> getAll() throws SQLException;
 }

@@ -7,36 +7,27 @@ public class Forum {
     private int idForum;
     private String titre;
     private LocalDate dateCreation;
-    private int nbrMessage;
-    private int idUser;
+    private String description;
     private int idFormation ;
 
-    public Forum( String titre, int nbrMessage, int idUser, int idFormation) {
+    public Forum( String titre,String description , int idFormation) {
         this.titre = titre;
         this.dateCreation = LocalDate.now();
-        this.nbrMessage = nbrMessage;
-        this.idUser = idUser;
+        this.description = description ;
         this.idFormation = idFormation;
     }
 
     public Forum() {
     }
 
-    public Forum(String titre, LocalDate dateCreation, int nbrMessage, int idUser, int idFormation) {
+    public Forum(String titre, LocalDate dateCreation, String description, int idFormation) {
         this.titre = titre;
         this.dateCreation = dateCreation;
-        this.nbrMessage = nbrMessage;
-        this.idUser = idUser;
+        this.description = description;
         this.idFormation = idFormation;
     }
 
-    public Forum(int idForum, String titre, int nbrMessage, int idUser, int idFormation) {
-        this.idForum = idForum;
-        this.titre = titre;
-        this.nbrMessage = nbrMessage;
-        this.idUser = idUser;
-        this.idFormation = idFormation;
-    }
+
 
     public int getIdForum() {
         return idForum;
@@ -62,21 +53,7 @@ public class Forum {
         this.dateCreation = dateCreation;
     }
 
-    public int getNbrMessage() {
-        return nbrMessage;
-    }
 
-    public void setNbrMessage(int nbrMessage) {
-        this.nbrMessage = nbrMessage;
-    }
-
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
 
     public int getIdFormation() {
         return idFormation;
@@ -84,6 +61,14 @@ public class Forum {
 
     public void setIdFormation(int idFormation) {
         this.idFormation = idFormation;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -103,8 +88,7 @@ public class Forum {
         return "Forum{" +
                 "titre='" + titre + '\'' +
                 ", dateCreation=" + dateCreation +
-                ", nbrMessage=" + nbrMessage +
-                ", idUser=" + idUser +
+                ", description='" + description + '\'' +
                 ", idFormation=" + idFormation +
                 '}';
     }
