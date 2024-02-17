@@ -1,8 +1,10 @@
 package edu.esprit.tests;
 
+import edu.esprit.entities.Avis;
 import edu.esprit.entities.Commentaire;
 import edu.esprit.entities.Forum;
 import edu.esprit.entities.Publication;
+import edu.esprit.services.ServiceAvis;
 import edu.esprit.services.ServiceCommentaire;
 import edu.esprit.services.ServiceForum;
 import edu.esprit.services.ServicePublication;
@@ -16,6 +18,11 @@ public class main {
         ServiceCommentaire sc = new ServiceCommentaire();
         ServiceForum sf = new ServiceForum();
         ServicePublication sp = new ServicePublication();
+        ServiceAvis sa = new ServiceAvis();
+        sa.ajouter(new Avis(7,1,3));
+        sa.modifier(new Avis(2,0,1,3));
+       //System.out.println(sa.getOneById(1));
+       System.out.println(sa.getAll());
       // sp.ajouter(new Publication("xxx","xxx",0,8,1));
         //sp.supprimer(1);
        // System.out.println(sp.getOneById(2));
@@ -32,7 +39,7 @@ public class main {
 //            throw new RuntimeException(e);
 //        }
         //sc.supprimer(9);
-        System.out.println(sc.getAll());
+       // System.out.println(sc.getAll());
        // System.out.println(sc.getOneById(22));
 
 
