@@ -1,9 +1,6 @@
 package edu.esprit.tests;
 
-import edu.esprit.entities.Avis;
-import edu.esprit.entities.Commentaire;
-import edu.esprit.entities.Forum;
-import edu.esprit.entities.Publication;
+import edu.esprit.entities.*;
 import edu.esprit.services.ServiceAvis;
 import edu.esprit.services.ServiceCommentaire;
 import edu.esprit.services.ServiceForum;
@@ -19,51 +16,39 @@ public class main {
         ServiceForum sf = new ServiceForum();
         ServicePublication sp = new ServicePublication();
         ServiceAvis sa = new ServiceAvis();
-        sa.ajouter(new Avis(7,1,3));
-        sa.modifier(new Avis(2,0,1,3));
-       //System.out.println(sa.getOneById(1));
-       System.out.println(sa.getAll());
-      // sp.ajouter(new Publication("xxx","xxx",0,8,1));
-        //sp.supprimer(1);
-       // System.out.println(sp.getOneById(2));
-       // System.out.println(sp.getAll());
-       // sp.modifier(new Publication(2,"fff","ffff",5,8,1));
-       // sc.ajouter(new Commentaire("med",1,2,0));
+        User user =new User();
+        user.setIdUser(1);
+        Formation formation=new Formation();
+        formation.setIdFormation(9);
+        Publication publication=new Publication();
+        publication.setIdP(4);
+        Forum forum=new Forum();
+        forum.setIdForum(14);
+        /**********Publiction CRUD***********/
+//        sp.ajouter(new Publication("","image.png",0,forum,user));
+//        sp.modifier(new Publication(4,"bonjour mon amis","papa.png",2,forum,user));
+//        sp.supprimer(6);
+//        System.out.println(sp.getOneById(5));
+//        System.out.println(sp.getAll());
+        /**********Forum CRUD***********/
+//        sf.ajouter(new Forum("forum1.2","felhiiibnj",formation));
+//        sf.modifier(new Forum(14,"kaki","bibi",formation));
+//        sf.supprimer(15);
+//        System.out.println(sf.getOneById(14));
+//        System.out.println(sf.getAll());
+        /**********Commentaire CRUD***********/
+//        sc.ajouter(new Commentaire("coucou",user,publication,0));
+//        sc.modifier(new Commentaire(25,"ba9bou9",user,publication,2));
+//        sc.supprimer(26);
+//        System.out.println(sc.getOneById(25));
+//        System.out.println(sc.getAll());
+        /**********Avis CRUD***********/
+//        sa.ajouter(new Avis(33,formation,user));
+//        sa.modifier(new Avis(11,22,formation,user));
+//        sa.supprimer(12);
+//        System.out.println(sa.getOneById(11));
+//        System.out.println(sa.getAll());
 
-       // sf.ajouter(new Forum("med","bonjour",3));
-        //sf.supprimer(1);
-//       System.out.println(sf.getOneById(8));
-//        try {
-//            System.out.println(sf.getAll());
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-        //sc.supprimer(9);
-       // System.out.println(sc.getAll());
-       // System.out.println(sc.getOneById(22));
-
-
-       /* try {
-            System.out.println((sc.recuperer()));
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            System.out.println((sf.recuperer()));
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }*/
-
-//        try {
-//            sc.modifier(new Commentaire( 22,"bonjourAAA",1,2,3));
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-       /* try {
-            sf.modifier(new Forum("felhi","mohamed",6));
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }     */
 
 
 

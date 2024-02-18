@@ -1,11 +1,14 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.Commentaire;
+import edu.esprit.entities.Formation;
 import edu.esprit.entities.Forum;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,9 +22,11 @@ public class ServiceForum implements IService<Forum> {
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, forum.getTitre());
-            ps.setObject(2, Date.valueOf(forum.getDateCreation())); // Utilisez setObject pour LocalDate
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+            String formattedDate = forum.getDateCreation().format(formatter);
+            ps.setObject(2, formattedDate);
             ps.setString(3, forum.getDescription());
-            ps.setInt(4, forum.getIdFormation());
+            ps.setInt(4, forum.getFormation().getIdFormation());
             ps.executeUpdate();
             System.out.println("forum ajouté !");
         } catch (SQLException e) {
@@ -34,7 +39,7 @@ public class ServiceForum implements IService<Forum> {
         prepardstatement.setString(1, forum.getTitre());
         prepardstatement.setString(2, forum.getDescription());
 
-        prepardstatement.setInt(3, forum.getIdFormation());
+        prepardstatement.setInt(3, forum.getFormation().getIdFormation());
 
         prepardstatement.setInt(4, forum.getIdForum());
 
@@ -54,18 +59,20 @@ public class ServiceForum implements IService<Forum> {
         }}
     public Forum getOneById(int id){
         Forum forum = null;
-        String req = "SELECT * FROM forum WHERE idforum = ?";
+        String req = "SELECT a.*,f.nomF FROM forum a  INNER JOIN formation f ON a.idFormation = f.idFormation WHERE a.idForum = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ResultSet res = ps.executeQuery();
+            Formation formation=new Formation();
             if (res.next()) {
                 String titre = res.getString("titre");
                 String description = res.getString("description");
-                int idFormation = res.getInt("idFormation");
-                LocalDate dateCreation = res.getDate("dateCreation").toLocalDate();
+                formation.setNomF(res.getString("nomF")) ;
+                java.sql.Timestamp timestamp = res.getTimestamp("dateCreation");
+                LocalDateTime dateCreation = timestamp.toLocalDateTime();
 
-                forum = new Forum(titre, dateCreation,  description,  idFormation);
+                forum = new Forum(titre, dateCreation,  description,  formation);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -75,7 +82,7 @@ public class ServiceForum implements IService<Forum> {
 
     @Override
     public List<Forum> getAll() throws SQLException {
-        String req = "select * from forum";
+        String req = "SELECT a.*,f.nomF FROM forum a  INNER JOIN formation f ON a.idFormation = f.idFormation";
         Statement statement = cnx.createStatement();
 
         ResultSet cs = statement.executeQuery(req);
@@ -84,8 +91,12 @@ public class ServiceForum implements IService<Forum> {
             Forum forum = new Forum();
             forum.setTitre(cs.getString("titre"));
             forum.setDescription(cs.getString("description"));
-            forum.setDateCreation(cs.getDate("dateCreation").toLocalDate());
-            forum.setIdFormation(cs.getInt("idformation"));
+            java.sql.Timestamp timestamp = cs.getTimestamp("dateCreation");
+            LocalDateTime dateCreation = timestamp.toLocalDateTime();
+            forum.setDateCreation(dateCreation);
+            Formation formation=new Formation();
+            formation.setNomF(cs.getString("nomF"));
+            forum.setFormation(formation);
 
 
 

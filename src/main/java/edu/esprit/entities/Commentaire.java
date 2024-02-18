@@ -9,8 +9,8 @@ public class Commentaire {
     private int idCommentaire ;
     private LocalDateTime dateCreation;
     private String contenu;
-    private int idUser;
-    private int idP;
+    private User user;
+    private Publication publication;
     private int rating;
 
 
@@ -19,27 +19,27 @@ public class Commentaire {
 
     }
 
-    public Commentaire( String contenu, int idUser, int idP, int rating) {
+    public Commentaire( String contenu, User user, Publication publication, int rating) {
         this.dateCreation = LocalDateTime.now();
         this.contenu = contenu;
-        this.idUser = idUser;
-        this.idP = idP;
+        this.user = user;
+        this.publication = publication;
         this.rating = rating;
     }
 
-    public Commentaire(int idCommentaire, String contenu, int idUser, int idP, int rating) {
+    public Commentaire(int idCommentaire, String contenu,User user, Publication publication, int rating) {
         this.idCommentaire = idCommentaire;
         this.contenu = contenu;
-        this.idUser = idUser;
-        this.idP = idP;
+        this.user = user;
+        this.publication = publication;
         this.rating = rating;
     }
 
-    public Commentaire(LocalDateTime dateCreation, String contenu, int idUser, int idP, int rating) {
+    public Commentaire(LocalDateTime dateCreation, String contenu,User user, Publication publication, int rating) {
         this.dateCreation = dateCreation;
         this.contenu = contenu;
-        this.idUser = idUser;
-        this.idP = idP;
+        this.user = user;
+        this.publication = publication;
         this.rating = rating;
     }
 
@@ -87,20 +87,20 @@ public class Commentaire {
         return contenu;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getIdP() {
-        return idP;
+    public Publication getPublication() {
+        return publication;
     }
 
-    public void setIdP(int idP) {
-        this.idP = idP;
+    public void setPublication(Publication publication) {
+        this.publication = publication;
     }
 
     public int getRating() {
@@ -116,8 +116,8 @@ public class Commentaire {
         return "Commentaire{" +
                 "dateCreation=" + dateCreation +
                 ", contenu='" + contenu + '\'' +
-                ", idUser=" + idUser +
-                ", idP=" + idP +
+                ", nomUser=" + user.getNom() +
+                ", contenuPubliction=" + publication.getContenu() +
                 ", rating=" + rating +
                 '}';
     }

@@ -1,33 +1,39 @@
 package edu.esprit.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Forum {
     private int idForum;
     private String titre;
-    private LocalDate dateCreation;
+    private LocalDateTime dateCreation;
     private String description;
-    private int idFormation ;
+    private Formation formation ;
 
-    public Forum( String titre,String description , int idFormation) {
+    public Forum( String titre,String description , Formation formation) {
         this.titre = titre;
-        this.dateCreation = LocalDate.now();
+        this.dateCreation = LocalDateTime.now();
         this.description = description ;
-        this.idFormation = idFormation;
+        this.formation = formation;
     }
 
     public Forum() {
     }
 
-    public Forum(String titre, LocalDate dateCreation, String description, int idFormation) {
+    public Forum(String titre, LocalDateTime dateCreation, String description, Formation formation) {
         this.titre = titre;
         this.dateCreation = dateCreation;
         this.description = description;
-        this.idFormation = idFormation;
+        this.formation = formation;
     }
 
-
+    public Forum(int idForum, String titre, String description, Formation formation) {
+        this.idForum = idForum;
+        this.titre = titre;
+        this.description = description;
+        this.formation = formation;
+    }
 
     public int getIdForum() {
         return idForum;
@@ -45,22 +51,21 @@ public class Forum {
         this.titre = titre;
     }
 
-    public LocalDate getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(LocalDate dateCreation) {
+    public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 
 
-
-    public int getIdFormation() {
-        return idFormation;
+    public Formation getFormation() {
+        return formation;
     }
 
-    public void setIdFormation(int idFormation) {
-        this.idFormation = idFormation;
+    public void setFormation(Formation formation) {
+        this.formation = formation;
     }
 
     public String getDescription() {
@@ -89,7 +94,7 @@ public class Forum {
                 "titre='" + titre + '\'' +
                 ", dateCreation=" + dateCreation +
                 ", description='" + description + '\'' +
-                ", idFormation=" + idFormation +
+                ", nomFormation=" + formation.getNomF() +
                 '}';
     }
 }

@@ -5,29 +5,24 @@ import java.util.Objects;
 public class Avis {
     private int idAvis;
     private int rate;
-    private int idUser;
-    private int idFormation;
-    private String nomUser;
-    private String nomF;
+    private User user;
+    private Formation formation;
+
     public Avis(){}
 
-    public Avis(int rate, int idUser, int idFormation) {
+
+
+    public Avis(int rate, Formation formation, User user) {
         this.rate = rate;
-        this.idUser = idUser;
-        this.idFormation = idFormation;
+        this.user = user;
+        this.formation = formation;
     }
 
-    public Avis(int rate, String nomF, String nomUser) {
-        this.rate = rate;
-        this.nomF = nomF;
-        this.nomUser = nomUser;
-    }
-
-    public Avis(int idAvis, int rate, int idUser, int idFormation) {
+    public Avis(int idAvis, int rate, Formation formation, User user) {
         this.idAvis = idAvis;
         this.rate = rate;
-        this.idUser = idUser;
-        this.idFormation = idFormation;
+        this.user = user;
+        this.formation = formation;
     }
 
     public int getIdAvis() {
@@ -46,36 +41,20 @@ public class Avis {
         this.rate = rate;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getIdFormation() {
-        return idFormation;
+    public Formation getFormation() {
+        return formation;
     }
 
-    public void setIdFormation(int idFormation) {
-        this.idFormation = idFormation;
-    }
-
-    public String getNomUser() {
-        return nomUser;
-    }
-
-    public void setNomUser(String nomUser) {
-        this.nomUser = nomUser;
-    }
-
-    public String getNomF() {
-        return nomF;
-    }
-
-    public void setNomF(String nomF) {
-        this.nomF = nomF;
+    public void setFormation(Formation formation) {
+        this.formation = formation;
     }
 
     @Override
@@ -94,8 +73,8 @@ public class Avis {
     public String toString() {
         return "Avis{" +
                 "rate=" + rate +
-                ", nomUser='" + nomUser + '\'' +
-                ", nomF='" + nomF + '\'' +
+                ", nomUser='" + user.getNom() + '\'' +
+                ", nomFormation='" + formation.getNomF() + '\'' +
                 '}';
     }
 }
