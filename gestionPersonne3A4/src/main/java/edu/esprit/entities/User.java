@@ -1,6 +1,7 @@
 package edu.esprit.entities;
 
 import java.sql.Date;
+
 import java.util.Objects;
 
 public class User {
@@ -117,14 +118,14 @@ public class User {
     @Override
     public String toString() {
         return
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", email='" + email + '\'' +
-                ", dateNaissance=" + dateNaissance +
-                ", adresse='" + adresse + '\'' +
-                ", numtel=" + numtel +
-                ", mdp='" + mdp + '\''
+
+                " nom='" + nom + '\'' +
+                        ", prenom='" + prenom + '\'' +
+                        ", email='" + email + '\'' +
+                        ", dateNaissance=" + dateNaissance +
+                        ", adresse='" + adresse + '\'' +
+                        ", numtel=" + numtel +
+                        ", mdp='" + mdp + '\''
                 ;
     }
 }

@@ -29,7 +29,7 @@ public class Client extends User {
 
     @Override
     public String toString() {
-        return "Client{ " + super.toString()+"niveau_scolaire="+ this.getNiveau_scolaire()+"}";
+        return "Client{ " + super.toString()+"niveau_scolaire="+ this.getNiveau_scolaire()+"}"+'\n';
     }
 
     @Override

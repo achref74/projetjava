@@ -1,4 +1,4 @@
-package edu.esprit.services;
+package edu.esprit.service;
 
 import java.util.List;
 import java.util.Set;

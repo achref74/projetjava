@@ -3,7 +3,7 @@ package edu.esprit.entities;
 import java.sql.Date;
 import java.util.Objects;
 
-public class Formateur extends User {
+public class Formateur extends edu.esprit.entities.User {
     private String specialite;
     private String niveauAcademique;
     private int disponibilite;
@@ -78,6 +78,6 @@ public class Formateur extends User {
                 ", niveauAcademique='" + niveauAcademique + '\'' +
                 ", disponibilite=" + disponibilite +
                 ", cv='" + cv + '\'' +
-                "} " ;
+                "} "+'\n' ;
     }
 }
