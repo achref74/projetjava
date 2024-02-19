@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Offre {
 
     private int idOffre;
-    private String codePromo;
+
     private double prixOffre;
     private String description;
     private Date dateD;
@@ -19,18 +19,17 @@ public class Offre {
 
 
 
-    public Offre(int idOffre, String codePromo, double prixOffre, String description, Date dateD, Date dateF) {
+    public Offre(int idOffre,double prixOffre, String description, Date dateD, Date dateF) {
         this.idOffre = idOffre;
-        this.codePromo = codePromo;
+
         this.prixOffre = prixOffre;
         this.description = description;
         this.dateD = dateD;
         this.dateF = dateF;
        // this.idFormation = idFormation;
     }
-    public Offre(String codePromo, double prixOffre, String description, Date dateD, Date dateF) {
+    public Offre(double prixOffre, String description, Date dateD, Date dateF) {
 
-        this.codePromo = codePromo;
         this.prixOffre = prixOffre;
         this.description = description;
         this.dateD = dateD;
@@ -38,9 +37,9 @@ public class Offre {
        // this.idFormation = idFormation;
     }
 
-    public Offre(String codePromo, double prixOffre, String description, Date dateD, Date dateF,int idFormation) {
+    public Offre(double prixOffre, String description, Date dateD, Date dateF,int idFormation) {
 
-        this.codePromo = codePromo;
+
         this.prixOffre = prixOffre;
         this.description = description;
         this.dateD = dateD;
@@ -55,13 +54,6 @@ public class Offre {
         this.idOffre = idOffre;
     }
 
-    public String getCodePromo() {
-        return codePromo;
-    }
-
-    public void setCodePromo(String codePromo) {
-        this.codePromo = codePromo;
-    }
 
     public double getPrixOffre() {
         return prixOffre;
@@ -109,8 +101,8 @@ public class Offre {
     public String toString() {
         return "Outil{" +
 
-                " codePromo='" + codePromo + '\'' +
-                ", prixOffre=" + prixOffre +
+
+                " prixOffre=" + prixOffre +
                 ", description='" + description + '\'' +
                 ", dateD=" + dateD +
                 ", dateF=" + dateF +

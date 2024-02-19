@@ -1,4 +1,5 @@
 package edu.esprit.tests;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +15,7 @@ import edu.esprit.services.ServiceCertificat;
 
 public class Main {
     public static void main(String[] args) {
-        ServiceFormation sp = new ServiceFormation();
+        /*ServiceFormation sp = new ServiceFormation();
         ServiceOffre so = new ServiceOffre();
         ServiceCertificat sc = new ServiceCertificat();
 
@@ -23,8 +24,12 @@ public class Main {
             Date dateD = new Date(2024-03-30);// Remplacez par la date de début souhaitée
             Date dateF =new Date(2024-03-30); // Remplacez par la date de fin souhaitée
 
-        Offre nouvelOffre = new Offre("promo8",50,"reduction speciale",dateD,dateF,8);
-        so.ajouter(nouvelOffre,8); // Ajouter l'offre après l'association
+        Offre nouvelOffre = new Offre(50,"reduction speciale",dateD,dateF,8);
+        try {
+            so.ajouter(nouvelOffre,8); // Ajouter l'offre après l'association
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         // Ajouter un nouveau certificat
 
@@ -60,15 +65,25 @@ public class Main {
         }
 
         // Modifier un offre existant (par exemple, avec l'ID 3)
-        Offre offreAModifier = so.getOneById(11);
+       Offre offreAModifier = null;
+        try {
+            offreAModifier = so.getOneById(14);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         if (offreAModifier != null) {
-            offreAModifier.setCodePromo("NEWCODE");
+
             offreAModifier.setPrixOffre(30.0);
+            offreAModifier.setDescription("achref");
             // Mettez à jour les autres attributs si nécessaire
-            so.modifier(offreAModifier);
+            try {
+                so.modifier(offreAModifier);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             //System.out.println(offreAModifier.getIdOffre());
         }
-
+/*
         // Modifier un certificat existant (par exemple, avec l'ID 3)
         Certificat certificatAModifier = sc.getOneById(12);
         if (certificatAModifier != null) {
@@ -83,16 +98,34 @@ public class Main {
         //supp
        //
         sp.supprimer(1);
-        // Supprimer un outil (par exemple, avec l'ID 1)
-        so.supprimer(3);
+        // Supprimer un offre (par exemple, avec l'ID 1)
+        try {
+            so.supprimer(14);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 // Supprimer un certificat (par exemple, avec l'ID 1)
         sc.supprimer(2);
         //afficher
         System.out.println(sp.getAll());
         // Afficher tous les outils
-        System.out.println(so.getAll());
+        try {
+            System.out.println(so.getAll());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         // Afficher tous les certificats
-        System.out.println(sc.getAll());
+       System.out.println(sc.getAll());
+
+
+
+
+        ServiceFormation sf = new ServiceFormation();
+        try {
+            System.out.println(sf.getAll());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }*/
     }
 
 }

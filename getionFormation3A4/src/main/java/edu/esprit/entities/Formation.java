@@ -59,7 +59,17 @@ public class Formation {
         this.certificat=certificat;
         this.offre=offre;
     }
+    public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours) {
 
+        this.nom = nom;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.prix = prix;
+        this.nbrCours = nbrCours;
+
+
+    }
     public int getIdFormation() {
         return idFormation;
     }

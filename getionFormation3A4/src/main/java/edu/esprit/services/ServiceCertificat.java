@@ -12,9 +12,9 @@ public class ServiceCertificat implements IService<Certificat>{
 
     private Connection cnx = DataSource.getInstance().getCnx();
 
-    public void ajouter(Certificat certificat) {
+    public void ajouter(Certificat certificat) throws SQLException{
         String req = "INSERT INTO `certificat`(`titre`, `description`, `dateObtention`, `nbrCours`,`idFormation`) VALUES (?,?,?,?,?)";
-        try {
+
             PreparedStatement ps = cnx.prepareStatement(req);
 
             ps.setString(1, certificat.getTitre());
@@ -25,17 +25,15 @@ public class ServiceCertificat implements IService<Certificat>{
             ps.setInt(5, certificat.getIdFormation());
             ps.executeUpdate();
             System.out.println("Certificat ajouté !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     @Override
-    public void modifier(Certificat certificat) {
+    public void modifier(Certificat certificat) throws SQLException{
         // Assurez-vous que la connexion à la base de données (cnx) est correctement établie
 
         String req = "UPDATE certificat SET titre = ?, description = ?, dateObtention = ?, nbrCours = ? WHERE idCertificat = ?";
-        try {
+
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, certificat.getTitre());
             ps.setString(2, certificat.getDescription());
@@ -45,29 +43,25 @@ public class ServiceCertificat implements IService<Certificat>{
             ps.executeUpdate();
             System.out.println("Certificat modifié !");
 
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la modification : " + e.getMessage());
-        }
+
     }
 
 
     @Override
-    public void supprimer(int idCertificat) {
+    public void supprimer(int idCertificat) throws SQLException{
         String req = "DELETE FROM certificat WHERE idCertificat = ?";
-        try {
+
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, idCertificat);
             ps.executeUpdate();
             System.out.println("Certificat supprimé !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     @Override
-    public Certificat getOneById(int idCertificat) {
+    public Certificat getOneById(int idCertificat) throws SQLException{
         String req = "SELECT * FROM certificat WHERE idCertificat = ?";
-        try {
+
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, idCertificat);
             ResultSet res = ps.executeQuery();
@@ -89,20 +83,18 @@ public class ServiceCertificat implements IService<Certificat>{
 
                 return certificat;
             }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération : " + e.getMessage());
-        }
+
 
         return null;
     }
 
 
     @Override
-    public List<Certificat> getAll() {
+    public List<Certificat> getAll() throws SQLException{
         List<Certificat> certificats = new ArrayList<>();
 
         String req = "SELECT * FROM certificat";
-        try {
+
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
             while (res.next()) {
@@ -124,23 +116,19 @@ public class ServiceCertificat implements IService<Certificat>{
 
                 certificats.add(certificat);
             }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération : " + e.getMessage());
-        }
+
 
         return certificats;
     }
-    public void supprimerCertificatById(int id) {
-        try {
+    public void supprimerCertificatById(int id) throws SQLException{
+
 
             String req = "DELETE FROM `certificat` WHERE idFormation = ?";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             int rowsAffected = ps.executeUpdate();
             System.out.println(rowsAffected + " certificat supprimée !");
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la suppression des évaluations : " + e.getMessage());
-        }
+
     }
 }
 
