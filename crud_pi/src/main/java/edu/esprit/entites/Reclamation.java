@@ -1,6 +1,8 @@
 package edu.esprit.entites;
 
 import edu.esprit.services.IService;
+import edu.esprit.entites.Reponse;
+import edu.esprit.services.ServiceReponse;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -97,12 +99,13 @@ public class Reclamation {
 
     @Override
     public String toString() {
+        ServiceReponse serviceReponse = new ServiceReponse();
         return "Reclamation{" +
                 "id_reclamation=" + id_reclamation +
                 ", id_user=" + user.getId_user() +
                 ", id_outil=" + outil.getId_outil() +
                 ", id_formation=" + formation.getId_formation() +
-                ",reponses= " +
+                ",reponses= " +  serviceReponse.getByReclamationId(id_reclamation) +
                 ", description='" + description + '\'' +
                 ", date_reclamation=" + date_reclamation +
                 '}';

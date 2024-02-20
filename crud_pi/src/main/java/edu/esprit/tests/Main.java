@@ -24,7 +24,7 @@ public class Main {
        //serviceReclamation.ajouter(reclamation);
 
        // System.out.println(serviceReponse.getByReclamationId(1));
-
+        System.out.println(serviceReclamation.getAll());
         //ajouter reponse
         //serviceReponse.ajouter(r1);
         //serviceReponse.modifier(r1);
