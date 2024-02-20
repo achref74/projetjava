@@ -125,6 +125,32 @@ public class ServiceReponse implements IService<Reponse> {
         }
         return Reponses;
     }
+    public Set<Reponse> getByReclamationId(int id_reclamation) {
+        Set<Reponse> Reponses = new HashSet<>();
+
+        String req = "SELECT * FROM `reponse` WHERE id_reclamation = ?";
+        try {
+            PreparedStatement pst = cnx.prepareStatement(req);
+            pst.setInt(1, id_reclamation);
+            ResultSet res = pst.executeQuery();
+
+            while (res.next()) {
+                java.sql.Timestamp timestamp = res.getTimestamp("date_reponse");
+                LocalDateTime date = timestamp.toLocalDateTime();
+                int id = res.getInt("id_reponse");
+                String description = res.getString("description");
+                Reclamation reclamation = new Reclamation();
+                reclamation.setId_reclamation(res.getInt("id_reclamation"));
+                User user = new User();
+                user.setId_user(res.getInt("id_user"));
+                Reponse r = new Reponse(id, user, description, reclamation, date);
+                Reponses.add(r);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Reponses;
+    }
 
 
 
