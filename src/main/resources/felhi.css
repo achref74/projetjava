@@ -1,0 +1,21 @@
+#TableauForum .list-cell {
+    -fx-padding: 10 20 10 20;
+    -fx-border-color: #ccc;
+    -fx-border-width: 0 0 1 0;
+}
+
+#TableauForum .list-cell:odd {
+    -fx-background-color: #000000;
+}
+
+#TableauForum .list-cell:hover {
+    -fx-background-color: #298f41;
+}
+
+#TableauForum .list-view {
+    -fx-background-color: #463535;
+}
+
+#TableauForum .list-view:focused {
+    -fx-background-color: #de0404;
+}

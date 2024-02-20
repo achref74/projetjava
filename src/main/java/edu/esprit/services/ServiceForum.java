@@ -82,7 +82,7 @@ public class ServiceForum implements IService<Forum> {
 
     @Override
     public List<Forum> getAll() throws SQLException {
-        String req = "SELECT a.*,f.nomF FROM forum a  INNER JOIN formation f ON a.idFormation = f.idFormation";
+        String req = "SELECT a.*,f.nom FROM forum a  INNER JOIN formation f ON a.idFormation = f.idFormation";
         Statement statement = cnx.createStatement();
 
         ResultSet cs = statement.executeQuery(req);
@@ -95,7 +95,7 @@ public class ServiceForum implements IService<Forum> {
             LocalDateTime dateCreation = timestamp.toLocalDateTime();
             forum.setDateCreation(dateCreation);
             Formation formation=new Formation();
-            formation.setNomF(cs.getString("nomF"));
+            formation.setNomF(cs.getString("nom"));
             forum.setFormation(formation);
 
 

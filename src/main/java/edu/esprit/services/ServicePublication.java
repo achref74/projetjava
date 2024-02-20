@@ -15,12 +15,12 @@ import java.util.List;
 public class ServicePublication implements IService<Publication> {
     Connection cnx = DataSource.getInstance().getCnx();
     @Override
-    public void ajouter(Publication publication) {
-        if (publication.getContenu() == null || publication.getContenu().isEmpty()) {
-            System.out.println("Le contenu de la publication est obligatoire.");
-        }else {
+    public void ajouter(Publication publication) throws SQLException{
+//        if (publication.getContenu() == null || publication.getContenu().isEmpty()) {
+//            System.out.println("Le contenu de la publication est obligatoire.");
+//        }else {
         String req = "INSERT INTO `publication`(`dateCreation`, `contenuP`,`image`, `idForum`,`idUser`) VALUES (?, ?, ?, ?,?)";
-        try {
+      //  try {
             PreparedStatement ps = cnx.prepareStatement(req);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
             String formattedDate = publication.getDateCreation().format(formatter);
@@ -31,9 +31,9 @@ public class ServicePublication implements IService<Publication> {
             ps.setInt(5, publication.getUser().getIdUser());
             ps.executeUpdate();
             System.out.println("publiction ajouté !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }}
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 
     @Override

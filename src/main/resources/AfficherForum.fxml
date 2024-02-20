@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="517.0" prefWidth="719.0" stylesheets="felhi.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherForum">
+   <children>
+      <ListView fx:id="TableauForum" layoutX="56.0" layoutY="67.0" prefHeight="200.0" prefWidth="606.0" />
+   </children>
+</AnchorPane>
