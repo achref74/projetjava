@@ -1,15 +1,11 @@
 package com.esprit.services;
-
-import com.esprit.models.EtatOutils;
-import com.esprit.models.Outils;
+import com.esprit.models.outil;
 
 import com.esprit.utils.DataSource;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class OutilsService2 implements IService<Outils> {
+public class OutilsService2 implements IService<outil> {
 
     private Connection connection;
 
@@ -17,8 +13,8 @@ public class OutilsService2 implements IService<Outils> {
         connection = DataSource.getInstance().getConnection();
     }
     @Override
-    public void ajouter(Outils outils) {
-        String req = "INSERT into outils(nom, description,prix,ressources,stock,etat) values (?, ?,?,?,?,?);";
+    public void ajouter(outil outils) {
+        String req = "INSERT into `outil` (nom, description,prix,ressources,stock,etat,idCategorie) values (?,?,?,?,?,?,?);";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setString(1, outils.getNom());
@@ -26,7 +22,8 @@ public class OutilsService2 implements IService<Outils> {
             pst.setDouble(3, outils.getPrix());
             pst.setString(4, outils.getRessources());
             pst.setString(5, outils.getStock());
-            pst.setString(6, outils.getEtat().name());
+            pst.setString(6, outils.getEtat());
+            pst.setInt(7,outils.getCategorie().getIdcategorie());
             pst.executeUpdate();
             System.out.println("Outils ajoutée !");
         } catch (SQLException e) {
@@ -35,17 +32,18 @@ public class OutilsService2 implements IService<Outils> {
     }
 
     @Override
-    public void modifier(Outils outils) {
-        String req = "UPDATE outils set nom = ?, description = ?,prix = ?,ressources = ?,stock = ?,etat = ? where id = ?;";
+    public void modifier(outil outils) {
+        String req = "UPDATE outil set nom = ?, description = ?,prix = ?,ressources = ?,stock = ?,etat = ?,idCategorie=? where idoutils = ?;";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
-            pst.setInt(7, outils.getId());
+            pst.setInt(8, outils.getIdoutils());
             pst.setString(1, outils.getNom());
             pst.setString(2, outils.getDescription());
             pst.setDouble(3, outils.getPrix());
             pst.setString(4, outils.getRessources());
             pst.setString(5, outils.getStock());
-            pst.setString(6, outils.getEtat().name());
+            pst.setString(6, outils.getEtat());
+            pst.setInt(7, outils.getCategorie().getIdcategorie());
             pst.executeUpdate();
             System.out.println("Outils modifiée !");
         } catch (SQLException e) {
@@ -54,11 +52,11 @@ public class OutilsService2 implements IService<Outils> {
     }
 
     @Override
-    public void supprimer(Outils outils) {
-        String req = "DELETE from outils where id = ?;";
+    public void supprimer(int id) {
+        String req = "DELETE from outil where idoutils = ?;";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
-            pst.setInt(1, outils.getId());
+            pst.setInt(1, id);
             pst.executeUpdate();
             System.out.println("Outils supprmiée !");
         } catch (SQLException e) {
@@ -67,25 +65,50 @@ public class OutilsService2 implements IService<Outils> {
     }
 
     @Override
-    public List<Outils> afficher() {
-        List<Outils> outilss = new ArrayList<>();
+    public outil getOneById(int id) {
+        String req = "SELECT  `nom`, `description`, `prix`, `ressources`,`stock`,`etat` FROM outil WHERE idoutils = ?";
 
-        String req = "SELECT * FROM Outils";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
+            pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                int id =rs.getInt("id");
+            if (rs.next()) {
                 String nom = rs.getString("nom");
                 String description = rs.getString("description");
                 double prix = rs.getDouble("prix");
                 String ressources = rs.getString("ressources");
                 String stock = rs.getString("stock");
+                String etat = rs.getString("etat");
 
-                EtatOutils etat = EtatOutils.valueOf(rs.getString("etat"));
+                return new outil(id, nom, description, prix, ressources, stock, etat);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null; // Return null if no matching record found
+    }
+
+    @Override
+    public Set<outil> getAll() {
+        Set<outil> outilss = new HashSet<>();
+
+        String req = "SELECT * FROM outil";
+        try {
+            PreparedStatement pst = connection.prepareStatement(req);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int idoutils =rs.getInt("idoutils");
+                String nom = rs.getString("nom");
+                String description = rs.getString("description");
+                double prix = rs.getDouble("prix");
+                String ressources = rs.getString("ressources");
+                String stock = rs.getString("stock");
+                String etat = rs.getString("etat");
 
 
-                outilss.add(new Outils(id, nom, description, prix, ressources, stock,etat));
+
+
+                outilss.add(new outil(idoutils, nom, description, prix, ressources, stock,etat));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -93,5 +116,7 @@ public class OutilsService2 implements IService<Outils> {
 
         return outilss;
     }
+
+
 
 }
