@@ -18,4 +18,8 @@ public class User {
     public void setId_user(int id_user) {
         this.id_user = id_user;
     }
+
+    public String toString() {
+        return String.valueOf(id_user);
+    }
 }

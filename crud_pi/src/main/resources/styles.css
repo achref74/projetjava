@@ -1,0 +1,33 @@
+#bt {
+    -fx-background-color: #4CAF50; /* Green background color */
+    -fx-text-fill: white; /* White text color */
+}
+#bt:hover {
+    -fx-background-color: #2196F3; /* Blue background color on hover */
+}
+#table {
+    -fx-background-color: #f4f4f4; /* Set the background color */
+}
+
+
+#table .table-column {
+    -fx-border-color: #F0DAAE;
+}
+#table .column-header {
+
+    -fx-background-color: #895D2B; /* Set the header background color */
+    -fx-text-fill: white;
+}
+
+#table .table-row-cell {
+    -fx-background-color: #F0DAAE; /* Set the row background color */
+}
+
+#table .table-row-cell:selected {
+    -fx-background-color: #5b0411; /* Set the selected row background color */
+    -fx-text-fill: white; /* Set the selected row text color */
+}
+
+#table .table-cell {
+    -fx-alignment: CENTER; /* Center-align cell content */
+}

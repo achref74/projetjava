@@ -13,9 +13,9 @@ import java.util.concurrent.ForkJoinPool;
 public class ServiceReclamation implements IService<Reclamation> {
     Connection cnx = DataSource.getInstance().getCnx();
     @Override
-    public void ajouter(Reclamation reclamation) {
+    public void ajouter(Reclamation reclamation) throws SQLException{
         String req = "INSERT INTO `reclamation`( `id_user`, `id_outil`, `id_formation`, `description`, `date`) VALUES (?,?,?,?,?)";
-        try {
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
             String formattedDate = reclamation.getDate_reclamation().format(formatter);
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -26,9 +26,6 @@ public class ServiceReclamation implements IService<Reclamation> {
             ps.setObject(5, formattedDate);
             ps.executeUpdate();
             System.out.println("reclamation added !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     @Override
@@ -108,11 +105,11 @@ public class ServiceReclamation implements IService<Reclamation> {
     }
 
     @Override
-    public Set<Reclamation> getAll() {
+    public Set<Reclamation> getAll() throws SQLException{
         Set<Reclamation> Reclamations = new HashSet<>();
 
         String req = "SELECT * FROM `reclamation` WHERE 1";
-        try {
+
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
             while (res.next()){
@@ -129,9 +126,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 Reclamation r = new Reclamation(id,user,outil,formation,description,date);
                 Reclamations.add(r);
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
         return Reclamations;
     }
 }

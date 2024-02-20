@@ -99,13 +99,13 @@ public class Reclamation {
 
     @Override
     public String toString() {
-        ServiceReponse serviceReponse = new ServiceReponse();
+        //ServiceReponse serviceReponse = new ServiceReponse();
         return "Reclamation{" +
                 "id_reclamation=" + id_reclamation +
                 ", id_user=" + user.getId_user() +
                 ", id_outil=" + outil.getId_outil() +
                 ", id_formation=" + formation.getId_formation() +
-                ",reponses= " +  serviceReponse.getByReclamationId(id_reclamation) +
+               // ",reponses= " +  serviceReponse.getByReclamationId(id_reclamation) +
                 ", description='" + description + '\'' +
                 ", date_reclamation=" + date_reclamation +
                 '}';

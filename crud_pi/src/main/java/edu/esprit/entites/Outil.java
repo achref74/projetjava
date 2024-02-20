@@ -18,4 +18,9 @@ public class Outil {
     public void setId_outil(int id_outil) {
         this.id_outil = id_outil;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id_outil);
+    }
 }
