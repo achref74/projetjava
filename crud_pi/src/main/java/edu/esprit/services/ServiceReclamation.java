@@ -1,27 +1,29 @@
 package edu.esprit.services;
 
-import edu.esprit.entites.Reclamation;
-import edu.esprit.entites.Reponse;
+import edu.esprit.entites.*;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ForkJoinPool;
 
 public class ServiceReclamation implements IService<Reclamation> {
     Connection cnx = DataSource.getInstance().getCnx();
     @Override
     public void ajouter(Reclamation reclamation) {
-        String req = "INSERT INTO `reclamation`( `id_user`, `id_outil`, `id_formation`, `description`, `id_reponse`, `date`) VALUES (?,?,?,?,?,?)";
+        String req = "INSERT INTO `reclamation`( `id_user`, `id_outil`, `id_formation`, `description`, `date`) VALUES (?,?,?,?,?)";
         try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+            String formattedDate = reclamation.getDate_reclamation().format(formatter);
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1,reclamation.getId_user());
-            ps.setInt(2,reclamation.getId_outil());
-            ps.setInt(3,reclamation.getId_formation());
+            ps.setInt(1,reclamation.getUser().getId_user());
+            ps.setInt(2,reclamation.getOutil().getId_outil());
+            ps.setInt(3,reclamation.getFormation().getId_formation());
             ps.setString(4,reclamation.getDescription());
-            ps.setInt(5,reclamation.getReponse());
-            ps.setDate(6, Date.valueOf(reclamation.getDate_reclamation()));
+            ps.setObject(5, formattedDate);
             ps.executeUpdate();
             System.out.println("reclamation added !");
         } catch (SQLException e) {
@@ -30,31 +32,28 @@ public class ServiceReclamation implements IService<Reclamation> {
     }
 
     @Override
-    public void modifier(int id, Reclamation reclamation) {
-        String req = "UPDATE `reclamation` SET `id_user`=?,`id_outil`=?,`id_formation`=?,`description`=?,`id_reponse`=? WHERE id_reclamation=?";
+    public void modifier( Reclamation reclamation) {
+        String req = "UPDATE `reclamation` SET `id_user`=?,`id_outil`=?,`id_formation`=?,`description`=? WHERE id_reclamation=?";
 
         try {
             // Using PreparedStatement to prevent SQL injection
             PreparedStatement ps = cnx.prepareStatement(req);
 
-            ps.setInt(1,reclamation.getId_user());
-            ps.setInt(2,reclamation.getId_outil());
-            ps.setInt(3,reclamation.getId_formation());
+            ps.setInt(1,reclamation.getUser().getId_user());
+            ps.setInt(2,reclamation.getOutil().getId_outil());
+            ps.setInt(3,reclamation.getFormation().getId_formation());
             ps.setString(4,reclamation.getDescription());
-            ps.setInt(5,reclamation.getReponse());
-
-
-            ps.setInt(6, id);
+            ps.setInt(5, reclamation.getId_reclamation());
 
             int rowCount = ps.executeUpdate();
 
             if (rowCount > 0) {
-                System.out.println("Reclamation with id " + id + " has been updated successfully.");
+                System.out.println("Reclamation with id " + reclamation.getId_reclamation() + " has been updated successfully.");
             } else {
-                System.out.println("No Reclamation found with id " + id + ". Nothing updated.");
+                System.out.println("No Reclamation found with id " + reclamation.getId_reclamation() + ". Nothing updated.");
             }
         } catch (SQLException e) {
-            System.out.println("Error updating Reclamation with id " + id + ": " + e.getMessage());
+            System.out.println("Error updating Reclamation with id " + reclamation.getId_reclamation() + ": " + e.getMessage());
         }
     }
 
@@ -81,20 +80,26 @@ public class ServiceReclamation implements IService<Reclamation> {
 
     @Override
     public Reclamation getOneById(int id) {
-        String req = "SELECT `id_reclamation`, `id_user`, `id_outil`, `id_formation`, `description`, `id_reponse`, `date` FROM `reclamation` WHERE id_reclamation = ?";
+        String req = "SELECT `id_reclamation`, `id_user`, `id_outil`, `id_formation`, `description`,  `date` FROM `reclamation` WHERE id_reclamation = ?";
 
         try (PreparedStatement ps = cnx.prepareStatement(req)) {
             ps.setInt(1, id);
            // Set the parameter value
             ResultSet res = ps.executeQuery();
             if (res.next()) {
-                int user = res.getInt("id_user");
-                int outil =res.getInt("id_outil");
-                int formation = res.getInt("id_formation");
+                //int user = res.getInt("id_user");
+               // int outil =res.getInt("id_outil");
+               // int formation = res.getInt("id_formation");
                 String description = res.getString("description");
-                int reponse =res.getInt("id_reponse");
-                LocalDate date = res.getDate("date").toLocalDate();
-                return new Reclamation(id,user,outil,formation,description,reponse,date);
+                java.sql.Timestamp timestamp = res.getTimestamp("date");
+                LocalDateTime date = timestamp.toLocalDateTime();
+                Formation formation = new Formation();
+                formation.setId_formation(res.getInt("id_formation"));
+                User user = new User();
+                user.setId_user(res.getInt("id_user"));
+                Outil outil = new Outil();
+                outil.setId_outil(res.getInt("id_outil"));
+                return new Reclamation(id,user,outil,formation,description,date);
             }
         } catch (SQLException e) {
             System.err.println("Error fetching Reclamation by id: " + e.getMessage());
@@ -112,13 +117,16 @@ public class ServiceReclamation implements IService<Reclamation> {
             ResultSet res = st.executeQuery(req);
             while (res.next()){
                 int id = res.getInt("id_reclamation");
-                int user = res.getInt("id_user");
-                int outil =res.getInt("id_outil");
-                int formation = res.getInt("id_formation");
+                Formation formation = new Formation();
+                formation.setId_formation(res.getInt("id_formation"));
+                User user = new User();
+                user.setId_user(res.getInt("id_user"));
+                Outil outil = new Outil();
+                outil.setId_outil(res.getInt("id_outil"));
                 String description = res.getString("description");
-                int reponse =res.getInt("id_reponse");
-                LocalDate date = res.getDate("date").toLocalDate();
-                Reclamation r = new Reclamation(id,user,outil,formation,description,reponse,date);
+                java.sql.Timestamp timestamp = res.getTimestamp("date");
+                LocalDateTime date = timestamp.toLocalDateTime();
+                Reclamation r = new Reclamation(id,user,outil,formation,description,date);
                 Reclamations.add(r);
             }
         } catch (SQLException e) {

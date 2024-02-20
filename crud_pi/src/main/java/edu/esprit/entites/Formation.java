@@ -3,6 +3,9 @@ package edu.esprit.entites;
 public class Formation {
     private int id_formation;
 
+    public Formation() {
+    }
+
     public Formation(int id_formation) {
         this.id_formation = id_formation;
     }

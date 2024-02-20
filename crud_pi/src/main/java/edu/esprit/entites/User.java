@@ -4,6 +4,9 @@ public class User {
 
     private int id_user;
 
+    public User() {
+    }
+
     public User(int id_user) {
         this.id_user = id_user;
     }

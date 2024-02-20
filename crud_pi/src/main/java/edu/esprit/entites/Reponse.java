@@ -1,25 +1,41 @@
 package edu.esprit.entites;
+import edu.esprit.entites.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Reponse {
     private int id_reponse;
+    private User user;
     private String description;
-    private LocalDate date;
+    private Reclamation reclamation;
+    private LocalDateTime date;
+
+
+    public edu.esprit.entites.Reclamation getReclamation() {
+        return reclamation;
+    }
+
+    public void setReclamation(edu.esprit.entites.Reclamation reclamation) {
+        this.reclamation = reclamation;
+    }
 
     public Reponse() {
     }
 
-    public Reponse( String description) {
+    public Reponse(User user, String description ,Reclamation reclamation) {
 
         this.description = description;
-        this.date = LocalDate.now();
+        this.user=user;
+        this.reclamation=reclamation;
+        this.date = LocalDateTime.now();
     }
 
-    public Reponse(int id_reponse, String description, LocalDate date) {
+    public Reponse(int id_reponse,User user ,String description ,Reclamation reclamation, LocalDateTime date) {
         this.id_reponse = id_reponse;
         this.description = description;
+        this.user=user;
+        this.reclamation=reclamation;
         this.date = date;
     }
 
@@ -31,6 +47,9 @@ public class Reponse {
         this.id_reponse = id_reponse;
     }
 
+    public User getUser(){return this.user;}
+    public void setUser(User user){this.user=user;}
+
     public String getDescription() {
         return description;
     }
@@ -39,20 +58,21 @@ public class Reponse {
         this.description = description;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
     public void setDate() {
-        this.date = LocalDate.now();
+        this.date = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return "Reponse{" +
                 "id_reponse=" + id_reponse +
-                ", description='" + description + '\'' +
-                ", date=" + date +
+                ", description=" + description + '\'' +
+                ", reclamation= " + reclamation.getId_reclamation() +
+            ", date=" + date +
                 '}';
     }
 

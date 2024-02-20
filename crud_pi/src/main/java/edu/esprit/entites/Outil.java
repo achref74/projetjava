@@ -4,6 +4,9 @@ public class Outil {
 
     private int id_outil;
 
+    public Outil() {
+    }
+
     public Outil(int id_outil) {
         this.id_outil = id_outil;
     }
