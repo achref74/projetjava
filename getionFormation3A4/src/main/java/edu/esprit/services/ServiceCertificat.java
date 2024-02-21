@@ -1,6 +1,7 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.Certificat;
+import edu.esprit.entities.Formation;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -13,6 +14,7 @@ public class ServiceCertificat implements IService<Certificat>{
     private Connection cnx = DataSource.getInstance().getCnx();
 
     public void ajouter(Certificat certificat) throws SQLException{
+
         String req = "INSERT INTO `certificat`(`titre`, `description`, `dateObtention`, `nbrCours`,`idFormation`) VALUES (?,?,?,?,?)";
 
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -22,7 +24,7 @@ public class ServiceCertificat implements IService<Certificat>{
             ps.setDate(3, new java.sql.Date(certificat.getDateObtention().getTime()));
             ps.setInt(4, certificat.getNbrCours());
             //ps.setInt(5, certificat.getIdUser());
-            ps.setInt(5, certificat.getIdFormation());
+        ps.setInt(5, certificat.getFormation().getIdFormation());
             ps.executeUpdate();
             System.out.println("Certificat ajouté !");
 
@@ -60,26 +62,29 @@ public class ServiceCertificat implements IService<Certificat>{
 
     @Override
     public Certificat getOneById(int idCertificat) throws SQLException{
-        String req = "SELECT * FROM certificat WHERE idCertificat = ?";
+        Certificat certificat=null;
+        String req = "SELECT c.*, f.nom FROM certificat c INNER JOIN formation f ON c.idFormation = f.idFormation WHERE c.idCertificat = ?";
 
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, idCertificat);
             ResultSet res = ps.executeQuery();
-            if (res.next()) {
+        Formation formation=new Formation();
+
+        if (res.next()) {
                 String titre = res.getString("titre");
                 String description = res.getString("description");
                 Date dateObtention = res.getDate("dateObtention");
                 int nbrCours = res.getInt("nbrCours");
                 int idUser = res.getInt("idUser");
-                int idFormation = res.getInt("idFormation");
+                formation.setNom(res.getString("nom"));
 
-                Certificat certificat = new Certificat(idCertificat, titre, description, dateObtention, nbrCours);
+                 certificat = new Certificat(idCertificat, titre, description, dateObtention, nbrCours,formation);
                 certificat.setTitre(titre);
                 certificat.setDescription(description);
                 certificat.setDateObtention(dateObtention);
                 certificat.setNbrCours(nbrCours);
-                /*certificat.setIdUser(idUser);
-                certificat.setIdFormation(idFormation);*/
+                //certificat.setIdUser(idUser);
+            certificat.setFormation(formation);
 
                 return certificat;
             }
@@ -93,7 +98,7 @@ public class ServiceCertificat implements IService<Certificat>{
     public List<Certificat> getAll() throws SQLException{
         List<Certificat> certificats = new ArrayList<>();
 
-        String req = "SELECT * FROM certificat";
+        String req = "SELECT c.*, f.nom FROM certificat c INNER JOIN formation f ON c.idFormation = f.idFormation";
 
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
@@ -103,17 +108,10 @@ public class ServiceCertificat implements IService<Certificat>{
                 String description = res.getString("description");
                 Date dateObtention = res.getDate("dateObtention");
                 int nbrCours = res.getInt("nbrCours");
-                /*int idUser = res.getInt("idUser");
-                int idFormation = res.getInt("idFormation");*/
-
-                Certificat certificat = new Certificat(idCertificat, titre, description, dateObtention, nbrCours);
-                certificat.setTitre(titre);
-                certificat.setDescription(description);
-                certificat.setDateObtention(dateObtention);
-                certificat.setNbrCours(nbrCours);
-                /*certificat.setIdUser(idUser);
-                certificat.setIdFormation(idFormation);*/
-
+                //int idUser = res.getInt("idUser");
+                Formation formation =new Formation();
+                formation.setNom(res.getString("nom"));
+                Certificat certificat = new Certificat(idCertificat, titre, description, dateObtention, nbrCours,formation);
                 certificats.add(certificat);
             }
 

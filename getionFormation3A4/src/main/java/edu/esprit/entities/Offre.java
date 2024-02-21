@@ -13,20 +13,20 @@ public class Offre {
     private String description;
     private Date dateD;
     private Date dateF;
-    private int idFormation;
+    private Formation formation;
 
 
 
 
 
-    public Offre(int idOffre,double prixOffre, String description, Date dateD, Date dateF) {
+    public Offre(int idOffre,double prixOffre, String description, Date dateD, Date dateF,Formation formation) {
         this.idOffre = idOffre;
 
         this.prixOffre = prixOffre;
         this.description = description;
         this.dateD = dateD;
         this.dateF = dateF;
-       // this.idFormation = idFormation;
+        this.formation = formation;
     }
     public Offre(double prixOffre, String description, Date dateD, Date dateF) {
 
@@ -37,14 +37,22 @@ public class Offre {
        // this.idFormation = idFormation;
     }
 
-    public Offre(double prixOffre, String description, Date dateD, Date dateF,int idFormation) {
+    public Formation getFormation() {
+        return formation;
+    }
+
+    public void setFormation(Formation formation) {
+        this.formation = formation;
+    }
+
+    public Offre(double prixOffre, String description, Date dateD, Date dateF, Formation formation) {
 
 
         this.prixOffre = prixOffre;
         this.description = description;
         this.dateD = dateD;
         this.dateF = dateF;
-         this.idFormation = idFormation;
+         this.formation = formation;
     }
     public int getIdOffre() {
         return idOffre;
@@ -87,13 +95,8 @@ public class Offre {
         this.dateF = dateF;
     }
 
-    public int getIdFormation() {
-        return idFormation;
-    }
 
-    public void setIdFormation(int idFormation) {
-        this.idFormation = idFormation;
-    }
+
 
 
 
@@ -106,7 +109,7 @@ public class Offre {
                 ", description='" + description + '\'' +
                 ", dateD=" + dateD +
                 ", dateF=" + dateF +
-                ", idFormation=" + idFormation +
+                ", idFormation=" + formation.getNom() +
                 '}';
     }
 

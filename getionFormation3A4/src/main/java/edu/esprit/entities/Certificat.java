@@ -12,16 +12,16 @@ public class Certificat {
     private int idUser;
     private int idFormation;
 
+private Formation formation;
 
-
-    public Certificat(int idCertificat, String titre, String description, Date dateObtention, int nbrCours) {
+    public Certificat(int idCertificat, String titre, String description, Date dateObtention, int nbrCours,Formation formation) {
         this.idCertificat = idCertificat;
         this.titre = titre;
         this.description = description;
         this.dateObtention = dateObtention;
         this.nbrCours = nbrCours;
         //this.idUser = idUser;
-       // this.idFormation = idFormation;
+        this.formation = formation;
     }
 
     public Certificat(String titre, String description, Date dateObtention, int nbrCours) {
@@ -33,15 +33,7 @@ public class Certificat {
         //this.idUser = idUser;
         //this.idFormation = idFormation;
     }
-    public Certificat(String titre, String description, Date dateObtention, int nbrCours,int idFormation) {
 
-        this.titre = titre;
-        this.description = description;
-        this.dateObtention = dateObtention;
-        this.nbrCours = nbrCours;
-        //this.idUser = idUser;
-        this.idFormation = idFormation;
-    }
 
 
 
@@ -101,6 +93,14 @@ public class Certificat {
         this.idFormation = idFormation;
     }
 
+    public Formation getFormation() {
+        return formation;
+    }
+
+    public void setFormation(Formation formation) {
+        this.formation = formation;
+    }
+
     @Override
     public String toString() {
         return "Certificat{" +
@@ -110,7 +110,7 @@ public class Certificat {
                 ", dateObtention=" + dateObtention +
                 ", nbrCours=" + nbrCours +
                 ", idUser=" + idUser +
-                ", idFormation=" + idFormation +
+                ", nom formation=" + formation.getNom() +
                 '}';
     }
 

@@ -1,5 +1,6 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
 import edu.esprit.utils.DataSource;
 
@@ -22,13 +23,11 @@ public class ServiceOffre implements IService<Offre> {
              String req = "INSERT INTO `offre`(`prixOffre`, `description`, `dateD`, `dateF`,`idFormation`) VALUES (?,?,?,?,?)";
 
                  PreparedStatement ps = cnx.prepareStatement(req);
-
-
                  ps.setDouble(1, offre.getPrixOffre());
                  ps.setString(2, offre.getDescription());
                  ps.setDate(3, new java.sql.Date(offre.getDateD().getTime()));
                  ps.setDate(4, new java.sql.Date(offre.getDateF().getTime()));
-                 ps.setInt(5, offre.getIdFormation());
+                 ps.setInt(5, offre.getFormation().getIdFormation());
                  ps.executeUpdate();
                  System.out.println("offre ajouté !");
 
@@ -38,7 +37,7 @@ public class ServiceOffre implements IService<Offre> {
     public void modifier(Offre offre) throws SQLException{
         // Assurez-vous que la connexion à la base de données (cnx) est correctement établie
 
-        String req = "UPDATE offre SET prixOffre = ?, description = ?, dateD = ?, dateF = ? WHERE idOffre = ?";
+        String req = "UPDATE offre SET prixOffre = ?, description = ?, dateD = ?, dateF = ?  WHERE idOffre = ?";
 
             PreparedStatement ps = cnx.prepareStatement(req);
 
@@ -66,25 +65,25 @@ public class ServiceOffre implements IService<Offre> {
 
     @Override
     public Offre getOneById(int idOffre) throws SQLException{
-        String req = "SELECT * FROM offre WHERE idOffre = ?";
-
+        Offre offre=null;
+        String req = "SELECT o.*, f.nom FROM offre o INNER JOIN formation f ON o.idFormation = f.idFormation WHERE o.idOffre = ?";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, idOffre);
             ResultSet res = ps.executeQuery();
+        Formation formation=new Formation();
             if (res.next()) {
                 double prixOffre = res.getDouble("prixOffre");
                 String description = res.getString("description");
                 Date dateD = res.getDate("dateD");
                 Date dateF = res.getDate("dateF");
-                int idFormation = res.getInt("idFormation");
-
-                Offre offre = new Offre(idOffre, prixOffre, description, dateD, dateF);
+formation.setNom(res.getString("nom"));
+                 offre = new Offre(idOffre, prixOffre, description, dateD, dateF,formation);
 
                 offre.setPrixOffre(prixOffre);
                 offre.setDescription(description);
                 offre.setDateD(dateD);
                 offre.setDateF(dateF);
-                offre.setIdFormation(idFormation);
+                offre.setFormation(formation);
 
                 return offre;
             }
@@ -98,20 +97,20 @@ public class ServiceOffre implements IService<Offre> {
     public List<Offre> getAll() throws SQLException{
         List<Offre> offres = new ArrayList<>();
 
-        String req = "SELECT * FROM offre";
+
+        String req = "SELECT o.*, f.nom FROM offre o INNER JOIN formation f ON o.idFormation = f.idFormation";
 
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
             while (res.next()) {
                 int idOffre = res.getInt("idOffre");
-
                 double prixOffre = res.getDouble("prixOffre");
                 String description = res.getString("description");
                 Date dateD = res.getDate("dateD");
                 Date dateF = res.getDate("dateF");
-                int idFormation = res.getInt("idFormation");
-
-                Offre offre = new Offre(prixOffre, description, dateD, dateF);
+                Formation formation =new Formation();
+                formation.setNom(res.getString("nom"));
+                Offre offre = new Offre(prixOffre, description, dateD, dateF,formation);
                 offres.add(offre);
             }
 

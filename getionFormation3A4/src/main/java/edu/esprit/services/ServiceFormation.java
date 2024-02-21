@@ -121,11 +121,8 @@ public class ServiceFormation implements IService<Formation> {
                 int nbrCours = res.getInt("nbrCours");
                 int idUser = res.getInt("idUser");
                 int idCategorie = res.getInt("idCategorie");
-                ServiceCertificat so=new ServiceCertificat();
-                Certificat certificat=so.getOneById(idF);
-                ServiceOffre so1=new ServiceOffre();
-                Offre offre=so1.getOneById(idF);
-                Formation formation = new Formation(nom, description, dateDebut, dateFin, prix, nbrCours,idUser,idCategorie,certificat,offre);
+
+                Formation formation = new Formation(idF,nom, description, dateDebut, dateFin, prix, nbrCours,idUser,idCategorie);
                 formations.add(formation);
             }
 

@@ -53,7 +53,7 @@ public class AjouterFormation {
 
     }
 
-   public void navigatetoAfficherPersonneAction(ActionEvent actionEvent) {
+   public void navigatetoAfficheFormationAction(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherFormation.fxml"));
             nomF.getScene().setRoot(root);

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -13,8 +14,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherFormation">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterCertificat">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #05071F;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -126,37 +128,33 @@
 
                 <Pane fx:id="pnlOverview" prefHeight="576.0" prefWidth="793.0">
                     <children>
-                        <TextField layoutX="614.0" layoutY="96.0" prefHeight="27.0" prefWidth="173.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                        <Label layoutX="41.0" layoutY="18.0" text="Formation" textFill="WHITE">
+                        <TextField layoutX="590.0" layoutY="16.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                        <Label layoutX="21.0" layoutY="26.0" prefHeight="35.0" prefWidth="102.0" text="Certificat" textFill="#e7e5e5">
                             <font>
                                 <Font size="24.0" />
                             </font>
                         </Label>
-                  <TextField fx:id="prix" layoutX="648.0" layoutY="327.0" prefHeight="25.0" prefWidth="115.0" />
-                  <TextField fx:id="nomF" layoutX="648.0" layoutY="177.0" prefHeight="25.0" prefWidth="115.0">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </TextField>
-                  <TextField fx:id="dateF" layoutX="648.0" layoutY="290.0" prefHeight="25.0" prefWidth="115.0" />
-                  <TextField fx:id="dateD" layoutX="648.0" layoutY="253.0" prefHeight="25.0" prefWidth="115.0" />
-                  <Button fx:id="deleteF" layoutX="724.0" layoutY="412.0" mnemonicParsing="false" text="delete" />
-                  <TextField fx:id="nbrC" layoutX="648.0" layoutY="364.0" prefHeight="25.0" prefWidth="115.0" />
-                  <Button fx:id="updateF" layoutX="655.0" layoutY="412.0" mnemonicParsing="false" text="update" />
-                  <VBox fx:id="Vbox" layoutX="14.0" layoutY="61.0" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="570.0">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </VBox>
-                  <TextField fx:id="descripF" layoutX="648.0" layoutY="212.0" prefHeight="25.0" prefWidth="115.0" />
-                  <Button fx:id="navigate" layoutX="700.0" layoutY="465.0" mnemonicParsing="false" text="return" />
-                  <TextField fx:id="idF" layoutX="648.0" layoutY="140.0" prefHeight="25.0" prefWidth="115.0">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </TextField>
+                        <ImageView fitHeight="704.0" fitWidth="677.0" layoutX="83.0" layoutY="-40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/certificat.png" />
+                     </image></ImageView>
+                        <TextField fx:id="titreC" layoutX="347.0" layoutY="169.0" prefHeight="27.0" prefWidth="148.0" promptText="Nom" style="-fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0.1),10.0,0.0,0.0,10.0);" />
+                        <TextArea fx:id="descripC" layoutX="347.0" layoutY="216.0" prefHeight="72.0" prefWidth="148.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
+                        <DatePicker fx:id="dateDC" layoutX="345.0" layoutY="309.0" prefHeight="26.0" prefWidth="151.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
 
+                        <Text fill="#2a73ff" layoutX="254.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="titre" textAlignment="CENTER" wrappingWidth="45.486328125" />
+                        <Text fill="#2a73ff" layoutX="226.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre des cours " />
+                        <Text fill="#2a73ff" layoutX="526.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la formation">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font></Text>
+                        <TextField fx:id="nbrCoursC" layoutX="348.0" layoutY="369.0" promptText="Prix" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
+                        <TextField fx:id="nomF_C" layoutX="508.0" layoutY="247.0" prefHeight="26.0" prefWidth="153.0" promptText="Nombre Cour" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
+                        <Button fx:id="ajouterCertificat" layoutX="365.0" layoutY="505.0" mnemonicParsing="false" onAction="#AjouterCertificatAction" prefHeight="27.0" prefWidth="91.0" style="-fx-background-color: #ddb78c;-fx-control-inner-background: #02030A;-fx-border-radius: 4em;" stylesheets="@style.css" text="Ajouter" textAlignment="CENTER" textFill="WHITE" />
+                        <Button layoutX="723.0" layoutY="229.0" mnemonicParsing="false" onAction="#navigatetoAfficheFormationAction" style="-fx-background-color: #ddb78c;-fx-control-inner-background: #02030A;-fx-border-radius: 4em;" stylesheets="@style.css" text="Navigate" textFill="WHITE" />
 
+                        <Text fill="#2a73ff" layoutX="249.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut" />
+                        <Text fill="#2a73ff" layoutX="246.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER" wrappingWidth="73.7484130859375" />
 
                     </children>
                 </Pane>

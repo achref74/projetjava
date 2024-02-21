@@ -17,8 +17,6 @@ public class Formation {
     private int nbrCours;
    private int idUser;
     private int idCategorie;
-  private Certificat certificat;
-  private Offre offre;
 
 
 
@@ -32,9 +30,23 @@ public class Formation {
         this.prix = prix;
         this.nbrCours = nbrCours;
 
-    }
 
-    public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours,int idUser,int idCategorie,Certificat certificat,Offre offre) {
+    }
+    public Formation(int idFormation, String nom, String description, Date dateDebut, Date dateFin,
+                     double prix, int nbrCours, int idUser,int idCategorie) {
+        this.idFormation = idFormation;
+        this.nom = nom;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.prix = prix;
+        this.nbrCours = nbrCours;
+        this.idUser=0;
+        this.idCategorie=0;
+
+    }
+public Formation(){}
+    public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours,int idUser,int idCategorie) {
 
         this.nom = nom;
         this.description = description;
@@ -44,21 +56,9 @@ public class Formation {
         this.nbrCours = nbrCours;
         this.idUser=0;
         this.idCategorie=0;
-        this.certificat=certificat;
-        this.offre=offre;
-    }
-    public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours,Certificat certificat,Offre offre) {
 
-        this.nom = nom;
-        this.description = description;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.prix = prix;
-        this.nbrCours = nbrCours;
-
-        this.certificat=certificat;
-        this.offre=offre;
     }
+
     public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours) {
 
         this.nom = nom;
@@ -152,6 +152,7 @@ public class Formation {
                 ", dateFin='" + dateFin + '\'' +
                 ", prix=" + prix +
                 ", nbrCours=" + nbrCours +
+
                 '}';
     }
 
