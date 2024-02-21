@@ -1,18 +1,12 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.Cours;
-
 import edu.esprit.entities.Evaluation;
-import edu.esprit.entities.Question;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import java.sql.SQLException;
-import java.sql.Date;
-
 
 
 // nkoul l yass tzid existe formation
@@ -32,7 +26,7 @@ public class ServiceCours implements IService<Cours>{
              ps.setInt(4, cours.getDuree());
             ps.setString(5, cours.getPrerequis());
             ps.setString(6, cours.getRessource());
-            ps.setInt(7,cours.getIdFormation());
+            ps.setInt(7,3);
 
             ps.executeUpdate();
             System.out.println("new course added added !");

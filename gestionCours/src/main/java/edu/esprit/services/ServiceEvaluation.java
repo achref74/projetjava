@@ -1,6 +1,5 @@
 package edu.esprit.services;
 
-import edu.esprit.entities.Cours;
 import edu.esprit.entities.Evaluation;
 import edu.esprit.entities.Question;
 import edu.esprit.utils.DataSource;
@@ -128,6 +127,7 @@ Evaluation ev = null ;
                 int duree = res.getInt("duree");
                 String nom = res.getString("nom");
                 int note = res.getInt("note");
+
                 ServiceQuestion s =new ServiceQuestion();
                 Set<Question> questions = s.getQuestionsByIdEvaluation(id);
                 Evaluation e = new Evaluation(id,duree,nom,note,questions);

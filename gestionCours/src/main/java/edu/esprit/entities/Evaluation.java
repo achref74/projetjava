@@ -1,7 +1,6 @@
 package edu.esprit.entities;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,7 +13,7 @@ public class Evaluation {
         return nom;
     }
 
-    public void setNom(String nom) {
+    public void setNom(String nom)   {
         this.nom = nom;
     }
 
@@ -31,6 +30,10 @@ public class Evaluation {
     }
 
     public int getDuree() {
+
+        if (duree <= 0) {
+            throw new IllegalArgumentException("La durée doit être supérieure à zéro.");
+        }
         return duree;
     }
 
@@ -44,13 +47,17 @@ public class Evaluation {
     }
 
     public int getNote() {
+
+        if ((note < 0)||(note >20)) {
+            throw new IllegalArgumentException("La note doit être comprise entre zéro et 20 .");
+        }
         return note;
     }
 
     public void setNote(int note) {
 
         if ((note < 0)||(note >20)) {
-            throw new IllegalArgumentException("La note doit être comprise entre zéro et 1 .");
+            throw new IllegalArgumentException("La note doit être comprise entre zéro et 20 .");
         }
 
         this.note = note;
@@ -80,10 +87,10 @@ public class Evaluation {
 
         return String.format("Evaluation%n" +
                         "----------------------------------------------%n" +
-                        "| ID  | Durée     | Note | Questions           |%n" +
+                        " Durée     | Note | Questions           |%n" +
                         "----------------------------------------------%n" +
-                        "| %-3d | %-2dh %-2dmin %-2dsc | %-5s | %-20s |%n",
-                id_e, heures, minutes, secondes, note, questions);
+                        "| %-2dh %-2dmin %-2dsc | %-5s | %-20s |%n",
+                 heures, minutes, secondes, note, questions);
     }
 
     public Evaluation(int id_e, int duree, String nom, int note) {
@@ -102,4 +109,13 @@ public class Evaluation {
 
         this.questions = questions;
     }
+    public Evaluation(int duree, String nom, int note) {
+
+        this.duree = duree;
+        this.nom = nom;
+        this.note = note;
+
+
+    }
+
 }

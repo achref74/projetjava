@@ -13,6 +13,15 @@ public class Cours {
     private int idFormation ;
     private int duree ;
     private Evaluation evaluation ;
+    private String imgSource ;
+
+    public String getImgSource() {
+        return imgSource;
+    }
+
+    public void setImgSource(String imgSource) {
+        this.imgSource = imgSource;
+    }
 
     public Cours(int id_cours, String nom, String descrption, String prerequis, String ressource, Date date, int duree, Evaluation evaluation) {
         this.id_cours = id_cours;
@@ -25,7 +34,7 @@ public class Cours {
         this.duree = duree;
         this.evaluation = evaluation;
     }
-    public Cours( String nom, String descrption, String prerequis, String ressource, Date date, int duree, Evaluation evaluation) {
+    public Cours(String nom, String descrption, String prerequis, String ressource, Date date, int duree, Evaluation evaluation) {
 
         this.nom = nom;
         this.descrption = descrption;
@@ -36,7 +45,7 @@ public class Cours {
         this.duree = duree;
         this.evaluation = evaluation;
     }
-    public Cours( String nom, String descrption, String prerequis, String ressource, Date date, int duree) {
+    public Cours(String nom, String descrption, String prerequis, String ressource, Date date, int duree) {
 
         this.nom = nom;
         this.descrption = descrption;
@@ -82,6 +91,9 @@ public class Cours {
     }
 
     public String getRessource() {
+        if (!ressource.endsWith(".mp3") && !ressource.endsWith(".mp4") && !ressource.endsWith(".jpg") && !ressource.endsWith(".pdf") && !ressource.endsWith(".txt")) {
+            throw new IllegalArgumentException("La ressource doit être un fichier avec l'extension mp3, mp4, jpg, pdf ou txt.");
+        }
         return ressource;
     }
 
@@ -92,13 +104,18 @@ public class Cours {
         this.ressource = ressource;
     }
     public Date getDate() {
+        Date coursDate = date;
+        if ( coursDate.after(new Date(System.currentTimeMillis()))) {
+            throw new IllegalArgumentException("La date du cours doit être dans le passé.");
+        }
+        else
         return date;
     }
 
     public void setDate(Date date) {
 
         Date coursDate = date;
-        if (coursDate == null || coursDate.after(new Date(System.currentTimeMillis()))) {
+        if ( coursDate.after(new Date(System.currentTimeMillis()))) {
             throw new IllegalArgumentException("La date du cours doit être dans le passé.");
         }
         else
@@ -107,6 +124,10 @@ public class Cours {
 
 
     public int getDuree() {
+
+        if (duree <= 0) {
+            throw new IllegalArgumentException("La durée doit être supérieure à zéro.");
+        }
         return duree;
     }
 

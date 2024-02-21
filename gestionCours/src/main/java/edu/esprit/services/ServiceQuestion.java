@@ -1,12 +1,11 @@
 package edu.esprit.services;
 
-import edu.esprit.entities.Evaluation;
 import edu.esprit.entities.Question;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.*;
 
 public class ServiceQuestion implements IService<Question>{
     Connection cnx = DataSource.getInstance().getCnx();
@@ -20,11 +19,13 @@ public class ServiceQuestion implements IService<Question>{
         if (ServiceEvaluation.existe(id_e)) {
 
 
-        String req = "INSERT INTO `question`(`ressource`, `id_e`) VALUES (?,?)";
+        String req = "INSERT INTO `question`(`ressource`,`duree`,`point`, `id_e`) VALUES (?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, question.getRessource());
-            ps.setInt(2, id_e);
+            ps.setInt(2, question.getDuree());
+            ps.setInt(3, question.getPoint());
+            ps.setInt(4, id_e);
             ps.executeUpdate();
             System.out.println("Question added !");
         } catch (
@@ -77,7 +78,9 @@ public class ServiceQuestion implements IService<Question>{
             if (res.next()){
                 int id_q = res.getInt("id_q");
                 String ressource = res.getString("ressource");
-                q= new Question(id_q,ressource);
+                int duree = res.getInt("duree");
+                int point = res.getInt("point");
+                q= new Question(id_q,ressource,duree,point);
             }return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -95,7 +98,9 @@ public class ServiceQuestion implements IService<Question>{
             while (res.next()){
                 int id_q = res.getInt("id_q");
                 String ressource = res.getString("ressource");
-                Question q = new Question(id_q,ressource);
+                int duree = res.getInt("duree");
+                int point = res.getInt("point");
+                Question q = new Question(id_q,ressource,duree,point);
                 questions.add(q);
             }
         } catch (SQLException e) {
@@ -131,8 +136,10 @@ public class ServiceQuestion implements IService<Question>{
             while (res.next()){
                 int id = res.getInt("id_q");
                 String ressource = res.getString("ressource");
+                int duree = res.getInt("duree");
+                int point = res.getInt("point");
 
-                Question q = new Question(id,ressource);
+                Question q = new Question(id,ressource,duree,point);
             questions.add(q);
             }
         } catch (SQLException e) {
