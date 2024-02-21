@@ -1,0 +1,75 @@
+.image-view {
+    -fx-fill: white; /* Change la couleur de l'image en blanc */
+}
+.button
+{
+    -fx-background-color : #05071F;
+    -fx-text-fill : #e7e5e5;
+}
+.button:hover{
+    -fx-background-color : #10165F;
+}
+.button:pressed
+{
+    -fx-background-color : #1620A1;
+}
+
+.scroll-pane {
+    -fx-background-color: #02030A;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #10165F;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: black;
+}
+
+.combo-box {
+    -fx-background-color: #000000; /* Couleur de fond */
+    -fx-text-fill: #ffffff; /* Couleur du texte */
+    -fx-border-color: #ffffff; /* Couleur de la bordure */
+    -fx-border-radius: 5px; /* Rayon de la bordure */
+    -fx-padding: 5px; /* Espacement interne */
+}
+
+/* Style pour le champ de texte (input) dans le ComboBox */
+.combo-box .text-field {
+    -fx-background-color: #05071F; /* Fond transparent */
+    -fx-border:#ffffff; /* Pas de bordure */
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-prompt-text-fill: #999999; /* Couleur du texte d'invite */
+}
+
+/* Style pour la flèche du ComboBox */
+.combo-box .arrow-button {
+    -fx-background-color: #05071F; /* Couleur de fond */
+    -fx-shape: "M0 0 L5 5 L10 0 Z"; /* Forme de la flèche */
+}
+
+/* Style pour la liste déroulante du ComboBox */
+.combo-box .list-view {
+    -fx-background-color: #05071F; /* Couleur de fond */
+    -fx-text-fill: #ffffff; /* Couleur du texte */
+    -fx-border-color: #ffffff; /* Couleur de la bordure */
+    -fx-border-radius: 5px; /* Rayon de la bordure */
+}

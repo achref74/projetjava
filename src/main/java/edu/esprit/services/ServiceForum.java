@@ -16,10 +16,10 @@ import java.util.Set;
 
 public class ServiceForum implements IService<Forum> {
     Connection cnx = DataSource.getInstance().getCnx();
-    public void ajouter(Forum forum){
+    public void ajouter(Forum forum) throws SQLException{
 
         String req = "INSERT INTO `forum`(`titre`,`dateCreation`, `description`, `idFormation`) VALUES (?, ?, ?, ?)";
-        try {
+
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, forum.getTitre());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
@@ -29,9 +29,7 @@ public class ServiceForum implements IService<Forum> {
             ps.setInt(4, forum.getFormation().getIdFormation());
             ps.executeUpdate();
             System.out.println("forum ajouté !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     public void modifier(Forum forum) throws SQLException {
         String req = "UPDATE forum SET titre = ?, description = ?,idFormation=? WHERE idForum = ?";
