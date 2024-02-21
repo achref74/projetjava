@@ -27,6 +27,10 @@ public  class ServiceUser implements IServiceUser<User> {
                 ps.setString(3, c.getEmail());
                 ps.setDate(4, c.getDateNaissance());
                 ps.setString(5, c.getAdresse());
+                if (!isValidPhoneNumber(c.getNumtel())) {
+                    System.out.println("Le numéro de téléphone doit contenir exactement 8 chiffres !");
+                    return;
+                }
                 ps.setInt(6, c.getNumtel());
                 ps.setString(7, c.getMdp());
                 ps.setInt(8, 0);
@@ -47,6 +51,10 @@ public  class ServiceUser implements IServiceUser<User> {
                 ps.setString(3, f.getEmail());
                 ps.setDate(4, f.getDateNaissance());
                 ps.setString(5, f.getAdresse());
+                if (!isValidPhoneNumber(f.getNumtel())) {
+                    System.out.println("Le numéro de téléphone doit contenir exactement 8 chiffres !");
+                    return;
+                }
                 ps.setInt(6, f.getNumtel());
                 ps.setString(7, f.getMdp());
                 ps.setInt(8, 1);
@@ -93,9 +101,17 @@ public  class ServiceUser implements IServiceUser<User> {
 
                 ps.setString(1, c.getNom());
                 ps.setString(2, c.getPrenom());
+                if (!isValidEmail(c.getEmail())) {
+                    System.out.println("Adresse e-mail invalide !");
+                    return;
+                }
                 ps.setString(3, c.getEmail());
                 ps.setDate(4, c.getDateNaissance());
                 ps.setString(5, c.getAdresse());
+                if (!isValidPhoneNumber(c.getNumtel())) {
+                    System.out.println("Le numéro de téléphone doit contenir exactement 8 chiffres !");
+                    return;
+                }
                 ps.setInt(6, c.getNumtel());
                 ps.setString(7, c.getMdp());
                 ps.setString(8, c.getNiveau_scolaire());
@@ -112,9 +128,17 @@ public  class ServiceUser implements IServiceUser<User> {
 
                 ps.setString(1, f.getNom());
                 ps.setString(2, f.getPrenom());
+                if (!isValidEmail(f.getEmail())) {
+                    System.out.println("Adresse e-mail invalide !");
+                    return;
+                }
                 ps.setString(3, f.getEmail());
                 ps.setDate(4, f.getDateNaissance());
                 ps.setString(5, f.getAdresse());
+                if (!isValidPhoneNumber(f.getNumtel())) {
+                    System.out.println("Le numéro de téléphone doit contenir exactement 8 chiffres !");
+                    return;
+                }
                 ps.setInt(6, f.getNumtel());
                 ps.setString(7, f.getMdp());
                 ps.setString(8, f.getSpecialite());
@@ -280,6 +304,16 @@ public  class ServiceUser implements IServiceUser<User> {
             else return "Admin";
         }
         else return "Nulle";
+    }
+    public boolean isValidPhoneNumber(int numTel) {
+        // Conversion du numéro de téléphone en une chaîne pour obtenir sa longueur
+        String numTelStr = String.valueOf(numTel);
+        return numTelStr.length() == 8;
+    }
+    public boolean isValidEmail(String email) {
+        // Utilisation d'une expression régulière pour vérifier le format de l'e-mail
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
     }
 }
 

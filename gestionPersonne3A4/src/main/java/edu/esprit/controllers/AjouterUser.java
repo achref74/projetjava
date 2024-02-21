@@ -2,7 +2,6 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Client;
 import edu.esprit.entities.Formateur;
-import edu.esprit.entities.User;
 import edu.esprit.service.ServiceUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,11 +15,9 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.io.IOException;
-import java.sql.SQLException;
 
-public class InscriptionApplication {
+public class AjouterUser {
     @FXML
     private TextField fxfichier;
     @FXML
@@ -66,6 +63,9 @@ public class InscriptionApplication {
     private TextField fxprenom;
     @FXML
     private TextField fxnom;
+
+    @FXML
+    private Text fxpwd2;
     private final ServiceUser sp = new ServiceUser();
     String userType = null;
 
@@ -82,6 +82,8 @@ public class InscriptionApplication {
         fxna.setVisible(false);
         fxdd.setVisible(false);
         fxfichier.setVisible(false);
+        fxpwd.setVisible(false);
+        fxpwd2.setVisible(false);
 
     }
 
@@ -103,6 +105,8 @@ public class InscriptionApplication {
         fxns.setVisible(false);
         fxc.setSelected(false);
         fxfichier.setVisible(true);
+        fxpwd.setVisible(true);
+        fxpwd2.setVisible(true);
 
 
 
@@ -124,65 +128,67 @@ public class InscriptionApplication {
         fxdd.setVisible(false);
         fxf.setSelected(false);
         fxfichier.setVisible(false);
+        fxpwd.setVisible(true);
+        fxpwd2.setVisible(true);
 
 
     }
 
 
     public void createAccount(ActionEvent actionEvent) {
-       try {
-           if (!sp.isValidEmail(fxemail.getText())) {
+        try {
+            if (!sp.isValidEmail(fxemail.getText())) {
 
-           fxerrormail.setVisible(true);
-           fxerrornum.setVisible(false);
+                fxerrormail.setVisible(true);
+                fxerrornum.setVisible(false);
 
-       } else if (!(sp.isValidPhoneNumber(Integer.parseInt(fxnumtel.getText())))){
-           fxerrornum.setVisible(true);
-           fxerrormail.setVisible(false);
-       } else if (!(sp.isValidPhoneNumber(Integer.parseInt(fxnumtel.getText()))) && !sp.isValidEmail(fxemail.getText())) {
+            } else if (!(sp.isValidPhoneNumber(Integer.parseInt(fxnumtel.getText())))){
+                fxerrornum.setVisible(true);
+                fxerrormail.setVisible(false);
+            } else if (!(sp.isValidPhoneNumber(Integer.parseInt(fxnumtel.getText()))) && !sp.isValidEmail(fxemail.getText())) {
 
-           fxerrornum.setVisible(true);
-           fxerrormail.setVisible(true);
+                fxerrornum.setVisible(true);
+                fxerrormail.setVisible(true);
 
-       }else{
-               fxerrornum.setVisible(false);
-               fxerrormail.setVisible(false);
-            if (fxc.isSelected()) {
-                userType = "client";
-            } else if (fxf.isSelected()) {
-                userType = "formateur";
-            }
-
-
-            if (userType != null) {
-                switch (userType) {
-
-                    case "client":
-                        String a=fxniveauscolaire.getSelectionModel().getSelectedItem().toString();
-                        int b= Integer.parseInt(fxnumtel.getText());
-                        Date d =Date.valueOf(fxdate.getValue());
-
-
-                        Client  c = new Client(fxnom.getText(), fxprenom.getText(), fxemail.getText(),d, fxadresse.getText(),b, fxpwd.getText(),a);
-                        sp.ajouter(c);
-                        break;
-                       case "formateur":
-                      Date d1 =Date.valueOf(fxdate.getValue());
-                      int b1= Integer.parseInt(fxnumtel.getText());
-                      String a1=fxspecialite.getSelectionModel().getSelectedItem().toString();
-                      String a11=fxniveauacademique.getSelectionModel().getSelectedItem().toString();
-                      int a111= Integer.parseInt(fxdispo.getText());
-
-                        Formateur  f = new Formateur(fxnom.getText(), fxprenom.getText(), fxemail.getText(), d1, fxadresse.getText(),b1, fxpwd.getText(),a1,a11,a111,fxfichier.getText());
-                        sp.ajouter(f);
-                        break;
-
-
+            }else{
+                fxerrornum.setVisible(false);
+                fxerrormail.setVisible(false);
+                if (fxc.isSelected()) {
+                    userType = "client";
+                } else if (fxf.isSelected()) {
+                    userType = "formateur";
                 }
-            }Alert alert = new Alert(Alert.AlertType.INFORMATION);
-           alert.setTitle("Success");
-           alert.setContentText("GG");
-           alert.show();}
+
+
+                if (userType != null) {
+                    switch (userType) {
+
+                        case "client":
+                            String a=fxniveauscolaire.getSelectionModel().getSelectedItem().toString();
+                            int b= Integer.parseInt(fxnumtel.getText());
+                            Date d =Date.valueOf(fxdate.getValue());
+
+
+                            Client  c = new Client(fxnom.getText(), fxprenom.getText(), fxemail.getText(),d, fxadresse.getText(),b, fxpwd.getText(),a);
+                            sp.ajouter(c);
+                            break;
+                        case "formateur":
+                            Date d1 =Date.valueOf(fxdate.getValue());
+                            int b1= Integer.parseInt(fxnumtel.getText());
+                            String a1=fxspecialite.getSelectionModel().getSelectedItem().toString();
+                            String a11=fxniveauacademique.getSelectionModel().getSelectedItem().toString();
+                            int a111= Integer.parseInt(fxdispo.getText());
+
+                            Formateur  f = new Formateur(fxnom.getText(), fxprenom.getText(), fxemail.getText(), d1, fxadresse.getText(),b1, fxpwd.getText(),a1,a11,a111,fxfichier.getText());
+                            sp.ajouter(f);
+                            break;
+
+
+                    }
+                }Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setContentText("GG");
+                alert.show();}
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("SQL Exception");
@@ -215,5 +221,3 @@ public class InscriptionApplication {
         }
     }
 }
-
-

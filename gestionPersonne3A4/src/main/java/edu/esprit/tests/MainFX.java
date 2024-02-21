@@ -11,7 +11,7 @@ import static javafx.application.Application.launch;
 
 public class MainFX extends Application{
     public void start (Stage stage) throws Exception {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/inscriptionApplication.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterUser.fxml"));
     Parent root = loader.load();
     Scene scene = new Scene(root);
     stage.setScene(scene);

@@ -22,7 +22,7 @@ su.ajouter(f2);
      //   System.out.println(su.getOneById(3));
         System.out.println(su.login("ffh","achref"));
 
-
+        System.out.println(su.isValidEmail("aaaaa"));
 
     }
 

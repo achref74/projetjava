@@ -61,10 +61,32 @@ public class Login {
                     alert.setTitle("Error");
                     alert.show();
                 }
+            } if(a.equals("Admin")) {
+                errormsg.setText("");
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/afficherApplication.fxml"));
+                    f1.getScene().setRoot(root);
+                } catch (IOException e) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Sorry");
+                    alert.setTitle("Error");
+                    alert.show();
+                }
             }
             else errormsg.setText("User name or password is incorrect");
         }
 }
 
 
+    public void navigatesinscrire(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AjouterFormation.fxml"));
+            f1.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
 }
