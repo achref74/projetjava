@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -14,14 +15,34 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.*;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AfficherFormation {
+public class AfficherFormation implements Initializable {
 
     @FXML
     private VBox Vbox;
@@ -61,6 +82,10 @@ public class AfficherFormation {
 
     @FXML
     private Button navigate;
+    @FXML
+    private Button offreF;
+    @FXML
+    private Button certificatF;
 
     @FXML
     private TextField nbrC;
@@ -72,7 +97,8 @@ public class AfficherFormation {
     private TextField idF;
     @FXML
     private Pane pnlOverview;
-
+@FXML
+private Button ajouterF;
     @FXML
     private TextField prix;
 
@@ -88,7 +114,6 @@ public class AfficherFormation {
     private String selecteNbrC;
 
 
-
     @FXML
     void navigatetoAfficheFormationAction(ActionEvent event) {
         try {
@@ -101,6 +126,44 @@ public class AfficherFormation {
             alert.show();
         }
     }
+    @FXML
+    void navigatetoAjouterFormationAction(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AjouterFormation.fxml"));
+            btnFormation.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+    @FXML
+    void navigatetoOffreFormationAction(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AjouterOffre.fxml"));
+            btnFormation.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+    @FXML
+    void navigatetoCertificatFormationAction(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AjouterCertificat.fxml"));
+            btnFormation.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
+
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
         navigate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -130,6 +193,128 @@ public class AfficherFormation {
 
 
         System.out.println("zzzzzzzzz");
+        Vbox.getChildren().clear();
+
+        List<Formation> formationList = null;
+        try {
+            formationList = sf.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Formation List: " + formationList); // Print the list
+
+        for (Formation formations : formationList) {
+            System.out.println("Adding Formation to TitledPane: " + formations);
+            // Create layout for each reclamation
+            Label nomLabel = new Label("nom: " + formations.getNom());
+            Label descripdLabel = new Label("Description: " + formations.getDescription());
+            Label dateDLabel = new Label("Date Debut: " + formations.getDateDebut());
+            Label dateFLabel = new Label("Date Fin: " + formations.getDateFin());
+            Label prixLabel = new Label("Prix: " + formations.getPrix());
+            Label nbrCLabel = new Label("Nombre Cours: " + formations.getNbrCours());
+
+            GridPane gridPane = new GridPane();
+            gridPane.add(nomLabel, 0, 0);
+            gridPane.add(descripdLabel, 0, 1);
+            gridPane.add(dateDLabel, 0, 2);
+            gridPane.add(dateFLabel, 0, 3);
+            gridPane.add(prixLabel, 0, 4);
+            gridPane.add(nbrCLabel, 0, 5);
+
+            TitledPane titledPane = new TitledPane("Reclamation " + formations.getIdFormation(), gridPane);
+
+            titledPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    selecteIdF=String.valueOf(formations.getIdFormation());
+                    selecteNom = formations.getNom();
+                    selecteDescrip = formations.getDescription();
+                    selecteDateD = String.valueOf(formations.getDateDebut());
+                    selecteDateF = String.valueOf(formations.getDateFin());
+                    selectePrix = String.valueOf(formations.getPrix());
+                    selecteNbrC = String.valueOf(formations.getNbrCours());
+
+
+                    // Perform any action with the selected values
+                    System.out.println("Selected ID: " + selecteIdF);
+                    System.out.println("Selected Nom : " + selecteNom);
+                    System.out.println("Selected Description: " + selecteDescrip);
+                    System.out.println("Selected Date Debut: " + selecteDateD);
+                    System.out.println("Selected Date Fin: " + selecteDateF);
+                    System.out.println("Selected Prix : " + selectePrix);
+                    System.out.println("Selected Nombre Des Cours: " + selecteNbrC);
+                    idF.setText(selecteIdF);
+                    nomF.setText(selecteNom);
+                    descripF.setText(selecteDescrip);
+                    dateD.setText(selecteDateD);
+                    dateF.setText(selecteDateF);
+                    prix.setText(selectePrix);
+                    nbrC.setText(selecteNbrC);
+                }
+            });
+
+
+            Vbox.getChildren().add(titledPane);
+        }
+
+
+
+
+        // ----------------delete code --------------------------
+       deleteF.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(selecteIdF != null) {
+                    try {
+                        sf.supprimer(Integer.parseInt(selecteIdF));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    loadReclamationData();
+                }
+            }
+        });
+        //-----------------------------------
+
+
+       updateF.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Format de date à utiliser
+                try {
+                    Date dateDebut = dateFormat.parse(dateD.getText());
+                    Date dateFin = dateFormat.parse(dateF.getText());
+                    Formation formation = new Formation(Integer.parseInt(idF.getText()),nomF.getText(),descripF.getText(),dateDebut,dateFin,Double.parseDouble(prix.getText()),Integer.parseInt(nbrC.getText()));
+                    if(selecteIdF != null) {
+                        try {
+
+                            sf.modifier(formation);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        loadReclamationData();
+                    }
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+    }
+    //-------------refresh fucnction ---------------------------------------
+    private void loadReclamationData() {
+        Vbox.getChildren().clear(); // Clear existing display
         List<Formation> formationList = null;
         try {
             formationList = sf.getAll();
@@ -181,112 +366,13 @@ public class AfficherFormation {
                     System.out.println("Selected Date Fin: " + selecteDateF);
                     System.out.println("Selected Prix : " + selectePrix);
                     System.out.println("Selected Nombre Des Cours: " + selecteNbrC);
-                    idF.setText(selectedId);
-                    nomF.setText(selectedUserId);
-                    descripF.setText(selectedEmail);
-                    dateD.setText(selectedDateRec);
-                    dateF.setText(selectedRec);
-                    prix.setText(selectedObject);
-                    prix.setText(selectedObject);
-                }
-            });
-
-
-            Vbox.getChildren().add(titledPane);
-        }
-
-        loadReclamationData();
-
-
-        // ----------------delete code --------------------------
-        delete.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if(selectedId != null) {
-                    serviceReclamation.supprimer(Integer.parseInt(selectedId));
-                    loadReclamationData();
-                }
-            }
-        });
-        //-----------------------------------
-
-
-        update.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-
-                Reclamation reclamation = new Reclamation(Integer.parseInt(id.getText()),Integer.parseInt(userid.getText()),email.getText(),object.getText(),reclamationI.getText(),new Date(System.currentTimeMillis()));
-
-                if(selectedId != null) {
-                    serviceReclamation.update(reclamation);
-                    loadReclamationData();
-                }
-            }
-        });
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-
-    //-------------refresh fucnction ---------------------------------------
-    private void loadReclamationData() {
-        Vbox.getChildren().clear(); // Clear existing display
-
-        List<Reclamation> reclamationList = serviceReclamation.getAll();
-
-        for (Reclamation reclamation : reclamationList) {
-            // Create layout for each reclamation
-            Label idLabel = new Label("ID: " + reclamation.getId_rec());
-            Label userIdLabel = new Label("UserID: " + reclamation.getId());
-            Label emailLabel = new Label("Email: " + reclamation.getEmail());
-            Label objectLabel = new Label("Object: " + reclamation.getObject());
-            Label recLabel = new Label("Rec: " + reclamation.getRec());
-            Label dateLabel = new Label("Date Rec: " + reclamation.getDate_rec());
-
-            GridPane gridPane = new GridPane();
-            gridPane.add(idLabel, 0, 0);
-            gridPane.add(userIdLabel, 0, 1);
-            gridPane.add(emailLabel, 0, 2);
-            gridPane.add(objectLabel, 0, 3);
-            gridPane.add(recLabel, 0, 4);
-            gridPane.add(dateLabel, 0, 5);
-
-            TitledPane titledPane = new TitledPane("Reclamation " + reclamation.getId(), gridPane);
-
-            titledPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    selectedId = "" + reclamation.getId_rec();
-                    selectedUserId = "" + reclamation.getId();
-                    selectedEmail = reclamation.getEmail();
-                    selectedObject = reclamation.getObject();
-                    selectedRec = reclamation.getRec();
-                    selectedDateRec = String.valueOf(reclamation.getDate_rec());
-
-                    // Perform any action with the selected values
-                    System.out.println("Selected ID: " + selectedId);
-                    System.out.println("Selected UserID: " + selectedUserId);
-                    System.out.println("Selected Email: " + selectedEmail);
-                    System.out.println("Selected Object: " + selectedObject);
-                    System.out.println("Selected Rec: " + selectedRec);
-                    System.out.println("Selected Date Rec: " + selectedDateRec);
-
-                    id.setText(selectedId);
-                    userid.setText(selectedUserId);
-                    email.setText(selectedEmail);
-                    date.setText(selectedDateRec);
-                    reclamationI.setText(selectedRec);
-                    object.setText(selectedObject);
+                    idF.setText(selecteIdF);
+                    nomF.setText(selecteNom);
+                    descripF.setText(selecteDescrip);
+                    dateD.setText(selecteDateD);
+                    dateF.setText(selecteDateF);
+                    prix.setText(selectePrix);
+                    nbrC.setText(selecteNbrC);
                 }
             });
 
@@ -296,4 +382,4 @@ public class AfficherFormation {
 }
 
 
-}
+
