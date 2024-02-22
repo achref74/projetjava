@@ -10,7 +10,7 @@ public class MainFx extends Application {
 
 
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCours.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/DisplayCours.fxml"));
        // FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCours.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);

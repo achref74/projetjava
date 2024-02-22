@@ -91,24 +91,17 @@ public class Cours {
     }
 
     public String getRessource() {
-        if (!ressource.endsWith(".mp3") && !ressource.endsWith(".mp4") && !ressource.endsWith(".jpg") && !ressource.endsWith(".pdf") && !ressource.endsWith(".txt")) {
-            throw new IllegalArgumentException("La ressource doit être un fichier avec l'extension mp3, mp4, jpg, pdf ou txt.");
-        }
+
         return ressource;
     }
 
     public void setRessource(String ressource) {
-        if (!ressource.endsWith(".mp3") && !ressource.endsWith(".mp4") && !ressource.endsWith(".jpg") && !ressource.endsWith(".pdf") && !ressource.endsWith(".txt")) {
-            throw new IllegalArgumentException("La ressource doit être un fichier avec l'extension mp3, mp4, jpg, pdf ou txt.");
-        }
+
         this.ressource = ressource;
     }
     public Date getDate() {
         Date coursDate = date;
-        if ( coursDate.after(new Date(System.currentTimeMillis()))) {
-            throw new IllegalArgumentException("La date du cours doit être dans le passé.");
-        }
-        else
+
         return date;
     }
 

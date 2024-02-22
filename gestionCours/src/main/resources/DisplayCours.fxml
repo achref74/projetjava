@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.DisplayCours">
+    <children>
+        <TextField fx:id="id_cours" layoutX="570.0" layoutY="155.0" />
+        <TextField fx:id="nom" layoutX="570.0" layoutY="191.0" />
+        <TextField fx:id="description" layoutX="570.0" layoutY="230.0" />
+        <TextField fx:id="date" layoutX="570.0" layoutY="262.0" />
+        <TextField fx:id="duree" layoutX="570.0" layoutY="305.0" />
+        <Button fx:id="delete" layoutX="570.0" layoutY="417.0" mnemonicParsing="false" text="delete" />
+        <Button fx:id="update" layoutX="657.0" layoutY="417.0" mnemonicParsing="false" text="update" />
+        <VBox fx:id="Vbox" layoutX="16.0" layoutY="12.0" minHeight="500.0" minWidth="500.0" prefHeight="498.0" prefWidth="554.0" />
+        <TextField fx:id="prerequis" layoutX="570.0" layoutY="339.0" />
+        <Button fx:id="navigate" layoutX="632.0" layoutY="449.0" mnemonicParsing="false" text="return" />
+      <TextField fx:id="ressource" layoutX="570.0" layoutY="375.0" />
+    </children>
+
+</AnchorPane>
