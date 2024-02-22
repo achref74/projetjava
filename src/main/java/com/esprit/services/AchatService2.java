@@ -4,8 +4,8 @@ import com.esprit.models.Achat;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.esprit.models.formation;
 import com.esprit.models.outil;
@@ -107,8 +107,8 @@ public class AchatService2 implements IService<Achat> {
         }
 
         @Override
-        public Set<Achat> getAll() {
-            Set<Achat> Achats = new HashSet<>();
+        public List<Achat> getAll() {
+            List<Achat> Achats = new ArrayList<>();
 
             String req = "SELECT * FROM `Achat` WHERE 1";
             try {

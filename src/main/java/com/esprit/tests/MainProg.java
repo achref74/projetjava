@@ -1,6 +1,5 @@
 package com.esprit.tests;
 
-import com.esprit.models.Achat;
 import com.esprit.models.Categorie;
 import com.esprit.models.formation;
 import com.esprit.models.outil;
@@ -17,17 +16,17 @@ public class MainProg {
 
        // categorieService.ajouter(new Categorie("felhui","mohamedd"));
 formation formation = new formation(1);
-
+outil o=new outil();
 
         // Testing Outils
         Categorie categorie=new Categorie();
+        categorie.setIdcategorie(1);
+        //outil o=new outil(3, "youssef", "1920", 12.5, "si", "saaaa", "termine");
        // categorie.setIdcategorie(1);
-        outil o=new outil(3, "youssef", "1920", 12.5, "si", "saaaa", "termine");
-       // categorie.setIdcategorie(1);
-        Achat achat = new Achat(formation,o,52);
-        achatService.ajouter(new Achat(formation,o,52));
+       // Achat achat = new Achat(formation,o,52);
+        //achatService.ajouter(new Achat(formation,o,52));
         //achatService.modifier(new Achat(2,formation,o,1920));
-      //  outilService.ajouter(new outil( "youssef", "1920", 12.5, "si", "saaaa", "hahahah",categorie));
+        outilService.ajouter(new outil( "youssef", "hhhhhhhhhhh", 12.5, "srrrri", "saaaa", "hahahah",categorie,"ggg"));
         //outilService.modifier(new outil(1, "ggYousseff", "abidi", 10.5, "hhhhhhhh", "s", "termine",categorie));
       //  outil o=new outil(4, "youssef", "1920", 12.5, "si", "saaaa", "termine",categorie);
          //outilService.supprimer(2);

@@ -14,7 +14,7 @@ public class OutilsService2 implements IService<outil> {
     }
     @Override
     public void ajouter(outil outils) {
-        String req = "INSERT into `outil` (nom, description,prix,ressources,stock,etat,idCategorie) values (?,?,?,?,?,?,?);";
+        String req = "INSERT into `outil` (nom, description,prix,ressources,stock,etat,idCategorie,image) values (?,?,?,?,?,?,?,?);";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setString(1, outils.getNom());
@@ -24,6 +24,7 @@ public class OutilsService2 implements IService<outil> {
             pst.setString(5, outils.getStock());
             pst.setString(6, outils.getEtat());
             pst.setInt(7,outils.getCategorie().getIdcategorie());
+            pst.setString(8, outils.getImage());
             pst.executeUpdate();
             System.out.println("Outils ajoutée !");
         } catch (SQLException e) {
@@ -33,10 +34,10 @@ public class OutilsService2 implements IService<outil> {
 
     @Override
     public void modifier(outil outils) {
-        String req = "UPDATE outil set nom = ?, description = ?,prix = ?,ressources = ?,stock = ?,etat = ?,idCategorie=? where idoutils = ?;";
+        String req = "UPDATE outil set nom = ?, description = ?,prix = ?,ressources = ?,stock = ?,etat = ?,idCategorie=?,image =? where idoutils = ?;";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
-            pst.setInt(8, outils.getIdoutils());
+            pst.setInt(9, outils.getIdoutils());
             pst.setString(1, outils.getNom());
             pst.setString(2, outils.getDescription());
             pst.setDouble(3, outils.getPrix());
@@ -44,6 +45,7 @@ public class OutilsService2 implements IService<outil> {
             pst.setString(5, outils.getStock());
             pst.setString(6, outils.getEtat());
             pst.setInt(7, outils.getCategorie().getIdcategorie());
+            pst.setString(8, outils.getImage());
             pst.executeUpdate();
             System.out.println("Outils modifiée !");
         } catch (SQLException e) {
@@ -66,7 +68,7 @@ public class OutilsService2 implements IService<outil> {
 
     @Override
     public outil getOneById(int id) {
-        String req = "SELECT  `nom`, `description`, `prix`, `ressources`,`stock`,`etat` FROM outil WHERE idoutils = ?";
+        String req = "SELECT  `nom`, `description`, `prix`, `ressources`,`stock`,`etat`,`image` FROM outil WHERE idoutils = ?";
 
         try {
             PreparedStatement pst = connection.prepareStatement(req);
@@ -79,8 +81,9 @@ public class OutilsService2 implements IService<outil> {
                 String ressources = rs.getString("ressources");
                 String stock = rs.getString("stock");
                 String etat = rs.getString("etat");
+                String image = rs.getString("image");
 
-                return new outil(id, nom, description, prix, ressources, stock, etat);
+                return new outil(id, nom, description, prix, ressources, stock, etat,image);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -89,8 +92,8 @@ public class OutilsService2 implements IService<outil> {
     }
 
     @Override
-    public Set<outil> getAll() {
-        Set<outil> outilss = new HashSet<>();
+    public List<outil> getAll() {
+        List<outil> outilss = new ArrayList<>();
 
         String req = "SELECT * FROM outil";
         try {
@@ -104,11 +107,12 @@ public class OutilsService2 implements IService<outil> {
                 String ressources = rs.getString("ressources");
                 String stock = rs.getString("stock");
                 String etat = rs.getString("etat");
+                String image = rs.getString("image");
 
 
 
 
-                outilss.add(new outil(idoutils, nom, description, prix, ressources, stock,etat));
+                outilss.add(new outil(idoutils, nom, description, prix, ressources, stock,etat,image));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -81,8 +81,9 @@ public class CategorieService2 implements IService<Categorie> {
     }
 
     @Override
-    public Set<Categorie> getAll() {
-        Set<Categorie> categories = new HashSet<>();
+
+    public List<Categorie> getAll() {
+        List<Categorie> categories = new ArrayList<>();
         String req = "SELECT * FROM categorie;";
         try (PreparedStatement pst = connection.prepareStatement(req)) {
             try (ResultSet rs = pst.executeQuery()) {

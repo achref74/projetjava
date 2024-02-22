@@ -11,8 +11,9 @@ public class outil {
     private String stock;
     private String etat;
     private Categorie categorie;
+    private String image;
 
-    public outil(int idoutils, String nom, String description, Double prix, String ressources, String stock, String etat,Categorie categorie) {
+    public outil(int idoutils, String nom, String description, Double prix, String ressources, String stock, String etat,Categorie categorie,String image) {
         this.idoutils = idoutils;
         this.nom = nom;
         this.description = description;
@@ -21,8 +22,9 @@ public class outil {
         this.stock = stock;
         this.etat = etat;
         this.categorie=categorie;
+        this.image=image;
     }
-    public outil(int idoutils, String nom, String description, Double prix, String ressources, String stock, String etat) {
+    public outil(int idoutils, String nom, String description, Double prix, String ressources, String stock, String etat, String image) {
         this.idoutils = idoutils;
         this.nom = nom;
         this.description = description;
@@ -30,9 +32,10 @@ public class outil {
         this.ressources = ressources;
         this.stock = stock;
         this.etat = etat;
+        this.image=image;
 
     }
-    public outil( String nom, String description, Double prix, String ressources, String stock, String etat) {
+    public outil( String nom, String description, Double prix, String ressources, String stock, String etat, String image) {
 
         this.nom = nom;
         this.description = description;
@@ -40,10 +43,11 @@ public class outil {
         this.ressources = ressources;
         this.stock = stock;
         this.etat = etat;
+        this.image=image;
 
     }
 
-    public outil(String nom, String description, Double prix, String ressources, String stock, String etat,Categorie categorie) {
+    public outil(String nom, String description, Double prix, String ressources, String stock, String etat,Categorie categorie, String image) {
         this.nom = nom;
         this.description = description;
         this.prix = prix;
@@ -51,6 +55,7 @@ public class outil {
         this.stock = stock;
         this.etat = etat;
         this.categorie=categorie;
+        this.image=image;
     }
 
     public outil() {
@@ -120,29 +125,39 @@ public class outil {
         this.categorie = categorie;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         outil outil = (outil) o;
-        return idoutils == outil.idoutils && Objects.equals(nom, outil.nom) && Objects.equals(description, outil.description) && Objects.equals(prix, outil.prix) && Objects.equals(ressources, outil.ressources) && Objects.equals(stock, outil.stock) && etat == outil.etat;
+        return idoutils == outil.idoutils && Objects.equals(nom, outil.nom) && Objects.equals(description, outil.description) && Objects.equals(prix, outil.prix) && Objects.equals(ressources, outil.ressources) && Objects.equals(stock, outil.stock) && Objects.equals(etat, outil.etat) && Objects.equals(categorie, outil.categorie) && Objects.equals(image, outil.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idoutils, nom, description, prix, ressources, stock, etat);
+        return Objects.hash(idoutils, nom, description, prix, ressources, stock, etat, categorie, image);
     }
 
     @Override
     public String toString() {
-        return "Outils{" +
-                "id=" + idoutils +
+        return "outil{" +
+                "idoutils=" + idoutils +
                 ", nom='" + nom + '\'' +
                 ", description='" + description + '\'' +
                 ", prix=" + prix +
                 ", ressources='" + ressources + '\'' +
                 ", stock='" + stock + '\'' +
-                ", etat=" + etat +
+                ", etat='" + etat + '\'' +
+                ", categorie=" + categorie +
+                ", image='" + image + '\'' +
                 '}';
     }
 }
