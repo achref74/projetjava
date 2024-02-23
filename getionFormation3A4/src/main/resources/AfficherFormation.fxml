@@ -3,7 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -13,170 +18,557 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherFormation">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="1059.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherFormation">
     <children>
-        <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #05071F;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@images/logo.png" />
-                    </image>
-                    <VBox.margin>
-                        <Insets bottom="5.0" top="50.0" />
-                    </VBox.margin>
-                </ImageView>
+      <TabPane fx:id="tabPane_F" prefHeight="602.0" prefWidth="1058.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="afficher_F" text="afficher_F">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="654.0" prefWidth="1056.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="578.0" prefWidth="243.0" style="-fx-background-color: #05071F;">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/logo.png" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" top="50.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Button fx:id="btnUser1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Utilisateurs" textFill="#e7e5e5">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" style="-fx-fill: white;">
+                                       <image>
+                                          <Image url="@images/user.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnOutils1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="245.0" stylesheets="@style.css" text="Outils">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/outil.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnFormation" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Formation">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/formation.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnCours1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Cours">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/cours.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnForum1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Forum">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/forum.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnReclamation1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Reclamation">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/reclamation.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnSignout1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="243.0" stylesheets="@style.css" text="Se Deconnecter">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/signOut.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </VBox>
+                          <StackPane layoutX="246.0" layoutY="1.0" prefHeight="570.0" prefWidth="817.0" style="-fx-background-color: #02030A;">
+                              <children>
+                  
+                                  <Pane fx:id="pnlOverview" prefHeight="587.0" prefWidth="799.0">
+                                      <children>
+                                          <TextField fx:id="searchF" layoutX="595.0" layoutY="29.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                                          <Label layoutX="55.0" layoutY="25.0" text="Formation" textFill="#e7e5e5">
+                                              <font>
+                                                  <Font size="24.0" />
+                                              </font>
+                                          </Label>
+                                          <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
 
-
-
-                <Button fx:id="btnUser" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Utilisateurs" textFill="#e7e5e5">
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" style="-fx-fill: white;">
-                            <image>
-                                <Image url="@images/user.png" />
-                            </image>
                         </ImageView>
-                    </graphic>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                    <padding>
-                        <Insets left="50.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="btnOutils" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Outils">
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images/outil.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <padding>
-                        <Insets left="50.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="btnFormation" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Formation">
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images/formation.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <padding>
-                        <Insets left="50.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="btnCours" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Cours">
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images/cours.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <padding>
-                        <Insets left="50.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="btnForum" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Forum">
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images/forum.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <padding>
-                        <Insets left="50.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="btnReclamation" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Reclamation">
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images/reclamation.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <padding>
-                        <Insets left="50.0" />
-                    </padding>
-                </Button>
-                <Button fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Se Deconnecter">
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images/signOut.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <padding>
-                        <Insets left="50.0" />
-                    </padding>
-                </Button>
-            </children>
-        </VBox>
-        <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
-            <children>
-
-                <Pane fx:id="pnlOverview" prefHeight="576.0" prefWidth="793.0">
-                    <children>
-                        <TextField fx:id="searchF" layoutX="595.0" layoutY="29.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                        <Label layoutX="55.0" layoutY="25.0" text="Formation" textFill="#e7e5e5">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                        </Label>
-                        <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
-
-                        </ImageView>
-                        <Button layoutX="654.0" layoutY="70.0" mnemonicParsing="false" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="Navigate" textFill="WHITE" />
-                  <TextField fx:id="prix" layoutX="629.0" layoutY="332.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                  <TextField fx:id="nomF" layoutX="625.0" layoutY="169.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </TextField>
-                  <TextField fx:id="dateF" layoutX="629.0" layoutY="293.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                  <TextField fx:id="dateD" layoutX="628.0" layoutY="254.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                  <TextField fx:id="nbrC" layoutX="629.0" layoutY="372.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                  <TextField fx:id="descripF" layoutX="625.0" layoutY="213.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                  <TextField fx:id="idF" layoutX="625.0" layoutY="132.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </TextField>
-                  <Button fx:id="deleteF" layoutX="634.0" layoutY="415.0" mnemonicParsing="false" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="delete" />
-                  <Button fx:id="updateF" layoutX="698.0" layoutY="415.0" mnemonicParsing="false" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="update" />
-                  <VBox fx:id="Vbox" layoutX="30.0" layoutY="66.0" minHeight="479.0" minWidth="500.0" prefHeight="479.0" prefWidth="552.0">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </VBox>
-                  <Button fx:id="navigate" layoutX="667.0" layoutY="455.0" mnemonicParsing="false" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="return" />
-                  <Button fx:id="ajouterF" layoutX="187.0" layoutY="30.0" mnemonicParsing="false" onAction="#navigatetoAjouterFormationAction" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="Ajouter" />
-                  <ImageView fitHeight="42.0" fitWidth="70.0" layoutX="707.0" layoutY="493.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/certif.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="42.0" fitWidth="42.0" layoutX="633.0" layoutY="493.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/offre.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="offreF" layoutX="635.0" layoutY="537.0" mnemonicParsing="false" text="offre" onAction="#navigatetoOffreFormationAction" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;"/>
-                  <Button fx:id="certificatF" layoutX="701.0" layoutY="537.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" text="certificat" onAction="#navigatetoCertificatFormationAction" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;"/>
-
-                    </children>
-                </Pane>
-            </children>
-        </StackPane>
+                                          <Button layoutX="654.0" layoutY="70.0" mnemonicParsing="false" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="Navigate" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="ajouterF" layoutX="187.0" layoutY="30.0" mnemonicParsing="false" onAction="#navigatetoAjouterFormationAction" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="Ajouter">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="offreF" layoutX="697.0" layoutY="182.0" mnemonicParsing="false" onAction="#navigatetoOffreFormationAction" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" text="  offre" textAlignment="CENTER" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <ImageView fitHeight="22.0" fitWidth="28.0" layoutX="700.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/offre.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Button fx:id="certificatF" layoutX="698.0" layoutY="268.0" mnemonicParsing="false" onAction="#navigatetoCertificatFormationAction" prefHeight="25.0" prefWidth="92.0" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" text="  certificat" textAlignment="CENTER" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <ImageView fitHeight="24.0" fitWidth="20.0" layoutX="700.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/certif.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ScrollPane fx:id="scrollPane" layoutX="66.0" layoutY="111.0" prefHeight="394.0" prefWidth="590.0" style="-fx-background-color: #2b2d30;">
+                                       <content>
+                                          <VBox fx:id="Vbox" minHeight="418.0" minWidth="500.0" prefHeight="1583.0" prefWidth="614.0" style="-fx-background-color: #2b2d30;">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </VBox>
+                                       </content>
+                                    </ScrollPane>
+                  
+                                      </children>
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                                  </Pane>
+                              </children>
+                          </StackPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="modif_supp_F" text="modif_supp_F">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="551.0" prefWidth="243.0" style="-fx-background-color: #05071F;">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/logo.png" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" top="50.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Button fx:id="btnUser11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Utilisateurs" textFill="#e7e5e5">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" style="-fx-fill: white;">
+                                       <image>
+                                          <Image url="@images/user.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnOutils11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Outils">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/outil.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnFormation11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Formation">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/formation.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnCours11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Cours">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/cours.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnForum11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Forum">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/forum.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnReclamation11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Reclamation">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/reclamation.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnSignout11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Se Deconnecter">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/signOut.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <StackPane layoutX="243.0" layoutY="-12.0" prefHeight="570.0" prefWidth="799.0" style="-fx-background-color: #02030A;">
+                           <children>
+                              <Pane fx:id="pnlOverview1" prefHeight="519.0" prefWidth="788.0">
+                                 <children>
+                                    <TextField fx:id="searchF1" layoutX="595.0" layoutY="29.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                                    <Label layoutX="55.0" layoutY="25.0" text="Formation" textFill="#e7e5e5">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Button layoutX="654.0" layoutY="70.0" mnemonicParsing="false" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="Navigate" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <TextField fx:id="prix" layoutX="302.0" layoutY="299.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                                    <TextField fx:id="nomF" layoutX="298.0" layoutY="136.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </TextField>
+                                    <TextField fx:id="dateF" layoutX="302.0" layoutY="260.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                                    <TextField fx:id="dateD" layoutX="301.0" layoutY="221.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                                    <TextField fx:id="nbrC" layoutX="302.0" layoutY="339.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                                    <TextField fx:id="descripF" layoutX="298.0" layoutY="180.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                                    <TextField fx:id="idF" layoutX="298.0" layoutY="99.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </TextField>
+                                    <Button fx:id="deleteF" layoutX="307.0" layoutY="382.0" mnemonicParsing="false" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="delete" />
+                                    <Button fx:id="updateF" layoutX="371.0" layoutY="382.0" mnemonicParsing="false" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="update">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="navigate" layoutX="340.0" layoutY="422.0" mnemonicParsing="false" style="-fx-background-color: #ddb78c; -fx-control-inner-background: #02030A; -fx-border-radius: 4em; -fx-border-radius: 100;" stylesheets="@style.css" text="return">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children>
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Pane>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="offre_F" text="offre_F">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="551.0" prefWidth="243.0" style="-fx-background-color: #05071F;">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/logo.png" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" top="50.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Button fx:id="btnUser111" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Utilisateurs" textFill="#e7e5e5">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" style="-fx-fill: white;">
+                                       <image>
+                                          <Image url="@images/user.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnOutils111" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Outils">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/outil.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnFormation111" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Formation">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/formation.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnCours111" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Cours">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/cours.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnForum111" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Forum">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/forum.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnReclamation111" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Reclamation">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/reclamation.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnSignout111" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Se Deconnecter">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/signOut.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <StackPane layoutX="240.0" prefHeight="552.0" prefWidth="819.0" style="-fx-background-color: #02030A;">
+                           <children>
+                              <Pane fx:id="pnlOverview11" layoutX="10.0" layoutY="10.0" prefHeight="576.0" prefWidth="491.0">
+                                 <children>
+                                    <TextField layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                                    <Label layoutX="79.0" layoutY="52.0" text="Offre" textFill="#e7e5e5">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" />
+                                    <TextField fx:id="prixO" layoutX="347.0" layoutY="254.0" prefHeight="27.0" prefWidth="148.0" promptText="Nom" style="-fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0.1),10.0,0.0,0.0,10.0);" />
+                                    <TextArea fx:id="descripO" layoutX="347.0" layoutY="301.0" prefHeight="72.0" prefWidth="148.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
+                                    <DatePicker fx:id="dateDO" layoutX="345.0" layoutY="394.0" prefHeight="26.0" prefWidth="151.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
+                                    <DatePicker fx:id="dateFO" layoutX="345.0" layoutY="446.0" prefHeight="26.0" prefWidth="150.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
+                                    <Text fill="#2a73ff" layoutX="252.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" textAlignment="CENTER" wrappingWidth="43.44140625" />
+                                    <Text fill="#2a73ff" layoutX="264.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" />
+                                    <Text fill="#2a73ff" layoutX="54.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la formation">
+                                       <font>
+                                          <Font name="System Bold Italic" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="nomF_Offre" layoutX="40.0" layoutY="167.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
+                                    <Button fx:id="ajouterOffre" layoutX="376.0" layoutY="507.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="91.0" style="-fx-background-color: #ddb78c;-fx-control-inner-background: #02030A;-fx-border-radius: 4em;" stylesheets="@style.css" text="Ajouter" textAlignment="CENTER" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button layoutX="662.0" layoutY="138.0" mnemonicParsing="false" onAction="#navigatetoAfficheFormationAction" style="-fx-background-color: #ddb78c;-fx-control-inner-background: #02030A;-fx-border-radius: 4em;" stylesheets="@style.css" text="Navigate" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Text fill="#2a73ff" layoutX="262.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut" />
+                                    <Text fill="#2a73ff" layoutX="255.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER" wrappingWidth="73.7484130859375" />
+                                    <TextField fx:id="id_F_O" layoutX="345.0" layoutY="204.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
 
     </children>
     <effect>

@@ -126,6 +126,16 @@ public class Main {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }*/
+/*
+        Date dateD = new Date(2024-03-30);// Remplacez par la date de début souhaitée
+        Date dateF =new Date(2024-03-30); // Remplacez par la date de fin souhaitée
+ServiceOffre so=new ServiceOffre();
+        Offre nouvelOffre = new Offre(50,"reduction speciale",dateD,dateF,8);
+        try {
+            so.ajouter(nouvelOffre); // Ajouter l'offre après l'association
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }*/
     }
 
 }

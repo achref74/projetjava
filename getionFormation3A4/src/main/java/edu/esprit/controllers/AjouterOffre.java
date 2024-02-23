@@ -1,7 +1,5 @@
 package edu.esprit.controllers;
-import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
-import edu.esprit.services.ServiceFormation;
 import edu.esprit.services.ServiceOffre;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,7 +56,7 @@ private TextField nomF1;
     @FXML
     private TextField prixO;
     private final ServiceOffre so = new ServiceOffre();
-
+/*
     @FXML
     void AjouterOffreAction(ActionEvent event) {
        java.sql.Date dateDebut = java.sql.Date.valueOf(dateDO.getValue());
@@ -69,8 +67,8 @@ private TextField nomF1;
             so.ajouter(new Offre(Double.parseDouble(prixF.getText()),
                     descripO.getText(),
                     dateDebut,
-                    dateFin),
-                    Integer.parseInt(nomF1.getText()));
+                    dateFin,
+                    Integer.parseInt(nomF1.getText())));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("Offre ajoutée avec succès !");
@@ -82,7 +80,7 @@ private TextField nomF1;
             alert.showAndWait();
         }
     }
-
+*/
     @FXML
     void navigatetoAfficheFormationAction(ActionEvent event) {
         try {

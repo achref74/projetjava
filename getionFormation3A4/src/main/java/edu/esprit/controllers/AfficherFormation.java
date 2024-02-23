@@ -1,19 +1,22 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Formation;
+import edu.esprit.entities.Offre;
 import edu.esprit.services.ServiceFormation;
+import edu.esprit.services.ServiceOffre;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -43,36 +46,101 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AfficherFormation implements Initializable {
-
+@FXML
+private ScrollPane scrollPane;
     @FXML
     private VBox Vbox;
 
     @FXML
-    private Button btnCours;
+    private Tab afficher_F;
+
+    @FXML
+    private Button ajouterF;
+
+    @FXML
+    private Button ajouterOffre;
+
+    @FXML
+    private Button btnCours1;
+
+    @FXML
+    private Button btnCours11;
+
+    @FXML
+    private Button btnCours111;
 
     @FXML
     private Button btnFormation;
 
     @FXML
-    private Button btnForum;
+    private Button btnFormation11;
 
     @FXML
-    private Button btnOutils;
+    private Button btnFormation111;
 
     @FXML
-    private Button btnReclamation;
+    private Button btnForum1;
 
     @FXML
-    private Button btnSignout;
+    private Button btnForum11;
 
     @FXML
-    private Button btnUser;
+    private Button btnForum111;
+
+    @FXML
+    private Button btnOutils1;
+
+    @FXML
+    private Button btnOutils11;
+
+    @FXML
+    private Button btnOutils111;
+
+    @FXML
+    private Button btnReclamation1;
+
+    @FXML
+    private Button btnReclamation11;
+
+    @FXML
+    private Button btnReclamation111;
+
+    @FXML
+    private Button btnSignout1;
+
+    @FXML
+    private Button btnSignout11;
+
+    @FXML
+    private Button btnSignout111;
+
+    @FXML
+    private Button btnUser1;
+
+    @FXML
+    private Button btnUser11;
+
+    @FXML
+    private Button btnUser111;
+
+    @FXML
+    private Button certificatF;
 
     @FXML
     private TextField dateD;
 
     @FXML
+    private TextField nomF_Offre;
+@FXML
+private TextField id_F_O;
+    @FXML
+    private DatePicker dateDO;
+
+    @FXML
     private TextField dateF;
+
+    @FXML
+    private DatePicker dateFO;
 
     @FXML
     private Button deleteF;
@@ -81,11 +149,16 @@ public class AfficherFormation implements Initializable {
     private TextField descripF;
 
     @FXML
+    private TextArea descripO;
+
+    @FXML
+    private TextField idF;
+
+    @FXML
+    private Tab modif_supp_F;
+
+    @FXML
     private Button navigate;
-    @FXML
-    private Button offreF;
-    @FXML
-    private Button certificatF;
 
     @FXML
     private TextField nbrC;
@@ -94,17 +167,42 @@ public class AfficherFormation implements Initializable {
     private TextField nomF;
 
     @FXML
-    private TextField idF;
+    private TextField nomF1;
+
+    @FXML
+    private Button offreF;
+
+    @FXML
+    private Tab offre_F;
+
     @FXML
     private Pane pnlOverview;
-@FXML
-private Button ajouterF;
+
+    @FXML
+    private Pane pnlOverview1;
+
+    @FXML
+    private Pane pnlOverview11;
+
     @FXML
     private TextField prix;
 
     @FXML
+    private TextField prixO;
+
+    @FXML
+    private TextField searchF;
+
+    @FXML
+    private TextField searchF1;
+
+    @FXML
+    private TabPane tabPane_F;
+
+    @FXML
     private Button updateF;
     ServiceFormation sf=new ServiceFormation();
+    ServiceOffre so=new ServiceOffre();
     private String selecteNom;
     private String selecteIdF;
     private String selecteDescrip;
@@ -112,7 +210,8 @@ private Button ajouterF;
     private String selecteDateF;
     private String selectePrix;
     private String selecteNbrC;
-
+private String selecteNom1;
+private String selecteIdO;
 
     @FXML
     void navigatetoAfficheFormationAction(ActionEvent event) {
@@ -165,6 +264,10 @@ private Button ajouterF;
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        idF.setVisible(false);
+        id_F_O.setVisible(false);
+        scrollPane.setFitToWidth(true); // Ajuster à la largeur
+        scrollPane.setContent(Vbox);
         navigate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -190,9 +293,6 @@ private Button ajouterF;
 
             }
         });
-
-
-        System.out.println("zzzzzzzzz");
         Vbox.getChildren().clear();
 
         List<Formation> formationList = null;
@@ -212,7 +312,14 @@ private Button ajouterF;
             Label dateFLabel = new Label("Date Fin: " + formations.getDateFin());
             Label prixLabel = new Label("Prix: " + formations.getPrix());
             Label nbrCLabel = new Label("Nombre Cours: " + formations.getNbrCours());
-
+            Button offreButton = new Button("Offre");
+            offreButton.setOnAction(event -> {
+                tabPane_F.getSelectionModel().select(offre_F);
+                 selecteNom1 = formations.getNom();
+                 selecteIdO=String.valueOf(formations.getIdFormation());
+                  id_F_O.setText(selecteIdO);
+                nomF_Offre.setText(selecteNom1);
+            });
             GridPane gridPane = new GridPane();
             gridPane.add(nomLabel, 0, 0);
             gridPane.add(descripdLabel, 0, 1);
@@ -220,10 +327,14 @@ private Button ajouterF;
             gridPane.add(dateFLabel, 0, 3);
             gridPane.add(prixLabel, 0, 4);
             gridPane.add(nbrCLabel, 0, 5);
+            gridPane.add(offreButton, 0, 6);
 
-            TitledPane titledPane = new TitledPane("Reclamation " + formations.getIdFormation(), gridPane);
+
+            TitledPane titledPane = new TitledPane("Formation: " + formations.getIdFormation(), gridPane);
+            //HBox content = new HBox(titledPane, offreButton);
 
             titledPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     selecteIdF=String.valueOf(formations.getIdFormation());
@@ -233,8 +344,6 @@ private Button ajouterF;
                     selecteDateF = String.valueOf(formations.getDateFin());
                     selectePrix = String.valueOf(formations.getPrix());
                     selecteNbrC = String.valueOf(formations.getNbrCours());
-
-
                     // Perform any action with the selected values
                     System.out.println("Selected ID: " + selecteIdF);
                     System.out.println("Selected Nom : " + selecteNom);
@@ -250,16 +359,12 @@ private Button ajouterF;
                     dateF.setText(selecteDateF);
                     prix.setText(selectePrix);
                     nbrC.setText(selecteNbrC);
+                    tabPane_F.getSelectionModel().select(modif_supp_F);
                 }
             });
-
-
             Vbox.getChildren().add(titledPane);
+
         }
-
-
-
-
         // ----------------delete code --------------------------
        deleteF.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -271,13 +376,14 @@ private Button ajouterF;
                         throw new RuntimeException(e);
                     }
                     loadReclamationData();
+                    tabPane_F.getSelectionModel().select(afficher_F);
+
                 }
             }
         });
-        //-----------------------------------
 
-
-       updateF.setOnAction(new EventHandler<ActionEvent>() {
+        //-------------update_formation----------------------
+        updateF.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Format de date à utiliser
@@ -293,6 +399,8 @@ private Button ajouterF;
                             throw new RuntimeException(e);
                         }
                         loadReclamationData();
+                        tabPane_F.getSelectionModel().select(afficher_F);
+
                     }
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
@@ -300,18 +408,35 @@ private Button ajouterF;
 
 
             }
+
         });
+       //-------------------------ajouterOffre----------------------//
+       ajouterOffre.setOnAction(new EventHandler<ActionEvent>() {
+           public void handle(ActionEvent actionEvent) {
+               java.sql.Date dateDebut = java.sql.Date.valueOf(dateDO.getValue());
+               java.sql.Date dateFin = java.sql.Date.valueOf(dateFO.getValue());
 
 
-
-
-
-
-
-
-
-
+               try {
+                   so.ajouter(new Offre(Double.parseDouble(prixO.getText()),
+                                   descripO.getText(),
+                                   dateDebut,
+                                   dateFin,
+                           Integer.parseInt(id_F_O.getText())));
+                   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                   alert.setTitle("Success");
+                   alert.setContentText("Offre ajoutée avec succès !");
+                   alert.show();
+               } catch (SQLException e) {
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                   alert.setTitle("SQL Exception");
+                   alert.setContentText(e.getMessage());
+                   alert.showAndWait();
+               }
+           }
+                });
     }
+
     //-------------refresh fucnction ---------------------------------------
     private void loadReclamationData() {
         Vbox.getChildren().clear(); // Clear existing display
@@ -335,13 +460,12 @@ private Button ajouterF;
             Label nbrCLabel = new Label("Date Rec: " + formations.getNbrCours());
 
             GridPane gridPane = new GridPane();
-            gridPane.add(idLabel, 0, 0);
-            gridPane.add(nomLabel, 0, 1);
-            gridPane.add(descripdLabel, 0, 2);
-            gridPane.add(dateDLabel, 0, 3);
-            gridPane.add(dateFLabel, 0, 4);
-            gridPane.add(prixLabel, 0, 5);
-            gridPane.add(nbrCLabel, 0, 6);
+            gridPane.add(nomLabel, 0, 0);
+            gridPane.add(descripdLabel, 0, 1);
+            gridPane.add(dateDLabel, 0, 2);
+            gridPane.add(dateFLabel, 0, 3);
+            gridPane.add(prixLabel, 0, 4);
+            gridPane.add(nbrCLabel, 0, 5);
 
             TitledPane titledPane = new TitledPane("Reclamation " + formations.getIdFormation(), gridPane);
 
@@ -367,12 +491,15 @@ private Button ajouterF;
                     System.out.println("Selected Prix : " + selectePrix);
                     System.out.println("Selected Nombre Des Cours: " + selecteNbrC);
                     idF.setText(selecteIdF);
+
                     nomF.setText(selecteNom);
                     descripF.setText(selecteDescrip);
                     dateD.setText(selecteDateD);
                     dateF.setText(selecteDateF);
                     prix.setText(selectePrix);
                     nbrC.setText(selecteNbrC);
+                    tabPane_F.getSelectionModel().select(modif_supp_F);
+
                 }
             });
 

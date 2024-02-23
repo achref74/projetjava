@@ -27,7 +27,8 @@ public class AjouterFormation {
     @FXML
     private TextField nbrCourF;
     private final ServiceFormation sp = new ServiceFormation();
-
+    @FXML
+private Button btnFormation;
 
     @FXML
     void AjouterFormationAction(ActionEvent event) {

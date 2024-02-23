@@ -15,11 +15,20 @@ public class ServiceOffre implements IService<Offre> {
 
     @Override
     public void ajouter(Offre offre) throws SQLException{
+        String req = "INSERT INTO `offre`(`prixOffre`, `description`, `dateD`, `dateF`,`idFormation`) VALUES (?,?,?,?,?)";
 
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setDouble(1, offre.getPrixOffre());
+        ps.setString(2, offre.getDescription());
+        ps.setDate(3, new java.sql.Date(offre.getDateD().getTime()));
+        ps.setDate(4, new java.sql.Date(offre.getDateF().getTime()));
+        ps.setInt(5, offre.getIdFormation());
+        ps.executeUpdate();
+        System.out.println("offre ajouté !");
     }
 
     public void ajouter(Offre offre, int idFormation) throws SQLException{
-         if (ServiceFormation.existe(idFormation)) {
+
              String req = "INSERT INTO `offre`(`prixOffre`, `description`, `dateD`, `dateF`,`idFormation`) VALUES (?,?,?,?,?)";
 
                  PreparedStatement ps = cnx.prepareStatement(req);
@@ -27,11 +36,11 @@ public class ServiceOffre implements IService<Offre> {
                  ps.setString(2, offre.getDescription());
                  ps.setDate(3, new java.sql.Date(offre.getDateD().getTime()));
                  ps.setDate(4, new java.sql.Date(offre.getDateF().getTime()));
-                 ps.setInt(5, offre.getFormation().getIdFormation());
+                 ps.setInt(5, offre.getIdFormation());
                  ps.executeUpdate();
                  System.out.println("offre ajouté !");
 
-         }
+
     }
     @Override
     public void modifier(Offre offre) throws SQLException{
