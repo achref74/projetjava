@@ -6,9 +6,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +40,21 @@ public class AfficherReclamationBack implements Initializable {
                 ReclamationController reclamationController = fxmlLoader.getController();
                 reclamationController.setData(reclamation);
 
+                // Set Reclamation as user data for the VBox
+                reclamationBox.setUserData(reclamation);
+
+                Button deleteButton = new Button("Delete");
+                deleteButton.setOnAction(event -> {
+                    handleDelete(reclamation, reclamationBox);
+                });
+
+                reclamationBox.setOnMouseClicked(event -> handleReclamationClick(reclamationBox));
+
+
+
+                HBox hbox = new HBox();
+                hbox.getChildren().addAll(deleteButton);
+                reclamationBox.getChildren().add(hbox);
 
                 if(column == 3){
                     column = 0;
@@ -62,6 +80,13 @@ public class AfficherReclamationBack implements Initializable {
         }
     }
 
+    private void handleDelete(Reclamation reclamation, VBox reclamationBox) {
+        ReclamationService.supprimer(reclamation.getId_reclamation());
+        // Remove the reclamationBox from the parent container
+        reclamationContainer.getChildren().remove(reclamationBox);
+        // reclamationContainer.getChildren().clear();
+
+    }
 
 
     private Set<Reclamation> reclamations(){
@@ -73,6 +98,41 @@ public class AfficherReclamationBack implements Initializable {
         }
         return listR;
     }
+    @FXML
+    private void handleReclamationClick(VBox clickedBox) {
+        // Get the Reclamation associated with the clicked UI element
+        Reclamation selectedReclamation = getReclamationFromEventSource(clickedBox);
 
+        // Open the reply window when a reclamation is clicked
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ReplyWindow.fxml"));
+            VBox replyWindow = fxmlLoader.load();
+            ReplyWindowController replyWindowController = fxmlLoader.getController();
+
+            // Pass the selected reclamation to set its details
+            replyWindowController.setReclamationDetails(selectedReclamation);
+            replyWindowController.setAssociatedReclamation(selectedReclamation);
+
+            // Show the reply window
+            Stage stage = new Stage();
+            stage.setTitle("Reclamation Details and Responses");
+            stage.setScene(new Scene(replyWindow));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private Reclamation getReclamationFromEventSource(VBox clickedBox) {
+        // Ensure that the associated Reclamation is not null
+        if (clickedBox != null && clickedBox.getUserData() instanceof Reclamation) {
+            return (Reclamation) clickedBox.getUserData();
+        } else {
+            // Handle the case where the Reclamation is null or not set
+            // You might show an error message or take appropriate action
+            return null;
+        }
+    }
 
 }

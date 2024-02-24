@@ -4,6 +4,7 @@ edu\esprit\controllers\ReclamationController.class
 edu\esprit\controllers\AfficherReclamation$1$1.class
 edu\esprit\utils\DataSource.class
 edu\esprit\controllers\AjouterReclamation.class
+edu\esprit\controllers\ReplyWindowController.class
 edu\esprit\services\IService.class
 edu\esprit\tests\MainFX.class
 edu\esprit\controllers\AjouterFormation.class
