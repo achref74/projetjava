@@ -3,19 +3,19 @@
 }
 .button
 {
-    -fx-background-color : #05071F;
+    -fx-background-color : #4B2F00;
     -fx-text-fill : #e7e5e5;
 }
 .button:hover{
-    -fx-background-color : #10165F;
+    -fx-background-color : rgba(75, 47, 0, 0.61);
 }
 .button:pressed
 {
-    -fx-background-color : #1620A1;
+    -fx-background-color :   #eccfa7;
 }
 
 .scroll-pane {
-    -fx-background-color: #02030A;
+    -fx-background-color: #080b1f;
 }
 
 .scroll-bar:horizontal, .scroll-bar:vertical{
@@ -45,7 +45,7 @@
 }
 
 .combo-box {
-    -fx-background-color: #000000; /* Couleur de fond */
+    -fx-background-color: #ffffff; /* Couleur de fond */
     -fx-text-fill: #ffffff; /* Couleur du texte */
     -fx-border-color: #ffffff; /* Couleur de la bordure */
     -fx-border-radius: 5px; /* Rayon de la bordure */
@@ -54,7 +54,7 @@
 
 /* Style pour le champ de texte (input) dans le ComboBox */
 .combo-box .text-field {
-    -fx-background-color: #05071F; /* Fond transparent */
+    -fx-background-color: #ffffff; /* Fond transparent */
     -fx-border:#ffffff; /* Pas de bordure */
     -fx-font-size: 14px; /* Taille de police */
     -fx-prompt-text-fill: #999999; /* Couleur du texte d'invite */
@@ -62,14 +62,15 @@
 
 /* Style pour la flèche du ComboBox */
 .combo-box .arrow-button {
-    -fx-background-color: #05071F; /* Couleur de fond */
+    -fx-background-color: #ffffff; /* Couleur de fond */
     -fx-shape: "M0 0 L5 5 L10 0 Z"; /* Forme de la flèche */
 }
 
 /* Style pour la liste déroulante du ComboBox */
 .combo-box .list-view {
-    -fx-background-color: #05071F; /* Couleur de fond */
+    -fx-background-color: #ffffff; /* Couleur de fond */
     -fx-text-fill: #ffffff; /* Couleur du texte */
     -fx-border-color: #ffffff; /* Couleur de la bordure */
     -fx-border-radius: 5px; /* Rayon de la bordure */
 }
+

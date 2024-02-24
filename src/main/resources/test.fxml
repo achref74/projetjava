@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="570.0" prefWidth="1041.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.test">
+   <children>
+      <Button layoutX="507.0" layoutY="124.0" mnemonicParsing="false" onAction="#AjouterForumStage" text="Ajouter" />
+      <Button layoutX="542.0" layoutY="52.0" mnemonicParsing="false" onAction="#SupprimerForum" text="supprimer" />
+      <Button layoutX="464.0" layoutY="52.0" mnemonicParsing="false" onAction="#refreche" text="refrecher" />
+      <ScrollPane fx:id="ScrolFelhi" layoutX="781.0" layoutY="87.0" prefHeight="395.0" prefWidth="226.0">
+         <content>
+            <VBox fx:id="mohamed" prefHeight="67.0" prefWidth="207.0" />
+         </content>
+      </ScrollPane>
+      <Pane fx:id="modiferForumPane" layoutX="392.0" layoutY="211.0" prefHeight="422.0" prefWidth="340.0">
+         <children>
+            <Button layoutX="61.0" layoutY="337.0" mnemonicParsing="false" onAction="#ModifierForum" text="Affecter modifiction" />
+            <Text layoutX="20.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre" />
+            <Text layoutX="20.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="64.0" />
+            <Text layoutX="17.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouveau Formation" wrappingWidth="70.39999999999986" />
+            <TextArea fx:id="DescriptionForumModifier" layoutX="92.0" layoutY="109.0" prefHeight="90.0" prefWidth="181.0" />
+            <TextField fx:id="TitreForumModifier" layoutX="92.0" layoutY="63.0" prefHeight="25.0" prefWidth="181.0" />
+            <ComboBox fx:id="ForumFormationModifier" layoutX="92.0" layoutY="264.0" prefHeight="25.0" prefWidth="181.0" />
+            <TextField fx:id="AncienFormationModifier" editable="false" layoutX="92.0" layoutY="211.0" prefHeight="25.0" prefWidth="181.0" />
+            <Text layoutX="16.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ancien formation" wrappingWidth="64.0" />
+            <Button layoutX="228.0" layoutY="337.0" mnemonicParsing="false" onAction="#QuiterModifierForum" prefHeight="25.0" prefWidth="70.0" text="Quiter" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

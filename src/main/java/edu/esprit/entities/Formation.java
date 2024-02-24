@@ -8,12 +8,23 @@ public class Formation {
         return idFormation;
     }
 
+    public Formation(int idFormation, String nomF) {
+        this.idFormation = idFormation;
+        this.nomF = nomF;
+    }
+    public Formation(){}
+
     public void setIdFormation(int idFormation) {
         this.idFormation = idFormation;
     }
 
     public String getNomF() {
         return nomF;
+    }
+
+    @Override
+    public String toString() {
+        return nomF ;
     }
 
     public void setNomF(String nomF) {

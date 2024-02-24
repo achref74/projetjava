@@ -36,28 +36,25 @@ public class ServiceForum implements IService<Forum> {
         PreparedStatement  prepardstatement = cnx.prepareStatement(req);
         prepardstatement.setString(1, forum.getTitre());
         prepardstatement.setString(2, forum.getDescription());
-
         prepardstatement.setInt(3, forum.getFormation().getIdFormation());
-
         prepardstatement.setInt(4, forum.getIdForum());
-
-        // prepardstatement.setInt(5, commentaire.getIdCommentaire());
         prepardstatement.executeUpdate();
         System.out.println("forum modifié");
     }
-    public void supprimer(int id){ String req = "DELETE FROM forum WHERE idforum = ?";
+    public void supprimer(int id) throws SQLException {
+        String req = "DELETE FROM forum WHERE idforum = ?";
 
-        try {
+
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ps.executeUpdate();
-            System.out.println("forum supprimé !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }}
+
+
+
+        }
     public Forum getOneById(int id){
         Forum forum = null;
-        String req = "SELECT a.*,f.nomF FROM forum a  INNER JOIN formation f ON a.idFormation = f.idFormation WHERE a.idForum = ?";
+        String req = "SELECT a.*,f.nom FROM forum a  INNER JOIN formation f ON a.idFormation = f.idFormation WHERE a.idForum = ?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
@@ -66,9 +63,10 @@ public class ServiceForum implements IService<Forum> {
             if (res.next()) {
                 String titre = res.getString("titre");
                 String description = res.getString("description");
-                formation.setNomF(res.getString("nomF")) ;
+                formation.setNomF(res.getString("nom")) ;
                 java.sql.Timestamp timestamp = res.getTimestamp("dateCreation");
                 LocalDateTime dateCreation = timestamp.toLocalDateTime();
+                formation.setIdFormation(res.getInt("idFormation"));
 
                 forum = new Forum(titre, dateCreation,  description,  formation);
             }
@@ -87,6 +85,7 @@ public class ServiceForum implements IService<Forum> {
         List<Forum> list = new ArrayList<>();
         while (cs.next()) {
             Forum forum = new Forum();
+            forum.setIdForum(cs.getInt("idForum"));
             forum.setTitre(cs.getString("titre"));
             forum.setDescription(cs.getString("description"));
             java.sql.Timestamp timestamp = cs.getTimestamp("dateCreation");

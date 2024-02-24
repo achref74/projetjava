@@ -8,8 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,61 +22,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AjouterForum {
+public class AjouterTEST {
 
     @FXML
-    private Button AnnulerForum;
+    private ComboBox<Formation> AfficherFormationNom;
 
     @FXML
-    private ComboBox<Formation> ComboboxForum;
+    private TextField TItreForum;
 
     @FXML
-    private TextArea DescriptionForum;
-
-    @FXML
-    private TextField TitreForum;
-
-    @FXML
-    private Button ajouterFormation;
-
-    @FXML
-    private Button btnCours;
-
-    @FXML
-    private Button btnFormation;
-
-    @FXML
-    private Button btnForum;
-
-    @FXML
-    private Button btnOutils;
-
-    @FXML
-    private Button btnReclamation;
-
-    @FXML
-    private Button btnSignout;
-
-    @FXML
-    private Button btnUser;
-
-    @FXML
-    private Pane pnlOverview;
+    private TextArea descriptionForum;
     private final ServiceForum serviceForum=new ServiceForum();
     private DataSource MyConnection;
 
 
 
-    public void InterfaceForumAction(ActionEvent actionEvent) {
-    }
-
-
-    public void AjouterForum(ActionEvent actionEvent) {
+    @FXML
+    void AjouterForum(ActionEvent event) {
         try {
-            Formation formation = (Formation) ComboboxForum.getValue();
+            Formation formation = (Formation) AfficherFormationNom.getValue();
             int idFormation = formation.getIdFormation();
 
-            serviceForum.ajouter(new Forum(TitreForum.getText(), DescriptionForum.getText(), formation));
+            serviceForum.ajouter(new Forum(TItreForum.getText(), descriptionForum.getText(), formation));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("GG");
@@ -82,13 +54,24 @@ public class AjouterForum {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+
     }
 
-    public void AnnulerForum(ActionEvent actionEvent) {
-        TitreForum.clear();
-        DescriptionForum.clear();
+    @FXML
+    void AnnulerSaisie(ActionEvent event) {
+        TItreForum.clear();
+        descriptionForum.clear();
+
     }
 
+    @FXML
+    void retour(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Scene currentScene = source.getScene();
+        Stage stage = (Stage) currentScene.getWindow();
+        stage.close();
+
+    }
     @FXML
     void initialize() {
         List<Formation> formations = new ArrayList<>();
@@ -104,12 +87,8 @@ public class AjouterForum {
             System.out.println(e.getMessage());
         }
         ObservableList<Formation> observableFormations = FXCollections.observableArrayList(formations);
-        ComboboxForum.setItems(observableFormations);
+        AfficherFormationNom.setItems(observableFormations);
+
+
     }
-
-
-
-
-
-
 }

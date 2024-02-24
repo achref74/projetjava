@@ -29,7 +29,7 @@ public class main {
 //        sp.modifier(new Publication(4,"bonjour mon amis","papa.png",2,forum,user));
 //        sp.supprimer(6);
 //        System.out.println(sp.getOneById(5));
-//        System.out.println(sp.getAll());
+        System.out.println(sp.getAll());
         /**********Forum CRUD***********/
 //        sf.ajouter(new Forum("forum1.2","felhiiibnj",formation));
 //        sf.modifier(new Forum(14,"kaki","bibi",formation));
