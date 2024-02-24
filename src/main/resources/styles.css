@@ -3,19 +3,19 @@
 }
 .button
 {
-    -fx-background-color : #e7e5e5;
+    -fx-background-color : #05071F;
     -fx-text-fill : #e7e5e5;
 }
 .button:hover{
-    -fx-background-color : #e7e5e5;
+    -fx-background-color : #10165F;
 }
 .button:pressed
 {
-    -fx-background-color : #e7e5e5;
+    -fx-background-color : #1620A1;
 }
 
 .scroll-pane {
-    -fx-background-color: #e7e5e5;
+    -fx-background-color: #02030A;
 }
 
 .scroll-bar:horizontal, .scroll-bar:vertical{
@@ -34,3 +34,18 @@
     -fx-background-radius: 0em;
 }
 
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #10165F;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: black;
+}
+.shadow {
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0.1),10.0,0.0,0.0,10.0);
+}
+.transparent {
+    -fx-background-color: rgba(0,0,0,0);
+}

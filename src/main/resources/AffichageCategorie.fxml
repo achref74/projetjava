@@ -26,27 +26,6 @@
                         <Insets bottom="5.0" top="50.0" />
                     </VBox.margin>
                 </ImageView>
-
-
-
-                <Button fx:id="btnUser" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@styles.css" text="Utilisateurs" textFill="#e7e5e5">
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" style="-fx-fill: white;">
-                            <image>
-                                <Image url="@images/user.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                    <padding>
-                        <Insets left="50.0" />
-                    </padding>
-                </Button>
                 <Button fx:id="btnOutils" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@styles.css" text="Nom">
                     <graphic>
                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
@@ -71,18 +50,6 @@
                         <Insets left="50.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@styles.css" text="Se Deconnecter">
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@images/signOut.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <padding>
-                        <Insets left="50.0" />
-                    </padding>
-                </Button>
             </children>
         </VBox>
         <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
@@ -96,7 +63,7 @@
                                 <Font size="24.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="nom" layoutX="648.0" layoutY="177.0" prefHeight="25.0" prefWidth="115.0">
+                        <TextField fx:id="nom" layoutX="648.0" layoutY="249.0" prefHeight="25.0" prefWidth="115.0">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
@@ -108,9 +75,8 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </VBox>
-                        <TextField fx:id="descrip" layoutX="648.0" layoutY="212.0" prefHeight="25.0" prefWidth="115.0" />
                         <Button fx:id="navigate" layoutX="700.0" layoutY="465.0" mnemonicParsing="false" text="return" />
-                        <TextField fx:id="id" layoutX="648.0" layoutY="140.0" prefHeight="25.0" prefWidth="115.0">
+                        <TextField fx:id="id" layoutX="648.0" layoutY="200.0" prefHeight="25.0" prefWidth="115.0">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
