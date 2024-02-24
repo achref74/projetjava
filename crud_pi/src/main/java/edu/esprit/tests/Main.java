@@ -5,9 +5,11 @@ import edu.esprit.services.ServiceReclamation;
 import edu.esprit.services.ServiceReponse;
 import edu.esprit.utils.DataSource;
 
+import java.sql.SQLException;
+
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         //wiwwwwww
         ServiceReponse serviceReponse = new ServiceReponse();
         ServiceReclamation serviceReclamation = new ServiceReclamation();
@@ -23,8 +25,8 @@ public class Main {
        // System.out.println(serviceReponse.getOneById(2));
        //serviceReclamation.ajouter(reclamation);
 
-       // System.out.println(serviceReponse.getByReclamationId(1));
-       // System.out.println(serviceReclamation.getAll());
+        //System.out.println(serviceReponse.getByReclamationId(1));
+        System.out.println(serviceReclamation.getAll());
         //ajouter reponse
         //serviceReponse.ajouter(r1);
         //serviceReponse.modifier(r1);
@@ -32,7 +34,7 @@ public class Main {
         //System.out.println(serviceReponse.getOneById(1));
        // System.out.println(serviceReponse.getAll());
 
-       // Reclamation rec = new Reclamation(422,0,0,5, "wiiw");
+       // edu.esprit.controllers.Reclamation rec = new edu.esprit.controllers.Reclamation(422,0,0,5, "wiiw");
       //  serviceReclamation.ajouter(rec);
        // System.out.println(serviceReclamation.getAll());
         //serviceReclamation.supprimer(1);

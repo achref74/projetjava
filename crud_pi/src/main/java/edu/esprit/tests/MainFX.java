@@ -13,12 +13,16 @@ import java.io.IOException;
 public class MainFX extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Gestion User");
-        stage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamationBack.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Gestion Reclamation");
+            stage.show();
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+        }
 
         if (DataSource.getInstance().getCnx() != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

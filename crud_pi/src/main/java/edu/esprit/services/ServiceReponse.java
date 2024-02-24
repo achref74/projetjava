@@ -125,7 +125,7 @@ public class ServiceReponse implements IService<Reponse> {
         }
         return Reponses;
     }
-    public Set<Reponse> getByReclamationId(int id_reclamation) {
+    public Set<Reponse> getReponseByReclamationId(int id_reclamation) {
         Set<Reponse> Reponses = new HashSet<>();
 
         String req = "SELECT * FROM `reponse` WHERE id_reclamation = ?";

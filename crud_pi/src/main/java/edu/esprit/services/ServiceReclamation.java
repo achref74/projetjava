@@ -45,12 +45,12 @@ public class ServiceReclamation implements IService<Reclamation> {
             int rowCount = ps.executeUpdate();
 
             if (rowCount > 0) {
-                System.out.println("Reclamation with id " + reclamation.getId_reclamation() + " has been updated successfully.");
+                System.out.println("edu.esprit.controllers.Reclamation with id " + reclamation.getId_reclamation() + " has been updated successfully.");
             } else {
-                System.out.println("No Reclamation found with id " + reclamation.getId_reclamation() + ". Nothing updated.");
+                System.out.println("No edu.esprit.controllers.Reclamation found with id " + reclamation.getId_reclamation() + ". Nothing updated.");
             }
         } catch (SQLException e) {
-            System.out.println("Error updating Reclamation with id " + reclamation.getId_reclamation() + ": " + e.getMessage());
+            System.out.println("Error updating edu.esprit.controllers.Reclamation with id " + reclamation.getId_reclamation() + ": " + e.getMessage());
         }
     }
 
@@ -92,6 +92,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 LocalDateTime date = timestamp.toLocalDateTime();
                 Formation formation = new Formation();
                 formation.setId_formation(res.getInt("id_formation"));
+                // retrieve
                 User user = new User();
                 user.setId_user(res.getInt("id_user"));
                 Outil outil = new Outil();
@@ -99,7 +100,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 return new Reclamation(id,user,outil,formation,description,date);
             }
         } catch (SQLException e) {
-            System.err.println("Error fetching Reclamation by id: " + e.getMessage());
+            System.err.println("Error fetching edu.esprit.controllers.Reclamation by id: " + e.getMessage());
         }
         return null; // Achat not found
     }
