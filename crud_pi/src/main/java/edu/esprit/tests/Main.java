@@ -16,7 +16,7 @@ public class Main {
         System.out.println(DataSource.getInstance());
         Formation formation = new Formation(10);
         Outil outil = new Outil(1);
-        User user = new User(2);
+        User user = new User(2,"ahmed");
         Reclamation reclamation = new Reclamation(user,outil,formation,"testest");
 
 

@@ -16,8 +16,9 @@ public class User {
         this.nom = nom;
     }
 
-    public User(int id_user) {
+    public User(int id_user,String nom) {
         this.id_user = id_user;
+        this.nom=nom;
     }
 
     public int getId_user() {
