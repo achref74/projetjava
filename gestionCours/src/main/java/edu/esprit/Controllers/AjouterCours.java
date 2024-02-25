@@ -90,6 +90,7 @@ public class AjouterCours {
         alert.setContentText("Cours ajouté avec succès !");
         alert.show();
 
+
     }
 
     public void navigatetoAfficherCoursAction(ActionEvent actionEvent) {
@@ -104,4 +105,17 @@ public class AjouterCours {
         }
 
     }
+    public void navigatetoCours(javafx.event.ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/DisplayCours.fxml"));
+            btnCours.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+
+    }
+
 }

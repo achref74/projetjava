@@ -38,18 +38,18 @@ public class ServiceCours implements IService<Cours>{
     }
 
     @Override
-    public void modifier(Cours cours) {
+    public void modifier(Cours c) {
         String req =" UPDATE `cours` SET `nom`=?, `description`=?,`date`=?,`duree`=?,`prerequis`=?,`ressource`=?,`idFormation`=? WHERE `id_cours`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1,cours.getNom());
-            ps.setString(2, cours.getDescrption());
-            ps.setDate(3, cours.getDate());
-            ps.setInt(4, cours.getDuree());
-            ps.setString(5, cours.getPrerequis());
-            ps.setString(6, cours.getRessource());
-            ps.setInt(7,cours.getIdFormation());
-            ps.setInt(8,cours.getId_cours());
+            ps.setString(1,c.getNom());
+            ps.setString(2, c.getDescrption());
+            ps.setDate(3, c.getDate());
+            ps.setInt(4, c.getDuree());
+            ps.setString(5, c.getPrerequis());
+            ps.setString(6, c.getRessource());
+            ps.setInt(7,3);
+            ps.setInt(8,c.getId_cours());
             ps.executeUpdate();
             System.out.println("Cours modified  !");
 

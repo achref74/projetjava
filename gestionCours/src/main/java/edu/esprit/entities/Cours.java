@@ -4,6 +4,17 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class Cours {
+   public  Cours(){}
+    private String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     private int id_cours ;
     private String nom ;
     private String descrption ;
@@ -21,6 +32,18 @@ public class Cours {
 
     public void setImgSource(String imgSource) {
         this.imgSource = imgSource;
+    }
+
+
+    public Cours(int id_cours, String nom, String descrption, String prerequis, String ressource, Date date,  int duree) {
+        this.id_cours = id_cours;
+        this.nom = nom;
+        this.descrption = descrption;
+        this.prerequis = prerequis;
+        this.ressource = ressource;
+        this.date = date;
+        this.duree = duree;
+        this.idFormation = 3;
     }
 
     public Cours(int id_cours, String nom, String descrption, String prerequis, String ressource, Date date, int duree, Evaluation evaluation) {
@@ -107,27 +130,19 @@ public class Cours {
 
     public void setDate(Date date) {
 
-        Date coursDate = date;
-        if ( coursDate.after(new Date(System.currentTimeMillis()))) {
-            throw new IllegalArgumentException("La date du cours doit être dans le passé.");
-        }
-        else
+
             this.date = date;
     }
 
 
     public int getDuree() {
 
-        if (duree <= 0) {
-            throw new IllegalArgumentException("La durée doit être supérieure à zéro.");
-        }
+
         return duree;
     }
 
     public void setDuree(int duree) {
-        if (duree <= 0) {
-            throw new IllegalArgumentException("La durée doit être supérieure à zéro.");
-        }
+
         this.duree = duree;
     }
 

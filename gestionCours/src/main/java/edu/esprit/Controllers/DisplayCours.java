@@ -26,6 +26,7 @@ public class DisplayCours implements Initializable {
     @FXML
     private VBox Vbox;
 
+
     @FXML
     private TextField date;
 
@@ -55,7 +56,13 @@ public class DisplayCours implements Initializable {
 
     @FXML
     private Button update;
+    @FXML
+    private Button ajouter;
 
+    @FXML
+    void navigatetoAjouterCoursAction(java.awt.event.ActionEvent event) {
+
+    }
     ServiceCours serviceCours = new ServiceCours();
 
     private String selectedId;
@@ -100,8 +107,8 @@ public class DisplayCours implements Initializable {
 
         for (Cours cours : coursSet) {
             System.out.println("Adding Cours to TitledPane: " + cours);
-            // Create layout for each reclamation
-            Label id_cours = new Label("ID: " + cours.getId_cours());
+            // Create label  lkol course
+           // Label id_cours = new Label("ID: " + cours.getId_cours());
             Label nom = new Label("Nom : " + cours.getNom());
             Label description = new Label("Discription: " + cours.getDescrption());
             Label date = new Label("Date : " + cours.getDate());
@@ -110,7 +117,7 @@ public class DisplayCours implements Initializable {
             Label ressource = new Label("Date Rec: " + cours.getRessource());
 
             GridPane gridPane = new GridPane();
-            gridPane.add(id_cours, 0, 0);
+            //gridPane.add(id_cours, 0, 0);
             gridPane.add(nom, 0, 1);
             gridPane.add(description, 0, 2);
             gridPane.add(date, 0, 3);
@@ -124,7 +131,7 @@ public class DisplayCours implements Initializable {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     // Récupérer les attributs du cours sélectionné
-                    selectedId = String.valueOf(cours.getId_cours());
+                   // selectedId = String.valueOf(cours.getId_cours());
                     selectedNom = cours.getNom();
                     selectedDescription = cours.getDescrption();
                     selecteddate = String.valueOf(cours.getDate());
@@ -133,7 +140,7 @@ public class DisplayCours implements Initializable {
                     selectedRessource = cours.getRessource();
 
                     // Afficher les attributs dans les champs texte correspondants
-                  id_cours.setText(selectedId);
+                //  id_cours.setText(selectedId);
                     nom.setText(selectedNom);
                     description.setText(selectedDescription);
                     date.setText(selecteddate);
@@ -142,7 +149,7 @@ public class DisplayCours implements Initializable {
                     ressource.setText(selectedRessource);
 
                     // Afficher les attributs dans la console pour vérification
-                    System.out.println("Selected ID: " + selectedId);
+                  //  System.out.println("Selected ID: " + selectedId);
                     System.out.println("Selected Nom : " + selectedNom);
                     System.out.println("Selected Description: " + selectedDescription);
                     System.out.println("Selected Date: " + selecteddate);
@@ -182,7 +189,7 @@ public class DisplayCours implements Initializable {
                     Date dateValue = Date.valueOf(date.getText());
 
                     // Créer un objet Cours avec les valeurs des champs texte
-                    Cours cours = new Cours(nom.getText(), description.getText(), prerequis.getText(), ressource.getText(), dateValue, Integer.parseInt(duree.getText()));
+                    Cours cours = new Cours(Integer.parseInt(id_cours.getText()), nom.getText(), description.getText(), prerequis.getText(), ressource.getText(), dateValue, Integer.parseInt(duree.getText()));
 
                     if (selectedId != null) {
                         // Appeler la méthode de modification dans le service
@@ -199,20 +206,10 @@ public class DisplayCours implements Initializable {
                     alert.show();
                 }
             }
-        });
 
 
 
-
-
-
-
-    }
-
-
-
-
-    //-------------refresh fucnction ---------------------------------------
+        });}//-------------refresh fucnction ---------------------------------------
     private void loadReclamationData() {
         Vbox.getChildren().clear(); // Clear existing display
 
@@ -220,7 +217,7 @@ public class DisplayCours implements Initializable {
 
         for (Cours cours : coursSet) {
             // Create layout for each cours
-            Label id = new Label("ID: " + cours.getId_cours());
+           // Label id = new Label("ID: " + cours.getId_cours());
             Label nomLabel = new Label("Nom : " + cours.getNom());
             Label descriptionLabel = new Label("Description: " + cours.getDescrption());
             Label dateLabel = new Label("Date : " + cours.getDate());
@@ -229,7 +226,7 @@ public class DisplayCours implements Initializable {
             Label ressourceLabel = new Label("Ressource: " + cours.getRessource());
 
             GridPane gridPane = new GridPane();
-            gridPane.add(id, 0, 0);
+           // gridPane.add(id, 0, 0);
             gridPane.add(nomLabel, 0, 1);
             gridPane.add(descriptionLabel, 0, 2);
             gridPane.add(dateLabel, 0, 3);
@@ -261,8 +258,8 @@ public class DisplayCours implements Initializable {
                     ressource.setText(selectedRessource);
 
                     // Afficher les attributs dans la console pour vérification
-                    System.out.println("Selected ID: " + selectedId);
-                    System.out.println("Selected Nom : " + selectedNom);
+
+                   System.out.println("Selected Nom : " + selectedNom);
                     System.out.println("Selected Description: " + selectedDescription);
                     System.out.println("Selected Date: " + selecteddate);
                     System.out.println("Selected Durée: " + selectedduree);
@@ -274,4 +271,20 @@ public class DisplayCours implements Initializable {
             Vbox.getChildren().add(titledPane);
         }
     }
+
+    public void navigatetoAjouterCoursAction(javafx.event.ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AjouterCours.fxml"));
+            ajouter.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+
+    }
+
+
+
 }

@@ -74,7 +74,7 @@
                         <Insets left="50.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btnCours" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Cours">
+                <Button fx:id="btnCours" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#navigatetoCours" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Cours">
                     <graphic>
                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -155,17 +155,17 @@
                         <Text fill="#2a73ff" layoutX="164.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER" wrappingWidth="73.7484130859375" />
                   <TextField fx:id="duree" layoutX="270.0" layoutY="355.0" prefHeight="27.0" prefWidth="153.0" promptText="Prix" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="258.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="212.0" fitWidth="320.0" layoutX="492.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="212.0" fitWidth="308.0" layoutX="486.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/artisan.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="205.0" fitWidth="446.0" layoutX="492.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="205.0" fitWidth="446.0" layoutX="486.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/k0eYvshXLsrTqbr16ZvKkJ5UDoqwIHqzkAbhu0xH.jpeg" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="185.0" fitWidth="394.0" layoutX="492.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="253.0" fitWidth="308.0" layoutX="486.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/tissage-artisanal-metier-bras.jpg" />
                      </image>

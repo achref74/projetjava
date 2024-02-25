@@ -5,6 +5,8 @@ package edu.esprit.Controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -57,6 +59,7 @@ public class AfficherCours {
     private Pane pnlMenus;
 
 
+
     public void initialize(URL location, ResourceBundle resources) {
         Node[] nodes = new Node[10];
         for (int i = 0; i < nodes.length; i++) {
@@ -97,6 +100,7 @@ public class AfficherCours {
             pnlOrders.toFront();
         }
     }
+
 
 
 }
