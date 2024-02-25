@@ -81,7 +81,7 @@ public class Reponse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reponse reponse = (Reponse) o;
-        return id_reponse == reponse.id_reponse;
+        return id_reponse == reponse.id_reponse && Objects.equals(date, reponse.date);
     }
 
     @Override

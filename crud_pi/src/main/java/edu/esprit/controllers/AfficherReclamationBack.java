@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -21,19 +22,35 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 public class AfficherReclamationBack implements Initializable {
+
+    @FXML
+    private Button ajouterReclamationButton;
     @FXML
     private GridPane reclamationContainer;
+
     private final ServiceReclamation ReclamationService = new ServiceReclamation();
-    private Set<Reclamation> Liste ;
+    private Set<Reclamation> Liste;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateReclamationList();
+    }
+    @FXML
+    public void Refresh(){
+        updateReclamationList();
+    }
+
+    @FXML
+    public void updateReclamationList() {
+        // Clear the existing UI elements
+        reclamationContainer.getChildren().clear();
+
         Liste = new HashSet<>(reclamations());
         int column = 0;
         int row = 0;
 
         try {
-            for (Reclamation reclamation: Liste) {
+            for (Reclamation reclamation : Liste) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/Reclamation.fxml"));
                 VBox reclamationBox = fxmlLoader.load();
@@ -50,32 +67,21 @@ public class AfficherReclamationBack implements Initializable {
 
                 reclamationBox.setOnMouseClicked(event -> handleReclamationClick(reclamationBox));
 
-
-
                 HBox hbox = new HBox();
                 hbox.getChildren().addAll(deleteButton);
                 reclamationBox.getChildren().add(hbox);
 
-                if(column == 3){
+                if (column == 3) {
                     column = 0;
                     row++;
                 }
 
-                reclamationContainer.add(reclamationBox,column,row);
+                reclamationContainer.add(reclamationBox, column, row);
                 column++;
-                //grid weight
-                reclamationContainer.setMinWidth(260);
-                reclamationContainer.setPrefWidth(260);
-                reclamationContainer.setMaxWidth(260);//
-                //height
-                reclamationContainer.setMinHeight(319);
-                reclamationContainer.setPrefHeight(319);
-                reclamationContainer.setMaxHeight(319);//
-                reclamationContainer.setLayoutY(10);
 
-                GridPane.setMargin(reclamationBox ,new Insets(10));
+                GridPane.setMargin(reclamationBox, new Insets(10));
             }
-        }catch (IOException e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -84,12 +90,9 @@ public class AfficherReclamationBack implements Initializable {
         ReclamationService.supprimer(reclamation.getId_reclamation());
         // Remove the reclamationBox from the parent container
         reclamationContainer.getChildren().remove(reclamationBox);
-        // reclamationContainer.getChildren().clear();
-
     }
 
-
-    private Set<Reclamation> reclamations(){
+    private Set<Reclamation> reclamations() {
         Set<Reclamation> listR = new HashSet<>();
         try {
             listR.addAll(ReclamationService.getAll());
@@ -98,6 +101,7 @@ public class AfficherReclamationBack implements Initializable {
         }
         return listR;
     }
+
     @FXML
     private void handleReclamationClick(VBox clickedBox) {
         // Get the Reclamation associated with the clicked UI element
@@ -123,7 +127,6 @@ public class AfficherReclamationBack implements Initializable {
         }
     }
 
-
     private Reclamation getReclamationFromEventSource(VBox clickedBox) {
         // Ensure that the associated Reclamation is not null
         if (clickedBox != null && clickedBox.getUserData() instanceof Reclamation) {
@@ -135,4 +138,25 @@ public class AfficherReclamationBack implements Initializable {
         }
     }
 
+    @FXML
+    public void openAjouterReclamation() {
+        try {
+            // Load the FXML file for AjouterReclamation
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterReclamation.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene
+            Scene scene = new Scene(root);
+
+            // Create a new stage for AjouterReclamation
+            Stage ajouterReclamationStage = new Stage();
+            ajouterReclamationStage.setScene(scene);
+            ajouterReclamationStage.setTitle("Ajouter Reclamation");
+
+            // Show the new stage
+            ajouterReclamationStage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+    }
 }

@@ -47,60 +47,6 @@ public class ReplyWindowController {
         // You can update the GUI to show the associated reclamation details if needed
     }
 
-   /* @FXML
-    private void initialize() {
-        // Set the custom cell factory for the ListView
-        responseListView.setCellFactory(new Callback<>() {
-            @Override
-            public ListCell<Reponse> call(ListView<Reponse> param) {
-                return new DeleteButtonCell();
-            }
-        });
-
-        // Fetch and display initial responses
-        Set<Reponse> initialResponses = serviceReponse.getReponseByReclamationId(associatedReclamation.getId_reclamation());
-        refreshListView(initialResponses);
-    }
-
-    private class DeleteButtonCell extends ListCell<Reponse> {
-        private final Button deleteButton;
-
-        public DeleteButtonCell() {
-            deleteButton = new Button("Delete");
-            deleteButton.setOnAction(event -> handleDeleteButton(getItem()));
-        }
-
-        @Override
-        protected void updateItem(Reponse item, boolean empty) {
-            super.updateItem(item, empty);
-
-            if (empty || item == null) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                setText("User ID: " + item.getUser().getId_user() + " - Date: " + item.getDate());
-                setGraphic(deleteButton);
-            }
-        }
-    }*/
-
-    /*private void handleDeleteButton(Reponse response) {
-        if (response != null) {
-            // Implement logic to delete the response using ServiceReponse delete method
-            serviceReponse.supprimer(response.getId_reponse());
-
-            // Show a message to indicate successful deletion
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Response Deleted");
-            alert.setHeaderText(null);
-            alert.setContentText("Response deleted successfully.");
-            alert.showAndWait();
-
-            // Fetch and display updated responses
-            Set<Reponse> updatedResponses = serviceReponse.getReponseByReclamationId(associatedReclamation.getId_reclamation());
-            refreshListView(updatedResponses);
-        }
-    }*/
 
     @FXML
     public void submitResponse() {
@@ -115,7 +61,7 @@ public class ReplyWindowController {
             // Add the response to the database
 
             serviceReponse.ajouter(reponse);
-            //refreshListView();
+
 
             System.out.println("Submitted response: " + responseText);
 
@@ -140,28 +86,20 @@ public class ReplyWindowController {
         Set<Reponse> olderResponses = serviceReponse.getReponseByReclamationId(reclamation.getId_reclamation());
 
         // Clear previous responses in the ListView
-        responseListView.getItems().clear();
+       // responseListView.getItems().clear();
 
         for (Reponse olderResponse : olderResponses) {
             // Display older responses in a ListView
             String responseText = olderResponse.getDescription();
             String userId = String.valueOf(olderResponse.getUser().getId_user());
             String responseDate = olderResponse.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            //Button b = new Button();
+            //b.setText("delete");
+           // b.setOnAction(Event -> {serviceReponse.supprimer(olderResponse.getId_reponse());});
+            responseListView.getItems().add(userId + " - " + responseDate + " : " + responseText  );
 
-            responseListView.getItems().add(userId + " - " + responseDate + " : " + responseText);
         }
     }
 
-    private void refreshListView(Set<Reponse> responses) {
-        // Clear and reload responses in the ListView
-        responseListView.getItems().clear();
-        for (Reponse response : responses) {
-            // Display responses in the ListView
-            String responseText = response.getDescription();
-            String userId = String.valueOf(response.getUser().getId_user());
-            String responseDate = response.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-            responseListView.getItems().add(userId + " - " + responseDate + " : " + responseText);
-        }
-    }
 }
