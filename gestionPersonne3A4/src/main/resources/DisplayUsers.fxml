@@ -3,10 +3,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="527.0" prefWidth="974.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DisplayUsers">
+<AnchorPane prefHeight="527.0" prefWidth="974.0" style="-fx-background-color: #05071F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.DisplayUsers">
    <children>
       <TextField fx:id="id" disable="true" layoutX="579.0" layoutY="14.0" />
       <TextField fx:id="nom" layoutX="579.0" layoutY="39.0" />
@@ -21,15 +23,15 @@
                   <VBox fx:id="Vbox" minHeight="346.0" minWidth="412.0" prefHeight="346.0" prefWidth="412.0" />
                </content>
             </ScrollPane>
-            <Button fx:id="delete" layoutX="37.0" layoutY="483.0" mnemonicParsing="false" text="delete" />
-            <Button fx:id="update" layoutX="483.0" layoutY="483.0" mnemonicParsing="false" text="update" />
-            <Button fx:id="navigate" layoutX="261.0" layoutY="483.0" mnemonicParsing="false" text="return" />
+            <Button fx:id="delete" layoutX="37.0" layoutY="483.0" mnemonicParsing="false" style="-fx-background-color: #faf0be;" text="delete" />
+            <Button fx:id="update" layoutX="483.0" layoutY="483.0" mnemonicParsing="false" style="-fx-background-color: #faf0be;" text="update" />
+            <Button fx:id="navigate" layoutX="261.0" layoutY="483.0" mnemonicParsing="false" style="-fx-background-color: #faf0be;" text="return" />
          </children>
       </AnchorPane>
       <TextField fx:id="numtel" layoutX="579.0" layoutY="164.0" />
       <TextField fx:id="niveausco" layoutX="579.0" layoutY="189.0" />
       <TextField fx:id="pwd" layoutX="579.0" layoutY="214.0" />
-      <TextField fx:id="id1" layoutX="770.0" layoutY="14.0" />
+      <TextField fx:id="id1" disable="true" layoutX="770.0" layoutY="14.0" />
       <TextField fx:id="nom1" layoutX="770.0" layoutY="39.0" />
       <TextField fx:id="prenom1" layoutX="770.0" layoutY="64.0" />
       <TextField fx:id="email1" layoutX="770.0" layoutY="89.0" />
@@ -41,5 +43,10 @@
       <TextField fx:id="niveauaca" layoutX="770.0" layoutY="239.0" />
       <TextField fx:id="cv" layoutX="770.0" layoutY="264.0" />
       <TextField fx:id="pwd1" layoutX="770.0" layoutY="289.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="645.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

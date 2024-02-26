@@ -3,18 +3,21 @@ package edu.esprit.entities;
 import java.sql.Date;
 import java.util.Objects;
 
+
 public class Client extends User {
     private String niveau_scolaire;
 
-    public Client(int id, String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp, String niveau_scolaire) {
-        super(id, nom, prenom, email, dateNaissance, adresse, numtel, mdp);
+    public Client(int id, String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp, String img, String genre, String niveau_scolaire) {
+        super(id, nom, prenom, email, dateNaissance, adresse, numtel, mdp, img, genre);
         this.niveau_scolaire = niveau_scolaire;
     }
 
-    public Client(String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp, String niveau_scolaire) {
-        super(nom, prenom, email, dateNaissance, adresse, numtel, mdp);
+    public Client(String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp, String img, String genre, String niveau_scolaire) {
+        super(nom, prenom, email, dateNaissance, adresse, numtel, mdp, img, genre);
         this.niveau_scolaire = niveau_scolaire;
     }
+
+
 
     public Client() {
     }

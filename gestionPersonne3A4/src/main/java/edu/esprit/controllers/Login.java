@@ -10,7 +10,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 public class Login {
     @FXML
@@ -23,9 +25,11 @@ public class Login {
 
 
     @FXML
-    private void navigateafficher(ActionEvent event) throws IOException {
+    private void navigateafficher(ActionEvent event) throws IOException, NoSuchAlgorithmException {
         String mail = f1.getText();
         String pass = f2.getText();
+        ServiceUser s=new ServiceUser();
+
         if(pass.isEmpty() || mail.isEmpty()) {
 
             //erreur ou un champ est vide est traitée
@@ -35,13 +39,13 @@ public class Login {
             alert.showAndWait();
         }
         else{
-            ServiceUser s=new ServiceUser();
-            String a=s.login(mail, pass);
+
+            String a = s.login(mail, pass);
             //ici un test qui verifie que le compte existe ou non
             if(a.equals("client")) {
                 errormsg.setText("");
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/afficherApplication.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/menuApplication.fxml"));
                     f1.getScene().setRoot(root);
                 } catch (IOException e) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -49,22 +53,26 @@ public class Login {
                     alert.setTitle("Error");
                     alert.show();
                 }
-            }
-            if(a.equals("Formateur")) {
+                storeSession(s.getIdByEmail(mail));
+
+            }else if(a.equals("Formateur")) {
                 errormsg.setText("");
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/afficherApplication.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/menuApplication.fxml"));
                     f1.getScene().setRoot(root);
                 } catch (IOException e) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("Sorry");
                     alert.setTitle("Error");
                     alert.show();
+
                 }
-            } if(a.equals("Admin")) {
+                storeSession(s.getIdByEmail(mail));
+
+            }else if(a.equals("Admin")) {
                 errormsg.setText("");
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/afficherApplication.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/menuAdmin.fxml"));
                     f1.getScene().setRoot(root);
                 } catch (IOException e) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -72,21 +80,34 @@ public class Login {
                     alert.setTitle("Error");
                     alert.show();
                 }
-            }
-            else errormsg.setText("User name or password is incorrect");
+                storeSession(s.getIdByEmail(mail));
+            } else errormsg.setText("User name or password is incorrect");
+
         }
 }
 
 
     public void navigatesinscrire(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterFormation.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/creeCompte.fxml"));
             f1.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Sorry");
             alert.setTitle("Error");
             alert.show();
+        }
+    }
+
+    public void storeSession(int id){
+        try {
+            FileWriter myWriter = new FileWriter("src/main/resources/fichiers/session.txt");
+            myWriter.write(String.valueOf(id));
+            myWriter.close();
+            System.out.println("Successfully wrote to the session file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 }

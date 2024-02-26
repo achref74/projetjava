@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox prefHeight="725.0" prefWidth="978.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjoutClient">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="575.0" prefWidth="236.0" style="-fx-background-color: #05071F;">
+         <children>
+            <Pane prefHeight="33.0" prefWidth="236.0" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox prefHeight="725.0" prefWidth="742.0">
+         <children>
+            <Pane prefHeight="34.0" prefWidth="650.0" />
+            <HBox alignment="CENTER" prefHeight="59.0" prefWidth="650.0">
+               <children>
+                  <Label text="Ajout Client" textFill="#b9b388">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Pane prefHeight="54.0" prefWidth="650.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fx:id="fxns" fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau Scolaire :" wrappingWidth="137.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="107.0" prefWidth="50.0" />
+                  <ComboBox fx:id="fxniveauscolaire" prefHeight="35.0" prefWidth="230.0" style="-fx-background-color: #ffffff; -fx-text-fill: #e7e5e5; -fx-background-radius: 20;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+                  <Pane prefHeight="107.0" prefWidth="49.0" />
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="718.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre :" wrappingWidth="137.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="107.0" prefWidth="50.0" />
+                  <ComboBox fx:id="fxgenre" prefHeight="35.0" prefWidth="230.0" style="-fx-background-color: #ffffff; -fx-text-fill: #e7e5e5; -fx-background-radius: 20;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+                  <Pane prefHeight="107.0" prefWidth="49.0" />
+               </children>
+            </HBox>
+            <Pane prefHeight="53.0" prefWidth="718.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo De Profile :" wrappingWidth="137.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="38.0" prefWidth="50.0" />
+                  <Button mnemonicParsing="false" onAction="#ajouterphpto" prefHeight="38.0" prefWidth="230.0" style="-fx-background-radius: 30px; -fx-background-color: #05071F; -fx-text-fill: #2a73ff;" text="Choisir Photo" textFill="#2a73ff">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <Pane prefHeight="55.0" prefWidth="718.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="89.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fx:id="fxpwd2" fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot De Passe :" wrappingWidth="137.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="107.0" prefWidth="50.0" />
+                  <PasswordField fx:id="fxpwd" alignment="CENTER" prefHeight="35.0" prefWidth="230.0" promptText="********" style="-fx-background-radius: 20; -fx-background-color: #ffffff;">
+                     <font>
+                        <Font size="17.0" />
+                     </font></PasswordField>
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="718.0" />
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="650.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#createAccount" prefHeight="35.0" prefWidth="230.0" style="-fx-background-radius: 30px; -fx-background-color: #05071F; -fx-text-fill: #2a73ff;" text="Creer Un Compte" textFill="#2a73ff">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

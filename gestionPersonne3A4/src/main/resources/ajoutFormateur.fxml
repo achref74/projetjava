@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox prefHeight="725.0" prefWidth="978.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ajoutFormateur">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="575.0" prefWidth="236.0" style="-fx-background-color: #05071F;">
+         <children>
+            <Pane prefHeight="33.0" prefWidth="236.0" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox prefHeight="725.0" prefWidth="743.0">
+         <children>
+            <Pane prefHeight="23.0" prefWidth="650.0" />
+            <HBox alignment="CENTER" prefHeight="59.0" prefWidth="650.0">
+               <children>
+                  <Label text="Ajout Formateur" textFill="#b9b388">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="650.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fx:id="fxspe" fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Specialite :" wrappingWidth="180.0">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="91.0" prefWidth="30.0" />
+                  <ComboBox fx:id="fxspecialite" prefHeight="35.0" prefWidth="229.0" style="-fx-background-color: #ffffff; -fx-text-fill: #e7e5e5; -fx-background-radius: 20;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+                  <Pane prefHeight="107.0" prefWidth="49.0" />
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="650.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fx:id="fxna" fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau Academique :" wrappingWidth="180.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="73.0" prefWidth="30.0" />
+                  <ComboBox fx:id="fxniveauacademique" prefHeight="35.0" prefWidth="229.0" style="-fx-background-color: #ffffff; -fx-text-fill: #e7e5e5; -fx-background-radius: 20;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+                  <Pane prefHeight="107.0" prefWidth="97.0" />
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="650.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fx:id="fxcvv" fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" text="CV :" wrappingWidth="180.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="73.0" prefWidth="30.0" />
+                  <Button fx:id="fxcv" mnemonicParsing="false" onAction="#ajoutercv" prefHeight="35.0" prefWidth="229.0" style="-fx-background-radius: 20px; -fx-background-color: #05071F; -fx-text-fill: #2a73ff;" text="Choisissez Votre CV" textFill="#2a73ff" />
+                  <Pane prefHeight="107.0" prefWidth="97.0" />
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="650.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fx:id="fxdd" fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" text="Disponibilite :" wrappingWidth="180.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="73.0" prefWidth="30.0" />
+                  <TextField fx:id="fxdispo" alignment="CENTER" prefHeight="35.0" prefWidth="229.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20;" />
+                  <Pane prefHeight="107.0" prefWidth="97.0" />
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="650.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre :" wrappingWidth="180.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="107.0" prefWidth="30.0" />
+                  <ComboBox fx:id="fxgenre" prefHeight="35.0" prefWidth="230.0" style="-fx-background-color: #ffffff; -fx-text-fill: #e7e5e5; -fx-background-radius: 20;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ComboBox>
+                  <Pane prefHeight="107.0" prefWidth="49.0" />
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="718.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo De Profile :" wrappingWidth="180.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="38.0" prefWidth="30.0" />
+                  <Button mnemonicParsing="false" onAction="#ajouterphpto" prefHeight="38.0" prefWidth="230.0" style="-fx-background-radius: 30px; -fx-background-color: #05071F; -fx-text-fill: #2a73ff;" text="Choisir Photo" textFill="#2a73ff">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="718.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="650.0">
+               <children>
+                  <Pane prefHeight="107.0" prefWidth="150.0" />
+                  <Text fx:id="fxpwd2" fill="#2a73ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot De Passe :" wrappingWidth="180.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Pane prefHeight="73.0" prefWidth="30.0" />
+                  <PasswordField fx:id="fxpwd" alignment="CENTER" prefHeight="35.0" prefWidth="229.0" promptText="********" style="-fx-background-color: #ffffff; -fx-background-radius: 20;" />
+                  <Pane prefHeight="107.0" prefWidth="97.0" />
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="719.0" />
+            <HBox alignment="CENTER" prefHeight="76.0" prefWidth="719.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#createAccount" prefHeight="46.0" prefWidth="210.0" style="-fx-background-radius: 30px; -fx-background-color: #05071F; -fx-text-fill: #2a73ff;" text="Creer Un Compte" textFill="#2a73ff" />
+               </children>
+            </HBox>
+            <Pane prefHeight="20.0" prefWidth="650.0" />
+         </children>
+      </VBox>
+   </children>
+</HBox>

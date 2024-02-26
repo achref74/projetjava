@@ -13,8 +13,11 @@ public class User {
     private String adresse;
     private int numtel;
     private String mdp;
+    private String img;
+    private String genre;
 
-    public User(int id, String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp) {
+
+    public User(int id, String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp, String img, String genre) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -23,9 +26,12 @@ public class User {
         this.adresse = adresse;
         this.numtel = numtel;
         this.mdp = mdp;
+        this.img = img;
+        this.genre = genre;
     }
 
-    public User(String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp) {
+
+    public User(String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp, String img, String genre) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -33,6 +39,8 @@ public class User {
         this.adresse = adresse;
         this.numtel = numtel;
         this.mdp = mdp;
+        this.img = img;
+        this.genre = genre;
     }
 
     public User() {
@@ -100,6 +108,21 @@ public class User {
 
     public void setMdp(String mdp) {
         this.mdp = mdp;
+    }
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     @Override

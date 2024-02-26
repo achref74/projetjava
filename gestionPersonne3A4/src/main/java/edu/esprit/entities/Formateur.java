@@ -9,20 +9,23 @@ public class Formateur extends edu.esprit.entities.User {
     private int disponibilite;
     private String cv;
 
-    public Formateur(int id, String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp, String specialite, String niveauAcademique, int disponibilite, String cv) {
-        super(id, nom, prenom, email, dateNaissance, adresse, numtel, mdp);
+    public Formateur(int id, String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp, String img, String genre, String specialite, String niveauAcademique, int disponibilite, String cv) {
+        super(id, nom, prenom, email, dateNaissance, adresse, numtel, mdp, img, genre);
         this.specialite = specialite;
         this.niveauAcademique = niveauAcademique;
         this.disponibilite = disponibilite;
         this.cv = cv;
     }
 
-    public Formateur(String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp, String specialite, String niveauAcademique, int disponibilite, String cv) {
-        super(nom, prenom, email, dateNaissance, adresse, numtel, mdp);
+    public Formateur(String nom, String prenom, String email, Date dateNaissance, String adresse, int numtel, String mdp, String img, String genre, String specialite, String niveauAcademique, int disponibilite, String cv) {
+        super(nom, prenom, email, dateNaissance, adresse, numtel, mdp, img, genre);
         this.specialite = specialite;
         this.niveauAcademique = niveauAcademique;
         this.disponibilite = disponibilite;
         this.cv = cv;
+    }
+
+    public Formateur() {
     }
 
     public String getSpecialite() {
