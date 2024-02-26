@@ -27,6 +27,15 @@ private int idFormation;
         this.dateF = dateF;
         this.formation = formation;
     }
+    public Offre(int idOffre,double prixOffre, String description, Date dateD, Date dateF) {
+        this.idOffre = idOffre;
+
+        this.prixOffre = prixOffre;
+        this.description = description;
+        this.dateD = dateD;
+        this.dateF = dateF;
+
+    }
 
     public int getIdFormation() {
         return idFormation;

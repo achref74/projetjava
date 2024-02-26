@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="824.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Affichage">
+    <children>
+      <TabPane fx:id="tabPane" prefHeight="824.0" prefWidth="1315.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabF" text="Formation">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane prefHeight="798.0" prefWidth="1315.0">
+                           <left>
+                              <VBox prefHeight="200.0" prefWidth="435.0" style="-fx-border-style: none;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
+                                       <children>
+                                          <Label prefHeight="50.0" prefWidth="201.0" text="Catalogue " textFill="#878787">
+                                             <font>
+                                                <Font name="Cambria Bold" size="40.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="50.0" prefWidth="192.0" text="Formation" textFill="#878787">
+                                             <font>
+                                                <Font name="Cambria" size="40.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0" stylesheets="@style.css" VBox.vgrow="NEVER">
+                                       <VBox.margin>
+                                          <Insets left="30.0" right="30.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <TextField prefHeight="36.0" prefWidth="238.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css" text="Tapez pour rechercher ">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Cambria" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@style.css" text="Ok" textFill="WHITE" />
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="search-box" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </HBox>
+                                    <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+                                    <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="749.0" prefWidth="334.0" stylesheets="@style.css">
+                                       <VBox.margin>
+                                          <Insets left="50.0" right="50.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <TextField fx:id="idF" prefHeight="44.0" prefWidth="200.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
+                                          <HBox prefHeight="60.0" prefWidth="335.0">
+                                             <children>
+                                                <Label prefHeight="38.0" prefWidth="246.0" text="Nom De la Formation:" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="nomF" prefHeight="44.0" prefWidth="200.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="20.0" top="30.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <ImageView fx:id="fruitImg" fitHeight="133.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@images/home_img.jpg" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <HBox alignment="CENTER" prefHeight="169.0" prefWidth="334.0">
+                                             <children>
+                                                <Label prefHeight="53.0" prefWidth="167.0" text="Description :  " textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextArea fx:id="descripF" prefHeight="131.0" prefWidth="267.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" wrapText="true">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextArea>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                             <children>
+                                                <Label prefHeight="53.0" prefWidth="167.0" text="Date  Debut: " textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="dateD" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                             <children>
+                                                <Label prefHeight="53.0" prefWidth="167.0" text="Date Fin:" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="dateF" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                             <children>
+                                                <Label prefHeight="53.0" prefWidth="167.0" text="Nombre Des Cours:" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="nbrCours" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                             <children>
+                                                <Label prefHeight="53.0" prefWidth="167.0" text="  Prix" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="prixF" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                             <children>
+                                                <Button fx:id="supprimerF" mnemonicParsing="false" prefHeight="45.0" prefWidth="114.0" styleClass="add-btn" stylesheets="@style.css" text="Supprimer" textFill="#828282">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="modifierF" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" styleClass="add-btn" stylesheets="@style.css" text="Modifier" textFill="#828282">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="offreF" mnemonicParsing="false" onAction="#navigatetoOffre" prefHeight="40.0" prefWidth="110.0" styleClass="add-btn" stylesheets="@style.css" text="Offre" textFill="#828282">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <Pane prefHeight="36.0" prefWidth="334.0" />
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="chosen-fruit-card" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </VBox>
+                                    <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </left>
+                           <center>
+                              <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
+                                       <VBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <Button fx:id="retour" mnemonicParsing="false" onAction="#navigatetoFormationAction" prefHeight="13.0" prefWidth="29.0" styleClass="search-button" stylesheets="@style.css" textFill="WHITE">
+                                             <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/left.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Button fx:id="ajouterF" layoutX="574.0" layoutY="14.0" mnemonicParsing="false" onAction="#navigatetoAjouterFormationAction" prefHeight="40.0" prefWidth="120.0" styleClass="search-button" stylesheets="@style.css" text="Ajouter Formation" textFill="WHITE" />
+                                                <Label layoutX="82.0" layoutY="18.0" prefHeight="29.0" prefWidth="77.0" text="Francais" textFill="#878787" underline="true">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="14.0" layoutY="18.0" prefHeight="29.0" prefWidth="88.0" text="langue " textFill="#878787">
+                                                   <font>
+                                                      <Font name="Cambria Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </Pane>
+                                          <Label prefHeight="62.0" prefWidth="100.0" text="Mon panier " textFill="#878787">
+                                             <font>
+                                                <Font name="Cambria" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Pane prefHeight="84.0" prefWidth="96.0" />
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="416.0" styleClass="free-delivery-card" stylesheets="@style.css">
+                                             <children>
+                                                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="325.0">
+                                                   <children>
+                                                      <Label prefHeight="30.0" prefWidth="277.0" text="Les Formations les plus vendus   " textFill="#878787">
+                                                         <font>
+                                                            <Font name="Cambria Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label prefHeight="16.0" prefWidth="190.0" text="Plus que 5 milles acheteurs " textFill="#878787">
+                                                         <font>
+                                                            <Font name="Cambria" size="15.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                                <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/home_img.jpg" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </HBox>
+                                          <Pane prefHeight="84.0" prefWidth="96.0" HBox.hgrow="ALWAYS" />
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="369.0" styleClass="shopping-online-card" stylesheets="@style.css">
+                                             <children>
+                                                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="422.0">
+                                                   <children>
+                                                      <Label prefHeight="30.0" prefWidth="304.0" text="Les Formateurs les plus populaires " textFill="#878787">
+                                                         <font>
+                                                            <Font name="Cambria Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@images/home_img.jpg" />
+                                                         </image>
+                                                         <VBox.margin>
+                                                            <Insets right="-230.0" />
+                                                         </VBox.margin>
+                                                      </ImageView>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="20.0" right="20.0" top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <Pane prefHeight="84.0" prefWidth="96.0" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <ScrollPane fx:id="scroll" prefHeight="570.0" prefWidth="785.0" styleClass="transparent" stylesheets="@style.css">
+                                             <content>
+                                                <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
+                                                   <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                                   </rowConstraints>
+                                                </GridPane>
+                                             </content>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </ScrollPane>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tabOffre" text="Offre">
+
+
+                            <content>
+                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="654.0" prefWidth="1056.0">
+                                  <children>
+                                     <VBox alignment="TOP_CENTER" prefHeight="796.0" prefWidth="237.0" style="-fx-background-color: #05071F;">
+                                        <children>
+                                           <ImageView fitHeight="116.0" fitWidth="206.0" pickOnBounds="true" preserveRatio="true">
+                                              <image>
+                                                 <Image url="@images/logo.png" />
+                                              </image>
+                                              <VBox.margin>
+                                                 <Insets bottom="5.0" top="50.0" />
+                                              </VBox.margin>
+                                           </ImageView>
+                                           <Button fx:id="btnUser1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="285.0" stylesheets="@style.css" text="Utilisateurs" textFill="#e7e5e5">
+                                              <graphic>
+                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" style="-fx-fill: white;">
+                                                    <image>
+                                                       <Image url="@images/user.png" />
+                                                    </image>
+                                                 </ImageView>
+                                              </graphic>
+                                              <opaqueInsets>
+                                                 <Insets />
+                                              </opaqueInsets>
+                                              <VBox.margin>
+                                                 <Insets />
+                                              </VBox.margin>
+                                              <padding>
+                                                 <Insets left="50.0" />
+                                              </padding>
+                                              <cursor>
+                                                 <Cursor fx:constant="HAND" />
+                                              </cursor>
+                                           </Button>
+                                           <Button fx:id="btnOutils1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="296.0" stylesheets="@style.css" text="Outils">
+                                              <graphic>
+                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                       <Image url="@images/outil.png" />
+                                                    </image>
+                                                 </ImageView>
+                                              </graphic>
+                                              <padding>
+                                                 <Insets left="50.0" />
+                                              </padding>
+                                              <cursor>
+                                                 <Cursor fx:constant="HAND" />
+                                              </cursor>
+                                           </Button>
+                                           <Button fx:id="btnFormation" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="301.0" stylesheets="@style.css" text="Formation">
+                                              <graphic>
+                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                       <Image url="@images/formation.png" />
+                                                    </image>
+                                                 </ImageView>
+                                              </graphic>
+                                              <padding>
+                                                 <Insets left="50.0" />
+                                              </padding>
+                                              <cursor>
+                                                 <Cursor fx:constant="HAND" />
+                                              </cursor>
+                                           </Button>
+                                           <Button fx:id="btnCours1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="303.0" stylesheets="@style.css" text="Cours">
+                                              <graphic>
+                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                       <Image url="@images/cours.png" />
+                                                    </image>
+                                                 </ImageView>
+                                              </graphic>
+                                              <padding>
+                                                 <Insets left="50.0" />
+                                              </padding>
+                                              <cursor>
+                                                 <Cursor fx:constant="HAND" />
+                                              </cursor>
+                                           </Button>
+                                           <Button fx:id="btnForum1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="318.0" stylesheets="@style.css" text="Forum">
+                                              <graphic>
+                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                       <Image url="@images/forum.png" />
+                                                    </image>
+                                                 </ImageView>
+                                              </graphic>
+                                              <padding>
+                                                 <Insets left="50.0" />
+                                              </padding>
+                                              <cursor>
+                                                 <Cursor fx:constant="HAND" />
+                                              </cursor>
+                                           </Button>
+                                           <Button fx:id="btnReclamation1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="309.0" stylesheets="@style.css" text="Reclamation">
+                                              <graphic>
+                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                       <Image url="@images/reclamation.png" />
+                                                    </image>
+                                                 </ImageView>
+                                              </graphic>
+                                              <padding>
+                                                 <Insets left="50.0" />
+                                              </padding>
+                                              <cursor>
+                                                 <Cursor fx:constant="HAND" />
+                                              </cursor>
+                                           </Button>
+                                           <Button fx:id="btnSignout1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="310.0" stylesheets="@style.css" text="Se Deconnecter">
+                                              <graphic>
+                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                       <Image url="@images/signOut.png" />
+                                                    </image>
+                                                 </ImageView>
+                                              </graphic>
+                                              <padding>
+                                                 <Insets left="50.0" />
+                                              </padding>
+                                              <cursor>
+                                                 <Cursor fx:constant="HAND" />
+                                              </cursor>
+                                           </Button>
+                                        </children>
+                                     </VBox>
+                                     <StackPane layoutX="241.0" layoutY="1.0" prefHeight="798.0" prefWidth="1075.0" style="-fx-background-color: #02030A;">
+                                        <children>
+
+                                           <Pane fx:id="pnlOverview" prefHeight="798.0" prefWidth="998.0" style="-fx-background-color: #e7e5e5;">
+                                              <children>
+                                                 <Label layoutX="55.0" layoutY="25.0" prefHeight="35.0" prefWidth="63.0" text="Offre" textFill="#e7e5e5">
+                                                    <font>
+                                                       <Font size="24.0" />
+                                                    </font>
+                                                 </Label>
+                                    <TextField fx:id="prixO" layoutX="484.0" layoutY="284.0" prefHeight="27.0" prefWidth="148.0" style="-fx-border-radius: 4em; -fx-control-inner-background: #02030A; -fx-border-color: #B7C3D7;" styleClass="transparent" stylesheets="@style.css" />
+                                    <TextArea fx:id="descripO" layoutX="485.0" layoutY="344.0" prefHeight="72.0" prefWidth="148.0" style="-fx-border-radius: 4;" styleClass="transparent" stylesheets="@style.css" />
+                                    <DatePicker fx:id="dateDO" layoutX="483.0" layoutY="427.0" prefHeight="26.0" prefWidth="151.0" style="-fx-border-radius: 4em;" styleClass="transparent" stylesheets="@style.css" />
+                                    <DatePicker fx:id="dateFO" layoutX="484.0" layoutY="465.0" prefHeight="26.0" prefWidth="150.0" style="-fx-border-color: #B7C3D7; -fx-border-radius: 4em;" />
+                                    <Text fill="#2a73ff" layoutX="391.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" textAlignment="CENTER" wrappingWidth="43.44140625" />
+                                    <Text fill="#2a73ff" layoutX="399.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" />
+                                    <Text fill="#2a73ff" layoutX="131.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la formation">
+                                       <font>
+                                          <Font name="System Bold Italic" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="nomFO" layoutX="126.0" layoutY="153.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
+                                    <Button fx:id="ajouterOffre" layoutX="493.0" layoutY="529.0" mnemonicParsing="false" onAction="#navigatetoFormation" prefHeight="27.0" prefWidth="91.0" style="-fx-background-color: #ddb78c;-fx-control-inner-background: #02030A;-fx-border-radius: 4em;" stylesheets="@style.css" text="Ajouter" textAlignment="CENTER" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Text fill="#2a73ff" layoutX="394.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut" />
+                                    <Text fill="#2a73ff" layoutX="388.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER" wrappingWidth="73.7484130859375" />
+                                    <TextField fx:id="idFO" layoutX="483.0" layoutY="226.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
+
+                                              </children>
+                                              <StackPane.margin>
+                                                 <Insets />
+                                              </StackPane.margin>
+                                           </Pane>
+                                        </children>
+                                     </StackPane>
+                                  </children>
+                               </AnchorPane>
+                            </content>
+
+          </Tab>
+        </tabs>
+      </TabPane>
+    </children>
+</AnchorPane>

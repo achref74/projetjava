@@ -129,21 +129,58 @@ public class ServiceFormation implements IService<Formation> {
 
         return formations;
     }
-    public static boolean existe(int i)
-    {
-        String req = "Select * from formation WHERE idFormation="+i;
-        try {
-            Statement st = cnx.createStatement();
-            ResultSet res = st.executeQuery(req);
-            if  (res.next()){
-                return true ;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+
+        public Set<Formation> formationsExistForUser(int idUser1) throws SQLException{
+            Set<Formation> formations = new HashSet<>();
+        String req = "SELECT * FROM formation where idUser=?";
+
+         PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, idUser1);
+        ResultSet res = ps.executeQuery();
+        while (res.next()) {
+            int idF=res.getInt("idFormation");
+            String nom = res.getString("nom");
+            String description = res.getString("description");
+            Date dateDebut = res.getDate("dateD");
+            Date dateFin = res.getDate("dateF");
+            double prix = res.getDouble("prix");
+            int nbrCours = res.getInt("nbrCours");
+            int idUser = res.getInt("idUser");
+            int idCategorie = res.getInt("idCategorie");
+
+            Formation formation = new Formation(idF,nom, description, dateDebut, dateFin, prix, nbrCours,idUser,idCategorie);
+            formations.add(formation);
         }
 
 
-        return false;
+        return formations;
     }
+
+    public Set<Formation> getAll1() throws SQLException{
+        Set<Formation> formations = new HashSet<>();
+
+        String req = "SELECT * FROM formation";
+
+        Statement st = cnx.createStatement();
+        ResultSet res = st.executeQuery(req);
+        while (res.next()) {
+            int idF=res.getInt("idFormation");
+            String nom = res.getString("nom");
+            String description = res.getString("description");
+            Date dateDebut = res.getDate("dateD");
+            Date dateFin = res.getDate("dateF");
+            double prix = res.getDouble("prix");
+            int nbrCours = res.getInt("nbrCours");
+            int idUser = res.getInt("idUser");
+            int idCategorie = res.getInt("idCategorie");
+
+            Formation formation = new Formation(idF,nom, description, dateDebut, dateFin, prix, nbrCours,idUser,idCategorie);
+            formations.add(formation);
+        }
+
+
+        return formations;
+    }
+
 }
 

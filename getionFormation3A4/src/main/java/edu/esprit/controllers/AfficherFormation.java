@@ -427,6 +427,8 @@ private String selecteIdO;
                    alert.setTitle("Success");
                    alert.setContentText("Offre ajoutée avec succès !");
                    alert.show();
+                   tabPane_F.getSelectionModel().select(afficher_F);
+
                } catch (SQLException e) {
                    Alert alert = new Alert(Alert.AlertType.ERROR);
                    alert.setTitle("SQL Exception");
