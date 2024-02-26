@@ -14,8 +14,8 @@ import java.sql.Date;
 
 public class Main {
     public static void main(String[] args) {
-        Cours intro =new Cours("Intro","//","algorithmique","hello.txt",new Date(2023,12,12),600);
-        Cours introductionn =new Cours(11,"Intrnnnnnnnno","//","rien ","hello.txt",new Date(2023,12,12),600);
+        Cours intro =new Cours("Intro","//","algorithmique","hello.txt",new Date(2023,12,12),600,"/images/artisan");
+        Cours introductionn =new Cours(11,"Intrnnnnnnnno","//","rien ","hello.txt",new Date(2023,12,12),600,"/images/artisan");
       //  Cours InstallationEnv =new Cours("Installation Environnement Python","1er pas en python ","algorithmique","fichier.txt",new Date(2023,12,12),600);
         ServiceCours service_cours =new ServiceCours();
         //service_cours.ajouter(InstallationEnv);

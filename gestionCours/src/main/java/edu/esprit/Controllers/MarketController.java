@@ -34,6 +34,7 @@ public class MarketController implements Initializable {
     @FXML
     private TextField date;
 
+
     @FXML
     private TextField description;
 
@@ -55,18 +56,22 @@ public class MarketController implements Initializable {
 
     @FXML
     private TextField ressource;
+    @FXML
+    private TextField image;
 
     @FXML
     private ScrollPane scroll;
 
     private Set<Cours> liste = new HashSet<>();
-    private Image image;
+
     @FXML
     private Button modifier;
     @FXML
     private Button supprimer;
     private MyListener myListener;
     private String selectedId ;
+
+
     private Set<Cours> getData() {
         Set<Cours> liste = new HashSet<>();
         ServiceCours serviceCours =new ServiceCours();
@@ -80,11 +85,23 @@ public class MarketController implements Initializable {
         date.setText(dateString);
         fruitNameLable.setText(cours.getNom());
         description.setText(cours.getDescrption());
-        duree.setText(String.valueOf(cours.getDuree()));
+
+        long heures = cours.getDuree() / 3600;
+        long minutes = (cours.getDuree() % 3600) / 60;
+        long secondes = cours.getDuree() % 60;
+        duree.setText(String.format("%dh %dmin %dsc", heures, minutes, secondes)); // Formatage de la durée
+
         prerequis.setText(cours.getPrerequis());
         ressource.setText(cours.getRessource());
+        image.setText(cours.getImage());
+       String imagePath = "file:///C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images/" + cours.getImage();
+        Image image = new Image(imagePath);
+
+        // Afficher l'image dans l'ImageView fruitImg
+        fruitImg.setImage(image);
+
         selectedId = String.valueOf(cours.getId_cours());
-        //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
+
 
 
         List<String> colorPalette = new ArrayList<>();
@@ -167,9 +184,11 @@ public class MarketController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         modifier.setOnAction(event -> modifierCours());
         supprimer.setOnAction(event -> supprimerCours());
     }
+
 
 @FXML
     private void supprimerCours() {
@@ -232,6 +251,7 @@ public class MarketController implements Initializable {
         duree.clear();
         prerequis.clear();
         ressource.clear();
+        image.clear();
         fruitNameLable.setText("");
     }
 
@@ -250,6 +270,7 @@ public class MarketController implements Initializable {
             String newDuree = duree.getText();
             String newPrerequis = prerequis.getText();
             String newRessource = ressource.getText();
+            String newImage = image.getText();
 
             try {
                 // Créez un nouvel objet Cours avec les valeurs mises à jour
@@ -258,9 +279,20 @@ public class MarketController implements Initializable {
                 cours.setNom(newName);
                 cours.setDate(java.sql.Date.valueOf(newDate)); // Conversion String vers java.sql.Date
                 cours.setDescrption(newDescription);
-                cours.setDuree(Integer.parseInt(newDuree));
+                String regex = "\\d+h\\s*\\d+min\\s*\\d+sc";
+                if (!newDuree.matches(regex)) {
+                    // Afficher un message d'erreur à l'utilisateur ou gérer la validation d'une autre manière
+                    System.err.println("La durée doit être au format 'xh ymin zsc'.");
+                    return; // Sortir de la méthode si la validation échoue
+                }
+
+// Convertir la durée en entier après validation réussie
+                cours.setDuree(Integer.parseInt(newDuree.replaceAll("[^0-9]", "")));
                 cours.setPrerequis(newPrerequis);
                 cours.setRessource(newRessource);
+                cours.setImage(newImage);
+
+
 
                 // Appelez la méthode de service pour mettre à jour le cours
                 ServiceCours serviceCours = new ServiceCours();

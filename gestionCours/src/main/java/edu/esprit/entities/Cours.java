@@ -24,18 +24,18 @@ public class Cours {
     private int idFormation ;
     private int duree ;
     private Evaluation evaluation ;
-    private String imgSource ;
+    private String img  ;
 
-    public String getImgSource() {
-        return imgSource;
+
+    public String getImage() {
+        return img;
     }
 
-    public void setImgSource(String imgSource) {
-        this.imgSource = imgSource;
+    public void setImage(String image) {
+        this.img = image;
     }
 
-
-    public Cours(int id_cours, String nom, String descrption, String prerequis, String ressource, Date date,  int duree) {
+    /*public Cours(int id_cours, String nom, String descrption, String prerequis, String ressource, Date date, int duree) {
         this.id_cours = id_cours;
         this.nom = nom;
         this.descrption = descrption;
@@ -44,9 +44,21 @@ public class Cours {
         this.date = date;
         this.duree = duree;
         this.idFormation = 3;
-    }
+    }*/
+    public Cours(int id_cours, String nom, String descrption, String prerequis, String ressource, Date date, int duree,String img ) {
+        this.id_cours = id_cours;
+        this.nom = nom;
+        this.descrption = descrption;
+        this.prerequis = prerequis;
+        this.ressource = ressource;
 
-    public Cours(int id_cours, String nom, String descrption, String prerequis, String ressource, Date date, int duree, Evaluation evaluation) {
+        this.date = date;
+        this.duree = duree;
+        this.img =img ;
+        this.idFormation = 3;
+
+    }
+    public Cours(int id_cours, String nom, String descrption, String prerequis, String ressource, Date date, int duree,String img ,  Evaluation evaluation) {
         this.id_cours = id_cours;
         this.nom = nom;
         this.descrption = descrption;
@@ -55,9 +67,10 @@ public class Cours {
         this.date = date;
         this.idFormation = 3;
         this.duree = duree;
+        this.img=img ;
         this.evaluation = evaluation;
     }
-    public Cours(String nom, String descrption, String prerequis, String ressource, Date date, int duree, Evaluation evaluation) {
+    public Cours(String nom, String descrption, String prerequis, String ressource, Date date, int duree,String img ,  Evaluation evaluation) {
 
         this.nom = nom;
         this.descrption = descrption;
@@ -66,9 +79,10 @@ public class Cours {
         this.date = date;
         this.idFormation = 3;
         this.duree = duree;
+        this.img=img;
         this.evaluation = evaluation;
     }
-    public Cours(String nom, String descrption, String prerequis, String ressource, Date date, int duree) {
+    public Cours(String nom, String descrption, String prerequis, String ressource, Date date, int duree,String img ) {
 
         this.nom = nom;
         this.descrption = descrption;
@@ -77,6 +91,7 @@ public class Cours {
         this.date = date;
         this.idFormation = 3;
         this.duree = duree;
+        this.img =img ;
 
     }
 
@@ -167,14 +182,13 @@ public class Cours {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cours cours = (Cours) o;
-        return id_cours == cours.id_cours && idFormation == cours.idFormation && Objects.equals(nom, cours.nom) && Objects.equals(descrption, cours.descrption) && Objects.equals(prerequis, cours.prerequis) && Objects.equals(ressource, cours.ressource) && Objects.equals(date, cours.date) && Objects.equals(duree, cours.duree) && Objects.equals(evaluation, cours.evaluation);
+        return id_cours == cours.id_cours && idFormation == cours.idFormation && duree == cours.duree && Objects.equals(nom, cours.nom) && Objects.equals(descrption, cours.descrption) && Objects.equals(prerequis, cours.prerequis) && Objects.equals(ressource, cours.ressource) && Objects.equals(date, cours.date) && Objects.equals(evaluation, cours.evaluation) && Objects.equals(img, cours.img);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_cours, nom, descrption, prerequis, ressource, date, idFormation, duree, evaluation);
+        return Objects.hash(id_cours, nom, descrption, prerequis, ressource, date, idFormation, duree, evaluation, img);
     }
-
 
     @Override
     public String toString() {
@@ -186,7 +200,7 @@ public class Cours {
                         "-------------------------------------------------%n" +
                         "| Nom           | Description     | Prérequis | Ressource | Date                | ID Formation | Durée                       | Evaluation  |%n" +
                         "-------------------------------------------------%n" +
-                        "| %-13s | %-15s | %-9s | %-9s | %-20s | %-11d | %-2dh %-2dmin %-2dsc | %-12s |%n",
-                nom, descrption, prerequis, ressource, date, idFormation, heures, minutes, secondes, evaluation);
+                        "| %-13s | %-15s | %-9s | %-9s | %-20s | %-11d | %-2dh %-2dmin %-2dsc | %-12s |%n"+ "image ",
+                nom, descrption, prerequis, ressource, date, idFormation, heures, minutes, secondes, evaluation,img);
     }
 }

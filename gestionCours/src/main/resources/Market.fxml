@@ -21,7 +21,7 @@
    <children>
       <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox prefHeight="200.0" prefWidth="435.0" style="-fx-border-style: none;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="435.0" style="-fx-border-style: none; -fx-background-color: #05071F;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
                      <children>
@@ -42,7 +42,7 @@
                         <Insets left="30.0" right="30.0" />
                      </VBox.margin>
                      <children>
-                        <TextField prefHeight="36.0" prefWidth="238.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css" text="Tapez pour rechercher ">
+                        <TextField prefHeight="36.0" prefWidth="297.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css" text="Tapez pour rechercher ">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -58,21 +58,27 @@
                      </styleClass>
                   </HBox>
                   <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
-                  <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="694.0" prefWidth="334.0" stylesheets="@style.css">
+                  <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="658.0" prefWidth="321.0" stylesheets="@style.css">
                      <VBox.margin>
                         <Insets left="50.0" right="50.0" />
                      </VBox.margin>
                      <children>
-                        <HBox prefHeight="60.0" prefWidth="335.0">
-                           <children>
-
-                              <TextField fx:id="fruitNameLable" prefHeight="36.0" prefWidth="566.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Chap 1 : " />
-                           </children>
+                        <HBox prefHeight="80.0" prefWidth="300.0">
                            <VBox.margin>
                               <Insets left="20.0" top="30.0" />
                            </VBox.margin>
+                           <children>
+                              <TextField fx:id="fruitNameLable" prefHeight="46.0" prefWidth="118.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Cours ">
+                                 <font>
+                                    <Font name="Cambria" size="36.0" />
+                                 </font>
+                              </TextField>
+
+
+                           </children>
                         </HBox>
-                        <ImageView fx:id="fruitImg" fitHeight="133.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="image" prefHeight="13.0" prefWidth="334.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
+                        <ImageView fx:id="fruitImg" fitHeight="167.0" fitWidth="229.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/artisan.jpg" />
                            </image>
@@ -82,7 +88,7 @@
                         </ImageView>
                         <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
                            <children>
-                              <Label prefHeight="53.0" prefWidth="167.0" text="Description :  " textFill="WHITE">
+                              <Label prefHeight="53.0" prefWidth="434.0" text="Description :  " textFill="WHITE">
                                  <font>
                                     <Font name="Cambria" size="18.0" />
                                  </font>
@@ -90,11 +96,7 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="description" prefHeight="38.0" prefWidth="174.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </TextField>
+                              <TextField fx:id="description" prefHeight="36.0" prefWidth="457.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
                            </children>
                            <VBox.margin>
                               <Insets top="20.0" />
@@ -168,9 +170,32 @@
                               </TextField>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                        <Button fx:id="modifier" mnemonicParsing="false" prefHeight="40.0" prefWidth="273.0" styleClass="add-btn" stylesheets="@style.css" text="Modifier" textFill="#828282">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Pane prefHeight="53.0" prefWidth="334.0" />
+                        <Button fx:id="supprimer" mnemonicParsing="false" prefHeight="61.0" prefWidth="270.0" styleClass="add-btn" stylesheets="@style.css" text="Supprimer" textFill="#828282">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <TextField fx:id="description2" prefHeight="38.0" prefWidth="174.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
+                     </children>
+                     <styleClass>
+                        <String fx:value="chosen-fruit-card" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </VBox>
+                  <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <HBox alignment="CENTER" layoutX="-23.0" layoutY="1.0" prefHeight="53.0" prefWidth="335.0">
                            <children>
-                              <Label prefHeight="53.0" prefWidth="167.0" text="Evaluation " textFill="WHITE">
+                              <Label prefHeight="34.0" prefWidth="250.0" text="Evaluation Pour ce Cours " textFill="WHITE">
                                  <font>
                                     <Font name="Cambria" size="18.0" />
                                  </font>
@@ -179,28 +204,11 @@
                                  </HBox.margin>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets bottom="20.0" />
+                           </padding>
                         </HBox>
-                        <Button fx:id="modifier" mnemonicParsing="false" prefHeight="58.0" prefWidth="270.0" styleClass="add-btn" stylesheets="@style.css" text="Modifier" textFill="#828282">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Button>
-                        <Pane prefHeight="36.0" prefWidth="334.0" />
-                        <Button fx:id="supprimer" mnemonicParsing="false" prefHeight="61.0" prefWidth="270.0" styleClass="add-btn" stylesheets="@style.css" text="Supprimer" textFill="#828282">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                     <styleClass>
-                        <String fx:value="chosen-fruit-card" />
-                        <String fx:value="shadow" />
-                     </styleClass>
-                  </VBox>
-                  <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+                     </children></Pane>
                </children>
             </VBox>
          </left>

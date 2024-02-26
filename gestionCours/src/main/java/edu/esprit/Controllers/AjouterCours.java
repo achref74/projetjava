@@ -52,8 +52,11 @@ public class AjouterCours {
     @FXML
     private TextArea description;
 
+
     @FXML
     private TextField duree;
+    @FXML
+    private TextField image;
 
     @FXML
     private TextField nom;
@@ -69,28 +72,31 @@ public class AjouterCours {
     private final ServiceCours sp = new ServiceCours();
 
 
-    @FXML
     void AjouterCoursAction(ActionEvent event) {
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date date = new java.sql.Date(utilDate.getTime());
 
         Alert alert;
-        sp.ajouter(new Cours(nom.getText(),
-                description.getText(),
-                prerequis.getText(),
-                ressource.getText(),
-                date,
-                Integer.parseInt(duree.getText())));
+        try {
+            sp.ajouter(new Cours(nom.getText(),
+                    description.getText(),
+                    prerequis.getText(),
+                    ressource.getText(),
+                    date,
+                    Integer.parseInt(duree.getText()),
+                    image.getText()));
 
-
-        alert = new Alert(Alert.AlertType.INFORMATION);
-
-
-        alert.setTitle("Success");
-        alert.setContentText("Cours ajouté avec succès !");
-        alert.show();
-
-
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setContentText("Cours ajouté avec succès !");
+            alert.show();
+        } catch (NumberFormatException e) {
+            // Gérer l'exception si la conversion de la durée en entier échoue
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("La durée doit être un nombre entier.");
+            alert.show();
+        }
     }
 
     public void navigatetoAfficherCoursAction(ActionEvent actionEvent) {

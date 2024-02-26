@@ -17,7 +17,7 @@ public class ServiceCours implements IService<Cours>{
     public void ajouter(Cours cours) {
 
 /* nharet ely bch   namlou integ netfehmou al modif fl classe formation */
-        String req = "INSERT INTO `cours`(`nom`, `description`,`date`,`duree`,`prerequis`,`ressource`,`idFormation`) VALUES (?,?,?,?,?,?,?)";
+        String req = "INSERT INTO `cours`(`nom`, `description`,`date`,`duree`,`prerequis`,`ressource`,`image`,`idFormation`) VALUES (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1,cours.getNom());
@@ -26,7 +26,8 @@ public class ServiceCours implements IService<Cours>{
              ps.setInt(4, cours.getDuree());
             ps.setString(5, cours.getPrerequis());
             ps.setString(6, cours.getRessource());
-            ps.setInt(7,3);
+            ps.setString(7, cours.getImage());
+            ps.setInt(8,3);
 
             ps.executeUpdate();
             System.out.println("new course added added !");
@@ -39,7 +40,7 @@ public class ServiceCours implements IService<Cours>{
 
     @Override
     public void modifier(Cours c) {
-        String req =" UPDATE `cours` SET `nom`=?, `description`=?,`date`=?,`duree`=?,`prerequis`=?,`ressource`=?,`idFormation`=? WHERE `id_cours`=?";
+        String req =" UPDATE `cours` SET `nom`=?, `description`=?,`date`=?,`duree`=?,`prerequis`=?,`ressource`=?,`image`=?,`idFormation`=? WHERE `id_cours`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1,c.getNom());
@@ -48,8 +49,9 @@ public class ServiceCours implements IService<Cours>{
             ps.setInt(4, c.getDuree());
             ps.setString(5, c.getPrerequis());
             ps.setString(6, c.getRessource());
-            ps.setInt(7,3);
-            ps.setInt(8,c.getId_cours());
+            ps.setString(7, c.getImage());
+            ps.setInt(8,3);
+            ps.setInt(9,c.getId_cours());
             ps.executeUpdate();
             System.out.println("Cours modified  !");
 
@@ -94,9 +96,10 @@ public class ServiceCours implements IService<Cours>{
                     int duree = res.getInt("duree");
                     String prerequis = res.getString("prerequis");
                     String ressource = res.getString("ressource");
+                    String image = res.getString("image");
                     ServiceEvaluation s =new ServiceEvaluation() ;
                     Evaluation evaluation =s.getEvaluationByIdCours(id) ;
-                     c = new Cours(id_cours,nom, description,prerequis,ressource,date,duree,evaluation);
+                     c = new Cours(id_cours,nom, description,prerequis,ressource,date,duree,image,evaluation);
 
 
                 }return null;
@@ -124,9 +127,10 @@ public class ServiceCours implements IService<Cours>{
                 int duree = res.getInt("duree");
                 String prerequis = res.getString("prerequis");
                 String ressource = res.getString("ressource");
+                String image = res.getString("image");
                ServiceEvaluation s =new ServiceEvaluation() ;
                Evaluation evaluation =s.getOneById(id) ;
-                Cours c = new Cours(id,nom, description,prerequis,ressource,date,duree,evaluation);
+                Cours c = new Cours(id,nom, description,prerequis,ressource,date,duree,image,evaluation);
                 set_cours.add(c);
             }
         } catch (SQLException e) {
@@ -167,9 +171,10 @@ public class ServiceCours implements IService<Cours>{
                 int duree = res.getInt("duree");
                 String prerequis = res.getString("prerequis");
                 String ressource = res.getString("ressource");
+                String image = res.getString("image");
                 ServiceEvaluation s =new ServiceEvaluation() ;
                 Evaluation evaluation =s.getOneById(id) ;
-                c = new Cours(id_cours,nom, description,prerequis,ressource,date,duree,evaluation);
+                c = new Cours(id_cours,nom, description,prerequis,ressource,date,duree,image,evaluation);
 
 
             }return 0;

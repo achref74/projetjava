@@ -60,6 +60,9 @@ public class DisplayCours implements Initializable {
     private Button ajouter;
 
     @FXML
+    private TextField image ;
+
+    @FXML
     void navigatetoAjouterCoursAction(java.awt.event.ActionEvent event) {
 
     }
@@ -72,6 +75,7 @@ public class DisplayCours implements Initializable {
     private String selectedduree;
     private String selectedPrerequis;
     private String selectedRessource;
+    private String selectedImage;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         navigate.setOnAction(new EventHandler<ActionEvent>() {
@@ -112,9 +116,10 @@ public class DisplayCours implements Initializable {
             Label nom = new Label("Nom : " + cours.getNom());
             Label description = new Label("Discription: " + cours.getDescrption());
             Label date = new Label("Date : " + cours.getDate());
-            Label duree = new Label("Rec: " + cours.getDuree());
-            Label prerequis = new Label("Date Rec: " + cours.getPrerequis());
-            Label ressource = new Label("Date Rec: " + cours.getRessource());
+            Label duree = new Label("Duree: " + cours.getDuree());
+            Label prerequis = new Label("Prerequis : " + cours.getPrerequis());
+            Label ressource = new Label("Ressource: " + cours.getRessource());
+            Label image = new Label("Image: " + cours.getImage());
 
             GridPane gridPane = new GridPane();
             //gridPane.add(id_cours, 0, 0);
@@ -124,7 +129,7 @@ public class DisplayCours implements Initializable {
             gridPane.add(duree, 0, 4);
             gridPane.add(prerequis, 0, 5);
             gridPane.add(ressource, 0, 6);
-
+            gridPane.add(ressource, 0, 7);
             TitledPane titledPane = new TitledPane("Cours " + cours.getId_cours(), gridPane);
 
             titledPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -138,6 +143,7 @@ public class DisplayCours implements Initializable {
                     selectedduree = String.valueOf(cours.getDuree());
                     selectedPrerequis = cours.getPrerequis();
                     selectedRessource = cours.getRessource();
+                    selectedImage = cours.getImage();
 
                     // Afficher les attributs dans les champs texte correspondants
                 //  id_cours.setText(selectedId);
@@ -147,6 +153,7 @@ public class DisplayCours implements Initializable {
                     duree.setText(selectedduree);
                     prerequis.setText(selectedPrerequis);
                     ressource.setText(selectedRessource);
+                    image.setText(selectedImage);
 
                     // Afficher les attributs dans la console pour vérification
                   //  System.out.println("Selected ID: " + selectedId);
@@ -156,6 +163,7 @@ public class DisplayCours implements Initializable {
                     System.out.println("Selected Duree: " + selectedduree);
                     System.out.println("Selected Prerequis: " + selectedPrerequis);
                     System.out.println("Selected Ressource: " + selectedRessource);
+                    System.out.println("Selected Image: " + selectedImage);
                 }
             });
 
@@ -189,7 +197,7 @@ public class DisplayCours implements Initializable {
                     Date dateValue = Date.valueOf(date.getText());
 
                     // Créer un objet Cours avec les valeurs des champs texte
-                    Cours cours = new Cours(Integer.parseInt(id_cours.getText()), nom.getText(), description.getText(), prerequis.getText(), ressource.getText(), dateValue, Integer.parseInt(duree.getText()));
+                    Cours cours = new Cours(Integer.parseInt(id_cours.getText()), nom.getText(), description.getText(), prerequis.getText(), ressource.getText(), dateValue, Integer.parseInt(duree.getText()),image.getText());
 
                     if (selectedId != null) {
                         // Appeler la méthode de modification dans le service
@@ -224,6 +232,7 @@ public class DisplayCours implements Initializable {
             Label dureeLabel = new Label("Durée: " + cours.getDuree());
             Label prerequisLabel = new Label("Prérequis: " + cours.getPrerequis());
             Label ressourceLabel = new Label("Ressource: " + cours.getRessource());
+            Label image = new Label("Image: " + cours.getImage());
 
             GridPane gridPane = new GridPane();
            // gridPane.add(id, 0, 0);
@@ -233,6 +242,7 @@ public class DisplayCours implements Initializable {
             gridPane.add(dureeLabel, 0, 4);
             gridPane.add(prerequisLabel, 0, 5);
             gridPane.add(ressourceLabel, 0, 6);
+            gridPane.add(ressourceLabel, 0, 7);
 
             TitledPane titledPane = new TitledPane("Cours " + cours.getId_cours(), gridPane);
 
@@ -247,6 +257,8 @@ public class DisplayCours implements Initializable {
                     selectedduree = String.valueOf(cours.getDuree());
                     selectedPrerequis = cours.getPrerequis();
                     selectedRessource = cours.getRessource();
+                    selectedImage = cours.getImage();
+
 
                     // Afficher les attributs dans les champs texte correspondants
                     id_cours.setText(selectedId);
@@ -256,6 +268,7 @@ public class DisplayCours implements Initializable {
                     duree.setText(selectedduree);
                     prerequis.setText(selectedPrerequis);
                     ressource.setText(selectedRessource);
+                    image.setText(selectedImage);
 
                     // Afficher les attributs dans la console pour vérification
 
@@ -265,6 +278,7 @@ public class DisplayCours implements Initializable {
                     System.out.println("Selected Durée: " + selectedduree);
                     System.out.println("Selected Prérequis: " + selectedPrerequis);
                     System.out.println("Selected Ressource: " + selectedRessource);
+                    System.out.println("Selected Image: " + selectedImage);
                 }
             });
 
