@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -18,8 +19,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -56,8 +59,8 @@ public class MarketController implements Initializable {
 
     @FXML
     private TextField ressource;
-    @FXML
-    private TextField image;
+  /*  @FXML
+    private TextField image;*/
 
     @FXML
     private ScrollPane scroll;
@@ -93,19 +96,16 @@ public class MarketController implements Initializable {
 
         prerequis.setText(cours.getPrerequis());
         ressource.setText(cours.getRessource());
-        image.setText(cours.getImage());
-       String imagePath = "file:///C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images/" + cours.getImage();
+
+        // Mettre à jour l'image
+        String imagePath = "file:///C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images/" + cours.getImage();
         Image image = new Image(imagePath);
-
-        // Afficher l'image dans l'ImageView fruitImg
         fruitImg.setImage(image);
-
+        currentImageName = cours.getImage();
         selectedId = String.valueOf(cours.getId_cours());
 
-
-
         List<String> colorPalette = new ArrayList<>();
-         colorPalette.add("#D4A5A5");
+        colorPalette.add("#D4A5A5");
         colorPalette.add("#A0522D");
         colorPalette.add("#8B4513");
         colorPalette.add("#CD853F");
@@ -121,15 +121,16 @@ public class MarketController implements Initializable {
         colorPalette.add("#7E8C6B");
         Random random = new Random();
 
-
-        String color =colorPalette.get(random.nextInt(colorPalette.size()));
+        String color = colorPalette.get(random.nextInt(colorPalette.size()));
 
         chosenFruitCard.setStyle("-fx-background-color: " + color + ";\n" +
                 "    -fx-background-radius: 30;");
     }
-
+   private  Cours cours = new Cours();
+    private String selectedImageURL;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         liste.addAll(getData());
         if (!liste.isEmpty()) {
             Iterator<Cours> iterator = liste.iterator();
@@ -184,9 +185,19 @@ public class MarketController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        fruitImg.setOnMouseClicked(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choisir une image");
+            File selectedFile = fileChooser.showOpenDialog(null);
+            if (selectedFile != null) {
+                selectedImageURL = selectedFile.toURI().toString();
+                Image newImage = new Image(selectedImageURL);
+                fruitImg.setImage(newImage);
+            }
+        });
         modifier.setOnAction(event -> modifierCours());
         supprimer.setOnAction(event -> supprimerCours());
+
     }
 
 
@@ -251,12 +262,13 @@ public class MarketController implements Initializable {
         duree.clear();
         prerequis.clear();
         ressource.clear();
-        image.clear();
+       /* image.clear();*/
         fruitNameLable.setText("");
     }
 
+////
 
-
+    private String currentImageName;
     private void modifierCours() {
         // Vérifiez si l'ID du cours sélectionné n'est pas vide
         if (selectedId != null && !selectedId.isEmpty()) {
@@ -270,11 +282,11 @@ public class MarketController implements Initializable {
             String newDuree = duree.getText();
             String newPrerequis = prerequis.getText();
             String newRessource = ressource.getText();
-            String newImage = image.getText();
 
             try {
                 // Créez un nouvel objet Cours avec les valeurs mises à jour
                 Cours cours = new Cours();
+
                 cours.setId_cours(id);
                 cours.setNom(newName);
                 cours.setDate(java.sql.Date.valueOf(newDate)); // Conversion String vers java.sql.Date
@@ -286,29 +298,73 @@ public class MarketController implements Initializable {
                     return; // Sortir de la méthode si la validation échoue
                 }
 
-// Convertir la durée en entier après validation réussie
+                // Convertir la durée en entier après validation réussie
                 cours.setDuree(Integer.parseInt(newDuree.replaceAll("[^0-9]", "")));
                 cours.setPrerequis(newPrerequis);
                 cours.setRessource(newRessource);
-                cours.setImage(newImage);
-
-
+                if (selectedImageURL != null && !selectedImageURL.isEmpty()) {
+                    String imageName = selectedImageURL.substring(selectedImageURL.lastIndexOf("/") + 1);
+                    cours.setImage(imageName);
+                } else {
+                    // Conservez l'image actuelle si aucune nouvelle image n'est sélectionnée.
+                    cours.setImage(currentImageName);
+                }
 
                 // Appelez la méthode de service pour mettre à jour le cours
                 ServiceCours serviceCours = new ServiceCours();
                 serviceCours.modifier(cours);
 
                 // Mettez à jour l'affichage global
+
+
+
                 liste.clear();
                 liste.addAll(getData());
-
-                grid.getChildren().clear(); // Effacez le contenu actuel du grid
-                initialize(null, null); // Réinitialisez l'affichage
-
+                grid.getChildren().clear();
+               // setChosenCours(cours);
+  refreshGrid();
             } catch (Exception e) {
                 e.printStackTrace();
                 // Gérez les erreurs ici
             }
         }
     }
+
+    // Méthode pour afficher les cours dans la grille
+    private void refreshGrid() {
+        grid.getChildren().clear(); // Effacer la grille pour la rafraîchir
+        int column = 0;
+        int row = 1;
+        for (Cours cours : liste) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/Item.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                ItemController itemController = fxmlLoader.getController();
+                if (itemController != null) {
+                    itemController.setData(cours, myListener);
+                    if (column == 3) {
+                        column = 0;
+                        row++;
+                    }
+                    grid.add(anchorPane, column++, row); //(child,column,row)
+                    GridPane.setMargin(anchorPane, new Insets(10));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
+
+
+//////////
+////////////
+/////////
+////////////
+/////////////
+/////////////
+///////////
+/* arkah*/

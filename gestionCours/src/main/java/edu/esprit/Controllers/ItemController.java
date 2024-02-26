@@ -42,13 +42,18 @@ public class ItemController {
         this.priceLable.setText("" + heures +"h "+minutes +"min "+secondes +"sc");
         try {
 
-            String fileName = cours.getImage();
-            String imagePath = "file:///C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images/" + fileName;
+
+            String imagePath = "file:///C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images/" + cours.getImage();
             URL url = new URL(imagePath);
             Image image = new Image(url.openStream());
             this.img.setImage(image);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public Cours getCours() {
+        return this.cours;
     }
 }

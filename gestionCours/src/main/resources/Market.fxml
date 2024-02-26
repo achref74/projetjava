@@ -77,7 +77,6 @@
 
                            </children>
                         </HBox>
-                        <TextField fx:id="image" prefHeight="13.0" prefWidth="334.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
                         <ImageView fx:id="fruitImg" fitHeight="167.0" fitWidth="229.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/artisan.jpg" />
