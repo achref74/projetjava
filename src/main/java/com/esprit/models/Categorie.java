@@ -61,10 +61,6 @@ private String description;
 
     @Override
     public String toString() {
-        return "Categorie{" +
-                "idcategorie=" + idcategorie +
-                ", nom='" + nom + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return this.nom;
     }
 }

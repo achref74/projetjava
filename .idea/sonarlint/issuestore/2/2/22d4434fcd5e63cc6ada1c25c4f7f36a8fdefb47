@@ -1,0 +1,11 @@
+
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(æù·úÿÿÿÿ8ªı¤­İ1
+|	java:S116."[Rename this field "FormationService" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥·Ÿ—úÿÿÿÿ8¸ı¤­İ1
+
+java:S1450."_Remove the "FormationService" field and declare it as a local variable in the relevant methods.(¥·Ÿ—úÿÿÿÿ8¹ı¤­İ1
+~
+java:S1450/"\Remove the "outilsService" field and declare it as a local variable in the relevant methods.(ß´ºÿÿÿÿÿ8¹Ü³­İ1
+T
+java:S1172="2Remove this unused method parameter "actionEvent".(ì³åâıÿÿÿÿ8±•Î¦Ş1
+\
+java:S1128":Remove this unused import 'java.io.FileNotFoundException'.(·î™ùÿÿÿÿ8Íı€¯İ1

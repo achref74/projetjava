@@ -1,0 +1,9 @@
+
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(û∞ÎÓ8öâ”≠›1
+|
+java:S14509"_Remove the "categorieService" field and declare it as a local variable in the relevant methods.(¨≥Éó8ªâ”≠›1
+G	java:S106i"+Replace this use of System.out by a logger.(‘Ÿ°Ù8»â”≠›1
+I
+java:S1602z",Remove useless curly braces around statement(çœ≈Œ8ä®†¶ﬁ1
+_
+java:S1117‚"ARename "outilsService" which hides the field declared at line 56.( ∫ß¶8”â”≠›1

@@ -148,16 +148,6 @@ public class outil {
 
     @Override
     public String toString() {
-        return "outil{" +
-                "idoutils=" + idoutils +
-                ", nom='" + nom + '\'' +
-                ", description='" + description + '\'' +
-                ", prix=" + prix +
-                ", ressources='" + ressources + '\'' +
-                ", stock='" + stock + '\'' +
-                ", etat='" + etat + '\'' +
-                ", categorie=" + categorie +
-                ", image='" + image + '\'' +
-                '}';
+        return this.nom ;
     }
 }

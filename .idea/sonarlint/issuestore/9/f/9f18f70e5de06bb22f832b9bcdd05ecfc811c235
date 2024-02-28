@@ -1,0 +1,6 @@
+
+i
+java:S1192;"GDefine a constant instead of duplicating this literal "Erreur" 3 times.(‚Î‰êýÿÿÿÿ8Ò‹Â¦Þ1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ž°ëî8‹Ç“­Ý1
+|
+java:S1450!"_Remove the "categorieService" field and declare it as a local variable in the relevant methods.(¬³ƒ—8¢Ç“­Ý1

@@ -1,0 +1,17 @@
+
+E	java:S106 "+Replace this use of System.out by a logger.(âşËÑùÿÿÿÿ
+E	java:S106""+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ
+E	java:S106."+Replace this use of System.out by a logger.(Æ³òÜıÿÿÿÿ
+E	java:S1060"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ
+E	java:S106:"+Replace this use of System.out by a logger.(·ù¶§øÿÿÿÿ
+E	java:S106<"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ
+@	java:S106N"+Replace this use of System.err by a logger.(èÑµ
+E	java:S106b"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ
+O
+java:S1128"4Remove this unused import 'com.esprit.models.Achat'.(Íš¤Šùÿÿÿÿ
+K
+java:S1128"0Remove this unused import 'java.time.LocalDate'.(›‘¬èıÿÿÿÿ
+C
+java:S1128".Remove this unused import 'java.util.HashSet'.(Ê‚êX
+E
+java:S1128"*Remove this unused import 'java.util.Set'.(ö²„¤şÿÿÿÿ

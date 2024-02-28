@@ -5,31 +5,31 @@ import java.util.Objects;
 
 public class Achat {
 private int idAchat;
-private formation formation;
+private Formation formation;
 private outil outil;
 private double total;
 private LocalDate date;
 public Achat(){}
 
 
-    public Achat(int idAchat, formation formation, outil outil, double total, LocalDate date) {
+    public Achat(int idAchat, Formation formation, outil outil, double total, LocalDate date) {
         this.idAchat = idAchat;
         this.formation = formation;
         this.outil = outil;
         this.total = total;
         this.date = LocalDate.now();    }
-    public Achat(int idAchat, formation formation, outil outil, double total) {
+    public Achat(int idAchat, Formation formation, outil outil, double total) {
         this.idAchat = idAchat;
         this.formation = formation;
         this.outil = outil;
         this.total = total;
           }
 
-    public Achat(formation formation, com.esprit.models.outil outil, double total) {
+    public Achat(Formation formation, outil outil, double total , LocalDate date) {
         this.formation = formation;
         this.outil = outil;
         this.total = total;
-        this.date = LocalDate.now();
+        this.date = date;
     }
 
     public int getIdAchat() {
@@ -40,11 +40,11 @@ public Achat(){}
         this.idAchat = idAchat;
     }
 
-    public formation getidFormation() {
+    public Formation getidFormation() {
         return formation;
     }
 
-    public void setFormation(formation formation) {
+    public void setFormation(Formation formation) {
         this.formation = formation;
     }
 
@@ -68,7 +68,7 @@ public Achat(){}
         return date;
     }
 
-    public void setDate() {
+    public void setDate(LocalDate value) {
         this.date = LocalDate.now();
     }
 

@@ -1,4 +1,5 @@
 package com.esprit.services;
+import com.esprit.models.Categorie;
 import com.esprit.models.outil;
 
 import com.esprit.utils.DataSource;
@@ -95,12 +96,12 @@ public class OutilsService2 implements IService<outil> {
     public List<outil> getAll() {
         List<outil> outilss = new ArrayList<>();
 
-        String req = "SELECT * FROM outil";
+        String req = "SELECT o.*, c.idCategorie as cat_id, c.nom as cat_nom, c.description as cat_description FROM outil o JOIN categorie c ON o.idCategorie = c.idCategorie";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                int idoutils =rs.getInt("idoutils");
+                int idoutils = rs.getInt("idoutils");
                 String nom = rs.getString("nom");
                 String description = rs.getString("description");
                 double prix = rs.getDouble("prix");
@@ -108,11 +109,12 @@ public class OutilsService2 implements IService<outil> {
                 String stock = rs.getString("stock");
                 String etat = rs.getString("etat");
                 String image = rs.getString("image");
+                int catId = rs.getInt("cat_id");
+                String catNom = rs.getString("cat_nom");
+                String catDescription = rs.getString("cat_description");
+                Categorie categorie = new Categorie(catId, catNom, catDescription);
 
-
-
-
-                outilss.add(new outil(idoutils, nom, description, prix, ressources, stock,etat,image));
+                outilss.add(new outil(idoutils, nom, description, prix, ressources, stock, etat, categorie, image));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -120,6 +122,7 @@ public class OutilsService2 implements IService<outil> {
 
         return outilss;
     }
+
 
 
 

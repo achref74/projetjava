@@ -1,0 +1,26 @@
+
+e
+java:S2095-"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÞÐþ©
+e
+java:S2095G"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ªŠÄ»
+e
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ªŠÄ»
+V	java:S125"<This block of commented-out lines of code should be removed.(•Ýˆúÿÿÿÿ
+@	java:S106 "+Replace this use of System.out by a logger.(ÞÄ·Ã
+E	java:S106""+Replace this use of System.out by a logger.(©þêÜúÿÿÿÿ
+@	java:S1067"+Replace this use of System.out by a logger.(‹Ö´…
+E	java:S1069"+Replace this use of System.out by a logger.(öÁ„Ìúÿÿÿÿ
+E	java:S106<"+Replace this use of System.out by a logger.(”Äñÿÿÿÿÿ
+@	java:S106M"+Replace this use of System.out by a logger.(…ñ ¾
+E	java:S106O"+Replace this use of System.out by a logger.(í¿ýÿÿÿÿ
+E	java:S106R"+Replace this use of System.out by a logger.(ÖÂ’¥ûÿÿÿÿ
+@	java:S106h"+Replace this use of System.err by a logger.(Û¶‹†
+M	java:S106¢"+Replace this use of System.out by a logger.(©þêÜúÿÿÿÿ8è†Ì¬Ý1
+U
+java:S1172ª"2Remove this unused method parameter "idFormation".(Ð×¤Éþÿÿÿÿ8êÀ½¬Ý1
+Q
+java:S1172°".Remove this unused method parameter "idOutil".(ªå…šþÿÿÿÿ8êÀ½¬Ý1
+X
+java:S1144ª"5Remove this unused private "getFormationById" method.(Ð×¤Éþÿÿÿÿ8Ï²Ã¬Ý1
+T
+java:S1144°"1Remove this unused private "getOutilById" method.(ªå…šþÿÿÿÿ8Ï²Ã¬Ý1

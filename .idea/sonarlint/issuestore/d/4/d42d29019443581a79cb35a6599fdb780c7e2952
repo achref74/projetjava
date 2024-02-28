@@ -1,0 +1,7 @@
+
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ζω·ϊÿÿÿÿ8ª Η­έ1
+|
+java:S1450."_Remove the "formationService" field and declare it as a local variable in the relevant methods.(”Ϋ£8Ώ Η­έ1
+~
+java:S1450-"\Remove the "outilsService" field and declare it as a local variable in the relevant methods.(ί΄Ίÿÿÿÿÿ8Ώ Η­έ1
+G	java:S106K"+Replace this use of System.out by a logger.(Òΰ΄Η8Δ Η­έ1

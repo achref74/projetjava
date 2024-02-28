@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane fx:id="mainContentPane" stylesheets="@../styles.css" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F4F6F6;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Outils.AjouterOutilsController">
+    <children>
+        <VBox spacing="20" layoutX="200.0" layoutY="50.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+            <children>
+                <TextField fx:id="tfNom" promptText="Nom"/>
+                <TextField fx:id="tfDescription" promptText="Description"/>
+                <TextField fx:id="tfPrix" promptText="Prix"/>
+                <TextField fx:id="tfRessources" promptText="Ressources"/>
+                <TextField fx:id="tfStock" promptText="Stock"/>
+                <TextField fx:id="tfEtat" promptText="Etat"/>
+                <ComboBox fx:id="cbCategorie" promptText="Categorie"/>
+                <HBox spacing="10">
+                    <TextField fx:id="tfImagePath" promptText="Image Path" editable="false"/>
+                    <Button text="Choose Image" onAction="#handleUploadImage"/>
+                </HBox>
+                <Button text="Ajouter" onAction="#handleAjouterOutil"/>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</StackPane>

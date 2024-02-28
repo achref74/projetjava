@@ -1,6 +1,5 @@
 package com.esprit.tests;
 
-import com.sun.javafx.stage.EmbeddedWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +16,7 @@ public class MainProgGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/AffichageCategorie.fxml"));
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/Menu/Menu.fxml"));
         Parent root=loader.load();
         Scene scene=new Scene(root);
         primaryStage.setScene(scene);

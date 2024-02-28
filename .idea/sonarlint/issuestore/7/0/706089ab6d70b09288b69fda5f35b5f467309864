@@ -1,0 +1,22 @@
+
+P
+java:S1854"5Remove this useless assignment to local variable "o".(Ò»¦¡úÿÿÿÿ
+S
+java:S1854"=Remove this useless assignment to local variable "formation".(ÔûèÄ
+[
+java:S1854"@Remove this useless assignment to local variable "achatService".(œ¬Þ¿ÿÿÿÿÿ
+Z
+java:S1854"DRemove this useless assignment to local variable "categorieService".(˜æ‚Û
+K
+java:S1481"5Remove this unused "categorieService" local variable.(˜æ‚Û
+L
+java:S1481"1Remove this unused "achatService" local variable.(œ¬Þ¿ÿÿÿÿÿ
+V	java:S125"<This block of commented-out lines of code should be removed.(¦þÔèýÿÿÿÿ
+D
+java:S1481".Remove this unused "formation" local variable.(ÔûèÄ
+A
+java:S1481"&Remove this unused "o" local variable.(Ò»¦¡úÿÿÿÿ
+Q	java:S125"<This block of commented-out lines of code should be removed.(“™èù
+V	java:S125"<This block of commented-out lines of code should be removed.(üãÄ¸ùÿÿÿÿ
+V	java:S125""<This block of commented-out lines of code should be removed.(”ÚÂ‚ýÿÿÿÿ
+P	java:S125%"<This block of commented-out lines of code should be removed.(•¬†=

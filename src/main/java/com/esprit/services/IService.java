@@ -2,6 +2,7 @@ package com.esprit.services;
 
 
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -13,5 +14,5 @@ public interface IService<T> {
 
 
     public T getOneById(int id);
-    public List<T> getAll();
+    public List<T> getAll() throws SQLException;
 }

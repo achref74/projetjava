@@ -1,0 +1,12 @@
+
+l
+java:S20950"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(¢äÏ8àÅŸ¬İ1
+£
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ˆ´Ş¯ÿÿÿÿÿ8‡ú‡šİ1
+
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÏÍ8‡ú‡šİ1
+
+java:S1186!"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹ƒîş8‡ú‡šİ1
+L	java:S106A"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ8ú‡šİ1
+Q
+java:S1128"/Remove this unused import 'javafx.stage.Stage'.(æÄ¸²úÿÿÿÿ8éÅŸ¬İ1

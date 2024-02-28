@@ -1,0 +1,18 @@
+
+£
+java:S1186J"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÈôµÂùÿÿÿÿ8ÄÆ”¬İ1
+b	java:S107#"AConstructor has 9 parameters, which is greater than 7 authorized.(â¨­°úÿÿÿÿ8Œ’¬İ1
+]	java:S1071"AConstructor has 8 parameters, which is greater than 7 authorized.(½µòû8‚Œ’¬İ1
+`
+java:S1172$">Remove these unused method parameters "idUser", "idCategorie".(ÄïíÔşÿÿÿÿ8†Œ’¬İ1
+[
+java:S11721">Remove these unused method parameters "idUser", "idCategorie".(½µòû8ˆŒ’¬İ1
+^	java:S125…"<This block of commented-out lines of code should be removed.(Ú÷ï÷øÿÿÿÿ8Œ’¬İ1
+d
+java:S1128"BRemove this unused import 'javax.annotation.processing.Generated'.(ÒİÊøÿÿÿÿ8’Œ’¬İ1
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8’Œ’¬İ1
+G
+java:S1068"*Remove this unused "idUser" private field.(¦ÈÁË8“Œ’¬İ1
+Q
+java:S1068"/Remove this unused "idCategorie" private field.(ñ·Ïíşÿÿÿÿ8“Œ’¬İ1

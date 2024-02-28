@@ -1,7 +1,7 @@
 package com.esprit.tests;
 
 import com.esprit.models.Categorie;
-import com.esprit.models.formation;
+import com.esprit.models.Formation;
 import com.esprit.models.outil;
 import com.esprit.services.AchatService2;
 import com.esprit.services.OutilsService2;
@@ -15,7 +15,7 @@ public class MainProg {
         AchatService2 achatService = new AchatService2();
 
        // categorieService.ajouter(new Categorie("felhui","mohamedd"));
-formation formation = new formation(1);
+Formation formation = new Formation(1);
 outil o=new outil();
 
         // Testing Outils
