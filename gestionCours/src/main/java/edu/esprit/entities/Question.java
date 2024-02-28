@@ -13,6 +13,17 @@ public class Question {
     private String reponse;
     private String crx;
 
+    public Question(String ressource, int duree, int point, String choix1, String choix2, String choix3, String crx) {
+        this.ressource = ressource;
+        this.duree = duree;
+        this.point = point;
+        this.choix1 = choix1;
+        this.choix2 = choix2;
+        this.choix3 = choix3;
+
+        this.crx = crx;
+    }
+
     public int getId_q() {
         return id_q;
     }

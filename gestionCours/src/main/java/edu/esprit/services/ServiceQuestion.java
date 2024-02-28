@@ -12,7 +12,7 @@ public class ServiceQuestion implements IService<Question>{
     public void ajouter(Question q ){}
     public void ajouter(Question question, int id_e) {
         if (ServiceEvaluation.existe(id_e)) {
-            String req = "INSERT INTO `question`(`ressource`, `duree`, `point`, `choix1`, `choix2`, `choix3`, `reponse`, `crx`, `id_e`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String req = "INSERT INTO `question`(`ressource`, `duree`, `point`, `choix1`, `choix2`, `choix3`,  `crx`, `id_e`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
                 ps.setString(1, question.getRessource());
@@ -21,9 +21,9 @@ public class ServiceQuestion implements IService<Question>{
                 ps.setString(4, question.getChoix1());
                 ps.setString(5, question.getChoix2());
                 ps.setString(6, question.getChoix3());
-                ps.setString(7, question.getReponse());
-                ps.setString(8, question.getCrx());
-                ps.setInt(9, id_e);
+
+                ps.setString(7, question.getCrx());
+                ps.setInt(8, id_e);
                 ps.executeUpdate();
                 System.out.println("Question ajoutée !");
             } catch (SQLException e) {

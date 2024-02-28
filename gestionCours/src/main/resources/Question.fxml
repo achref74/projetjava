@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onMousePressed="#click" prefHeight="377.0" prefWidth="753.0" style="-fx-background-color: black; -fx-border-radius: 50; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.QuestionController">
+<AnchorPane onMousePressed="#click" prefHeight="377.0" prefWidth="742.0" style="-fx-background-color: black; -fx-border-radius: 50; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.QuestionController">
    <children>
       <ImageView fitHeight="370.0" fitWidth="604.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -163,7 +163,10 @@
             <Font name="Maiandra GD" size="18.0" />
          </font>
       </TextField>
-      <Button layoutX="592.0" layoutY="162.0" mnemonicParsing="false" onAction="#modifierQuestion" text="Rendre la reponse" />
+      <Button layoutX="604.0" layoutY="160.0" mnemonicParsing="false" onAction="#modifierQuestion" prefHeight="26.0" prefWidth="149.0" text="Rendre la reponse">
+         <padding>
+            <Insets right="50.0" />
+         </padding></Button>
       <Label layoutX="20.0" layoutY="302.0" prefHeight="26.0" prefWidth="70.0" text="Points : " textFill="#5dfa3a">
          <font>
             <Font name="Maiandra GD" size="18.0" />

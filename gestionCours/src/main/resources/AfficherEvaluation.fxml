@@ -19,6 +19,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.AfficherEvaluation">
     <children>
+      <ImageView fitHeight="820.0" fitWidth="1587.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Capture.JPG" />
+         </image>
+      </ImageView>
         <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <left>
                 <VBox prefHeight="810.0" prefWidth="353.0" style="-fx-border-style: none; -fx-background-color: #05071F;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
@@ -188,7 +193,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="726.0" prefWidth="939.0">
                                  <children>
-                                    <ScrollPane fx:id="scroll" prefHeight="495.0" prefWidth="704.0" styleClass="transparent" stylesheets="@style.css">
+                                    <ScrollPane fx:id="scroll" prefHeight="495.0" prefWidth="717.0" styleClass="transparent" stylesheets="@style.css">
                                        <content>
                                           <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
                                              <rowConstraints>

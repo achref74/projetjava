@@ -25,7 +25,7 @@
       </ImageView>
         <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <left>
-                <VBox prefHeight="664.0" prefWidth="354.0" style="-fx-border-style: none; -fx-background-color: #05071F;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+                <VBox prefHeight="771.0" prefWidth="354.0" style="-fx-border-style: none; -fx-background-color: #05071F;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
                     <children>
                         <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
                             <children>
@@ -85,7 +85,7 @@
                                  <children>
                                     <HBox prefHeight="0.0" prefWidth="684.0">
                                        <children>
-                                          <Label prefHeight="50.0" prefWidth="220.0" text="Evaluation" textFill="#f4f3f3">
+                                          <Label prefHeight="50.0" prefWidth="220.0" text="Evaluation:" textFill="#f4f3f3">
                                              <font>
                                                 <Font name="Cambria" size="40.0" />
                                              </font>
@@ -93,25 +93,25 @@
                                           <VBox prefHeight="86.0" prefWidth="23.0" />
                                           <VBox prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <TextField fx:id="note" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Note : " />
                                                 <Label prefHeight="50.0" prefWidth="220.0" text="Note" textFill="#f4f3f3">
                                                    <font>
                                                       <Font name="Cambria" size="36.0" />
                                                    </font>
                                                 </Label>
+                                                <TextField fx:id="note" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Note : " />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <TextField fx:id="nom" prefHeight="36.0" prefWidth="110.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Nom : " />
                                                 <Label prefHeight="50.0" prefWidth="220.0" text="Nom" textFill="#f4f3f3">
                                                    <font>
                                                       <Font name="Cambria" size="36.0" />
                                                    </font>
                                                 </Label>
+                                                <TextField fx:id="nom" prefHeight="36.0" prefWidth="110.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Nom : " />
                                              </children>
                                           </VBox>
-                                          <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="190.0" styleClass="search-button" stylesheets="@style.css" text="Ajouter cette evaluation">
+                                          <Button fx:id="ajouterBtn" mnemonicParsing="false" onAction="#ajouterEvaluation" prefHeight="38.0" prefWidth="190.0" styleClass="search-button" stylesheets="@style.css" text="Ajouter cette evaluation">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="25.0" />
                                              </HBox.margin>
@@ -197,7 +197,7 @@
                                                             <Insets left="10.0" />
                                                          </HBox.margin>
                                                       </Label>
-                                                      <TextField fx:id="quatriemechoix" />
+                                                      <TextField fx:id="crx" />
                                                    </children>
                                                 </HBox>
                                                 <HBox prefHeight="73.0" prefWidth="623.0">
@@ -210,7 +210,7 @@
                                                             <Insets left="10.0" />
                                                          </HBox.margin>
                                                       </Label>
-                                                      <TextField fx:id="points" />
+                                                      <TextField fx:id="point" />
                                                    </children>
                                                 </HBox>
                                                 <HBox prefHeight="100.0" prefWidth="200.0">
@@ -224,7 +224,7 @@
                                                          </HBox.margin>
                                                       </Label>
                                                       <TextField fx:id="duree" />
-                                                      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="158.0" styleClass="search-button" stylesheets="@style.css" text="Ajouter cette question">
+                                                      <Button mnemonicParsing="false" onAction="#ajouterQuestion" prefHeight="40.0" prefWidth="158.0" styleClass="search-button" stylesheets="@style.css" text="Ajouter cette question">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>

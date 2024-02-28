@@ -7,19 +7,19 @@ import edu.esprit.services.ServiceQuestion;
 import edu.esprit.tests.MyListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import java.net.URL;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-public class AjouterEController {
+public class AjouterEController implements Initializable {
 
     @FXML
     private VBox Evaluation;
@@ -43,98 +43,155 @@ public class AjouterEController {
     @FXML
     private ScrollPane scroll;
 
+    @FXML
+    private TextField crx;
+
+    @FXML
+    private TextField deuxiemechoix;
+
+    @FXML
+    private TextField duree;
+
+    @FXML
+    private TextField point;
+
+    @FXML
+    private TextField premierchoix;
+
+    @FXML
+    private TextField ressource;
+
+    @FXML
+    private TextField troisiemechoix;
 
     @FXML
     private VBox Evaluation1;
 
-
-
-
+    @FXML
+    private Button ajouterBtn;
 
     private Set<Question> liste = new HashSet<>();
     private List<String> colorPalette = new ArrayList<>();
-    private edu.esprit.entities.Evaluation e;
+    private Evaluation e;
 
     private String coursId;
+
     public void setCoursId(String coursId) {
         this.coursId = coursId;
         ServiceEvaluation se = new ServiceEvaluation();
-        ServiceQuestion sq = new ServiceQuestion(); // Création du service de question ici
+        ServiceQuestion sq = new ServiceQuestion();
 
         try {
-            // Convertir coursId en int
             int idInt = Integer.parseInt(coursId);
-
-            // Récupérer l'évaluation par ID
             e = se.getEvaluationByIdCours(idInt);
 
-            // Vérifier si l'évaluation n'est pas null
             if (e != null) {
-                // Définir le nom et la note de l'évaluation dans les TextField
                 nom.setText(e.getNom());
                 note.setText(String.valueOf(e.getNote()));
-
-                // Récupérer les questions par ID d'évaluation
                 liste = sq.getQuestionsByIdEvaluation(e.getId_e());
-
-                // Une fois que la liste des questions est récupérée, vous pouvez appeler la méthode pour initialiser le contenu de votre GridPane
-              //  initializeQuestionsGrid();
             } else {
-                // Gestion du cas où l'évaluation est null
-                nom.setText("Evaluation non trouvée");
+                nom.setText("");
                 note.setText("");
             }
         } catch (NumberFormatException e) {
-            // Gestion de l'erreur de conversion de l'ID
             System.err.println("Erreur de format pour l'ID du cours : " + coursId);
             nom.setText("Erreur de format ID");
             note.setText("");
         }
 
-        // Ajouter les couleurs à la palette
         colorPalette.addAll(List.of(
                 "#D4A5A5", "#A0522D", "#8B4513", "#CD853F", "#D2B48C",
                 "#BC8F8F", "#F4A460", "#DAA520", "#8B4513", "#46637F",
                 "#44505E", "#7D5147", "#7F5A45", "#7E8C6B"
         ));
-  }
+    }
+
     @FXML
     void retour(ActionEvent event) {
 
     }
     @FXML
-    private void ajouterEvaluation() {
-        // Vérifier que le nom et la note ne sont pas vides
+    private void ajouterEvaluation(ActionEvent event) {
         if (!nom.getText().isEmpty() && !note.getText().isEmpty()) {
             try {
-                // Récupérer le nom et la note depuis les champs TextField
                 String nomEvaluation = nom.getText();
                 int noteEvaluation = Integer.parseInt(note.getText());
-
-                // Créer une nouvelle instance d'Evaluation
                 Evaluation nouvelleEvaluation = new Evaluation(nomEvaluation, noteEvaluation);
-
-                // Appeler la méthode d'ajout d'évaluation du service avec l'ID du cours
                 ServiceEvaluation serviceEvaluation = new ServiceEvaluation();
+
+                // Vérifier si une évaluation existe déjà pour ce cours et si elle est remplie
+                if (e != null && isEvaluationFilled(e)) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText(null);
+                    alert.setContentText("L'évaluation existante pour ce cours est déjà remplie !");
+                    alert.showAndWait();
+                    return; // Arrêter l'exécution de la méthode
+                }
+
                 serviceEvaluation.ajouter(nouvelleEvaluation, Integer.parseInt(coursId));
-
-                // Afficher un message de succès
                 System.out.println("Nouvelle évaluation ajoutée avec succès : " + nouvelleEvaluation);
-
-                // Réinitialiser les champs TextField
                 nom.clear();
                 note.clear();
-
-                // Actualiser l'affichage des évaluations dans le GridPane
-                setCoursId(coursId); // Réafficher les évaluations après l'ajout de la nouvelle évaluation
+                setCoursId(coursId);
             } catch (NumberFormatException e) {
-                // Gérer l'erreur si la note n'est pas un nombre valide
                 System.err.println("Erreur lors de la conversion de la note en nombre : " + e.getMessage());
             }
         } else {
-            // Afficher un message d'erreur si le nom ou la note est vide
             System.err.println("Le nom ou la note de l'évaluation est vide !");
         }
     }
 
+    private boolean isEvaluationFilled(Evaluation evaluation) {
+        // Ajoutez ici votre logique pour vérifier si une évaluation est remplie.
+        // Dans cet exemple, nous supposons qu'une évaluation est remplie si son nom et sa note ne sont pas vides.
+        return !evaluation.getNom().isEmpty() && evaluation.getNote() != 0;
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ajouterBtn.setOnAction(this::ajouterEvaluation);
+        nom.setText("");
+        note.setText("0");
+        if (e != null) {
+            // Afficher une alerte pour informer l'utilisateur
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText(null);
+            alert.setContentText("Le cours a déjà une évaluation. Les informations de cette évaluation ont été pré-remplies.");
+            alert.showAndWait();
+
+            // Remplir les champs nom et note avec les valeurs de l'évaluation existante
+            nom.setText(e.getNom());
+            note.setText(String.valueOf(e.getNote()));
+        }
+    }
+
+    @FXML
+    private void ajouterQuestion(ActionEvent event) {
+        String ressourceText = ressource.getText();
+        int dureeValue = Integer.parseInt(duree.getText());
+        int pointValue = Integer.parseInt(point.getText());
+        String choix1Text = premierchoix.getText();
+        String choix2Text = deuxiemechoix.getText();
+        String choix3Text = troisiemechoix.getText();
+        String crxText = crx.getText();
+
+        Question question = new Question(ressourceText, dureeValue, pointValue, choix1Text, choix2Text, choix3Text, crxText);
+        int id_e = e.getId_e();
+
+        ServiceQuestion serviceQuestion = new ServiceQuestion();
+        serviceQuestion.ajouter(question, id_e);
+
+        System.out.println("Nouvelle question ajoutée avec succès : " + question);
+
+        ressource.clear();
+        duree.clear();
+        point.clear();
+        premierchoix.clear();
+        deuxiemechoix.clear();
+        troisiemechoix.clear();
+        crx.clear();
+
+        setCoursId(coursId);
+    }
 }

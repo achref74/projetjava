@@ -1,31 +1,33 @@
-.button
-{
-    -fx-background-color : #05071F;
-    -fx-text-fill : #e7e5e5;
+.button {
+    -fx-background-color: #05071F;
+    -fx-text-fill: #e7e5e5;
 }
-.button:hover{
-    -fx-background-color : #10165F;
+
+.button:hover {
+    -fx-background-color: #10165F;
 }
-.button:pressed
-{
-    -fx-background-color : #1620A1;
+
+.button:pressed {
+    -fx-background-color: #1620A1;
 }
 
 .scroll-pane {
     -fx-background-color: #02030A;
 }
 
-.scroll-bar:horizontal, .scroll-bar:vertical{
-    -fx-background-color:transparent;
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
 }
 
-.increment-button, .decrement-button {
+.increment-button,
+.decrement-button {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
 .scroll-bar:horizontal .track,
-.scroll-bar:vertical .track{
+.scroll-bar:vertical .track {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-background-radius: 0em;
@@ -41,32 +43,34 @@
     -fx-background-color: black;
 }
 
-.search_box{
+.search_box {
     -fx-background-color: #10165F;
-    -fx-background-radius:100;
+    -fx-background-radius: 100;
 }
-.transparent{
-    -fx-background-color:rgba(0,0,0,0);
-    -fx-text-fill : #e7e5e5;
-}
-.search_button{
 
-    -fx-background-color: #828282 ;
-    -fx-background-radius:30;
+.transparent {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-text-fill: #e7e5e5;
 }
-.right-bar{
 
-    -fx-background-color: #05071F;
-
-}
-.shadow{
-    -fx-effect: dropShadow(three-pass-box,#000000,10.0,0.0,0.0,10.0);
-}
-.cours-item{
-
-   -fx-background-color: #FFFFFF;
+.search_button {
+    -fx-background-color: #828282;
     -fx-background-radius: 30;
 }
+
+.right-bar {
+    -fx-background-color: #05071F;
+}
+
+.shadow {
+    -fx-effect: dropShadow(three-pass-box, #000000, 10.0, 0.0, 0.0, 10.0);
+}
+
+.cours-item {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30;
+}
+
 .right-bar {
     -fx-background-color: #f4f4f4;
 }
@@ -76,7 +80,7 @@
     -fx-border-color: #ccc;
     -fx-border-radius: 5px;
     -fx-padding: 8px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
     -fx-font-size: 14px;
 }
 
@@ -86,15 +90,15 @@
     -fx-font-size: 14px;
     -fx-border-radius: 5px;
     -fx-padding: 8px 16px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 0);
 }
 
 .course-box {
-    -fx-background-color:  #05071F;
+    -fx-background-color: #05071F;
     -fx-border-color: #ccc;
     -fx-border-radius: 5px;
     -fx-padding: 10px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
 }
 
 .course-box > .titled-pane {
@@ -102,65 +106,67 @@
     -fx-border-color: #ddd;
     -fx-border-radius: 5px;
     -fx-padding: 10px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
     -fx-transition: all 0.3s;
 }
 
 .course-box > .titled-pane:hover {
-    -fx-background-color:  #05071F;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+    -fx-background-color: #05071F;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 0);
 }
-.search-box{
-    -fx-background-color:#FFFFFF;
+
+.search-box {
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 100;
 }
 
-.transparent{
-    -fx-background-color: rgba(0,0,0,0);
+.transparent {
+    -fx-background-color: rgba(0, 0, 0, 0);
 }
 
-.search-button{
+.search-button {
     -fx-background-color: #828282;
     -fx-background-radius: 30;
 }
 
-.right-bar{
+.right-bar {
     -fx-background-color: #D3D3D3;
 }
 
-.shadow{
-    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+.shadow {
+    -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.1), 10.0, 0.0, 0.0, 10.0);
 }
 
-.chosen-fruit-card{
+.chosen-fruit-card {
     -fx-background-color: #F16C31;
     -fx-background-radius: 30;
 }
 
-.comboBox{
-    -fx-background-color: rgba(255,255,255,0.3);
+.comboBox {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
     -fx-background-radius: 30;
 }
 
-.add-btn{
+.add-btn {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 100;
 }
 
-.free-delivery-card{
+.free-delivery-card {
     -fx-background-color: #D3D3D3;
     -fx-background-radius: 30;
 }
 
-.shopping-online-card{
+.shopping-online-card {
     -fx-background-color: #BAEAC3;
     -fx-background-radius: 30;
 }
 
-.fruit-item{
+.fruit-item {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 30;
 }
+
 .check-box {
     -fx-background-color: transparent;
     -fx-text-fill: #afa5dc;
@@ -172,11 +178,11 @@
 }
 
 .check-box .box:hover {
-    -fx-background-color: #6460AA; /* Couleur de fond au survol */
+    -fx-background-color: #6460AA;
 }
 
 .check-box:selected .box {
-    -fx-background-color: #4CAF50; /* Couleur de fond lors de la sélection */
+    -fx-background-color: #4CAF50;
 }
 
 .check-box .text {
@@ -185,13 +191,22 @@
 }
 
 .check-box:selected .text {
-    -fx-fill: #FFFFFF; /* Couleur du texte lors de la sélection */
+    -fx-fill: #FFFFFF;
 }
 
-/* Animation de la case à cocher lorsqu'elle est sélectionnée */
 .check-box:selected .box {
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 3px;
     -fx-padding: 1px 3px 3px 3px;
     -fx-transition: all 0.3s ease;
 }
+
+.text-area-no-border {
+    -fx-border-width: 0;
+}
+
+* {
+
+    -fx-control-inner-background:white ;
+}
+

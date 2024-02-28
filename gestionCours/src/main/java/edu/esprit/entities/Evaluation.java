@@ -69,10 +69,10 @@ public class Evaluation {
 
 
         return String.format("Evaluation%n" +
+
+                        " Nom | Note | Questions           |%n" +
                         "----------------------------------------------%n" +
-                        " Note | Questions           |%n" +
-                        "----------------------------------------------%n" +
-                        note, questions);
+                        nom, note, questions);
     }
 
     public Evaluation(int id_e,  String nom, int note) {

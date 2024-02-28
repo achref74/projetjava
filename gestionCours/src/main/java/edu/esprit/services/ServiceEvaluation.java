@@ -18,7 +18,7 @@ public class ServiceEvaluation implements IService <Evaluation>{
         if (ServiceCours.existe(id_cours)) {
 
 
-            String req = "INSERT INTO `evaluation`( `note`,`nom`,`id_cours`) VALUES (?,?,?,?)";
+            String req = "INSERT INTO `evaluation`( `note`,`nom`,`id_cours`) VALUES (?,?,?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
 

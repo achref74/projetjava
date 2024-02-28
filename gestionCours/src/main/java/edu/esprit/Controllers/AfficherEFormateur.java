@@ -191,7 +191,5 @@ public class AfficherEFormateur implements Initializable {
         }}
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Cette méthode sera appelée lorsque l'initialisation de l'interface utilisateur FXML sera terminée.
-        // Vous pouvez laisser vide cette méthode pour l'instant, car l'initialisation des questions est effectuée dans la méthode setCoursId().
-    }
+        }
 }

@@ -39,7 +39,7 @@ public class AfficherEvaluation implements Initializable {
     private TextField duree;
 
     @FXML
-    private Label nom;
+    private TextField nom;
 
     @FXML
     private TextField note;
@@ -143,7 +143,6 @@ public class AfficherEvaluation implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Cette méthode sera appelée lorsque l'initialisation de l'interface utilisateur FXML sera terminée.
-        // Vous pouvez laisser vide cette méthode pour l'instant, car l'initialisation des questions est effectuée dans la méthode setCoursId().
+
     }
 }
