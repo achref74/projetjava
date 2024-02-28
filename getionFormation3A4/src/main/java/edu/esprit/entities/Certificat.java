@@ -23,6 +23,14 @@ private Formation formation;
         //this.idUser = idUser;
         this.formation = formation;
     }
+    public Certificat(String titre, String description, Date dateObtention, int nbrCours,int idFormation) {
+        this.titre = titre;
+        this.description = description;
+        this.dateObtention = dateObtention;
+        this.nbrCours = nbrCours;
+        //this.idUser = idUser;
+        this.idFormation = idFormation;
+    }
 
     public Certificat(String titre, String description, Date dateObtention, int nbrCours) {
 

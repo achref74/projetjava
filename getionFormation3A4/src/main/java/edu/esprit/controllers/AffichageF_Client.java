@@ -1,16 +1,17 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.Certificat;
 import edu.esprit.entities.Formation;
+import edu.esprit.entities.Offre;
+import edu.esprit.services.ServiceCertificat;
 import edu.esprit.services.ServiceFormation;
+import edu.esprit.services.ServiceOffre;
 import edu.esprit.tests.MyListenerF;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 import edu.esprit.entities.Formation;
@@ -85,10 +87,14 @@ public class AffichageF_Client implements Initializable{
 
     @FXML
     private Button supprimerF;
-
+@FXML
+private Button certificatF;
     private Set<Formation> listF = new HashSet<>();
     private MyListenerF myListener;
     private String selectedIdF ;
+    private String selectedNomF ;
+    private String selectedNbrCF ;
+    private String selectedDescripF ;
 
     private Set<Formation> getData() {
         Set<Formation> listF = new HashSet<>();
@@ -116,7 +122,9 @@ public class AffichageF_Client implements Initializable{
         nbrCours.setText(String.valueOf(formation.getNbrCours()));
         descripF.setText(formation.getDescription());
         prixF.setText(String.valueOf(formation.getPrix()));
-
+selectedNbrCF=String.valueOf(formation.getNbrCours());
+selectedNomF=String.valueOf(formation.getNom());
+selectedDescripF=String.valueOf(formation.getDescription());
         selectedIdF = String.valueOf(formation.getIdFormation());
         //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
 
@@ -157,6 +165,11 @@ public class AffichageF_Client implements Initializable{
                 @Override
                 public void onClickListener(Formation formation) {
                     setChosenFormation(formation);
+                }
+
+                @Override
+                public void onClickListener1(Offre var2) {
+
                 }
             };
         }
@@ -201,6 +214,7 @@ public class AffichageF_Client implements Initializable{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        certificatF.setOnAction(event -> ajouterCertificat());
 
     }
 
@@ -215,7 +229,43 @@ public class AffichageF_Client implements Initializable{
         nbrCours.clear();
         nomF.setText("");
     }
+    ///******************pdf*************************///
+    private static void openDirectoryInWindows() throws Exception {
+        Runtime.getRuntime().exec("explorer C:\\Users\\DELL GAMING\\Desktop\\PI\\getionFormation3A4\\src\\main\\resources\\Pdf");
+    }
+    public  void ajouterCertificat()
+    {
+        LocalDate currentDate = LocalDate.now();
+        java.sql.Date date = java.sql.Date.valueOf(currentDate);
 
+        ServiceCertificat sc=new ServiceCertificat();
+
+        try {
+            sc.ajouter(new Certificat(
+                    selectedNomF, selectedDescripF, date, Integer.parseInt(selectedNbrCF), Integer.parseInt(selectedIdF)
+            ));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setContentText("Certificat ajoutée avec succès !");
+            alert.show();
+            Pdf generator = new Pdf();
+            generator.createPdfWithPDFBox("C:\\Users\\DELL GAMING\\Desktop\\PI\\getionFormation3A4\\src\\main\\resources\\Pdf\\certificat.pdf", new Certificat(
+                    selectedNomF, selectedDescripF, date, Integer.parseInt(selectedNbrCF), Integer.parseInt(selectedIdF)
+            ));
+            // Appeler la méthode pour ouvrir le répertoire après la création du PDF
+            try {
+                openDirectoryInWindows();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("SQL Exception");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+
+    }
 
 
 

@@ -26,7 +26,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="824.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Affichage">
     <children>
-      <TabPane fx:id="tabPane" prefHeight="824.0" prefWidth="1315.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutY="-30.0" prefHeight="824.0" prefWidth="1315.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="tabF" text="Formation">
             <content>
@@ -145,11 +145,12 @@
                                                       <Insets left="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField fx:id="dateF" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
+                                                <TextField fx:id="dateF" prefHeight="26.0" prefWidth="107.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
                                                    <HBox.margin>
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </TextField>
+                                                <Label fx:id="fxerrordate1" prefHeight="17.0" prefWidth="134.0" text="date fin non valide" textFill="RED" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
@@ -181,6 +182,7 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </TextField>
+                                                <Label fx:id="fxerrorprix1" prefHeight="17.0" prefWidth="142.0" text="prix invalid" textFill="RED" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
@@ -195,7 +197,7 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                 </Button>
-                                                <Button fx:id="offreF" mnemonicParsing="false" onAction="#navigatetoOffre" prefHeight="40.0" prefWidth="110.0" styleClass="add-btn" stylesheets="@style.css" text="Offre" textFill="#828282">
+                                                <Button fx:id="offreFO" mnemonicParsing="false" onAction="#navigatetoOffreAction" prefHeight="40.0" prefWidth="110.0" styleClass="add-btn" stylesheets="@style.css" text="Offre" textFill="#828282">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
@@ -243,6 +245,7 @@
                                                       <Font name="Cambria Bold" size="18.0" />
                                                    </font>
                                                 </Label>
+                                                <Button fx:id="offre" layoutX="454.0" layoutY="14.0" mnemonicParsing="false" onAction="#navigatetoOffre" prefHeight="40.0" prefWidth="120.0" styleClass="search-button" stylesheets="@style.css" text="Mes Offres" textFill="WHITE" />
                                              </children>
                                           </Pane>
                                           <Label prefHeight="62.0" prefWidth="100.0" text="Mon panier " textFill="#878787">
@@ -382,7 +385,7 @@
                                                  <Cursor fx:constant="HAND" />
                                               </cursor>
                                            </Button>
-                                           <Button fx:id="btnFormation" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="301.0" stylesheets="@style.css" text="Formation">
+                                           <Button fx:id="btnFormation" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#navigatetoFormation" prefHeight="42.0" prefWidth="301.0" stylesheets="@style.css" text="Formation">
                                               <graphic>
                                                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
@@ -475,11 +478,6 @@
                                     <DatePicker fx:id="dateFO" layoutX="484.0" layoutY="465.0" prefHeight="26.0" prefWidth="150.0" style="-fx-border-color: #B7C3D7; -fx-border-radius: 4em;" />
                                     <Text fill="#2a73ff" layoutX="391.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" textAlignment="CENTER" wrappingWidth="43.44140625" />
                                     <Text fill="#2a73ff" layoutX="399.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" />
-                                    <Text fill="#2a73ff" layoutX="131.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la formation">
-                                       <font>
-                                          <Font name="System Bold Italic" size="13.0" />
-                                       </font>
-                                    </Text>
                                     <TextField fx:id="nomFO" layoutX="126.0" layoutY="153.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
                                     <Button fx:id="ajouterOffre" layoutX="493.0" layoutY="529.0" mnemonicParsing="false" onAction="#navigatetoFormation" prefHeight="27.0" prefWidth="91.0" style="-fx-background-color: #ddb78c;-fx-control-inner-background: #02030A;-fx-border-radius: 4em;" stylesheets="@style.css" text="Ajouter" textAlignment="CENTER" textFill="WHITE">
                                        <cursor>
@@ -489,6 +487,13 @@
                                     <Text fill="#2a73ff" layoutX="394.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut" />
                                     <Text fill="#2a73ff" layoutX="388.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER" wrappingWidth="73.7484130859375" />
                                     <TextField fx:id="idFO" layoutX="483.0" layoutY="226.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
+                                    <Label fx:id="fxerrordate2" layoutX="485.0" layoutY="500.0" prefHeight="17.0" prefWidth="134.0" text="date fin non valide" textFill="RED" />
+                                    <Label fx:id="fxerrorprix2" layoutX="490.0" layoutY="317.0" prefHeight="17.0" prefWidth="142.0" text="prix invalid" textFill="RED" />
+                                    <Label layoutX="66.0" layoutY="90.0" prefHeight="50.0" prefWidth="378.0" text="Nom de la Formation" textFill="#878787">
+                                       <font>
+                                          <Font name="Cambria" size="29.0" />
+                                       </font>
+                                    </Label>
 
                                               </children>
                                               <StackPane.margin>

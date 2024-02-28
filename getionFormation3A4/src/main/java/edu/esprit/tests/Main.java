@@ -14,7 +14,7 @@ import edu.esprit.services.ServiceCertificat;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         /*ServiceFormation sp = new ServiceFormation();
         ServiceOffre so = new ServiceOffre();
         ServiceCertificat sc = new ServiceCertificat();
@@ -136,6 +136,15 @@ ServiceOffre so=new ServiceOffre();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }*/
+        ServiceFormation sp = new ServiceFormation();
+        Date dateDebut = new Date(2024-03-30);
+        Date dateF =new Date(2024-03-30);
+
+        Formation nouvelleFormation = new Formation("Formation c", "Apprendre la programmation c",dateDebut, dateF, 100.0, 10);
+        //Formation nouvelleFormation1 = new Formation("Formation python", "Apprendre python",dateDebut, dateFin, 20, 5);
+ServiceOffre so=new ServiceOffre();
+//so.getAll1();
+//so.supprimer(30);
     }
 
 }

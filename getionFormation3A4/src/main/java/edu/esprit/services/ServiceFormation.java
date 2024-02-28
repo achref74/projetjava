@@ -22,14 +22,30 @@ public class ServiceFormation implements IService<Formation> {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, formation.getNom());
             ps.setString(2, formation.getDescription());
-            ps.setDate(3, new java.sql.Date(formation.getDateDebut().getTime()));
-            ps.setDate(4, new java.sql.Date(formation.getDateFin().getTime()));
+  java.sql.Date    a=  new java.sql.Date(formation.getDateDebut().getTime());
+        java.sql.Date    b=new java.sql.Date(formation.getDateFin().getTime());
+            ps.setDate(3, a);
+            ps.setDate(4, b);
+        if (!isValidPrix(formation.getPrix())) {
+            System.out.println("Le prix doit etre positive!");
+
+            return;}
+            else if(!isValidDate(a,b)) {
+            System.out.println("Le prix doit etre positive!");
+
+            return;
+            } else if (!isValidDate(a,b)&&!isValidPrix(formation.getPrix())) {
+            System.out.println("Le prix doit etre positive et la date n'est pas valide!");
+                return;
+
+
+        } else {
             ps.setDouble(5, formation.getPrix());
             ps.setInt(6, formation.getNbrCours());
             /*ps.setInt(7, formation.getIdUser());
             ps.setInt(8, formation.getIdCategorie());*/
             ps.executeUpdate();
-            System.out.println("Formation ajoutée !");
+            System.out.println("Formation ajoutée !");}
 
     }
 
@@ -42,14 +58,30 @@ public class ServiceFormation implements IService<Formation> {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, formation.getNom());
             ps.setString(2, formation.getDescription());
-            ps.setDate(3, new java.sql.Date(formation.getDateDebut().getTime())); // Conversion de java.util.Date à java.sql.Date
-            ps.setDate(4, new java.sql.Date(formation.getDateFin().getTime()));
+        java.sql.Date    a=  new java.sql.Date(formation.getDateDebut().getTime());
+        java.sql.Date    b=new java.sql.Date(formation.getDateFin().getTime());
+        ps.setDate(3, a);
+        ps.setDate(4, b);
+        if (!isValidPrix(formation.getPrix())) {
+            System.out.println("Le prix doit etre positive!");
+
+            return;}
+        else if(!isValidDate(a,b)) {
+            System.out.println("Le prix doit etre positive!");
+
+            return;
+        } else if (!isValidDate(a,b)&&!isValidPrix(formation.getPrix())) {
+            System.out.println("Le prix doit etre positive et la date n'est pas valide!");
+            return;
+
+
+        } else {
             ps.setDouble(5, formation.getPrix());
             ps.setInt(6, formation.getNbrCours());
             ps.setInt(7, formation.getIdFormation());
             System.out.println(ps);
             ps.executeUpdate();
-            System.out.println("Formation modifiée !");
+            System.out.println("Formation modifiée !");}
 
 
     }
@@ -181,6 +213,9 @@ public class ServiceFormation implements IService<Formation> {
 
         return formations;
     }
-
+    public boolean isValidPrix(Double prix) {
+        return prix > 0   ; }
+    public boolean isValidDate(Date dt1 ,Date dt2) {
+        return dt1.before(dt2)  ; }
 }
 

@@ -59,8 +59,8 @@ public class Affichage implements Initializable {
 
     @FXML
     private TextField nbrCours;
-@FXML
-private TextField nomFO;
+    @FXML
+    private TextField nomFO;
     @FXML
     private TextField ressource;
 
@@ -92,8 +92,8 @@ private TextField nomFO;
     @FXML
     private DatePicker dateDO;
 
-@FXML
-private Button offreF;
+    @FXML
+    private Button offreF;
 
     @FXML
     private DatePicker dateFO;
@@ -106,19 +106,17 @@ private Button offreF;
     private TextField idF;
 
 
-
     @FXML
     private Button ok1;
 
     @FXML
     private Pane pnlOverview;
 
-@FXML
-private Tab tabF;
+    @FXML
+    private Tab tabF;
 
     @FXML
     private TextField prixO;
-
 
 
     @FXML
@@ -129,9 +127,68 @@ private Tab tabF;
 
     @FXML
     private TabPane tabPane;
+    @FXML
+    public Label fxerrorprix1;
+    @FXML
+    public Label fxerrordate1;
+
+    @FXML
+    public Label fxerrorprix2;
+    @FXML
+    public Label fxerrordate2;
+
+    @FXML
+    public Button offre;
+
+    @FXML
+    private VBox chosenFruitCard1;
+
+    @FXML
+    private TextField dateDO1;
+
+    @FXML
+    private TextField dateFO1;
+
+    @FXML
+    private TextArea descripO1;
+
+    @FXML
+    private javax.swing.text.html.ImageView fruitImg1;
+
+    @FXML
+    private Label fxerrordate11;
+
+    @FXML
+    private Label fxerrorprix11;
+
+    @FXML
+    private GridPane grid1;
+
+    @FXML
+    private TextField idF1;
+
+    @FXML
+    private Button modifierO;
 
 
+    @FXML
+    private Label fxerrordate12;
 
+private String selectedNomF;
+    @FXML
+    private Label fxerrorprix12;
+    @FXML
+    private TextField prixFO1;
+    @FXML
+    private Tab tab3;
+    @FXML
+    private Button retour1;
+
+    @FXML
+    private ScrollPane scroll1;
+
+    @FXML
+    private Button supprimerO;
 
     @FXML
     void navigatetoFormationAction(ActionEvent event) {
@@ -145,6 +202,15 @@ private Tab tabF;
             alert.show();
         }
     }
+
+    @FXML
+    void navigatetoOffreAction(ActionEvent event) {
+        tabPane.getSelectionModel().select(tabOffre);
+
+        nomFO.setText(selectedNomF);
+        System.out.println(selectedNomF);
+    }
+
     @FXML
     void navigatetoAjouterFormationAction(ActionEvent event) {
         try {
@@ -157,30 +223,37 @@ private Tab tabF;
             alert.show();
         }
     }
+
     @FXML
     void navigatetoOffre(ActionEvent event) {
-        idFO.setText(idF.getText()); // Copiez l'ID de la formation
-        nomFO.setText(nomF.getText()); // Copiez le nom de la formation
-
-        // Changez d'onglet
-        tabPane.getSelectionModel().select(tabOffre);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherOffre.fxml"));
+            retour.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
     }
 
-    @FXML
+ @FXML
     void navigatetoFormation(ActionEvent event) {
         // Sélectionner l'onglet Formation (tab index 0)
         tabPane.getSelectionModel().select(0);
     }
+
     private Set<Formation> listF = new HashSet<>();
     private MyListenerF myListener;
-    private String selectedIdF ;
+    private String selectedIdF1;
+    private String selectedIdF;
 
     private Set<Formation> getData() {
-         Set<Formation> listF = new HashSet<>();
-        ServiceFormation sf =new ServiceFormation();
+        Set<Formation> listF = new HashSet<>();
+        ServiceFormation sf = new ServiceFormation();
 
         try {
-            listF=sf.formationsExistForUser(2);
+            listF = sf.formationsExistForUser(2);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -201,7 +274,7 @@ private Tab tabF;
         nbrCours.setText(String.valueOf(formation.getNbrCours()));
         descripF.setText(formation.getDescription());
         prixF.setText(String.valueOf(formation.getPrix()));
-
+selectedNomF= String.valueOf(formation.getNom());
         selectedIdF = String.valueOf(formation.getIdFormation());
         //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
 
@@ -224,16 +297,23 @@ private Tab tabF;
         Random random = new Random();
 
 
-        String color =colorPalette.get(random.nextInt(colorPalette.size()));
+        String color = colorPalette.get(random.nextInt(colorPalette.size()));
 
         chosenFruitCard.setStyle("-fx-background-color: " + color + ";\n" +
                 "    -fx-background-radius: 30;");
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        idF.setVisible(false);
-      //  tabPane.getSelectionModel().select(afficheF);
+        fxerrorprix1.setVisible(false);
+        fxerrorprix2.setVisible(false);
+        fxerrordate1.setVisible(false);
+        fxerrordate2.setVisible(false);
+        idFO.setVisible(false);
+
+        idF.setVisible(true);
+        //  tabPane.getSelectionModel().select(afficheF);
 
         listF.addAll(getData());
         if (!listF.isEmpty()) {
@@ -245,6 +325,11 @@ private Tab tabF;
                 @Override
                 public void onClickListener(Formation formation) {
                     setChosenFormation(formation);
+                }
+
+                @Override
+                public void onClickListener1(Offre var2) {
+
                 }
             };
         }
@@ -262,10 +347,10 @@ private Tab tabF;
                 ItemF itemF = fxmlLoader.getController();
 
 
-                if  (itemF != null) {
+                if (itemF != null) {
 
                     itemF.setData(formation, myListener);
-                } else  System.err.println("itemController est null");
+                } else System.err.println("itemController est null");
                 i++;
                 if (column == 3) {
                     column = 0;
@@ -292,8 +377,6 @@ private Tab tabF;
         modifierF.setOnAction(event -> modifierFormation());
         supprimerF.setOnAction(event -> supprimerFormations());
         ajouterOffre.setOnAction(event -> AjouterOffre());
-
-
 
 
     }
@@ -345,7 +428,7 @@ private Tab tabF;
 
                     grid.add(anchorPane, column, row); //(child,column,row)
                     GridPane.setMargin(anchorPane, new Insets(10));
-                    String selecteIdO=String.valueOf(idF);
+                    String selecteIdO = String.valueOf(idF);
                     idFO.setText(selecteIdO);
                 }
 
@@ -370,10 +453,10 @@ private Tab tabF;
     }
 
 
-
     private void modifierFormation() {
         // Vérifiez si l'ID du cours sélectionné n'est pas vide
         if (selectedIdF != null && !selectedIdF.isEmpty()) {
+
             // Convertissez l'ID en entier si nécessaire
             int id = Integer.parseInt(selectedIdF);
 
@@ -383,81 +466,105 @@ private Tab tabF;
             String newDescription = descripF.getText();
             String newDateF = dateF.getText();
             String newPrix = prixF.getText();
-            String newNbrCours=nbrCours.getText();
+            String newNbrCours = nbrCours.getText();
+            ServiceFormation sp = new ServiceFormation();
 
-            try {
-                // Créez un nouvel objet Cours avec les valeurs mises à jour
-                Formation formation = new Formation();
-                formation.setIdFormation(id);
-                formation.setNom(newName);
-                formation.setDateDebut(java.sql.Date.valueOf(newDateD));
-                formation.setDateFin(java.sql.Date.valueOf(newDateF)); // Conversion String vers java.sql.Date
-                formation.setDescription(newDescription);
-                formation.setPrix(Double.parseDouble(newPrix));
-                formation.setNbrCours(Integer.parseInt(newNbrCours));
+            if (!sp.isValidPrix(Double.valueOf(newPrix)) && !sp.isValidDate(java.sql.Date.valueOf(newDateD), java.sql.Date.valueOf(newDateF))) {
+                fxerrorprix1.setVisible(true);
+                fxerrordate1.setVisible(true);
+            } else if (!sp.isValidPrix(Double.parseDouble(prixF.getText()))) {
+                fxerrorprix1.setVisible(true);
+                fxerrordate1.setVisible(false);
+            } else if (!sp.isValidDate(java.sql.Date.valueOf(newDateD), java.sql.Date.valueOf(newDateF))) {
+                fxerrorprix1.setVisible(false);
+                fxerrordate1.setVisible(true);
+            } else {
+                fxerrorprix1.setVisible(false);
+                fxerrordate1.setVisible(false);
+                try {
+                    // Créez un nouvel objet Cours avec les valeurs mises à jour
+                    Formation formation = new Formation();
+                    formation.setIdFormation(id);
+                    formation.setNom(newName);
+                    formation.setDateDebut(java.sql.Date.valueOf(newDateD));
+                    formation.setDateFin(java.sql.Date.valueOf(newDateF)); // Conversion String vers java.sql.Date
+                    formation.setDescription(newDescription);
+                    formation.setPrix(Double.parseDouble(newPrix));
+                    formation.setNbrCours(Integer.parseInt(newNbrCours));
 
 
-                // Appelez la méthode de service pour mettre à jour le cours
-                ServiceFormation sf = new ServiceFormation();
-                sf.modifier(formation);
+                    // Appelez la méthode de service pour mettre à jour le cours
+                    sp.modifier(formation);
 
-                // Mettez à jour l'affichage global
-                listF.clear();
-                listF.addAll(getData());
+                    // Mettez à jour l'affichage global
+                    listF.clear();
+                    listF.addAll(getData());
 
-                grid.getChildren().clear(); // Effacez le contenu actuel du grid
-                initialize(null, null); // Réinitialisez l'affichage
+                    grid.getChildren().clear(); // Effacez le contenu actuel du grid
+                    initialize(null, null); // Réinitialisez l'affichage
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Gérez les erreurs ici
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérez les erreurs ici
+                }
             }
-        }
-}
-
-    public void AjouterOffre() {
-        // Vérifiez que les DatePicker ont des valeurs sélectionnées
-        if (dateDO.getValue() != null && dateFO.getValue() != null) {
-            java.sql.Date dateDebut = java.sql.Date.valueOf(dateDO.getValue());
-            java.sql.Date dateFin = java.sql.Date.valueOf(dateFO.getValue());
-            double nouveauPrix = Double.parseDouble(prixO.getText()); // Obtenez le nouveau prix de l'offre
-            refreshDisplayAfterOffer(nouveauPrix); // Rafraîchissez l'affichage avec le nouveau prix
-            try {
-                // Créez une nouvelle offre et ajoutez-la via votre service
-                Offre offre = new Offre(
-                        Double.parseDouble(prixO.getText()),
-                        descripO.getText(),
-                        dateDebut,
-                        dateFin,
-                        Integer.parseInt(idFO.getText()) // Assurez-vous que idFO a une valeur valide
-                );
-
-                ServiceOffre so = new ServiceOffre();
-                so.ajouter(offre);
-                // Mise à jour de l'interface utilisateur pour refléter le nouveau prix
-                // Affichez un message de succès
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Succès");
-                alert.setContentText("Offre ajoutée avec succès !");
-                alert.show();
-
-                tabPane.getSelectionModel().select(tabF);
-
-            } catch (SQLException e) {
-                // Gérez les exceptions SQL ici
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur SQL");
-                alert.setContentText("Une erreur est survenue : " + e.getMessage());
-                alert.showAndWait();
-            }
-        } else {
-            // Gérez le cas où les dates ne sont pas sélectionnées
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Données manquantes");
-            alert.setContentText("Veuillez sélectionner les dates de début et de fin.");
-            alert.showAndWait();
         }
     }
+
+    public void AjouterOffre() {
+
+        // Vérifiez que les DatePicker ont des valeurs sélectionnées
+        if (dateDO.getValue() != null && dateFO.getValue() != null) {
+
+
+            java.sql.Date dateDebut = java.sql.Date.valueOf(dateDO.getValue());
+            java.sql.Date dateFin = java.sql.Date.valueOf(dateFO.getValue());
+            ServiceOffre sp = new ServiceOffre();
+            double nouveauPrix = Double.parseDouble(prixO.getText()); // Obtenez le nouveau prix de l'offre
+            refreshDisplayAfterOffer(nouveauPrix); // Rafraîchissez l'affichage avec le nouveau prix
+            if (!sp.isValidPrix(Double.parseDouble(prixO.getText())) && !sp.isValidDate(dateDebut, dateFin)) {
+                fxerrorprix2.setVisible(true);
+                fxerrordate2.setVisible(true);
+            } else if (!sp.isValidPrix(Double.parseDouble(prixO.getText()))) {
+                fxerrorprix2.setVisible(true);
+                fxerrordate2.setVisible(false);
+            } else if (!sp.isValidDate(dateDebut, dateFin)) {
+                fxerrorprix2.setVisible(false);
+                fxerrordate2.setVisible(true);
+            } else {
+                fxerrorprix2.setVisible(false);
+                fxerrordate2.setVisible(false);
+                try {
+                    // Créez une nouvelle offre et ajoutez-la via votre service
+                    Offre offre = new Offre(
+                            Double.parseDouble(prixO.getText()),
+                            descripO.getText(),
+                            dateDebut,
+                            dateFin,
+                            Integer.parseInt(selectedIdF)// Assurez-vous que idFO a une valeur valide
+                    );
+
+                    sp.ajouter(offre);
+                    // Mise à jour de l'interface utilisateur pour refléter le nouveau prix
+                    // Affichez un message de succès
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Succès");
+                    alert.setContentText("Offre ajoutée avec succès !");
+                    alert.show();
+
+                    tabPane.getSelectionModel().select(tabF);
+
+                } catch (SQLException e) {
+                    // Gérez les exceptions SQL ici
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur SQL");
+                    alert.setContentText("Une erreur est survenue : " + e.getMessage());
+                    alert.showAndWait();
+                }
+            }
+        }
+    }
+
     private void refreshDisplayAfterOffer(double nouveauPrix) {
         // Clear existing items
         grid.getChildren().clear();
@@ -488,7 +595,9 @@ private Tab tabF;
         }
     }
 
-    }
+}
+
+
 
 
 

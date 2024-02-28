@@ -23,8 +23,8 @@ public class ServiceCertificat implements IService<Certificat>{
             ps.setString(2, certificat.getDescription());
             ps.setDate(3, new java.sql.Date(certificat.getDateObtention().getTime()));
             ps.setInt(4, certificat.getNbrCours());
-            //ps.setInt(5, certificat.getIdUser());
-        ps.setInt(5, certificat.getFormation().getIdFormation());
+          //  ps.setInt(5, certificat.getIdUser());
+        ps.setInt(5, certificat.getIdFormation());
             ps.executeUpdate();
             System.out.println("Certificat ajouté !");
 

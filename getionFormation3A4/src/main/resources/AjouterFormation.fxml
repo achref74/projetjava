@@ -191,6 +191,8 @@
                   </ImageView>
                   <TextField fx:id="prixF" layoutX="255.0" layoutY="518.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
                   <TextField fx:id="nbrCourF" layoutX="256.0" layoutY="568.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
+                  <Label fx:id="fxerrorprix" layoutX="264.0" layoutY="545.0" prefHeight="17.0" prefWidth="142.0" text="prix invalid" textFill="RED" />
+                  <Label fx:id="fxerrordate" layoutX="264.0" layoutY="502.0" prefHeight="17.0" prefWidth="134.0" text="date fin non valide" textFill="RED" />
 
                     </children>
                 </Pane>

@@ -7,7 +7,9 @@ package edu.esprit.tests;
 
 
 import edu.esprit.entities.Formation;
+import edu.esprit.entities.Offre;
 
 public interface MyListenerF {
     void onClickListener(Formation var1);
+    void onClickListener1(Offre var2);
 }

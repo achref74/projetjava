@@ -15,7 +15,9 @@ public class Offre {
     private Formation formation;
 
 private int idFormation;
+    public Offre() {
 
+    }
 
 
     public Offre(int idOffre,double prixOffre, String description, Date dateD, Date dateF,Formation formation) {
@@ -29,6 +31,14 @@ private int idFormation;
     }
     public Offre(int idOffre,double prixOffre, String description, Date dateD, Date dateF) {
         this.idOffre = idOffre;
+
+        this.prixOffre = prixOffre;
+        this.description = description;
+        this.dateD = dateD;
+        this.dateF = dateF;
+
+    }
+    public Offre(double prixOffre, String description, Date dateD, Date dateF) {
 
         this.prixOffre = prixOffre;
         this.description = description;
@@ -127,7 +137,6 @@ private int idFormation;
                 ", description='" + description + '\'' +
                 ", dateD=" + dateD +
                 ", dateF=" + dateF +
-                ", idFormation=" + formation.getNom() +
                 '}';
     }
 

@@ -1,6 +1,7 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Formation;
+import edu.esprit.entities.Offre;
 import edu.esprit.services.ServiceFormation;
 import edu.esprit.tests.MyListenerF;
 import javafx.event.ActionEvent;
@@ -148,6 +149,11 @@ public class AffichageF_Formateur implements Initializable{
                 @Override
                 public void onClickListener(Formation formation) {
                     setChosenFormation(formation);
+                }
+
+                @Override
+                public void onClickListener1(Offre var2) {
+
                 }
             };
         }

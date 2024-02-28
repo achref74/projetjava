@@ -5,6 +5,7 @@ import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
 import edu.esprit.services.ServiceFormation;
 import edu.esprit.services.ServiceOffre;
+import edu.esprit.tests.MyListenerF;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,6 +39,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -47,180 +50,58 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AfficherOffre implements Initializable {
-    @FXML
-    private ScrollPane scrollPane;
-    @FXML
-    private VBox Vbox;
-
-    @FXML
-    private Tab afficher_O;
-
-    @FXML
-    private Button ajouterO;
-
 
 
     @FXML
-    private Button btnCours1;
+    private VBox chosenFruitCard;
 
     @FXML
-    private Button btnCours11;
+    private TextField dateDO;
 
     @FXML
-    private Button btnCours111;
+    private TextField dateFO;
 
     @FXML
-    private Button btnFormation;
+    private TextArea descripO;
 
     @FXML
-    private Button btnFormation11;
+    private ImageView fruitImg;
 
     @FXML
-    private Button btnFormation111;
+    private Label fxerrordate1;
 
     @FXML
-    private Button btnForum1;
+    private Label fxerrorprix1;
 
     @FXML
-    private Button btnForum11;
+    private GridPane grid;
 
     @FXML
-    private Button btnForum111;
+    private TextField idF;
 
     @FXML
-    private Button btnOutils1;
+    private Button modifierO;
 
     @FXML
-    private Button btnOutils11;
+    private TextField nomF;
 
     @FXML
-    private Button btnOutils111;
+    private TextField prixFO;
 
     @FXML
-    private Button btnReclamation1;
+    private Button retour;
 
     @FXML
-    private Button btnReclamation11;
+    private ScrollPane scroll1;
 
     @FXML
-    private Button btnReclamation111;
+    private Button supprimerO;
 
     @FXML
-    private Button btnSignout1;
-
-    @FXML
-    private Button btnSignout11;
-
-    @FXML
-    private Button btnSignout111;
-
-    @FXML
-    private Button btnUser1;
-
-    @FXML
-    private Button btnUser11;
-
-    @FXML
-    private Button btnUser111;
-
-    @FXML
-    private Button certificatF;
-
-    @FXML
-    private TextField dateD_O;
-    @FXML
-    private TextField id_O;
-
-@FXML
-private TextField prix_O;
-    @FXML
-    private TextField dateF_O;
-
-    @FXML
-    private TextField descrip_O;
-
-    @FXML
-    private Button deleteO;
-
-    @FXML
-    private Tab modif_supp_O;
-
-    @FXML
-    private Button navigate_O;
-
-
-    @FXML
-    private Pane pnlOverview;
-
-    @FXML
-    private Pane pnlOverview1;
-
-    @FXML
-    private Pane pnlOverview11;
-
-
-
-    @FXML
-    private TextField searchF;
-
-    @FXML
-    private TextField searchF1;
-
-    @FXML
-    private TabPane tabPane_F;
-
-    @FXML
-    private Button updateO;
-    ServiceOffre so=new ServiceOffre();
-
-    private String selectPrixO;
-    private String selecteIdO;
-    private String selecteDescripO;
-    private String selecteDateDO;
-    private String selecteDateFO;
-
-
-    @FXML
-    void navigatetoAfficheFormationAction(ActionEvent event) {
+    void navigatetoFormationAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherFormation.fxml"));
-            btnFormation.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
-    @FXML
-    void navigatetoAjouterFormationAction(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterFormation.fxml"));
-            btnFormation.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
-    @FXML
-    void navigatetoOffreFormationAction(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterOffre.fxml"));
-            btnFormation.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
-    }
-    @FXML
-    void navigatetoCertificatFormationAction(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterCertificat.fxml"));
-            btnFormation.getScene().setRoot(root);
+            Parent root = FXMLLoader.load(getClass().getResource("/Affichage.fxml"));
+            retour.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Sorry");
@@ -230,188 +111,255 @@ private TextField prix_O;
     }
 
 
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        id_O.setVisible(false);
-        scrollPane.setFitToWidth(true); // Ajuster à la largeur
-        scrollPane.setContent(Vbox);
-        navigate_O.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/AfficherOffre.fxml"));
-
-                    // Create a Scene with custom dimensions
-                    Scene scene = new Scene(root); // Adjust width and height as needed
-
-                    // Get the current stage
-                    Stage stage = (Stage) deleteO.getScene().getWindow();
-
-                    // Set the new scene to the stage
-                    stage.setScene(scene);
 
 
-                } catch (IOException var4) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Sorry");
-                    alert.setTitle("Error");
-                    alert.show();
-                }
+        private List<Offre> listO = new ArrayList<>() {
+        };
+        private MyListenerF myListenerO;
+        private String selectedIdF ;
 
+        private List<Offre> getData() {
+            List<Offre> listO = new ArrayList<>();
+            ServiceOffre sf =new ServiceOffre();
+
+            try {
+                listO=sf.getAll1();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        });
-        Vbox.getChildren().clear();
 
-        List<Offre> offreList = null;
-        try {
-            offreList = so.getAll();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return listO;
         }
-        System.out.println("Formation List: " + offreList); // Print the list
 
-        for (Offre offres :offreList) {
-            System.out.println("Adding Offre to TitledPane: " + offres);
-            // Create layout for each reclamation
-            Label prix_oLabel = new Label("prix: " + offres.getPrixOffre());
-            Label descrip_OLabel = new Label("Description: " + offres.getDescription());
-            Label dateD_OLabel = new Label("Date Debut: " + offres.getDateD());
-            Label dateF_OLabel = new Label("Date Fin: " + offres.getDateF());
+        private void setChosenFormation(Offre offre) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 
-            GridPane gridPane = new GridPane();
-            gridPane.add(prix_oLabel, 0, 0);
-            gridPane.add(descrip_OLabel, 0, 1);
-            gridPane.add(dateD_OLabel, 0, 2);
-            gridPane.add(dateF_OLabel, 0, 3);
-
+            String dateDString = sdf.format(offre.getDateD());
+            String dateFString = sdf.format(offre.getDateF());
+            dateDO.setText(dateDString);
+            dateFO.setText(dateFString);
+            descripO.setText(offre.getDescription());
+            prixFO.setText(String.valueOf(offre.getPrixOffre()));
+            selectedIdF = String.valueOf(offre.getIdOffre());
+            idF.setText(String.valueOf(offre.getIdOffre()));
+            //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
 
 
-            TitledPane titledPane = new TitledPane("Offre: " + offres.getIdOffre(), gridPane);
-            //HBox content = new HBox(titledPane, offreButton);
+            List<String> colorPalette = new ArrayList<>();
+            colorPalette.add("#D4A5A5");
+            colorPalette.add("#A0522D");
+            colorPalette.add("#8B4513");
+            colorPalette.add("#CD853F");
+            colorPalette.add("#D2B48C");
+            colorPalette.add("#BC8F8F");
+            colorPalette.add("#F4A460");
+            colorPalette.add("#DAA520");
+            colorPalette.add("#8B4513");
+            colorPalette.add("#46637F");
+            colorPalette.add("#44505E");
+            colorPalette.add("#7D5147");
+            colorPalette.add("#7F5A45");
+            colorPalette.add("#7E8C6B");
+            Random random = new Random();
 
-            titledPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    selecteIdO=String.valueOf(offres.getIdOffre());
-                    selectPrixO = String.valueOf(offres.getPrixOffre());
-                    selecteDescripO = offres.getDescription();
-                    selecteDateDO = String.valueOf(offres.getDateD());
-                    selecteDateFO = String.valueOf(offres.getDateF());
+            String color =colorPalette.get(random.nextInt(colorPalette.size()));
 
-                    id_O.setText(selecteIdO);
-                    prix_O.setText(selectPrixO);
-                    descrip_O.setText(selecteDescripO);
-                    dateD_O.setText(selecteDateDO);
-                    dateF_O.setText(selecteDateFO);
-
-                    tabPane_F.getSelectionModel().select(modif_supp_O);
-                }
-            });
-            Vbox.getChildren().add(titledPane);
-
+            chosenFruitCard.setStyle("-fx-background-color: " + color + ";\n" +
+                    "    -fx-background-radius: 30;");
         }
-        // ----------------delete code --------------------------
-        deleteO.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if(selecteIdO != null) {
-                    try {
-                        so.supprimer(Integer.parseInt(selecteIdO));
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    loadReclamationData();
-                    tabPane_F.getSelectionModel().select(afficher_O);
 
-                }
-            }
-        });
+        @Override
+        public void initialize(URL location, ResourceBundle resources) {
 
-        //-------------update_formation----------------------
-        updateO.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Format de date à utiliser
-                try {
-                    Date dateDebut = dateFormat.parse(dateD_O.getText());
-                    Date dateFin = dateFormat.parse(dateF_O.getText());
-                    Offre offre = new Offre(Integer.parseInt(id_O.getText()),Double.parseDouble(prix_O.getText()),descrip_O.getText(),dateDebut,dateFin);
-                    if(selecteIdO != null) {
-                        try {
+fxerrorprix1.setVisible(false);
+fxerrordate1.setVisible(false);
+            idF.setVisible(false);
+            //  tabPane.getSelectionModel().select(afficheF);
+listO.clear();
+            listO.addAll(getData());
+            if (!listO.isEmpty()) {
+                Iterator<Offre> iterator = listO.iterator();
+                Offre firstOffre = iterator.next();
+                setChosenFormation(firstOffre);
 
-                            so.modifier(offre);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        loadReclamationData();
-                        tabPane_F.getSelectionModel().select(afficher_O);
+                myListenerO = new MyListenerF() {
+                    @Override
+                    public void onClickListener(Formation var1) {
 
                     }
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
+
+                    @Override
+                    public void onClickListener1(Offre offre) {
+                        setChosenFormation(offre);
+                    }
+
+
+                };
+            }
+            int column = 0;
+            int row = 1;
+            try {
+
+
+                int i = 0;
+                for (Offre offre : listO) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/ItemO.fxml"));
+                    AnchorPane anchorPane = fxmlLoader.load();
+
+                    ItemO itemO = fxmlLoader.getController();
+
+
+                    if  (itemO != null) {
+
+                        itemO.setData1(offre, myListenerO);
+                    } else  System.err.println("itemController est null");
+                    i++;
+                    if (column == 3) {
+                        column = 0;
+                        row++;
+                    }
+
+                    grid.add(anchorPane, column++, row); //(child,column,row)
+                    //set grid width
+                    grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                    grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                    grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                    //set grid height
+                    grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                    grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                    grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                    GridPane.setMargin(anchorPane, new Insets(10));
                 }
 
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            modifierO.setOnAction(event -> modifierOffre());
+            supprimerO.setOnAction(event -> supprimerOffre());
 
+
+
+
+        }
+
+    private void supprimerOffre() {
+        // Vérifiez si l'ID du cours sélectionné n'est pas vide
+        if (selectedIdF != null && !selectedIdF.isEmpty()) {
+            System.out.println(selectedIdF);
+            // Convertissez l'ID en entier si nécessaire
+            int id = Integer.parseInt(selectedIdF);
+
+            // Appelez la méthode de service pour supprimer le cours avec l'ID sélectionné
+ServiceOffre so=new ServiceOffre();
+            try {
+                so.supprimer(id);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
 
-        });
-        //-------------------------ajouterOffre----------------------//
+            // Mettez à jour la liste des cours après la suppression
+            listO.clear();
+            listO.addAll(getData());
 
-    }
+            // Rafraîchissez l'affichage après la suppression
+            grid.getChildren().clear(); // Effacez le contenu actuel du grid
 
-    //-------------refresh fucnction ---------------------------------------
-    private void loadReclamationData() {
-        Vbox.getChildren().clear(); // Clear existing display
-        List<Offre> offreList = null;
-        try {
-            offreList = so.getAll();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("offre List: " + offreList); // Print the list
+            int column = 0;
+            int row = 1;
 
-        for (Offre offres : offreList) {
-            System.out.println("Adding Offre to TitledPane: " + offres);
-            // Create layout for each reclamation
-            Label prix_oLabel = new Label("nom: " + offres.getPrixOffre());
-            Label descrip_OLabel = new Label("Description: " + offres.getDescription());
-            Label dateD_OLabel = new Label("Date Debut: " + offres.getDateD());
-            Label dateF_OLabel = new Label("Date Fin: " + offres.getDateF());
+            // Réinitialisez l'affichage avec la nouvelle liste de cours
+            try {
+                for (Offre offre : listO) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/ItemO.fxml"));
+                    AnchorPane anchorPane = fxmlLoader.load();
 
-            GridPane gridPane = new GridPane();
-            gridPane.add(prix_oLabel, 0, 0);
-            gridPane.add(descrip_OLabel, 0, 1);
-            gridPane.add(dateD_OLabel, 0, 2);
-            gridPane.add(dateF_OLabel, 0, 3);
+                    ItemO itemController = fxmlLoader.getController();
 
+                    if (itemController != null) {
+                        itemController.setData1(offre, myListenerO);
+                    } else {
+                        System.err.println("itemController est null");
+                    }
+                    column++;
+                    if (column == 3) {
+                        column = 0;
+                        row++;
+                    }
 
-
-            TitledPane titledPane = new TitledPane("Offre: " + offres.getIdOffre(), gridPane);
-
-
-            titledPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    selecteIdO=String.valueOf(offres.getIdOffre());
-                    selectPrixO = String.valueOf(offres.getPrixOffre());
-                    selecteDescripO = offres.getDescription();
-                    selecteDateDO = String.valueOf(offres.getDateD());
-                    selecteDateFO = String.valueOf(offres.getDateF());
-
-                    id_O.setText(selecteIdO);
-                    prix_O.setText(selectPrixO);
-                    descrip_O.setText(selecteDescripO);
-                    dateD_O.setText(selecteDateDO);
-                    dateF_O.setText(selecteDateFO);
-
-                    tabPane_F.getSelectionModel().select(modif_supp_O);
-
+                    grid.add(anchorPane, column, row); //(child,column,row)
+                    GridPane.setMargin(anchorPane, new Insets(10));
                 }
-            });
 
-            Vbox.getChildren().add(titledPane);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            // Effacez les champs de la carte chosenFruitCard
+            clearChosenCours();
         }
     }
+
+    private void clearChosenCours() {
+
+        descripO.clear();
+        dateFO.clear();
+        dateFO.clear();
+        prixFO.clear();
+        descripO.setText("");
+    }
+
+    private void modifierOffre() {
+        if (selectedIdF != null && !selectedIdF.isEmpty()) {
+            int id = Integer.parseInt(selectedIdF);
+            String newDateD = dateDO.getText();
+            String newDescription = descripO.getText();
+            String newDateF = dateFO.getText();
+            String newPrix = prixFO.getText();
+            ServiceOffre serviceOffre = new ServiceOffre();
+
+            if (!serviceOffre.isValidPrix(Double.valueOf(newPrix)) && !serviceOffre.isValidDate(java.sql.Date.valueOf(newDateD), java.sql.Date.valueOf(newDateF))) {
+                fxerrorprix1.setVisible(true);
+                fxerrordate1.setVisible(true);
+            } else if (!serviceOffre.isValidPrix(Double.parseDouble(prixFO.getText()))) {
+                fxerrorprix1.setVisible(true);
+                fxerrordate1.setVisible(false);
+            } else if (!serviceOffre.isValidDate(java.sql.Date.valueOf(newDateD), java.sql.Date.valueOf(newDateF))) {
+                fxerrorprix1.setVisible(false);
+                fxerrordate1.setVisible(true);
+            } else {
+                fxerrorprix1.setVisible(false);
+                fxerrordate1.setVisible(false);
+
+                try {
+                    Offre offre = new Offre();
+                    offre.setIdOffre(id);
+                    offre.setDateD(java.sql.Date.valueOf(newDateD));
+                    offre.setDateF(java.sql.Date.valueOf(newDateF));
+                    offre.setDescription(newDescription);
+                    offre.setPrixOffre(Double.parseDouble(newPrix));
+
+                    serviceOffre.modifier(offre);
+
+                    // Mettre à jour l'affichage
+                    listO.clear();
+                    listO.addAll(getData());
+                    grid.getChildren().clear(); // Effacez le contenu actuel du grid
+                    initialize(null, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer les erreurs ici
+                }
+            }
+        }
+    }
+
+
 }
 
 
