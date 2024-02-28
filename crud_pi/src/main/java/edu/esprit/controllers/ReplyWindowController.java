@@ -75,10 +75,11 @@ public class ReplyWindowController {
     }
 
     public void setReclamationDetails(Reclamation reclamation) {
+
         // Set reclamation details in labels
-        reclamationUserLabel.setText("User: " + reclamation.getUser().getId_user());
-        reclamationOutilLabel.setText("Outil: " + reclamation.getOutil().getId_outil());
-        reclamationFormationLabel.setText("Formation: " + reclamation.getFormation().getId_formation());
+        reclamationUserLabel.setText("User: " + reclamation.getUser().getNom());
+        reclamationOutilLabel.setText("Outil: " + reclamation.getOutil().getNom());
+        reclamationFormationLabel.setText("Formation: " + reclamation.getFormation().getNom());
         reclamationDescriptionLabel.setText("Description: " + reclamation.getDescription());
         reclamationDateLabel.setText("Date: " + reclamation.getDate_reclamation());
 
@@ -91,12 +92,12 @@ public class ReplyWindowController {
         for (Reponse olderResponse : olderResponses) {
             // Display older responses in a ListView
             String responseText = olderResponse.getDescription();
-            String userId = String.valueOf(olderResponse.getUser().getId_user());
+            String usernom = String.valueOf(olderResponse.getUser().getNom());
             String responseDate = olderResponse.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             //Button b = new Button();
             //b.setText("delete");
            // b.setOnAction(Event -> {serviceReponse.supprimer(olderResponse.getId_reponse());});
-            responseListView.getItems().add(userId + " - " + responseDate + " : " + responseText  );
+            responseListView.getItems().add(usernom + " - " + responseDate + " : " + responseText  );
 
         }
     }

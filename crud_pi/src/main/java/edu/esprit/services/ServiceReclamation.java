@@ -29,7 +29,7 @@ public class ServiceReclamation implements IService<Reclamation> {
     }
 
     @Override
-    public void modifier( Reclamation reclamation) {
+    public void modifier( Reclamation reclamation) throws SQLException{
         String req = "UPDATE `reclamation` SET `id_user`=?,`id_outil`=?,`id_formation`=?,`description`=? WHERE id_reclamation=?";
 
         try {
@@ -45,7 +45,7 @@ public class ServiceReclamation implements IService<Reclamation> {
             int rowCount = ps.executeUpdate();
 
             if (rowCount > 0) {
-                System.out.println("edu.esprit.controllers.Reclamation with id " + reclamation.getId_reclamation() + " has been updated successfully.");
+                System.out.println(" id " + reclamation.getId_reclamation() + " has been updated successfully.");
             } else {
                 System.out.println("No edu.esprit.controllers.Reclamation found with id " + reclamation.getId_reclamation() + ". Nothing updated.");
             }
@@ -78,8 +78,24 @@ public class ServiceReclamation implements IService<Reclamation> {
     @Override
     public Reclamation getOneById(int id) {
         String req = "SELECT `id_reclamation`, `id_user`, `id_outil`, `id_formation`, `description`,  `date` FROM `reclamation` WHERE id_reclamation = ?";
-
-        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+        String reqq="SELECT \n" +
+                "    r.id_reclamation, \n" +
+                "    u.nom AS user_nom,\n" +
+                "    o.nom AS outil_nom,\n" +
+                "    f.nom AS formation_nom,\n" +
+                "    r.description,\n" +
+                "    r.date\n" +
+                "FROM \n" +
+                "    reclamation r\n" +
+                "JOIN \n" +
+                "    user u ON r.id_user = u.idUser\n" +
+                "JOIN \n" +
+                "    outil o ON r.id_outil = o.id_outil\n" +
+                "JOIN \n" +
+                "    formation f ON r.id_formation = f.id_formation\n" +
+                "WHERE \n" +
+                "    r.id_reclamation = ?;";
+        try (PreparedStatement ps = cnx.prepareStatement(reqq)) {
             ps.setInt(1, id);
            // Set the parameter value
             ResultSet res = ps.executeQuery();
@@ -92,15 +108,18 @@ public class ServiceReclamation implements IService<Reclamation> {
                 LocalDateTime date = timestamp.toLocalDateTime();
                 Formation formation = new Formation();
                 formation.setId_formation(res.getInt("id_formation"));
+                formation.setNom(res.getString("nom"));
                 // retrieve
                 User user = new User();
+                user.setNom(res.getString("nom"));
                 user.setId_user(res.getInt("id_user"));
                 Outil outil = new Outil();
                 outil.setId_outil(res.getInt("id_outil"));
+                outil.setNom(res.getString("nom"));
                 return new Reclamation(id,user,outil,formation,description,date);
             }
         } catch (SQLException e) {
-            System.err.println("Error fetching edu.esprit.controllers.Reclamation by id: " + e.getMessage());
+            System.err.println("Error fetching Reclamation by id: " + e.getMessage());
         }
         return null; // Achat not found
     }
@@ -109,18 +128,22 @@ public class ServiceReclamation implements IService<Reclamation> {
     public Set<Reclamation> getAll() throws SQLException{
         Set<Reclamation> Reclamations = new HashSet<>();
 
-        String req = "SELECT * FROM `reclamation` WHERE 1";
-
+       // String req = "SELECT * FROM `reclamation` WHERE 1";
+        String reqq = "SELECT  r.id_reclamation, u.nom AS user_nom,o.nom AS outil_nom,f.nom AS formation_nom, r.description, r.date FROM reclamation r JOIN  user u ON r.id_user = u.idUser JOIN  outil o ON r.id_outil = o.idoutils JOIN  formation f ON r.id_formation = f.idFormation;";
+        String rec="SELECT r.id_reclamation, u.nom AS user_nom, u.idUser AS user_id, o.nom AS outil_nom, o.idoutils AS outil_id, f.nom AS formation_nom, f.idFormation AS formation_id, r.description, r.date FROM reclamation r JOIN user u ON r.id_user = u.idUser JOIN outil o ON r.id_outil = o.idoutils JOIN formation f ON r.id_formation = f.idFormation;";
             Statement st = cnx.createStatement();
-            ResultSet res = st.executeQuery(req);
+            ResultSet res = st.executeQuery(rec);
             while (res.next()){
                 int id = res.getInt("id_reclamation");
                 Formation formation = new Formation();
-                formation.setId_formation(res.getInt("id_formation"));
+                formation.setId_formation(res.getInt("formation_id"));
+                formation.setNom(res.getString("formation_nom"));
                 User user = new User();
-                user.setId_user(res.getInt("id_user"));
+                user.setId_user(res.getInt("user_id"));
+                user.setNom(res.getString("user_nom"));
                 Outil outil = new Outil();
-                outil.setId_outil(res.getInt("id_outil"));
+                outil.setId_outil(res.getInt("outil_id"));
+                outil.setNom(res.getString("outil_nom"));
                 String description = res.getString("description");
                 java.sql.Timestamp timestamp = res.getTimestamp("date");
                 LocalDateTime date = timestamp.toLocalDateTime();

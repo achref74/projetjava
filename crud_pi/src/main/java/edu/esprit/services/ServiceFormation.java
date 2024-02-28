@@ -48,7 +48,9 @@ public class ServiceFormation implements IService<Formation> {
         ResultSet res = st.executeQuery(req);
         while (res.next()){
             int id = res.getInt("idFormation");
-            Formation f = new Formation(id);
+            String nom = res.getString("nom");
+            Formation f = new Formation(id,nom);
+
             Formations.add(f);
         }
 

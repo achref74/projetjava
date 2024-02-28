@@ -14,11 +14,11 @@ public class Main {
         ServiceReponse serviceReponse = new ServiceReponse();
         ServiceReclamation serviceReclamation = new ServiceReclamation();
         System.out.println(DataSource.getInstance());
-        Formation formation = new Formation(10);
-        Outil outil = new Outil(1);
-        User user = new User(2,"ahmed");
-        Reclamation reclamation = new Reclamation(user,outil,formation,"testest");
-
+      //  Formation formation = new Formation(10);
+        Outil outil = new Outil(1,"wiwiiiw");
+        //User user = new User(2,"ahmed");
+        //Reclamation reclamation = new Reclamation(user,outil,formation,"testest");
+        System.out.println(outil.getNom());
 
         //serviceReponse.ajouter(new Reponse(user,"wiiiiw",reclamation));
 

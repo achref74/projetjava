@@ -129,8 +129,10 @@ public class ServiceReponse implements IService<Reponse> {
         Set<Reponse> Reponses = new HashSet<>();
 
         String req = "SELECT * FROM `reponse` WHERE id_reclamation = ?";
+        String rec = "SELECT rp.id_reponse, rp.description, rp.date_reponse,rp.id_reclamation, u.idUser AS id_user, u.nom AS user_nom FROM reponse rp JOIN user u ON rp.id_user = u.idUser WHERE  rp.id_reclamation = ?;";
+
         try {
-            PreparedStatement pst = cnx.prepareStatement(req);
+            PreparedStatement pst = cnx.prepareStatement(rec);
             pst.setInt(1, id_reclamation);
             ResultSet res = pst.executeQuery();
 
@@ -143,6 +145,7 @@ public class ServiceReponse implements IService<Reponse> {
                 reclamation.setId_reclamation(res.getInt("id_reclamation"));
                 User user = new User();
                 user.setId_user(res.getInt("id_user"));
+                user.setNom(res.getString("user_nom"));
                 Reponse r = new Reponse(id, user, description, reclamation, date);
                 Reponses.add(r);
             }

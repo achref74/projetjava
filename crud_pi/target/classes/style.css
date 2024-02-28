@@ -44,3 +44,34 @@
     -fx-background-color: black;
 }
 
+#vboxx {
+    -fx-spacing:0;
+    -fx-padding: 0;
+    -fx-background-color: #A67B5B;
+}
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#ReclamationUser {
+    -fx-background-color: #A67B5B;
+}
+
+#ReclamationOutil {
+    -fx-background-color: #A67B5B;
+}
+
+#ReclamationFormation {
+    -fx-background-color: #A67B5B;
+}
+
+#ReclamationDescription {
+    -fx-background-color: #A67B5B;
+}
+
+#ReclamationDate {
+    -fx-background-color: #A67B5B;
+}

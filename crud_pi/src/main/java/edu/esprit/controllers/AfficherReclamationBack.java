@@ -8,7 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -30,6 +33,9 @@ public class AfficherReclamationBack implements Initializable {
 
     private final ServiceReclamation ReclamationService = new ServiceReclamation();
     private Set<Reclamation> Liste;
+    @FXML
+    private ScrollPane ScrolR;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,15 +53,18 @@ public class AfficherReclamationBack implements Initializable {
 
         Liste = new HashSet<>(reclamations());
         int column = 0;
-        int row = 0;
+        int row = 1;
 
         try {
             for (Reclamation reclamation : Liste) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/Reclamation.fxml"));
+
                 VBox reclamationBox = fxmlLoader.load();
+
                 ReclamationController reclamationController = fxmlLoader.getController();
                 reclamationController.setData(reclamation);
+
 
                 // Set Reclamation as user data for the VBox
                 reclamationBox.setUserData(reclamation);
@@ -65,31 +74,80 @@ public class AfficherReclamationBack implements Initializable {
                     handleDelete(reclamation, reclamationBox);
                 });
 
+                Button updateButton = new Button("update");
+                updateButton.setOnAction(event -> {
+                    handleupdate(reclamation);
+                });
+
                 reclamationBox.setOnMouseClicked(event -> handleReclamationClick(reclamationBox));
 
                 HBox hbox = new HBox();
                 hbox.getChildren().addAll(deleteButton);
+                hbox.getChildren().addAll(updateButton);
                 reclamationBox.getChildren().add(hbox);
 
                 if (column == 3) {
                     column = 0;
                     row++;
                 }
-
-                reclamationContainer.add(reclamationBox, column, row);
-                column++;
-
+                //ScrolR.setContent(reclamationContainer);
+                reclamationContainer.add(reclamationBox, column++, row);
+               //ScrolR.setContent(reclamationBox);
+                //column++;
                 GridPane.setMargin(reclamationBox, new Insets(10));
+
+
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
+    private void handleupdate(Reclamation reclamation) {
+        //Reclamation selectedReclamation = getReclamationFromEventSource(reclamationBox);
+        try {
+            // Load the FXML file for ModifierReclamation
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierReclamation.fxml"));
+            Parent root = loader.load();
+
+            // Get the ModifierReclamation controller
+            ModifierReclamation modifierReclamationController = loader.getController();
+
+            // Pass the whole clicked Reclamation object to the ModifierReclamation controller
+            modifierReclamationController.setReclamationData(reclamation, this);
+
+            // Create a new scene
+            Scene scene = new Scene(root);
+
+            // Create a new stage for ModifierReclamation
+            Stage modifierReclamationStage = new Stage();
+            modifierReclamationStage.setScene(scene);
+            modifierReclamationStage.setTitle("Modifier Reclamation");
+
+            // Show the new stage
+            modifierReclamationStage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+    }
+
     private void handleDelete(Reclamation reclamation, VBox reclamationBox) {
-        ReclamationService.supprimer(reclamation.getId_reclamation());
-        // Remove the reclamationBox from the parent container
-        reclamationContainer.getChildren().remove(reclamationBox);
+       /* ReclamationService.supprimer(reclamation.getId_reclamation());
+
+        reclamationContainer.getChildren().remove(reclamationBox);*/
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Confirmation");
+        alert.setContentText("Are you sure you want to delete this reclamation?");
+
+        // Show the confirmation dialog and wait for user response
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // If user clicks OK, proceed with deletion
+                ReclamationService.supprimer(reclamation.getId_reclamation());
+                reclamationContainer.getChildren().remove(reclamationBox);
+            }
+        });
     }
 
     private Set<Reclamation> reclamations() {
@@ -132,8 +190,7 @@ public class AfficherReclamationBack implements Initializable {
         if (clickedBox != null && clickedBox.getUserData() instanceof Reclamation) {
             return (Reclamation) clickedBox.getUserData();
         } else {
-            // Handle the case where the Reclamation is null or not set
-            // You might show an error message or take appropriate action
+
             return null;
         }
     }

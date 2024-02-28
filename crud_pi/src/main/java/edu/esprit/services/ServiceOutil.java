@@ -46,7 +46,8 @@ public class ServiceOutil implements IService<Outil>{
         ResultSet res = st.executeQuery(req);
         while (res.next()){
             int id = res.getInt("idoutils");
-            Outil f = new Outil(id);
+            String nom =res.getString("nom");
+            Outil f = new Outil(id,nom);
             Outils.add(f);
         }
 

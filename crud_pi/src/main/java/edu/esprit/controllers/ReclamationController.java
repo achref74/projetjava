@@ -55,19 +55,19 @@ public class ReclamationController {
     public void setData(Reclamation reclamation) {
         if (reclamation != null) {
             if (reclamation.getUser() != null) {
-                ReclamationUser.setText(String.valueOf(reclamation.getUser().getId_user()));
+                ReclamationUser.setText(reclamation.getUser().getNom());
             } else {
                 ReclamationUser.setText("User not specified");
             }
 
             if (reclamation.getOutil() != null) {
-                ReclamationOutil.setText(String.valueOf(reclamation.getOutil().getId_outil()));
+                ReclamationOutil.setText((reclamation.getOutil()).getNom());
             } else {
                 ReclamationOutil.setText("Outil not specified");
             }
 
             if (reclamation.getFormation() != null) {
-                ReclamationFormation.setText(String.valueOf(reclamation.getFormation().getId_formation()));
+                ReclamationFormation.setText(reclamation.getFormation().getNom());
             } else {
                 ReclamationFormation.setText("Formation not specified");
             }
