@@ -15,8 +15,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ModifierReclamation {
     @FXML
@@ -80,6 +81,20 @@ public class ModifierReclamation {
             // Display an alert or handle the situation accordingly
             System.out.println("Please fill in all fields.");
             return;
+        }
+        String descriptionPattern = "^[a-zA-Z0-9\\s]+$";
+        Pattern pattern = Pattern.compile(descriptionPattern);
+        Matcher matcher = pattern.matcher(description);
+
+        if (!matcher.matches()) {
+
+            // Display an alert or handle the situation accordingly
+           /* System.out.println("Invalid characters in the description.");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(" desription");
+            alert.setContentText("the description only contains numbers and letters");
+            alert.show();
+            return;*/
         }
         //user.setId_user(2);
         // Create a new Reclamation object

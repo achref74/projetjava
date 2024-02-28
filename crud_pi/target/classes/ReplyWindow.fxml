@@ -7,21 +7,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="edu.esprit.controllers.ReplyWindowController"
-      prefHeight="400.0" prefWidth="600.0">
-    <Label fx:id="reclamationUserLabel"/>
-    <Label fx:id="reclamationOutilLabel"/>
-    <Label fx:id="reclamationFormationLabel"/>
-    <Label fx:id="reclamationDescriptionLabel"/>
-    <Label fx:id="reclamationDateLabel"/>
+<VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #02030A;" stylesheets="style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ReplyWindowController">
+    <Label fx:id="reclamationUserLabel" />
+    <Label fx:id="reclamationOutilLabel" />
+    <Label fx:id="reclamationFormationLabel" />
+    <Label fx:id="reclamationDescriptionLabel" />
+    <Label fx:id="reclamationDateLabel" />
 
-    <ListView fx:id="responseListView" prefHeight="200.0"/>
+    <ListView fx:id="responseListView" onMouseClicked="#handleResponseItemClick" prefHeight="200.0" />
 
-    <TextArea fx:id="ReponseTextArea" prefHeight="100.0" promptText="Enter your response here"/>
+    <TextArea fx:id="ReponseTextArea" prefHeight="100.0" promptText="Enter your response here" />
 
     <HBox>
-        <Button fx:id="submitReponseButton" onAction="#submitResponse" text="Submit Response"/>
+        <Button fx:id="submitReponseButton" onAction="#submitResponse" text="Submit Response" />
+      <Button fx:id="supp" layoutY="50.0" mnemonicParsing="false" onMouseClicked="#remove" prefHeight="25.0" prefWidth="90.0" text="supprimer" />
+      <Button fx:id="update" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="update" onMouseClicked="#update" />
     </HBox>
 </VBox>

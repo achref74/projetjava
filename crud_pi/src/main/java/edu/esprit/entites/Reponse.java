@@ -38,6 +38,14 @@ public class Reponse {
         this.reclamation=reclamation;
         this.date = date;
     }
+    public Reponse(User user ,String description ,Reclamation reclamation, LocalDateTime date) {
+
+        this.description = description;
+        this.user=user;
+        this.reclamation=reclamation;
+        this.date = date;
+    }
+
 
     public int getId_reponse() {
         return id_reponse;
@@ -68,12 +76,10 @@ public class Reponse {
 
     @Override
     public String toString() {
-        return "Reponse{" +
-                "id_reponse=" + id_reponse +
-                ", description=" + description + '\'' +
-                ", reclamation= " + reclamation.getId_reclamation() +
-            ", date=" + date +
-                '}';
+        return "user "+ this.getUser().getNom() +
+                ",description=" + description + '\'' +
+                ",date=" + this.getDate();
+
     }
 
     @Override
