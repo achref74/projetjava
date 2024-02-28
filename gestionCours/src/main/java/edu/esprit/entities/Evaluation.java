@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class Evaluation {
     private int id_e ;
-    private int duree ;
+
     private String nom ;
 
     public String getNom() {
@@ -29,22 +29,7 @@ public class Evaluation {
         this.id_e = id_e;
     }
 
-    public int getDuree() {
 
-        if (duree <= 0) {
-            throw new IllegalArgumentException("La durée doit être supérieure à zéro.");
-        }
-        return duree;
-    }
-
-    public void setDuree(int duree) {
-
-        if (duree <= 0) {
-            throw new IllegalArgumentException("La durée doit être supérieure à zéro.");
-        }
-
-        this.duree = duree;
-    }
 
     public int getNote() {
 
@@ -76,42 +61,39 @@ public class Evaluation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Evaluation that = (Evaluation) o;
-        return id_e == that.id_e && duree == that.duree && note == that.note && Objects.equals(questions, that.questions);
+        return id_e == that.id_e && note == that.note && Objects.equals(questions, that.questions);
     }
 
     @Override
     public String toString() {
-        long heures = duree / 3600;
-        long minutes = (duree % 3600) / 60;
-        long secondes = duree % 60;
+
 
         return String.format("Evaluation%n" +
                         "----------------------------------------------%n" +
-                        " Durée     | Note | Questions           |%n" +
+                        " Note | Questions           |%n" +
                         "----------------------------------------------%n" +
-                        "| %-2dh %-2dmin %-2dsc | %-5s | %-20s |%n",
-                 heures, minutes, secondes, note, questions);
+                        note, questions);
     }
 
-    public Evaluation(int id_e, int duree, String nom, int note) {
+    public Evaluation(int id_e,  String nom, int note) {
         this.id_e = id_e;
-        this.duree = duree;
+
         this.nom = nom;
         this.note = note;
 
      questions = new HashSet<>();
     }
-    public Evaluation(int id_e, int duree, String nom, int note, Set<Question> questions) {
+    public Evaluation(int id_e,  String nom, int note, Set<Question> questions) {
         this.id_e = id_e;
-        this.duree = duree;
+
         this.nom = nom;
         this.note = note;
 
         this.questions = questions;
     }
-    public Evaluation(int duree, String nom, int note) {
+    public Evaluation( String nom, int note) {
 
-        this.duree = duree;
+
         this.nom = nom;
         this.note = note;
 

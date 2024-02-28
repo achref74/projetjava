@@ -24,33 +24,15 @@ public class Main {
     service_cours.modifier(introductionn);
         //  service_cours.supprimer(13);
         // System.out.println(service_cours.getAll());
+        //int duree, String nom, String rendu, int note)
         Evaluation evaluation1 =new Evaluation(400,"Evaluation1",20);
         ServiceEvaluation service_evaluation =new ServiceEvaluation() ;
-        //service_evaluation.ajouter(evaluation1,11);
+       // service_evaluation.ajouter(evaluation1,17);
         System.out.println(service_evaluation.getAll());
-        Question question1 =new Question("fichier.txt");
+       Question question1 =new Question(1 , "jv",4,4,"choix2 ","choix3 ","gd","cgh","correction");
         ServiceQuestion s =new ServiceQuestion();
-        // s.ajouter(question1,15);
+        // s.ajouter(question1,17);
         System.out.println(s.getAll());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

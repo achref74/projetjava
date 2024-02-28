@@ -1,18 +1,16 @@
 package edu.esprit.Controllers;
 
 import edu.esprit.entities.Cours;
+import edu.esprit.entities.Question;
 import edu.esprit.services.ServiceCours;
-import edu.esprit.tests.MainFx;
 import edu.esprit.tests.MyListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,10 +23,9 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.sql.Date;
+
 public class MarketController implements Initializable {
 
     @FXML
@@ -70,7 +67,11 @@ public class MarketController implements Initializable {
     @FXML
     private Button modifier;
     @FXML
+    private Button evaluationf;
+    @FXML
     private Button supprimer;
+    @FXML
+    private Button evaluation;
     private MyListener myListener;
     private String selectedId ;
 
@@ -135,12 +136,19 @@ public class MarketController implements Initializable {
         if (!liste.isEmpty()) {
             Iterator<Cours> iterator = liste.iterator();
             Cours firstCours = iterator.next();
+
             setChosenCours(firstCours);
 
             myListener = new MyListener() {
+
                 @Override
                 public void onClickListener(Cours cours) {
                     setChosenCours(cours);
+                }
+
+                @Override
+                public void onClickListner(Question var) {
+
                 }
             };
         }
@@ -262,8 +270,7 @@ public class MarketController implements Initializable {
         duree.clear();
         prerequis.clear();
         ressource.clear();
-       /* image.clear();*/
-        fruitNameLable.setText("");
+        fruitNameLable.setText(""); // Optionnel : vous pouvez également le supprimer si vous avez déjà effacé le champ fruitNameLabel ci-dessus.
     }
 
 ////
@@ -357,14 +364,66 @@ public class MarketController implements Initializable {
         }
     }
 
+
+
+
+
+    public void navigatetoEvaluation(javafx.event.ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEvaluation.fxml"));
+            Parent root = loader.load();
+
+            // Accéder au contrôleur du fichier FXML chargé
+            AfficherEvaluation controller = loader.getController();
+
+            // Passer l'ID du cours sélectionné au contrôleur
+            controller.setCoursId(selectedId);
+
+            // Changer la scène vers le contrôleur EvaluationController
+            evaluation.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer les erreurs ici
+        }
+    }
+
+
+    public void navigatetoEvaluationEnTantQueFormateur(javafx.event.ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEvaluationFormateur.fxml"));
+            Parent root = loader.load();
+
+            AfficherEFormateur controller = loader.getController();
+
+            controller.setCoursId(selectedId);
+
+            // Changer la scène vers le contrôleur EvaluationController
+            evaluation.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer les erreurs ici
+        }
+    }
+
+    @FXML
+    void AjouterEvaluation(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvaluation.fxml"));
+            Parent root = loader.load();
+
+            AjouterEController controller = loader.getController();
+
+            controller.setCoursId(selectedId);
+
+            // Changer la scène vers le contrôleur EvaluationController
+            evaluation.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer les erreurs ici
+        }
+    }
+
+
+
 }
 
-
-//////////
-////////////
-/////////
-////////////
-/////////////
-/////////////
-///////////
-/* arkah*/

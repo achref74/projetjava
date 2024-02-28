@@ -127,9 +127,9 @@
         <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
             <children>
 
-                <Pane fx:id="pnlOverview" prefHeight="576.0" prefWidth="793.0">
+                <Pane fx:id="pnlOverview" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: white;">
                     <children>
-                        <TextField layoutX="123.0" layoutY="48.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" text="rechercher" />
+                        <TextField layoutX="123.0" layoutY="48.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: white; -fx-border-color: white; -fx-border-radius: 2em;" text="rechercher" />
                         <Label layoutX="167.0" layoutY="124.0" prefHeight="25.0" prefWidth="74.0" text="Cours" textFill="#faf9f7">
                             <font>
                                 <Font name="NSimSun" size="18.0" />
@@ -138,38 +138,42 @@
                         <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
 
                         </ImageView>
-                        <TextField fx:id="nom" layoutX="273.0" layoutY="169.0" prefHeight="27.0" prefWidth="148.0" promptText="Nom" style="-fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A; -fx-effect: dropShadow(three-pass-box,rgba(0,0,0.1),10.0,0.0,0.0,10.0);" />
-                        <TextArea fx:id="description" layoutX="273.0" layoutY="205.0" prefHeight="72.0" prefWidth="148.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
-                        <DatePicker fx:id="date" layoutX="272.0" layoutY="308.0" prefHeight="26.0" prefWidth="151.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
+                  <VBox layoutX="120.0" layoutY="105.0" prefHeight="462.0" prefWidth="403.0" style="-fx-background-color: #bc8f8f;" styleClass="chosen-fruit-card" stylesheets="@style.css" />
+                        <TextField fx:id="nom" layoutX="273.0" layoutY="169.0" prefHeight="16.0" prefWidth="148.0" promptText="Nom" style="-fx-border-color: white; -fx-border-radius: 4em; -fx-control-inner-background: white;" styleClass="shadow" stylesheets="@style.css" />
+                        <TextArea fx:id="description" layoutX="273.0" layoutY="205.0" prefHeight="72.0" prefWidth="148.0" style="-fx-border-color: white; -fx-border-radius: 4em; -fx-control-inner-background: #02030Awhite;" />
+                        <DatePicker fx:id="date" layoutX="272.0" layoutY="293.0" prefHeight="42.0" prefWidth="151.0" style="-fx-border-color: white; -fx-effect: drop; -fx-border-radius: 4em; -fx-control-inner-background: white;" />
 
-                        <Text fill="#2a73ff" layoutX="172.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" textAlignment="CENTER" />
-                        <Text fill="#2a73ff" layoutX="172.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duree" />
-                        <Text fill="#2a73ff" layoutX="172.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prerequis " />
-                        <Text fill="#2a73ff" layoutX="173.0" layoutY="468.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ressource" />
-                        <TextField fx:id="prerequis" layoutX="272.0" layoutY="406.0" promptText="Prix" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
-                        <TextField fx:id="ressource" layoutX="270.0" layoutY="450.0" prefHeight="26.0" prefWidth="153.0" promptText="Nombre Cour" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
-                        <Button fx:id="ajouterFormation" layoutX="306.0" layoutY="508.0" mnemonicParsing="false" onAction="#AjouterCoursAction" prefHeight="27.0" prefWidth="91.0" styleClass="search_button" stylesheets="@style.css" text="Ajouter" textAlignment="CENTER" textFill="WHITE" />
+                        <Text fill="WHITE" layoutX="170.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                        <Text fill="WHITE" layoutX="172.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duree">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                        <Text fill="WHITE" layoutX="172.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prerequis ">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                        <Text fill="WHITE" layoutX="173.0" layoutY="468.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ressource">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                        <TextField fx:id="prerequis" layoutX="272.0" layoutY="406.0" promptText="Prix" style="-fx-border-color: white; -fx-border-radius: 4em; -fx-control-inner-background: #02030Awhite;" styleClass="shadow" stylesheets="@style.css" />
+                        <TextField fx:id="ressource" layoutX="270.0" layoutY="450.0" prefHeight="26.0" prefWidth="153.0" promptText="Nombre Cour" style="-fx-border-color: white; -fx-border-radius: 4em; -fx-control-inner-background: white;" styleClass="shadow" stylesheets="@style.css" />
+                        <Button fx:id="ajouterFormation" layoutX="625.0" layoutY="510.0" mnemonicParsing="false" onAction="#AjouterCoursAction" prefHeight="27.0" prefWidth="91.0" styleClass="search_button" stylesheets="@style.css" text="Ajouter" textAlignment="CENTER" textFill="WHITE" />
                         <Button layoutX="36.0" layoutY="49.0" mnemonicParsing="false" onAction="#navigatetoAfficherCoursAction" styleClass="search_button" stylesheets="@style.css" text="Navigate" textFill="WHITE" />
 
-                        <Text fill="#2a73ff" layoutX="171.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date " />
-                        <Text fill="#2a73ff" layoutX="164.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER" wrappingWidth="73.7484130859375" />
-                  <TextField fx:id="duree" layoutX="270.0" layoutY="355.0" prefHeight="27.0" prefWidth="153.0" promptText="Prix" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="258.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="212.0" fitWidth="308.0" layoutX="486.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/artisan.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="205.0" fitWidth="446.0" layoutX="486.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/k0eYvshXLsrTqbr16ZvKkJ5UDoqwIHqzkAbhu0xH.jpeg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="253.0" fitWidth="308.0" layoutX="486.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/tissage-artisanal-metier-bras.jpg" />
-                     </image>
-                  </ImageView>
+                              <Text fill="WHITE" layoutX="171.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date " wrappingWidth="73.99999999999989">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                        <Text fill="WHITE" layoutX="164.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER" wrappingWidth="97.7484130859375">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                  <TextField fx:id="duree" layoutX="270.0" layoutY="355.0" prefHeight="27.0" prefWidth="153.0" promptText="Prix" style="-fx-border-color: white; -fx-border-radius: 4em; -fx-control-inner-background: #02030Awhite;" styleClass="shadow" stylesheets="@style.css" />
 
                     </children>
                 </Pane>

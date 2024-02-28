@@ -161,3 +161,37 @@
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 30;
 }
+.check-box {
+    -fx-background-color: transparent;
+    -fx-text-fill: #afa5dc;
+}
+
+.check-box .box {
+    -fx-background-color: transparent;
+    -fx-border-color: #afa5dc;
+}
+
+.check-box .box:hover {
+    -fx-background-color: #6460AA; /* Couleur de fond au survol */
+}
+
+.check-box:selected .box {
+    -fx-background-color: #4CAF50; /* Couleur de fond lors de la sélection */
+}
+
+.check-box .text {
+    -fx-font-family: "Cambria";
+    -fx-font-size: 18px;
+}
+
+.check-box:selected .text {
+    -fx-fill: #FFFFFF; /* Couleur du texte lors de la sélection */
+}
+
+/* Animation de la case à cocher lorsqu'elle est sélectionnée */
+.check-box:selected .box {
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 3px;
+    -fx-padding: 1px 3px 3px 3px;
+    -fx-transition: all 0.3s ease;
+}

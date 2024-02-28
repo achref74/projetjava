@@ -18,14 +18,14 @@ public class ServiceEvaluation implements IService <Evaluation>{
         if (ServiceCours.existe(id_cours)) {
 
 
-            String req = "INSERT INTO `evaluation`(`duree`, `note`,`nom`,`id_cours`) VALUES (?,?,?,?)";
+            String req = "INSERT INTO `evaluation`( `note`,`nom`,`id_cours`) VALUES (?,?,?,?)";
             try {
                 PreparedStatement ps = cnx.prepareStatement(req);
 
-                ps.setInt(1,evaluation.getDuree());
-                ps.setInt(2,evaluation.getNote());
-                ps.setString(3,evaluation.getNom());
-                ps.setInt(4, id_cours);
+
+                ps.setInt(1,evaluation.getNote());
+                ps.setString(2,evaluation.getNom());
+                ps.setInt(3, id_cours);
                 ps.executeUpdate();
 
                 System.out.println("Evaluation  added !");
@@ -39,14 +39,14 @@ public class ServiceEvaluation implements IService <Evaluation>{
 
     @Override
     public void modifier(Evaluation evaluation) {
-        String req =" UPDATE `evaluation` SET `duree` =?,`note`=?,`nom`=? WHERE `id_e`=?";
+        String req =" UPDATE `evaluation` SET `note`=?,`nom`=? WHERE `id_e`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, evaluation.getDuree());
-            ps.setInt(2, evaluation.getNote());
-            ps.setString(3, evaluation.getNom());
 
-            ps.setInt(4, evaluation.getId_e());
+            ps.setInt(1, evaluation.getNote());
+            ps.setString(2, evaluation.getNom());
+
+            ps.setInt(3, evaluation.getId_e());
             ps.executeUpdate();
             System.out.println("Ev modified  !");
 
@@ -99,12 +99,12 @@ Evaluation ev = null ;
             ResultSet res = st.executeQuery(req);
             if (res.next()){
                  int id_e = res.getInt("id_e");
-                int duree = res.getInt("duree");
+
                 String nom = res.getString("nom");
                 int note = res.getInt("note");
                 ServiceQuestion s =new ServiceQuestion();
                 Set<Question> questions = s.getQuestionsByIdEvaluation(id);
-                ev = new Evaluation(id_e,duree,nom,note,questions);
+                ev = new Evaluation(id_e,nom,note,questions);
 
             }return null;
         } catch (SQLException e) {
@@ -124,13 +124,13 @@ Evaluation ev = null ;
             ResultSet res = st.executeQuery(req);
             while (res.next()){
                 int id = res.getInt("id_e");
-                int duree = res.getInt("duree");
+
                 String nom = res.getString("nom");
                 int note = res.getInt("note");
 
                 ServiceQuestion s =new ServiceQuestion();
                 Set<Question> questions = s.getQuestionsByIdEvaluation(id);
-                Evaluation e = new Evaluation(id,duree,nom,note,questions);
+                Evaluation e = new Evaluation(id,nom,note,questions);
                 evs.add(e);
             }
         } catch (SQLException e) {
@@ -159,27 +159,23 @@ return false ; }
 
 
     public Evaluation getEvaluationByIdCours(int id) {
-
-        Evaluation ev = null ;
-        String req = "Select * from evaluation WHERE id_cours ="+id;
+        Evaluation ev = null;
+        String req = "Select * from evaluation WHERE id_cours =" + id;
         try {
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
-            if (res.next()){
+            if (res.next()) {
                 int id_e = res.getInt("id_e");
-                int duree = res.getInt("duree");
                 String nom = res.getString("nom");
                 int note = res.getInt("note");
-                ServiceQuestion s =new ServiceQuestion();
+                ServiceQuestion s = new ServiceQuestion();
                 Set<Question> questions = s.getQuestionsByIdEvaluation(id);
-                ev = new Evaluation(id_e,duree,nom,note,questions);
-
-            }return null;
+                ev = new Evaluation(id_e, nom, note, questions);
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-        return ev;
+        return ev; // Retourner l'objet Evaluation si trouvé
     }
 
 
