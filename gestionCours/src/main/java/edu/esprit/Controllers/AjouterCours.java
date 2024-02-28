@@ -71,7 +71,11 @@ public class AjouterCours {
     void selectImage(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
+        
+        File initialDirectory = new File("C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images");
+        fileChooser.setInitialDirectory(initialDirectory);
 
+        // Filtrer les extensions d'image
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images", "*.jpg", "*.jpeg", "*.png", "*.gif");
         fileChooser.getExtensionFilters().add(extFilter);
 
@@ -79,7 +83,7 @@ public class AjouterCours {
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
-            String absolutePath = "C:\\Users\\LENOVO\\Desktop\\gestionCours\\src\\main\\resources\\images\\" + selectedFile.getName();
+            String absolutePath = selectedFile.getAbsolutePath();
             Image newImage = new Image("file:///" + absolutePath);
             image.setImage(newImage);
             System.out.println("Chemin d'accès de l'image sélectionnée : " + absolutePath);

@@ -28,7 +28,7 @@ public class Menu {
     private Button bouton;
     public void navigatetoCours(javafx.event.ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/DisplayCours.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Market.fxml"));
             bouton.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -5,13 +5,12 @@ import edu.esprit.entities.Question;
 import edu.esprit.services.ServiceEvaluation;
 import edu.esprit.services.ServiceQuestion;
 import edu.esprit.tests.MyListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -64,10 +63,19 @@ public class AfficherEvaluation implements Initializable {
     private Set<Question> liste = new HashSet<>();
     private List<String> colorPalette = new ArrayList<>();
     private Evaluation e;
+    @FXML
+    private Button retourC;
+
+    @FXML
+    private Button retourF;
 
     private String coursId;
 
     // Méthode pour définir l'ID du cours
+
+
+
+
     public void setCoursId(String coursId) {
         this.coursId = coursId;
         ServiceEvaluation se = new ServiceEvaluation();

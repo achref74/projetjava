@@ -7,7 +7,9 @@ import edu.esprit.services.ServiceQuestion;
 import edu.esprit.tests.MyListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -16,6 +18,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -66,6 +70,11 @@ public class AjouterEController implements Initializable {
 
     @FXML
     private VBox Evaluation1;
+    @FXML
+    private Button retourC;
+
+    @FXML
+    private Button retourF;
 
     @FXML
     private Button ajouterBtn;
@@ -108,6 +117,7 @@ public class AjouterEController implements Initializable {
 
     @FXML
     void retour(ActionEvent event) {
+
 
     }
     @FXML
@@ -193,5 +203,29 @@ public class AjouterEController implements Initializable {
         crx.clear();
 
         setCoursId(coursId);
+    }
+    public void retourClient(javafx.event.ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEvaluation.fxml"));
+            retourC.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+
+    }
+    public void retourFormateur(javafx.event.ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEvaluationFormateur.fxml"));
+            retourF.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+
     }
 }

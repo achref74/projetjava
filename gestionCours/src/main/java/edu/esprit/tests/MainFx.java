@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 
 public class MainFx extends Application {
     public static final String CURRENCY = "$";
-   // public void start(Stage stage) throws Exception {FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCours.fxml"));
-    public void start(Stage stage) throws Exception {FXMLLoader loader = new FXMLLoader(getClass().getResource("/Market.fxml"));
+    public void start(Stage stage) throws Exception {FXMLLoader loader = new FXMLLoader(getClass().getResource("/Menu.fxml"));
+   // public void start(Stage stage) throws Exception {FXMLLoader loader = new FXMLLoader(getClass().getResource("/Market.fxml"));
        // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Menu.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);

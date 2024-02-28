@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -56,6 +57,8 @@ public class MarketController implements Initializable {
 
     @FXML
     private TextField ressource;
+    @FXML
+    private Button ajouterC;
   /*  @FXML
     private TextField image;*/
 
@@ -99,8 +102,8 @@ public class MarketController implements Initializable {
         ressource.setText(cours.getRessource());
 
         // Mettre à jour l'image
-        String imagePath = "file:///C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images/" + cours.getImage();
-        Image image = new Image(imagePath);
+        String imagePath = "/images/" + cours.getImage();
+        Image image = new Image(getClass().getResourceAsStream(imagePath));
         fruitImg.setImage(image);
         currentImageName = cours.getImage();
         selectedId = String.valueOf(cours.getId_cours());
@@ -196,6 +199,12 @@ public class MarketController implements Initializable {
         fruitImg.setOnMouseClicked(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Choisir une image");
+
+            // Définir le répertoire initial sur le dossier "images" de votre projet
+            String userDirectoryString = System.getProperty("user.dir") + "/src/main/resources/images";
+            File userDirectory = new File(userDirectoryString);
+            fileChooser.setInitialDirectory(userDirectory);
+
             File selectedFile = fileChooser.showOpenDialog(null);
             if (selectedFile != null) {
                 selectedImageURL = selectedFile.toURI().toString();
@@ -402,6 +411,24 @@ public class MarketController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
             // Gérer les erreurs ici
+        }
+    }
+
+    @FXML
+    void redirectetoCours(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCours.fxml"));
+            Parent root = loader.load();
+
+            // Obtenez la scène à partir de la source de l'événement
+            Scene scene = ajouterC.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Désolé, une erreur est survenue lors de la redirection.");
+            alert.setTitle("Erreur");
+            alert.show();
         }
     }
 

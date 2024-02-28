@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.MarketController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="829.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.MarketController">
    <children>
       <ImageView fitHeight="967.0" fitWidth="1509.0" layoutX="-193.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -307,7 +307,14 @@
                         <Insets left="20.0" right="20.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <Pane prefHeight="84.0" prefWidth="96.0" />
+                  <Pane prefHeight="84.0" prefWidth="96.0">
+                     <children>
+                        <Button fx:id="ajouterC" layoutX="628.0" layoutY="22.0" mnemonicParsing="false" onAction="#redirectetoCours" prefHeight="40.0" prefWidth="209.0" style="-fx-background-color: #828282;" styleClass="search-button" stylesheets="@style.css" text="Ajouter Un Cours" textFill="#828282">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children></Pane>
                   <HBox alignment="CENTER" prefHeight="550.0" prefWidth="983.0" VBox.vgrow="ALWAYS">
                      <children>
                         <ScrollPane fx:id="scroll" prefHeight="570.0" prefWidth="785.0" styleClass="transparent" stylesheets="@style.css">

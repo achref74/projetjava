@@ -256,9 +256,14 @@
                                         <String fx:value="shadow" />
                                     </styleClass>
                                 </VBox>
-                        <Button mnemonicParsing="false" onAction="#retour" prefHeight="26.0" prefWidth="25.0" text="&lt;">
+                        <Button fx:id="retourF" mnemonicParsing="false" onAction="#retourFormateur" prefHeight="16.0" prefWidth="26.0" styleClass="add-btn" stylesheets="@style.css" text="&lt;">
                            <HBox.margin>
                               <Insets bottom="10.0" left="30.0" top="620.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="retourC" mnemonicParsing="false" onAction="#retourClient" prefHeight="13.0" prefWidth="26.0" styleClass="add-btn" stylesheets="@style.css" text="&gt;">
+                           <HBox.margin>
+                              <Insets top="610.0" />
                            </HBox.margin>
                         </Button>
                             </children>

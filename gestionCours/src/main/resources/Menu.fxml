@@ -6,74 +6,74 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #05071F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.Menu">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="829.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.Menu">
    <children>
-      <ImageView fitHeight="393.0" fitWidth="600.0" layoutX="-1.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="866.0" fitWidth="1599.0" layoutX="41.0" layoutY="-36.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/artisan.jpg" />
          </image>
       </ImageView>
 
-      <Button layoutX="191.0" layoutY="135.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="216.0" stylesheets="@style.css" text="Formations" textFill="#e7e5e5">
+      <Button layoutX="475.0" layoutY="336.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="494.0" stylesheets="@style.css" text="Formations" textFill="#e7e5e5">
          <font>
-            <Font size="15.0" />
+            <Font name="Cambria Math" size="24.0" />
          </font></Button>
-      <Button layoutX="191.0" layoutY="216.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="216.0" stylesheets="@style.css" text="Forum" textFill="#e7e5e5">
+      <Button layoutX="482.0" layoutY="515.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="479.0" stylesheets="@style.css" text="Forum" textFill="#e7e5e5">
          <font>
-            <Font size="15.0" />
+            <Font name="Cambria Math" size="24.0" />
          </font></Button>
-      <Button layoutX="188.0" layoutY="93.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="216.0" stylesheets="@style.css" text="Outils" textFill="#e7e5e5">
+      <Button layoutX="476.0" layoutY="247.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="492.0" stylesheets="@style.css" text="Outils" textFill="#e7e5e5">
          <font>
-            <Font size="15.0" />
+            <Font name="Cambria Math" size="24.0" />
          </font></Button>
-      <Button fx:id="bouton" layoutX="191.0" layoutY="174.0" mnemonicParsing="false" onAction="#navigatetoCours" prefHeight="31.0" prefWidth="216.0" stylesheets="@style.css" text="cours" textFill="#e7e5e5">
+      <Button fx:id="bouton" layoutX="477.0" layoutY="424.0" mnemonicParsing="false" onAction="#navigatetoCours" prefHeight="50.0" prefWidth="490.0" stylesheets="@style.css" text="Cours" textFill="#e7e5e5">
          <font>
-            <Font size="15.0" />
+            <Font name="Cambria Math" size="24.0" />
          </font></Button>
-      <Button layoutX="188.0" layoutY="257.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="216.0" stylesheets="@style.css" text="Reclamation" textFill="#e7e5e5">
+      <Button layoutX="487.0" layoutY="605.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="471.0" stylesheets="@style.css" text="Reclamation" textFill="#e7e5e5">
          <font>
-            <Font size="15.0" />
+            <Font name="Cambria Math" size="24.0" />
          </font></Button>
-      <Button layoutX="191.0" layoutY="299.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="216.0" stylesheets="@style.css" text="Se Deconnecter" textFill="#e7e5e5">
+      <Button layoutX="485.0" layoutY="688.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="478.0" stylesheets="@style.css" text="Se Deconnecter" textFill="#e7e5e5">
          <font>
-            <Font size="15.0" />
+            <Font size="24.0" />
          </font></Button>
-      <Button layoutX="186.0" layoutY="54.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="216.0" stylesheets="@style.css" text="Profil" textFill="#e7e5e5">
+      <Button layoutX="479.0" layoutY="165.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="495.0" stylesheets="@style.css" text="Profil" textFill="#e7e5e5">
          <font>
-            <Font size="15.0" />
+            <Font name="Cambria Math" size="24.0" />
          </font>
       </Button>
-      <ImageView fitHeight="20.0" fitWidth="32.0" layoutX="213.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="38.0" fitWidth="33.0" layoutX="493.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/user.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="31.0" fitWidth="20.0" layoutX="213.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="31.0" fitWidth="34.0" layoutX="495.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/outil.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="31.0" fitWidth="20.0" layoutX="213.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="38.0" fitWidth="35.0" layoutX="492.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/formation.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="213.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="29.0" fitWidth="29.0" layoutX="497.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/cours.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="213.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="38.0" fitWidth="45.0" layoutX="492.0" layoutY="519.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/forum.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="213.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="29.0" fitWidth="37.0" layoutX="497.0" layoutY="615.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/reclamation.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="213.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="29.0" fitWidth="37.0" layoutX="496.0" layoutY="698.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/signOut.png" />
          </image>
