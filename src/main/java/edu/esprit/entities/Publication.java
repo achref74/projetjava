@@ -22,7 +22,12 @@ public class Publication {
         this.user = user;
     }
 
-    public Publication( String contenu, String image, Forum forum, User user) {
+    public Publication(int idP, int nbLike) {
+        this.idP = idP;
+        this.nbLike = nbLike;
+    }
+
+    public Publication(String contenu, String image, Forum forum, User user) {
         this.dateCreation = LocalDateTime.now();
         this.contenu = contenu;
         this.image = image;

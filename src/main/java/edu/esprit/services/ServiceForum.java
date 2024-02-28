@@ -52,10 +52,10 @@ public class ServiceForum implements IService<Forum> {
 
 
         }
-    public Forum getOneById(int id){
+    public Forum getOneById(int id) throws SQLException{
         Forum forum = null;
         String req = "SELECT a.*,f.nom FROM forum a  INNER JOIN formation f ON a.idFormation = f.idFormation WHERE a.idForum = ?";
-        try {
+
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ResultSet res = ps.executeQuery();
@@ -70,9 +70,7 @@ public class ServiceForum implements IService<Forum> {
 
                 forum = new Forum(titre, dateCreation,  description,  formation);
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
         return forum;}
 
 

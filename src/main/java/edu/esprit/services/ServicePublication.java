@@ -11,29 +11,36 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ServicePublication implements IService<Publication> {
     Connection cnx = DataSource.getInstance().getCnx();
     @Override
     public void ajouter(Publication publication) throws SQLException{
-//        if (publication.getContenu() == null || publication.getContenu().isEmpty()) {
-//            System.out.println("Le contenu de la publication est obligatoire.");
-//        }else {
-        String req = "INSERT INTO `publication`(`dateCreation`, `contenuP`,`image`, `idForum`,`idUser`) VALUES (?, ?, ?, ?,?)";
-      //  try {
+
+        // Expression régulière pour autoriser uniquement des lettres et des chiffres
+        String regex = "^[a-zA-Z0-9\\s]+$";
+
+        // Votre chaîne `contenu`
+        String contenu = publication.getContenu();
+
+        // Vérifier si la chaîne `contenu` correspond à la regex
+        if (contenu.matches(regex)) {
+            // La chaîne est valide, procédez à l'ajout dans la base de données
+            String req = "INSERT INTO `publication`(`dateCreation`, `contenuP`,`image`, `idForum`,`idUser`) VALUES (?, ?, ?, ?,?)";
             PreparedStatement ps = cnx.prepareStatement(req);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
             String formattedDate = publication.getDateCreation().format(formatter);
-            ps.setObject(1, formattedDate);// Utilisez setObject pour LocalDate
-            ps.setString(2, publication.getContenu());
+            ps.setObject(1, formattedDate);
+            ps.setString(2, contenu);
             ps.setString(3, publication.getImage());
             ps.setInt(4, publication.getForum().getIdForum());
             ps.setInt(5, publication.getUser().getIdUser());
             ps.executeUpdate();
-            System.out.println("publiction ajouté !");
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
+            System.out.println("Publication ajoutée !");
+        }
+
     }
 
     @Override
@@ -41,34 +48,46 @@ public class ServicePublication implements IService<Publication> {
         if (publication.getContenu() == null || publication.getContenu().isEmpty()) {
             System.out.println("Le contenu de la publication est obligatoire.");
         }else {
-        String req = "UPDATE publication SET contenuP = ?, image = ?,nbLike=?,idForum=?,idUser=? WHERE idP = ?";
+        String req = "UPDATE publication SET contenuP = ?, image = ?,nbLike=?,idUser=? WHERE idP = ?";
         PreparedStatement  prepardstatement = cnx.prepareStatement(req);
         prepardstatement.setString(1, publication.getContenu());
         prepardstatement.setString(2, publication.getImage());
-
         prepardstatement.setInt(3, publication.getNbLike());
-        prepardstatement.setInt(4,publication.getForum().getIdForum() );
-        prepardstatement.setInt(5, publication.getUser().getIdUser());
-
-        prepardstatement.setInt(6, publication.getIdP());
-
+        prepardstatement.setInt(4, publication.getUser().getIdUser());
+        prepardstatement.setInt(5, publication.getIdP());
         prepardstatement.executeUpdate();
         System.out.println("publiction modifié");}
 
     }
 
+    public void modifierNbLike(Publication publication) throws SQLException {
+        Pattern pattern = Pattern.compile("^-\\d+$");
+        Matcher matcher = pattern.matcher(String.valueOf(publication.getNbLike()));
+
+        if (matcher.matches()) {
+            // Le nombre de likes est négatif
+            System.out.println("Nombre de likes négatif !");
+        } else {
+            String req = "UPDATE publication SET nbLike = ? WHERE idP = ?";
+            PreparedStatement prepardstatement = cnx.prepareStatement(req);
+            prepardstatement.setInt(1, publication.getNbLike());
+            prepardstatement.setInt(2, publication.getIdP());
+            prepardstatement.executeUpdate();
+            System.out.println("Nombre de likes de la publication modifié !");
+        }
+
+    }
+
     @Override
-    public void supprimer(int id) {
+    public void supprimer(int id) throws SQLException {
         String req = "DELETE FROM publication WHERE idP = ?";
 
-        try {
+
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ps.executeUpdate();
             System.out.println("publication supprimé !");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
 
     }
 
@@ -128,5 +147,34 @@ public class ServicePublication implements IService<Publication> {
             list.add(publication);
         }
         return list;
+    }
+
+    public  List<Publication> getAll(int idForum)  {
+        String req = "SELECT a.*, u.nom, f.titre FROM publication a INNER JOIN user u ON a.idUser = u.idUser INNER JOIN forum f ON a.idForum = f.idForum WHERE f.idForum = ?";
+        try (PreparedStatement statement = cnx.prepareStatement(req)) {
+            statement.setInt(1, idForum);
+            ResultSet cs = statement.executeQuery();
+            List<Publication> list = new ArrayList<>();
+            while (cs.next()) {
+                Publication publication = new Publication();
+                publication.setIdP(cs.getInt("idP"));
+                publication.setContenu(cs.getString("contenuP"));
+                publication.setImage(cs.getString("image"));
+                java.sql.Timestamp timestamp = cs.getTimestamp("dateCreation");
+                LocalDateTime dateCreation = timestamp.toLocalDateTime();
+                publication.setDateCreation(dateCreation);
+                publication.setNbLike(cs.getInt("nbLike"));
+                User user = new User();
+                user.setNom(cs.getString("nom"));
+                publication.setUser(user);
+                Forum forum = new Forum();
+                forum.setTitre(cs.getString("titre"));
+                publication.setForum(forum);
+                list.add(publication);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

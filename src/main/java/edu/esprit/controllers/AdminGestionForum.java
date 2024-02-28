@@ -126,7 +126,11 @@ public class AdminGestionForum implements Initializable {
                 modiferForumPane.setVisible(true);
                 modiferForumPane.setManaged(true);
 
-                forum1 = serviceForum.getOneById(forum.getIdForum());
+                try {
+                    forum1 = serviceForum.getOneById(forum.getIdForum());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 forum1.setIdForum(forum.getIdForum());
                 System.out.println(forum1.getIdForum());
                 System.out.println(forum1.getFormation().getIdFormation());
@@ -146,6 +150,7 @@ public class AdminGestionForum implements Initializable {
             HBox hbox = new HBox();
             hbox.getChildren().add(vbox);
             ForumAfficheVbox.getChildren().add(hbox);
+            ForumAfficheVbox.setSpacing(10);
         }
 
         ScrollForum.setContent(ForumAfficheVbox);
@@ -331,6 +336,10 @@ public class AdminGestionForum implements Initializable {
         textArea.setStyle("-fx-text-fill: black; -fx-font-size: 15px; -fx-font-family: 'Dubai'; -fx-border-color: #4B2F00; -fx-background-color: rgb(255,255,255); -fx-border-width: 3;");
         return textArea;
     }
+
+
+
+
 
 
 

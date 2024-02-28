@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,13 +17,15 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class AjouterTEST {
+public class AjouterTEST implements Initializable {
 
     @FXML
     private ComboBox<Formation> AfficherFormationNom;
@@ -34,6 +37,12 @@ public class AjouterTEST {
     private TextArea descriptionForum;
     private final ServiceForum serviceForum=new ServiceForum();
     private DataSource MyConnection;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        chargerFormations();
+
+    }
 
 
 
@@ -54,6 +63,7 @@ public class AjouterTEST {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+        chargerFormations();
 
     }
 
@@ -72,8 +82,8 @@ public class AjouterTEST {
         stage.close();
 
     }
-    @FXML
-    void initialize() {
+
+    private void chargerFormations() {
         List<Formation> formations = new ArrayList<>();
         try {
             Statement st = MyConnection.getInstance().getCnx().createStatement();
@@ -86,9 +96,8 @@ public class AjouterTEST {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
         ObservableList<Formation> observableFormations = FXCollections.observableArrayList(formations);
         AfficherFormationNom.setItems(observableFormations);
-
-
     }
 }
