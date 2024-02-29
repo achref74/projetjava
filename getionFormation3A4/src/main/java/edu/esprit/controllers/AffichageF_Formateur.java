@@ -1,7 +1,14 @@
 package edu.esprit.controllers;
 
+<<<<<<< Updated upstream
 import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
+=======
+import edu.esprit.entities.Certificat;
+import edu.esprit.entities.Formation;
+import edu.esprit.entities.Offre;
+import edu.esprit.services.ServiceCertificat;
+>>>>>>> Stashed changes
 import edu.esprit.services.ServiceFormation;
 import edu.esprit.tests.MyListenerF;
 import javafx.event.ActionEvent;
@@ -11,20 +18,40 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+<<<<<<< Updated upstream
+=======
+import javafx.scene.image.Image;
+>>>>>>> Stashed changes
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+<<<<<<< Updated upstream
 
+=======
+import javafx.stage.FileChooser;
+
+import java.io.File;
+>>>>>>> Stashed changes
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+<<<<<<< Updated upstream
 import java.util.*;
 
 public class AffichageF_Formateur implements Initializable{
 
+=======
+import java.time.LocalDate;
+import java.util.*;
+
+public class AffichageF_Formateur implements Initializable{
+    private String currentImageName;
+
+    private String selectedImageUrl;
+>>>>>>> Stashed changes
     @FXML
     private VBox chosenFruitCard;
     @FXML
@@ -46,7 +73,12 @@ public class AffichageF_Formateur implements Initializable{
 
     @FXML
     private GridPane grid;
+<<<<<<< Updated upstream
 
+=======
+@FXML
+private Button certificatF;
+>>>>>>> Stashed changes
     @FXML
     private Button modifierF;
     @FXML
@@ -67,13 +99,23 @@ public class AffichageF_Formateur implements Initializable{
     private Set<Formation> listF = new HashSet<>();
     private MyListenerF myListener;
     private String selectedIdF ;
+<<<<<<< Updated upstream
 
+=======
+    private String selectedNomF ;
+    private String selectedNbrCF ;
+    private String selectedDescripF ;
+>>>>>>> Stashed changes
 
     @FXML
     void navigatetoMesFormationAction(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Affichage.fxml"));
+<<<<<<< Updated upstream
             ok1.getScene().setRoot(root);
+=======
+            prixF.getScene().setRoot(root);
+>>>>>>> Stashed changes
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Sorry");
@@ -106,11 +148,24 @@ public class AffichageF_Formateur implements Initializable{
         nbrCours.setText(String.valueOf(formation.getNbrCours()));
         descripF.setText(formation.getDescription());
         prixF.setText(String.valueOf(formation.getPrix()));
+<<<<<<< Updated upstream
 
         selectedIdF = String.valueOf(formation.getIdFormation());
         //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
 
 
+=======
+        selectedNbrCF=String.valueOf(formation.getNbrCours());
+        selectedNomF=String.valueOf(formation.getNom());
+        selectedDescripF=String.valueOf(formation.getDescription());
+        selectedIdF = String.valueOf(formation.getIdFormation());
+        //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
+
+        String imagePath = "file:///C:/Users/DELL GAMING/Desktop/PI/getionFormation3A4/src/main/resources/images/" + formation.getImageUrl();
+        Image image = new Image(imagePath);
+        fruitImg.setImage(image);
+        currentImageName = formation.getImageUrl();
+>>>>>>> Stashed changes
         List<String> colorPalette = new ArrayList<>();
         colorPalette.add("#D4A5A5");
         colorPalette.add("#A0522D");
@@ -155,6 +210,16 @@ public class AffichageF_Formateur implements Initializable{
                 public void onClickListener1(Offre var2) {
 
                 }
+<<<<<<< Updated upstream
+=======
+
+                @Override
+                public void onClickListener2(Formation var3) {
+
+                }
+
+
+>>>>>>> Stashed changes
             };
         }
         int column = 0;
@@ -198,10 +263,68 @@ public class AffichageF_Formateur implements Initializable{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+<<<<<<< Updated upstream
 
     }
 
 
+=======
+        certificatF.setOnAction(event -> ajouterCertificat());
+        fruitImg.setOnMouseClicked(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choisir une image");
+
+            // Définir le répertoire initial sur le dossier "images" de votre projet
+            String userDirectoryString = System.getProperty("user.dir") + "/src/main/resources/images";
+            File userDirectory = new File(userDirectoryString);
+            fileChooser.setInitialDirectory(userDirectory);
+
+            File selectedFile = fileChooser.showOpenDialog(null);
+            if (selectedFile != null) {
+                selectedImageUrl = selectedFile.toURI().toString();
+                Image newImage = new Image(selectedImageUrl);
+                fruitImg.setImage(newImage);
+            }
+        });
+
+    }
+    public  void ajouterCertificat()
+    {
+        LocalDate currentDate = LocalDate.now();
+        java.sql.Date date = java.sql.Date.valueOf(currentDate);
+
+        ServiceCertificat sc=new ServiceCertificat();
+
+        try {
+            sc.ajouter(new Certificat(
+                    selectedNomF, selectedDescripF, date, Integer.parseInt(selectedNbrCF), Integer.parseInt(selectedIdF)
+            ));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setContentText("Certificat ajoutée avec succès !");
+            alert.show();
+            Pdf generator = new Pdf();
+            generator.createPdfWithPDFBox("C:\\Users\\DELL GAMING\\Desktop\\PI\\getionFormation3A4\\src\\main\\resources\\Pdf\\certificat.pdf", new Certificat(
+                    selectedNomF, selectedDescripF, date, Integer.parseInt(selectedNbrCF), Integer.parseInt(selectedIdF)
+            ));
+            // Appeler la méthode pour ouvrir le répertoire après la création du PDF
+            try {
+                openDirectoryInWindows();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("SQL Exception");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+
+    }
+    private static void openDirectoryInWindows() throws Exception {
+        Runtime.getRuntime().exec("explorer C:\\Users\\DELL GAMING\\Desktop\\PI\\getionFormation3A4\\src\\main\\resources\\Pdf");
+    }
+>>>>>>> Stashed changes
 
     private void clearChosenCours() {
         nomF.clear();

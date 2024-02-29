@@ -12,9 +12,21 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+<<<<<<< Updated upstream
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
+=======
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
+
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+>>>>>>> Stashed changes
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -136,7 +148,11 @@ public class Affichage implements Initializable {
     public Label fxerrorprix2;
     @FXML
     public Label fxerrordate2;
+<<<<<<< Updated upstream
 
+=======
+private String selectedImageUrl;
+>>>>>>> Stashed changes
     @FXML
     public Button offre;
 
@@ -152,8 +168,12 @@ public class Affichage implements Initializable {
     @FXML
     private TextArea descripO1;
 
+<<<<<<< Updated upstream
     @FXML
     private javax.swing.text.html.ImageView fruitImg1;
+=======
+
+>>>>>>> Stashed changes
 
     @FXML
     private Label fxerrordate11;
@@ -183,6 +203,10 @@ private String selectedNomF;
     private Tab tab3;
     @FXML
     private Button retour1;
+<<<<<<< Updated upstream
+=======
+    private String currentImageName;
+>>>>>>> Stashed changes
 
     @FXML
     private ScrollPane scroll1;
@@ -208,7 +232,10 @@ private String selectedNomF;
         tabPane.getSelectionModel().select(tabOffre);
 
         nomFO.setText(selectedNomF);
+<<<<<<< Updated upstream
         System.out.println(selectedNomF);
+=======
+>>>>>>> Stashed changes
     }
 
     @FXML
@@ -274,9 +301,18 @@ private String selectedNomF;
         nbrCours.setText(String.valueOf(formation.getNbrCours()));
         descripF.setText(formation.getDescription());
         prixF.setText(String.valueOf(formation.getPrix()));
+<<<<<<< Updated upstream
 selectedNomF= String.valueOf(formation.getNom());
         selectedIdF = String.valueOf(formation.getIdFormation());
         //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
+=======
+        selectedNomF= String.valueOf(formation.getNom());
+        selectedIdF=String.valueOf(formation.getIdFormation());
+        String imagePath = "file:///C:/Users/DELL GAMING/Desktop/PI/getionFormation3A4/src/main/resources/images/" + formation.getImageUrl();
+        Image image = new Image(imagePath);
+        fruitImg.setImage(image);
+        currentImageName = formation.getImageUrl();
+>>>>>>> Stashed changes
 
 
         List<String> colorPalette = new ArrayList<>();
@@ -312,8 +348,14 @@ selectedNomF= String.valueOf(formation.getNom());
         fxerrordate2.setVisible(false);
         idFO.setVisible(false);
 
+<<<<<<< Updated upstream
         idF.setVisible(true);
         //  tabPane.getSelectionModel().select(afficheF);
+=======
+        idF.setVisible(false);
+        //  tabPane.getSelectionModel().select(afficheF);
+        listF.clear();
+>>>>>>> Stashed changes
 
         listF.addAll(getData());
         if (!listF.isEmpty()) {
@@ -331,6 +373,16 @@ selectedNomF= String.valueOf(formation.getNom());
                 public void onClickListener1(Offre var2) {
 
                 }
+<<<<<<< Updated upstream
+=======
+
+                @Override
+                public void onClickListener2(Formation var3) {
+
+                }
+
+
+>>>>>>> Stashed changes
             };
         }
         int column = 0;
@@ -346,7 +398,10 @@ selectedNomF= String.valueOf(formation.getNom());
 
                 ItemF itemF = fxmlLoader.getController();
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                 if (itemF != null) {
 
                     itemF.setData(formation, myListener);
@@ -378,7 +433,26 @@ selectedNomF= String.valueOf(formation.getNom());
         supprimerF.setOnAction(event -> supprimerFormations());
         ajouterOffre.setOnAction(event -> AjouterOffre());
 
+<<<<<<< Updated upstream
 
+=======
+        fruitImg.setOnMouseClicked(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choisir une image");
+
+            // Définir le répertoire initial sur le dossier "images" de votre projet
+            String userDirectoryString = System.getProperty("user.dir") + "/src/main/resources/images";
+            File userDirectory = new File(userDirectoryString);
+            fileChooser.setInitialDirectory(userDirectory);
+
+            File selectedFile = fileChooser.showOpenDialog(null);
+            if (selectedFile != null) {
+                selectedImageUrl = selectedFile.toURI().toString();
+                Image newImage = new Image(selectedImageUrl);
+                fruitImg.setImage(newImage);
+            }
+        });
+>>>>>>> Stashed changes
     }
 
     @FXML
@@ -467,6 +541,11 @@ selectedNomF= String.valueOf(formation.getNom());
             String newDateF = dateF.getText();
             String newPrix = prixF.getText();
             String newNbrCours = nbrCours.getText();
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
             ServiceFormation sp = new ServiceFormation();
 
             if (!sp.isValidPrix(Double.valueOf(newPrix)) && !sp.isValidDate(java.sql.Date.valueOf(newDateD), java.sql.Date.valueOf(newDateF))) {
@@ -491,8 +570,17 @@ selectedNomF= String.valueOf(formation.getNom());
                     formation.setDescription(newDescription);
                     formation.setPrix(Double.parseDouble(newPrix));
                     formation.setNbrCours(Integer.parseInt(newNbrCours));
+<<<<<<< Updated upstream
 
 
+=======
+                    if (selectedImageUrl != null && !selectedImageUrl.isEmpty()) {
+                        String imageName = selectedImageUrl.substring(selectedImageUrl.lastIndexOf("/") + 1);
+                        formation.setImageUrl(imageName);
+                    } else {
+                        formation.setImageUrl(currentImageName);
+                    }
+>>>>>>> Stashed changes
                     // Appelez la méthode de service pour mettre à jour le cours
                     sp.modifier(formation);
 
@@ -512,11 +600,23 @@ selectedNomF= String.valueOf(formation.getNom());
     }
 
     public void AjouterOffre() {
+<<<<<<< Updated upstream
 
         // Vérifiez que les DatePicker ont des valeurs sélectionnées
         if (dateDO.getValue() != null && dateFO.getValue() != null) {
 
 
+=======
+        // Vérifiez que tous les champs sont remplis
+        if (dateDO.getValue() == null || dateFO.getValue() == null ||
+                prixO.getText().isEmpty() || descripO.getText().isEmpty() ||
+                selectedIdF.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Champs manquants");
+            alert.setContentText("Veuillez remplir tous les champs.");
+            alert.show();
+        } else {
+>>>>>>> Stashed changes
             java.sql.Date dateDebut = java.sql.Date.valueOf(dateDO.getValue());
             java.sql.Date dateFin = java.sql.Date.valueOf(dateFO.getValue());
             ServiceOffre sp = new ServiceOffre();
@@ -541,7 +641,11 @@ selectedNomF= String.valueOf(formation.getNom());
                             descripO.getText(),
                             dateDebut,
                             dateFin,
+<<<<<<< Updated upstream
                             Integer.parseInt(selectedIdF)// Assurez-vous que idFO a une valeur valide
+=======
+                            Integer.parseInt(selectedIdF) // Assurez-vous que idFO a une valeur valide
+>>>>>>> Stashed changes
                     );
 
                     sp.ajouter(offre);
@@ -565,6 +669,10 @@ selectedNomF= String.valueOf(formation.getNom());
         }
     }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     private void refreshDisplayAfterOffer(double nouveauPrix) {
         // Clear existing items
         grid.getChildren().clear();
@@ -595,6 +703,11 @@ selectedNomF= String.valueOf(formation.getNom());
         }
     }
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 }
 
 

@@ -20,9 +20,15 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="803.0" prefWidth="1314.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherOffre">
     <children>
+<<<<<<< Updated upstream
         <BorderPane prefHeight="798.0" prefWidth="1315.0">
             <left>
                 <VBox prefHeight="200.0" prefWidth="435.0" style="-fx-border-style: none;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+=======
+        <BorderPane prefHeight="803.0" prefWidth="1315.0">
+            <left>
+                <VBox prefHeight="200.0" prefWidth="435.0" style="-fx-border-style: none; -fx-background-color: #05071F;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+>>>>>>> Stashed changes
                     <children>
                         <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
                             <children>
@@ -31,7 +37,11 @@
                                         <Font name="Cambria Bold" size="40.0" />
                                     </font>
                                 </Label>
+<<<<<<< Updated upstream
                                 <Label prefHeight="50.0" prefWidth="192.0" text="Formation" textFill="#878787">
+=======
+                                <Label prefHeight="50.0" prefWidth="192.0" text="Offres" textFill="#878787">
+>>>>>>> Stashed changes
                                     <font>
                                         <Font name="Cambria" size="40.0" />
                                     </font>
@@ -59,7 +69,11 @@
                             </styleClass>
                         </HBox>
                         <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+<<<<<<< Updated upstream
                         <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="749.0" prefWidth="334.0" stylesheets="@style.css">
+=======
+                        <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="683.0" prefWidth="334.0" stylesheets="@style.css">
+>>>>>>> Stashed changes
                             <VBox.margin>
                                 <Insets left="50.0" right="50.0" />
                             </VBox.margin>

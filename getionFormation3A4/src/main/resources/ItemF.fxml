@@ -35,12 +35,21 @@
                     </VBox.margin>
                 </HBox>
                 <ImageView fx:id="img" fitHeight="97.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true">
+<<<<<<< Updated upstream
                     <image>
                         <Image url="@images/home_img.jpg" />
                     </image>
                <VBox.margin>
                   <Insets right="-76.0" top="9.0" />
                </VBox.margin>
+=======
+               <VBox.margin>
+                  <Insets right="-76.0" top="9.0" />
+               </VBox.margin>
+               <image>
+                  <Image url="@images/home_img.jpg" />
+               </image>
+>>>>>>> Stashed changes
                 </ImageView>
             </children>
         </VBox>

@@ -140,7 +140,11 @@ ServiceOffre so=new ServiceOffre();
         Date dateDebut = new Date(2024-03-30);
         Date dateF =new Date(2024-03-30);
 
+<<<<<<< Updated upstream
         Formation nouvelleFormation = new Formation("Formation c", "Apprendre la programmation c",dateDebut, dateF, 100.0, 10);
+=======
+        //Formation nouvelleFormation = new Formation("Formation c", "Apprendre la programmation c",dateDebut, dateF, 100.0, 10,"logo.png");
+>>>>>>> Stashed changes
         //Formation nouvelleFormation1 = new Formation("Formation python", "Apprendre python",dateDebut, dateFin, 20, 5);
 ServiceOffre so=new ServiceOffre();
 //so.getAll1();

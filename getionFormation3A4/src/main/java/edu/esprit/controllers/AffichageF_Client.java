@@ -12,12 +12,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+<<<<<<< Updated upstream
+=======
+import javafx.scene.image.Image;
+>>>>>>> Stashed changes
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+<<<<<<< Updated upstream
+=======
+import java.io.File;
+>>>>>>> Stashed changes
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -41,6 +49,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+<<<<<<< Updated upstream
+=======
+import javafx.stage.FileChooser;
+>>>>>>> Stashed changes
 
 import java.io.IOException;
 import java.net.URL;
@@ -84,6 +96,10 @@ public class AffichageF_Client implements Initializable{
 
     @FXML
     private ScrollPane scroll;
+<<<<<<< Updated upstream
+=======
+    private String currentImageName;
+>>>>>>> Stashed changes
 
     @FXML
     private Button supprimerF;
@@ -95,6 +111,10 @@ private Button certificatF;
     private String selectedNomF ;
     private String selectedNbrCF ;
     private String selectedDescripF ;
+<<<<<<< Updated upstream
+=======
+    private String selectedImageUrl;
+>>>>>>> Stashed changes
 
     private Set<Formation> getData() {
         Set<Formation> listF = new HashSet<>();
@@ -126,6 +146,13 @@ selectedNbrCF=String.valueOf(formation.getNbrCours());
 selectedNomF=String.valueOf(formation.getNom());
 selectedDescripF=String.valueOf(formation.getDescription());
         selectedIdF = String.valueOf(formation.getIdFormation());
+<<<<<<< Updated upstream
+=======
+        String imagePath = "file:///C:/Users/DELL GAMING/Desktop/PI/getionFormation3A4/src/main/resources/images/" + formation.getImageUrl();
+        Image image = new Image(imagePath);
+        fruitImg.setImage(image);
+        currentImageName = formation.getImageUrl();
+>>>>>>> Stashed changes
         //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
 
 
@@ -171,6 +198,14 @@ selectedDescripF=String.valueOf(formation.getDescription());
                 public void onClickListener1(Offre var2) {
 
                 }
+<<<<<<< Updated upstream
+=======
+
+                @Override
+                public void onClickListener2(Formation var3) {
+
+                }
+>>>>>>> Stashed changes
             };
         }
         int column = 0;
@@ -215,7 +250,26 @@ selectedDescripF=String.valueOf(formation.getDescription());
             throw new RuntimeException(e);
         }
         certificatF.setOnAction(event -> ajouterCertificat());
+<<<<<<< Updated upstream
 
+=======
+        fruitImg.setOnMouseClicked(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choisir une image");
+
+            // Définir le répertoire initial sur le dossier "images" de votre projet
+            String userDirectoryString = System.getProperty("user.dir") + "/src/main/resources/images";
+            File userDirectory = new File(userDirectoryString);
+            fileChooser.setInitialDirectory(userDirectory);
+
+            File selectedFile = fileChooser.showOpenDialog(null);
+            if (selectedFile != null) {
+                selectedImageUrl = selectedFile.toURI().toString();
+                Image newImage = new Image(selectedImageUrl);
+                fruitImg.setImage(newImage);
+            }
+        });
+>>>>>>> Stashed changes
     }
 
 

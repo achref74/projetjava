@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="59.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ItemF_Back">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="-26.0" layoutY="-11.0" prefHeight="70.0" prefWidth="876.0">
+         <children>
+            <HBox prefHeight="42.0" prefWidth="813.0">
+               <VBox.margin>
+                  <Insets left="20.0" right="-89.0" top="20.0" />
+               </VBox.margin>
+               <children>
+                  <Label fx:id="nomLabel" prefHeight="35.0" prefWidth="79.0" text="Nom">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="descripLabel" prefHeight="35.0" prefWidth="138.0" text="Description" textFill="#1b1200">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="dateDLabel" prefHeight="35.0" prefWidth="196.0" text="Date Debut">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets left="43.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="-34.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="dateFLabel" prefHeight="35.0" prefWidth="141.0" text="Date Fin">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="11.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="prixLabel">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="34.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="nbrCLabel">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="58.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label fx:id="nomLabel1" layoutX="-4.0" layoutY="43.0" prefHeight="32.0" prefWidth="925.0" text="--------------------------------------------------------------------------------------------------------">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
