@@ -35,12 +35,12 @@ public class AjouterCategorieController {
                 }
 
                 // Example of additional validation: check length constraints
-                if (nom.length() < 3 || nom.length() > 50) {
+                if (nom.length() < 5 || nom.length() > 200) {
                         showAlert(Alert.AlertType.ERROR, "Erreur", "Le nom doit contenir entre 3 et 50 caractères.");
                         return;
                 }
 
-                if (description.length() < 10 || description.length() > 200) {
+                if (description.length() < 5 || description.length() > 200) {
                         showAlert(Alert.AlertType.ERROR, "Erreur", "La description doit contenir entre 10 et 200 caractères.");
                         return;
                 }

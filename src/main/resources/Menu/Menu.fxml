@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="1050.0" style="-fx-background-color: #F0F4F7;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Menu.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="1050.0" style="-fx-background-color: #F0F4F7;" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.Menu.MenuController">
     <children>
-        <VBox alignment="TOP_CENTER" prefHeight="444.0" prefWidth="256.0" style="-fx-background-color: #2C3E50;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="TOP_CENTER" prefHeight="428.0" prefWidth="256.0" style="-fx-background-color: #2C3E50;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -27,20 +27,21 @@
                 <Button fx:id="btnAchats" onAction="#onAchatsClick" styleClass="sidebar-button" text="Achats" />
             </children>
         </VBox>
-        <StackPane fx:id="contentPane" layoutX="256.0" prefHeight="444.0" prefWidth="795.0" style="-fx-background-color: #ECF0F1;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <StackPane fx:id="contentPane" layoutX="256.0" layoutY="-11.2" prefHeight="439.0" prefWidth="794.0" style="-fx-background-color: #ECF0F1;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-11.0">
             <children>
-            <ImageView fitHeight="474.0" fitWidth="795.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="479.0" fitWidth="793.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="file:/C:/Users/tfach/Desktop/417781488_3678512535725750_3340321218420082577_n.jpg" />
                </image>
             </ImageView>
-                <Label fx:id="lblWelcome" text="Bienvenu Artisana" textFill="#356ca4" StackPane.alignment="CENTER">
+                <Label fx:id="lblWelcome" text="Bienvenu Artisana" textFill="#2C3E50" StackPane.alignment="CENTER">
                     <font>
                         <Font size="36.0" />
                     </font>
                 </Label>
             </children>
         </StackPane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
 
     </children>
 </AnchorPane>

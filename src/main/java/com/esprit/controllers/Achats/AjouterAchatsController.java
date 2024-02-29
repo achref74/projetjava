@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.Desktop;
-import java.util.Date;
 
 public class AjouterAchatsController {
 
@@ -78,16 +77,15 @@ public class AjouterAchatsController {
             return;
         }
 
-        try{
-            LocalDate d = datePicker.getValue();
-            LocalDate dNow = LocalDate.now();
-            if(d.isBefore(dNow))
-            {
-                throw new Exception("Date invalide");
-            }
+        try
+        {
+            LocalDate localDate = LocalDate.now();
+            if(localDate.isAfter(datePicker.getValue()))
+                throw new Exception();
+
         }catch (Exception e)
         {
-            showAlert(Alert.AlertType.ERROR,"Erreur","Le date est invalide");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Date doit être date d'aujourd'hui ou après");
             return;
         }
 
