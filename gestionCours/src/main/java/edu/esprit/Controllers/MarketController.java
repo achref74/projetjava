@@ -136,7 +136,7 @@ public class MarketController implements Initializable {
     private String selectedImageURL;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        msg.setVisible(false);
+       msg.setVisible(false);
         liste.addAll(getData());
         if (!liste.isEmpty()) {
             Iterator<Cours> iterator = liste.iterator();

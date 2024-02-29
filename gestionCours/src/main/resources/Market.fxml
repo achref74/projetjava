@@ -138,6 +138,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </TextField>
+                              <Label fx:id="msg" prefHeight="18.0" prefWidth="155.0" text="Duree&lt;0" textFill="#f40909" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">

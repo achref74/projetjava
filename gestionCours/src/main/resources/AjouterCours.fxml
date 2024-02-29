@@ -39,7 +39,7 @@
                </image>
             </ImageView>
 
-                <Pane fx:id="pnlOverview" prefHeight="576.0" prefWidth="793.0" stylesheets="@style.css">
+                <Pane fx:id="pnlOverview" prefHeight="704.0" prefWidth="1284.0" stylesheets="@style.css">
                     <children>
                         <TextField layoutX="123.0" layoutY="48.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: white; -fx-border-radius: 2em; " styleClass="search_box" text="rechercher" />
                         <Label layoutX="167.0" layoutY="124.0" prefHeight="25.0" prefWidth="74.0" text="Cours" textFill="#faf9f7">
@@ -105,6 +105,7 @@
                      </font></Text>
                   <TextField fx:id="duree" layoutX="270.0" layoutY="355.0" prefHeight="27.0" prefWidth="153.0" promptText="Duree" style="-fx-border-color: white; -fx-border-radius: 4em;" styleClass="shadow" stylesheets="@style.css" />
                   <ImageView fx:id="image" fitHeight="204.0" fitWidth="200.0" layoutX="616.0" layoutY="191.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="retour" layoutX="27.0" layoutY="104.0" mnemonicParsing="false" onAction="#retour" text="&lt;" />
 
                     </children>
                 </Pane>

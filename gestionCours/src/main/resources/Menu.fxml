@@ -78,5 +78,6 @@
             <Image url="@images/signOut.png" />
          </image>
       </ImageView>
+      <Button fx:id="back" layoutX="1192.0" layoutY="333.0" mnemonicParsing="false" onAction="#back" styleClass="search-button" stylesheets="@style.css" text="Back" />
    </children>
 </AnchorPane>

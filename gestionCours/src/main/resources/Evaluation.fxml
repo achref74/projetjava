@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.esprit.Controllers.EvaluationController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="161.0" prefWidth="530.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.EvaluationController">
+    <children>
+        <ImageView fitHeight="141.0" fitWidth="867.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/img.png" />
+            </image>
+        </ImageView>
+        <VBox alignment="TOP_CENTER" layoutX="3.2" prefHeight="84.0" prefWidth="507.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefHeight="51.0" prefWidth="185.0">
+                    <children>
+                        <Label prefHeight="36.0" prefWidth="65.0" text="Nom" textFill="#f4efef">
+                            <font>
+                                <Font name="Cambria" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label prefHeight="36.0" prefWidth="85.0" text="Note" textFill="#f4efef">
+                            <font>
+                                <Font name="Cambria" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="20.0" top="40.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+        <HBox layoutX="23.0" layoutY="70.0" prefHeight="36.0" prefWidth="507.0">
+            <children>
+                <Label fx:id="nom" prefHeight="36.0" prefWidth="65.0" text="Nom" textFill="#f4efef">
+                    <font>
+                        <Font name="Cambria" size="14.0" />
+                    </font>
+                </Label>
+                <Label fx:id="note" prefHeight="36.0" prefWidth="85.0" text="Note" textFill="#f4efef">
+                    <font>
+                        <Font name="Cambria" size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </children>
+    <styleClass>
+        <String fx:value="fruit-item" />
+        <String fx:value="shadow" />
+    </styleClass>
 </AnchorPane>

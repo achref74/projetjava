@@ -132,7 +132,7 @@ public class AjouterCours implements Initializable {
                         ressource.getText(),
                         sqlDate,
                         Integer.parseInt(duree.getText()),
-                        selectedImagePath // Utilisez le nom de l'image
+                        selectedImagePath
                 ));
 
             alert = new Alert(Alert.AlertType.INFORMATION);
@@ -160,14 +160,11 @@ public class AjouterCours implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une ressource");
 
-        // Définir le répertoire initial sur le bureau de l'utilisateur
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
 
-        // Afficher la boîte de dialogue de sélection de fichier
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
 
-        // Mettre à jour le champ de texte avec l'emplacement du fichier sélectionné
         if (selectedFile != null) {
             ressource.setText(selectedFile.getAbsolutePath());
         }
@@ -201,4 +198,21 @@ public class AjouterCours implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         msg.setVisible(false);
     }
+
+    @FXML
+    private Button retour;
+    public void retour(javafx.event.ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Market.fxml"));
+            retour.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+
+    }
+
+
 }
