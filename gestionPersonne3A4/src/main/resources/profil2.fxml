@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="978.0" style="-fx-background-color: #0D0D3D;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ProfilClient">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="978.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ProfilClient">
     <children>
         <Pane prefHeight="725.0" prefWidth="237.0" style="-fx-background-color: #05071F;">
             <children>
@@ -18,11 +18,16 @@
                         <Font size="17.0" />
                     </font>
                 </Button>
-                <ImageView fitHeight="129.0" fitWidth="214.0" layoutX="12.0" layoutY="587.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="129.0" fitWidth="214.0" layoutX="12.0" layoutY="469.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@images/logo.png" />
                     </image>
                 </ImageView>
+            <Button fx:id="fxnon" layoutX="29.0" layoutY="77.0" mnemonicParsing="false" onAction="#navigateToadmin" prefHeight="46.0" prefWidth="101.0" style="-fx-background-radius: 30px; -fx-background-color: #05071F; -fx-text-fill: #2a73ff;" textFill="#2a73ff">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
             </children>
         </Pane>
         <ImageView fx:id="fximg" fitHeight="167.0" fitWidth="167.0" layoutX="154.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">

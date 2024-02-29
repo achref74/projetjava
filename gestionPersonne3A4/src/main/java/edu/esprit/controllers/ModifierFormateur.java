@@ -12,9 +12,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -27,8 +33,9 @@ public class ModifierFormateur implements Initializable {
     @FXML
     private TextField adresse1;
 
+
     @FXML
-    private TextField cv;
+    private ImageView fximg;
 
     @FXML
     private TextField disponibilite1;
@@ -42,7 +49,7 @@ public class ModifierFormateur implements Initializable {
 
 
     @FXML
-    private TextField niveauaca;
+    private ComboBox<String> niveauaca;
 
     @FXML
     private TextField nom1;
@@ -52,13 +59,20 @@ public class ModifierFormateur implements Initializable {
 
     @FXML
     private TextField prenom1;
+    @FXML
+    private Label fxerrormail;
+
+    @FXML
+    private Label fxerrornum;
+
 
 
 
     @FXML
-    private TextField specialite;
+    private ComboBox<String> specialite;
+
     @FXML
-    private TextField photoprofile;
+    private ImageView photoprofile;
 
     @FXML
     private ComboBox<String> fxgenre;
@@ -72,16 +86,18 @@ ServiceUser s=new ServiceUser();
     private String selectedadresse;
     private String selectednomtel;
     private String selectedniveauacademique;
-    private String    selectedspecialite   ;
-    private String    selecteddisponibilite  ;
+    private String selectedspecialite   ;
+    private String selecteddisponibilite  ;
     private String selectedcv;
     private String selectedphotoprofile;
+
      User u=s.getOneById(Integer.parseInt(getUserId()));
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         if (u instanceof Formateur f){
-
+            fxerrormail.setVisible(false);
+            fxerrornum.setVisible(false);
             selectednom = "" + f.getNom();
             selectedprenom = f.getPrenom();
             selectedEmail = f.getEmail();
@@ -95,6 +111,9 @@ ServiceUser s=new ServiceUser();
             selectedcv =f.getCv();
             selectedphotoprofile=f.getImg();
 
+
+
+
             nom1.setText(selectednom);
             prenom1.setText(selectedprenom);
             email1.setText(selectedEmail);
@@ -102,13 +121,43 @@ ServiceUser s=new ServiceUser();
             adresse1.setText(selectedadresse);
             numtel1.setText(selectednomtel);
             fxgenre.setValue(selectedgenre);
-            niveauaca.setText(selectedniveauacademique);
+            niveauaca.setValue(selectedniveauacademique);
+            specialite.setValue(selectedspecialite);
+
             disponibilite1.setText(selecteddisponibilite);
-            specialite.setText(selectedspecialite);
-            cv.setText(selectedcv);
-           photoprofile.setText(selectedphotoprofile);
+
+
+
             ObservableList<String> list2= FXCollections.observableArrayList("Homme","Femme","Autre");
             fxgenre.setItems(list2);
+            ObservableList<String> list= FXCollections.observableArrayList("Bac+1","Bac+2","Bac+3","Bac+4","Bac+5");
+            niveauaca.setItems(list);
+            ObservableList<String> list3= FXCollections.observableArrayList("patisserie","menuiserie","agricole","cuisine","forgeron");
+            specialite.setItems(list3);
+
+
+            if(selectedcv!=null) {
+                File file = new File(selectedcv);
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream(file);
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                Image image = new Image(fis);
+                fximg.setImage(image);
+            }
+            if(selectedphotoprofile!=null) {
+                File file = new File(selectedphotoprofile);
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream(file);
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                Image image = new Image(fis);
+                photoprofile.setImage(image);
+            }
 
 
         }
@@ -134,7 +183,21 @@ ServiceUser s=new ServiceUser();
     }
 
     public void modofoerformateur(ActionEvent actionEvent) {
-        Formateur f=new Formateur(u.getId(),nom1.getText(),prenom1.getText(),email1.getText(),Date.valueOf(dt1.getText()),adresse1.getText(),Integer.parseInt(numtel1.getText()),u.getMdp(),photoprofile.getText(),fxgenre.getValue(),specialite.getText(),niveauaca.getText(),Integer.parseInt(disponibilite1.getText()),cv.getText());
+        if (!(s.isValidPhoneNumber(Integer.parseInt(numtel1.getText()))) && !s.isValidEmail(email1.getText())) {
+
+            fxerrornum.setVisible(true);
+            fxerrormail.setVisible(true);
+
+        } else if (!s.isValidEmail(email1.getText())) {
+
+            fxerrormail.setVisible(true);
+            fxerrornum.setVisible(false);
+
+        } else if (!(s.isValidPhoneNumber(Integer.parseInt(numtel1.getText())))) {
+            fxerrornum.setVisible(true);
+            fxerrormail.setVisible(false);
+        } else {
+        Formateur f=new Formateur(u.getId(),nom1.getText(),prenom1.getText(),email1.getText(),Date.valueOf(dt1.getText()),adresse1.getText(),Integer.parseInt(numtel1.getText()),u.getMdp(),selectedphotoprofile,fxgenre.getValue(),specialite.getValue(),niveauaca.getValue(),Integer.parseInt(disponibilite1.getText()),selectedcv);
        s.modifier(f);
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/profile1.fxml"));
@@ -147,6 +210,7 @@ ServiceUser s=new ServiceUser();
         }
 
     }
+    }
 
     public void retournerFormateur(ActionEvent actionEvent) {
         try {
@@ -157,6 +221,50 @@ ServiceUser s=new ServiceUser();
             alert.setContentText("Sorry");
             alert.setTitle("Error");
             alert.show();
+        }
+    }
+
+    public void choisirphoto(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sélectionner une photo");
+        File selectedFile = fileChooser.showOpenDialog(null);
+        String imagepath=null;
+        if (selectedFile != null)
+            imagepath = selectedFile.getAbsolutePath();
+
+        selectedcv=imagepath;
+        if(selectedcv!=null) {
+            File file = new File(selectedcv);
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(file);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            Image image = new Image(fis);
+            fximg.setImage(image);
+        }
+    }
+
+    public void choisirphotoprofile(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sélectionner une photo");
+        File selectedFile = fileChooser.showOpenDialog(null);
+        String imagepath=null;
+        if (selectedFile != null)
+            imagepath = selectedFile.getAbsolutePath();
+
+        selectedphotoprofile=imagepath;
+        if(selectedphotoprofile!=null) {
+            File file = new File(selectedphotoprofile);
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(file);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            Image image = new Image(fis);
+            photoprofile.setImage(image);
         }
     }
 }

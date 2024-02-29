@@ -52,8 +52,8 @@ public class ProfilAdmin implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        int id = Integer.parseInt(getUserId());
-       Admin a = (Admin) su.getOneById(id);
+        //int id = Integer.parseInt(getUserId());
+       Admin a = (Admin) su.getOneById(36);
         fxnom.setText(a.getNom()+" "+a.getPrenom());
         fxmail.setText(a.getEmail());
         fxdate.setText(String.valueOf(a.getDateNaissance()));
@@ -103,6 +103,7 @@ public class ProfilAdmin implements Initializable {
             alert.setContentText("Sorry");
             alert.setTitle("Error");
             alert.show();
+
         }
 
 
@@ -110,7 +111,7 @@ public class ProfilAdmin implements Initializable {
 
     public void changerMdp(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/pwdChange.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/modifierpwdadmin.fxml"));
             fximg.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

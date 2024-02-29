@@ -51,6 +51,9 @@ public class ProfilFormateur implements Initializable {
     @FXML
     private ImageView fximg;
 
+    @FXML
+    private ImageView fximgcv;
+
     private final ServiceUser su = new ServiceUser();
     public static int natureaffichage=0;
 
@@ -90,6 +93,19 @@ public class ProfilFormateur implements Initializable {
             Image image = new Image(fis);
             fximg.setImage(image);
         }
+        String url2 = f.getCv();
+        System.out.println("jjj : "+url2);
+        if(url2!=null) {
+            File file = new File(url2);
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(file);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            Image image = new Image(fis);
+            fximgcv.setImage(image);
+        }
         natureaffichage=0;
 
     }
@@ -108,7 +124,6 @@ public class ProfilFormateur implements Initializable {
     }
 
     public void modifierCompte(ActionEvent actionEvent) {
-
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/modifierFormateur.fxml"));
             fximg.getScene().setRoot(root);
@@ -118,13 +133,11 @@ public class ProfilFormateur implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
-
-
     }
 
     public void changerMdp(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/pwdChange.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/modifierpwd.fxml"));
             fximg.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -168,4 +181,15 @@ public class ProfilFormateur implements Initializable {
     }
 
 
+    public void navigateToadmin(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/menuAdmin.fxml"));
+            fximg.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+    }
 }

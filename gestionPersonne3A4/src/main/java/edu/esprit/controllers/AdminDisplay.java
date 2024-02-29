@@ -158,6 +158,7 @@ public class AdminDisplay implements Initializable{
             alert.setContentText("Sorry");
             alert.setTitle("Error");
             alert.show();
+            e.printStackTrace();
         }
     }
 }

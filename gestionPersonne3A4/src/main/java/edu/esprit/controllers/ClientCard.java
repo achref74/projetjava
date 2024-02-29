@@ -44,6 +44,7 @@ public class ClientCard {
 
     private final ServiceUser su = new ServiceUser();
 
+
     @FXML
     void delete(ActionEvent event) {
         su.supprimer(su.getIdByEmail(fxmail.getText()));
@@ -92,9 +93,11 @@ public class ClientCard {
     public void navc(ActionEvent actionEvent) {
         ProfilClient.natureaffichage=1;
         storeMail();
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/profil2.fxml"));
             fxnum.getScene().setRoot(root);
+
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Sorry");

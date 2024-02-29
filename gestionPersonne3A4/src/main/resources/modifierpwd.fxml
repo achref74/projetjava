@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="725.0" prefWidth="978.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Modifierpwd">
+   <children>
+      <Pane prefHeight="725.0" prefWidth="236.0" style="-fx-background-color: #05071F;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="18.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="442.0" layoutY="31.0" prefHeight="35.0" prefWidth="302.0" text="Modifier Mot De Passe:" textFill="#b9b388">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="244.0" layoutY="14.0" mnemonicParsing="false" onAction="#retournerprofile" prefHeight="35.0" prefWidth="99.0" style="-fx-background-color: #0D0D3D; -fx-background-radius: 20;" text="Retourner" textFill="#1469d0" />
+      <Button layoutX="789.0" layoutY="576.0" mnemonicParsing="false" onAction="#retournerprofile2" prefHeight="35.0" prefWidth="99.0" style="-fx-background-color: #0D0D3D; -fx-background-radius: 20;" text="Modifier" textFill="#008cff" />
+      <PasswordField fx:id="fxancien" alignment="CENTER" layoutX="489.0" layoutY="161.0" prefHeight="52.0" prefWidth="245.0" promptText="Ancienne mdp" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </PasswordField>
+      <PasswordField fx:id="fxneauvau" alignment="CENTER" layoutX="489.0" layoutY="271.0" prefHeight="52.0" prefWidth="245.0" promptText="Nouvelle mdp" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </PasswordField>
+      <PasswordField fx:id="fxneauvau2" alignment="CENTER" layoutX="489.0" layoutY="390.0" prefHeight="52.0" prefWidth="245.0" promptText="Confirmer mdp" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </PasswordField>
+      <Label fx:id="fxn" alignment="CENTER" layoutX="404.0" layoutY="468.0" prefHeight="52.0" prefWidth="451.0" text="verifier votre saisir de la nouvelle mot de passe" textFill="RED">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="fxa" alignment="CENTER" layoutX="491.0" layoutY="223.0" prefHeight="35.0" prefWidth="236.0" text="mot de passe incorrecte" textFill="RED">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
