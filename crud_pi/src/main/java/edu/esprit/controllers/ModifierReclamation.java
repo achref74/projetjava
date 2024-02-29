@@ -79,6 +79,11 @@ public class ModifierReclamation {
         // Check if all required fields are selected/entered
         if (selectedFormation == null || selectedOutil == null || description.isEmpty()) {
             // Display an alert or handle the situation accordingly
+            System.out.println("Invalid characters in the description.");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(" desription");
+            alert.setContentText("the description must not be null");
+            alert.show();
             System.out.println("Please fill in all fields.");
             return;
         }
@@ -87,14 +92,13 @@ public class ModifierReclamation {
         Matcher matcher = pattern.matcher(description);
 
         if (!matcher.matches()) {
-
             // Display an alert or handle the situation accordingly
-           /* System.out.println("Invalid characters in the description.");
+            System.out.println("Invalid characters in the description.");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(" desription");
             alert.setContentText("the description only contains numbers and letters");
             alert.show();
-            return;*/
+            return;
         }
         //user.setId_user(2);
         // Create a new Reclamation object

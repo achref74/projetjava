@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ReplyWindowController {
     Connection cnx = DataSource.getInstance().getCnx();
@@ -63,6 +65,7 @@ public class ReplyWindowController {
     @FXML
     public void submitResponse() {
         // Check if the associatedReclamation is set
+
         if (associatedReclamation != null) {
             // Implement logic to handle the submitted response
             String responseText = ReponseTextArea.getText();
@@ -71,7 +74,20 @@ public class ReplyWindowController {
             user1.setId_user(2);
             Reponse reponse = new Reponse(user1, responseText, associatedReclamation);
             // Add the response to the database
+            // Validate the description using regex
+            String descriptionPattern = "^[a-zA-Z0-9\\s]+$";
+            Pattern pattern = Pattern.compile(descriptionPattern);
+            Matcher matcher = pattern.matcher(responseText);
 
+            if (!matcher.matches()) {
+                // Display an alert or handle the situation accordingly
+                System.out.println("Invalid characters in the description.");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(" desription");
+                alert.setContentText("the description only contains numbers and letters");
+                alert.show();
+                return;
+            }
             serviceReponse.ajouter(reponse);
 
 
@@ -144,12 +160,12 @@ public class ReplyWindowController {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 // If user clicks OK, proceed with deletion
-                serviceReponse.supprimer(handleResponseItemClick(mouseEvent));
+                serviceReponse.supprimer(handleResponseItemClick(mouseEvent).getId_reponse());
             }
         });
     }
     @FXML
-    public int handleResponseItemClick(MouseEvent event) {
+    public Reponse handleResponseItemClick(MouseEvent event) {
         int selectedIndex = responseListView.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex != -1) {
@@ -158,47 +174,23 @@ public class ReplyWindowController {
             String responseDescription = selectedResponse.getDescription();// Assuming you have getId_reponse() in your Reponse class
             // Now you have the responseId, you can use it as needed (e.g., for deletion)
             System.out.println("Selected Response ID: " + responseId);
-            System.out.println(responseDescription);
-            ReponseTextArea.setText(responseDescription);
 
-            return responseId;
+
+            return selectedResponse;
         }
 
-        return selectedIndex;
+
+        return null;
     }
 
 
     public void update(MouseEvent mouseEvent) {
-        Reponse reponse = new Reponse();
-        reponse.setId_reponse(handleResponseItemClick(mouseEvent));
-        String text = ReponseTextArea.getText();
-        //reponse.setDescription(ReponseTextArea.getText());
-        Reclamation reclamation = new Reclamation();
-        User user1 =new User();
-
-        String query = "SELECT `id_user`,`id_reclamation`FROM `reponse` WHERE description=? AND id_reponse=?;";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
-            ps.setString(1,text);
-            ps.setInt(2,handleResponseItemClick(mouseEvent));
-            // Set the parameter value
-            ResultSet res = ps.executeQuery();
-            if (res.next()) {
-                if (associatedReclamation != null) {
-                   // reclamation.setId_reclamation(res.getInt("id_reclamation"));
-                    reponse.setReclamation(associatedReclamation);
-                    //reponse.setId_reponse(res.getInt("id_reponse"));
-                    user1.setId_user(res.getInt("id_user"));
-                    reponse.setUser(user1);
-
-                }
-            }
-            String a = ReponseTextArea.getText();
-            reponse.setDescription(a);
-            serviceReponse.modifier(reponse);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        String a= ReponseTextArea.getText();
+        Reponse r = new Reponse();
+        r=handleResponseItemClick(mouseEvent);
+        r.setDescription(a);
+        serviceReponse.modifier(r);
         }
     }
 
-}
+

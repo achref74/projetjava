@@ -13,7 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +40,7 @@ public class AjouterReclamation {
     @FXML
     private Button afficherReclamationButton;
     private AfficherReclamationBack afficherReclamationBackController;
+
 
     public void setAfficherReclamationBackController(AfficherReclamationBack afficherReclamationBackController) {
         this.afficherReclamationBackController = afficherReclamationBackController;
@@ -84,6 +88,11 @@ public class AjouterReclamation {
         if (selectedFormation == null || selectedOutil == null || description.isEmpty()) {
             // Display an alert or handle the situation accordingly
             System.out.println("Please fill in all fields.");
+            System.out.println("Invalid characters in the description.");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(" desription");
+            alert.setContentText("Please fill in all fields.");
+            alert.show();
             return;
         }
         // Validate the description using regex
@@ -92,7 +101,6 @@ public class AjouterReclamation {
         Matcher matcher = pattern.matcher(description);
 
         if (!matcher.matches()) {
-
             // Display an alert or handle the situation accordingly
             System.out.println("Invalid characters in the description.");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -100,7 +108,6 @@ public class AjouterReclamation {
             alert.setContentText("the description only contains numbers and letters");
             alert.show();
             return;
-
         }
 
         // Create a new Reclamation object
