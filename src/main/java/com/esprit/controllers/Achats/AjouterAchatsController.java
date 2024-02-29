@@ -80,12 +80,12 @@ public class AjouterAchatsController {
         try
         {
             LocalDate localDate = LocalDate.now();
-            if(localDate.isAfter(datePicker.getValue()))
+            if(localDate.isAfter(datePicker.getValue())||localDate.isBefore(datePicker.getValue()))
                 throw new Exception();
 
         }catch (Exception e)
         {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Date doit être date d'aujourd'hui ou après");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Date doit être date d'aujourd'hui ");
             return;
         }
 

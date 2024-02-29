@@ -62,10 +62,14 @@ public class AjouterOutilsController {
 
         // Validate numeric fields
         double prix;
+        prix = Double.parseDouble(prixStr);
         try {
-            prix = Double.parseDouble(prixStr);
+            if (prix == 0) {
+                throw new NumberFormatException("Le prix total doit être supérieur à 0.");
+            }
+
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", null, "Le champ Prix doit être un nombre valide.");
+            showAlert(Alert.AlertType.ERROR, "Erreur", null, "Le champ Prix doit être un nombre valide et supérieur à 0.");
             return;
         }
 
