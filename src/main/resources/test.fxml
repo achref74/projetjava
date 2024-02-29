@@ -5,80 +5,138 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="635.0" prefWidth="1436.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.test">
+<AnchorPane prefHeight="545.0" prefWidth="1363.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.test">
    <children>
-      <Button layoutX="1103.0" layoutY="401.0" mnemonicParsing="false" onAction="#AjouterForumStage" text="Ajouter" />
-      <Button layoutX="1166.0" layoutY="401.0" mnemonicParsing="false" onAction="#refreche" text="refrecher" />
-      <Button layoutX="1340.0" layoutY="401.0" mnemonicParsing="false" onAction="#SupprimerForum" text="supprimer" />
-      <ScrollPane fx:id="ScrolFelhi" layoutX="1086.0" layoutY="436.0" prefHeight="164.0" prefWidth="342.0">
-         <content>
-            <VBox fx:id="mohamed" prefHeight="180.0" prefWidth="358.0" />
-         </content>
-      </ScrollPane>
-      <Button layoutX="1242.0" layoutY="401.0" mnemonicParsing="false" onAction="#GetPubliction" text="GePubliction" />
-      <Pane fx:id="PUbAll" layoutX="5.0" layoutY="3.0" prefHeight="624.0" prefWidth="1068.0">
+      <ImageView fitHeight="613.0" fitWidth="972.0" layoutX="387.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="file:/C:/Users/MFELHI/Desktop/untitled1/src/main/resources/images/Capture.JPG" />
+         </image>
+      </ImageView>
+      <Pane fx:id="PUbAll" layoutX="392.0" prefHeight="545.0" prefWidth="567.0">
          <children>
-            <ScrollPane fx:id="ScrollPub" layoutX="8.0" layoutY="130.0" prefHeight="384.0" prefWidth="547.0" />
-            <TextArea fx:id="DescriptionForumP" layoutX="8.0" layoutY="62.0" prefHeight="58.0" prefWidth="547.0">
+            <ScrollPane fx:id="ScrollPub" layoutX="9.0" layoutY="122.0" prefHeight="384.0" prefWidth="547.0" />
+            <TextArea fx:id="DescriptionForumP" layoutX="8.0" layoutY="62.0" prefHeight="58.0" prefWidth="547.0" stylesheets="@style.css">
                <font>
                   <Font size="11.0" />
                </font>
             </TextArea>
-            <TextArea fx:id="TitreForumP" layoutX="8.0" layoutY="7.0" prefHeight="48.0" prefWidth="265.0" promptText="Forum :">
+            <TextArea fx:id="TitreForumP" layoutX="8.0" layoutY="7.0" prefHeight="48.0" prefWidth="265.0" stylesheets="@style.css">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Cambria" size="18.0" />
                </font>
             </TextArea>
-            <TextArea fx:id="nomFormationP" layoutX="284.0" layoutY="7.0" prefHeight="48.0" prefWidth="271.0">
+            <TextArea fx:id="nomFormationP" layoutX="284.0" layoutY="7.0" prefHeight="48.0" prefWidth="271.0" stylesheets="@style.css">
                <font>
                   <Font size="9.0" />
                </font>
             </TextArea>
-            <Button layoutX="628.0" layoutY="19.0" mnemonicParsing="false" onAction="#QuitterPubliction" text="Quitter" />
-            <Pane fx:id="PaneAjouterPublication" layoutX="729.0" layoutY="19.0" prefHeight="244.0" prefWidth="325.0">
-               <children>
-                  <Button layoutX="205.0" layoutY="198.0" mnemonicParsing="false" onAction="#QuitterAjouterPubliction" text="Quitter" />
-                  <Button layoutX="69.0" layoutY="198.0" mnemonicParsing="false" onAction="#AjouterPubliction" text="Ajouter" />
-                  <Text layoutX="14.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contenu" />
-                  <TextArea fx:id="contenuPublication" layoutX="62.0" layoutY="4.0" prefHeight="48.0" prefWidth="252.0" />
-                  <Text layoutX="14.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IDUser" wrappingWidth="45.17578125" />
-                  <Button layoutX="63.0" layoutY="118.0" mnemonicParsing="false" onAction="#ImporteImage" text="getImage" />
-                  <Pane fx:id="imagePubliction" layoutX="206.0" layoutY="65.0" prefHeight="105.0" prefWidth="105.0" />
-                  <TextField fx:id="idUser" layoutX="64.0" layoutY="61.0" prefHeight="16.0" prefWidth="64.0" />
-               </children>
-            </Pane>
-            <Button layoutX="617.0" layoutY="72.0" mnemonicParsing="false" onAction="#OpenAjouterPub" text="AjouterPub" />
-            <Pane fx:id="modifierPublictionFinale" layoutX="693.0" layoutY="263.0" prefHeight="314.0" prefWidth="358.0">
-               <children>
-                  <Text layoutX="94.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="modifier Publiction" />
-                  <TextArea fx:id="ContenuPublictionModifier" layoutX="18.0" layoutY="61.0" prefHeight="48.0" prefWidth="331.0" />
-                  <Button layoutX="18.0" layoutY="156.0" mnemonicParsing="false" onAction="#getImageModifier" text="Importer" />
-                  <Pane fx:id="imagepublictionModifier" layoutX="118.0" layoutY="121.0" prefHeight="130.0" prefWidth="217.0" />
-                  <Text layoutX="18.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contenu a modifier" />
-                  <Button fx:id="modifierPubliction" layoutX="18.0" layoutY="215.0" mnemonicParsing="false" onAction="#modifierPubliction" text="affecter" />
-                  <Button layoutX="194.0" layoutY="267.0" mnemonicParsing="false" onAction="#viderImagemodifier" text="Quitter" />
-               </children>
-            </Pane>
+            <Button layoutX="176.0" layoutY="512.0" mnemonicParsing="false" stylesheets="style.css" onAction="#QuitterPubliction" text="Quitter" />
+            <Button layoutX="351.0" layoutY="512.0" mnemonicParsing="false" stylesheets="style.css" onAction="#OpenAjouterPub" text="AjouterPub" />
          </children>
       </Pane>
-      <Pane fx:id="modiferForumPane" layoutX="1093.0" layoutY="17.0" prefHeight="384.0" prefWidth="318.0">
+      <Button layoutX="1082.0" layoutY="494.0" mnemonicParsing="false" onAction="#AjouterForumStage" stylesheets="@style.css" text="Ajouter" />
+      <Button layoutX="1148.0" layoutY="494.0" mnemonicParsing="false" onAction="#refreche" stylesheets="@style.css" text="refrecher" />
+      <Button layoutX="1002.0" layoutY="495.0" mnemonicParsing="false" onAction="#SupprimerForum" stylesheets="@style.css" text="supprimer" />
+      <ScrollPane fx:id="ScrolFelhi" layoutX="973.0" layoutY="7.0" prefHeight="471.0" prefWidth="376.0" stylesheets="@style.css">
+         <content>
+            <VBox fx:id="mohamed" prefHeight="180.0" prefWidth="358.0" />
+         </content>
+      </ScrollPane>
+      <Button layoutX="1221.0" layoutY="494.0" mnemonicParsing="false" onAction="#GetPubliction" stylesheets="@style.css" text="GePubliction" />
+      <Pane layoutX="-1.0" prefHeight="539.0" prefWidth="390.0" style="-fx-background-color: #05071F;">
          <children>
-            <Button layoutX="61.0" layoutY="337.0" mnemonicParsing="false" onAction="#ModifierForum" text="Affecter modifiction" />
-            <Text layoutX="20.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre" />
-            <Text layoutX="20.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="64.0" />
-            <Text layoutX="17.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouveau Formation" wrappingWidth="70.39999999999986" />
-            <TextArea fx:id="DescriptionForumModifier" layoutX="92.0" layoutY="109.0" prefHeight="90.0" prefWidth="181.0" />
-            <TextField fx:id="TitreForumModifier" layoutX="92.0" layoutY="63.0" prefHeight="25.0" prefWidth="181.0" />
-            <ComboBox fx:id="ForumFormationModifier" layoutX="92.0" layoutY="264.0" prefHeight="25.0" prefWidth="181.0" />
-            <TextField fx:id="AncienFormationModifier" editable="false" layoutX="92.0" layoutY="211.0" prefHeight="25.0" prefWidth="181.0" />
-            <Text layoutX="16.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ancien formation" wrappingWidth="64.0" />
-            <Button layoutX="228.0" layoutY="337.0" mnemonicParsing="false" onAction="#QuiterModifierForum" prefHeight="25.0" prefWidth="70.0" text="Quiter" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="87.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/C:/Users/MFELHI/Desktop/untitled1/src/main/resources/images/logo.png" />
+               </image>
+            </ImageView>
+            <Pane fx:id="PaneAjouterPublication" layoutX="36.0" layoutY="187.0" prefHeight="251.0" prefWidth="306.0" style="-fx-background-color: #e8e1d5; -fx-border-color: #4B2F00;">
+               <children>
+                  <Button layoutX="184.0" layoutY="211.0" mnemonicParsing="false" onAction="#QuitterAjouterPubliction" stylesheets="@style.css" text="Quitter" />
+                  <Button layoutX="110.0" layoutY="211.0" mnemonicParsing="false" onAction="#AjouterPubliction" stylesheets="@style.css" text="Ajouter" />
+                  <Text layoutX="13.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contenu">
+                     <font>
+                        <Font name="Cambria Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="contenuPublication" layoutX="64.0" layoutY="53.0" prefHeight="48.0" prefWidth="213.0" />
+                  <Text layoutX="14.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IDUser" wrappingWidth="45.17578125">
+                     <font>
+                        <Font name="Cambria Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="62.0" layoutY="146.0" mnemonicParsing="false" onAction="#ImporteImage" stylesheets="@style.css" text="getImage" />
+                  <Pane fx:id="imagePubliction" layoutX="137.0" layoutY="106.0" prefHeight="94.0" prefWidth="105.0" />
+                  <TextField fx:id="idUser" layoutX="63.0" layoutY="110.0" prefHeight="16.0" prefWidth="64.0" />
+                  <Text layoutX="79.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Pub">
+                     <font>
+                        <Font name="Cambria Bold" size="19.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="modiferForumPane" layoutX="19.0" layoutY="188.0" prefHeight="325.0" prefWidth="342.0" style="-fx-background-color: #e8e1d5; -fx-border-color: #4B2F00;">
+               <children>
+                  <Button layoutX="64.0" layoutY="294.0" mnemonicParsing="false" onAction="#ModifierForum" stylesheets="@style.css" text="Affecter modifiction" />
+                  <Text fill="#46637f" layoutX="32.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre">
+                     <font>
+                        <Font name="Cambria Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#46637f" layoutX="14.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="64.0">
+                     <font>
+                        <Font name="Cambria Bold" size="11.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#46637f" layoutX="15.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouveau Formation" wrappingWidth="70.39999999999986">
+                     <font>
+                        <Font name="Cambria Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="DescriptionForumModifier" layoutX="93.0" layoutY="131.0" prefHeight="65.0" prefWidth="181.0" />
+                  <TextField fx:id="TitreForumModifier" layoutX="93.0" layoutY="84.0" prefHeight="25.0" prefWidth="181.0" />
+                  <ComboBox fx:id="ForumFormationModifier" layoutX="92.0" layoutY="242.0" prefHeight="25.0" prefWidth="181.0" />
+                  <TextField fx:id="AncienFormationModifier" editable="false" layoutX="93.0" layoutY="206.0" prefHeight="25.0" prefWidth="181.0" />
+                  <Text fill="#46637f" layoutX="14.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ancien formation" wrappingWidth="64.0">
+                     <font>
+                        <Font name="Cambria Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="213.0" layoutY="294.0" mnemonicParsing="false" onAction="#QuiterModifierForum" prefHeight="25.0" prefWidth="70.0" stylesheets="@style.css" text="Quitter" />
+                  <Text layoutX="102.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Forum">
+                     <font>
+                        <Font name="Cambria Bold" size="19.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="modifierPublictionFinale" layoutX="23.0" layoutY="188.0" prefHeight="314.0" prefWidth="332.0" style="-fx-background-color: #e8e1d5; -fx-border-color: #4B2F00;">
+               <children>
+                  <Text layoutX="94.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Publiction">
+                     <font>
+                        <Font name="Cambria Bold" size="19.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="ContenuPublictionModifier" layoutX="18.0" layoutY="61.0" prefHeight="48.0" prefWidth="297.0" />
+                  <Button layoutX="18.0" layoutY="156.0" mnemonicParsing="false" onAction="#getImageModifier" stylesheets="@style.css" text="Importer" />
+                  <Text fill="#46637f" layoutX="18.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contenu a modifier">
+                     <font>
+                        <Font name="Cambria Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="modifierPubliction" layoutX="118.0" layoutY="242.0" mnemonicParsing="false" onAction="#modifierPubliction" stylesheets="@style.css" text="affecter" />
+                  <Button layoutX="210.0" layoutY="242.0" mnemonicParsing="false" onAction="#viderImagemodifier" stylesheets="@style.css" text="Quitter" />
+                  <Pane fx:id="imagepublictionModifier" layoutX="128.0" layoutY="118.0" prefHeight="112.0" prefWidth="130.0" />
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

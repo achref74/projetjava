@@ -25,7 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -37,9 +36,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
@@ -106,7 +103,7 @@ public class test implements Initializable {
     @FXML
     private Pane modifierPublictionFinale;
     @FXML
-    private Button modifierPubliction;
+    private ComboBox<String> triComboBox;
 
 
 
@@ -139,21 +136,23 @@ public class test implements Initializable {
     private void refreshUIPublication(int x) {
 
             List<Publication> publications = servicePublication.getAll(x);
+       // Collections.sort(publications, (p1, p2) -> Integer.compare(p2.getNbLike(), p1.getNbLike()));
             createUIElementsPubliction(publications);
 
     }
+
     private void createUIElementsPubliction(List<Publication> publications) {
         VBox PublictionAffichage=new VBox();
         PublictionAffichage.getChildren().clear();
         for (Publication publication : publications) {
             String contenu = "Contenu : "+publication.getContenu();
             String nbLike = "likes : "+publication.getNbLike();
-            String date = "date de creation : "+publication.getDateCreation().toString();
+            String date = "Date de creation : "+publication.getDateCreation().toString();
             String Image= publication.getImage();
-            String nomUser="nomUser"+publication.getUser().getNom();
+            String nomUser="Nom User : "+publication.getUser().getNom();
             Pane tetePub = new Pane();
             Text textNomUser=createTextNomUser(nomUser);
-            TextArea textAreaNomUser =createTextAreaPublicationNomUser(textNomUser,10,280,50,10,10) ;
+            TextArea textAreaNomUser =createTextAreaPublicationNomUser(textNomUser,20,280,50,10,10) ;
             textAreaNomUser.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
                     // Afficher une boîte de dialogue de confirmation
@@ -236,6 +235,7 @@ public class test implements Initializable {
             Text textNblike=createTextNblike(nbLike);
             TextArea textAreaNblike=createButtonPublictionNblike(textNblike,10,80,40,427,10);
             Button myButtonPlus = createButtonPubliction("+", 427, 55,40,20);
+            myButtonPlus.setStyle("-fx-background-color : #4B2F00; -fx-text-fill : #e7e5e5;");
             myButtonPlus.setOnAction(event -> {
                 System.out.println("Button clicked!");
                 int newLikeCount = publication.getNbLike() + 1;
@@ -265,6 +265,7 @@ public class test implements Initializable {
                 myButtonPlus.setDisable(true);
             });
             Button myButtonMoin = createButtonPubliction("-", 467, 55,40,20);
+            myButtonMoin.setStyle("-fx-background-color : #4B2F00; -fx-text-fill : #e7e5e5;");
             if (publication.getNbLike() == 0) {
                 myButtonMoin.setDisable(true);
             }
@@ -309,6 +310,7 @@ public class test implements Initializable {
 
         }
         ScrollPub.setContent(PublictionAffichage);
+        ScrollPub.setStyle("-fx-background-color: transparent;");
     }
 
     private void createUIElements(List<Forum> forums) {
@@ -316,11 +318,11 @@ public class test implements Initializable {
 
         int i = 0;
         for (Forum forum : forums) {
-            String index=" forum Numero "+String.valueOf(i+1);
-            String titreForum = "nom : "+forum.getTitre();
+            String index=" Forum Numero "+String.valueOf(i+1);
+            String titreForum = "Titre : "+forum.getTitre();
             String description = "Description : "+forum.getDescription();
-            String date = "date de creation : "+forum.getDateCreation().toString();
-            String nomFormation = "nom formation : "+forum.getFormation().getNomF();
+            String date = "Date de creation : "+forum.getDateCreation().toString();
+            String nomFormation = "Nom formation : "+forum.getFormation().getNomF();
 
             Text texteIndex=ajouterIndex(index);
             Text textTitreForum=ajouterIndex(titreForum);
@@ -392,6 +394,7 @@ public class test implements Initializable {
 
             hbox.getChildren().add(vbox);
             mohamed.getChildren().add(hbox);
+            mohamed.setSpacing(5);
         }
 
         ScrolFelhi.setContent(mohamed);
@@ -455,7 +458,7 @@ public class test implements Initializable {
         Text text = new Text(sb.toString());
 
         // Définir la police et la couleur du texte
-        text.setFont(new Font("Arial", 20));
+        text.setFont(new Font("Cambria Bold", 20));
         text.setFill(Color.BLACK);
 
         return text;
@@ -470,14 +473,14 @@ public class test implements Initializable {
             TextField textField = new TextField(text.getText());
             textField.setEditable(false);
             textField.setPrefColumnCount(200);
-            textField.setStyle(" -fx-text-fill: black; -fx-font-size: 10px; -fx-font-family: 'Arial'; -fx-border-color: #FF0000FF; -fx-background-color: rgba(0,128,0,0);  -fx-border-width: 2;");
+            textField.setStyle(" -fx-text-fill: black; -fx-font-size: 12px; -fx-font-family: 'Cambria'; -fx-border-color: rgba(75,47,0,0.61); -fx-background-color: rgba(0,128,0,0);  -fx-border-width: 4;");
             return textField;
         }
     private TextField creerTextFieldIndex(Text text) {
         TextField textField = new TextField(text.getText());
         textField.setEditable(false);
         textField.setPrefColumnCount(200);
-        textField.setStyle(" -fx-text-fill: black; -fx-font-size: 15px; -fx-font-family: 'Arial'; -fx-border-color: #FF0000FF; -fx-background-color: rgba(0,128,0,0);  -fx-border-width: 2;");
+        textField.setStyle(" -fx-text-fill: black; -fx-font-size: 15px; -fx-font-family: 'Cambria Bold'; -fx-border-color: rgba(75,47,0,0.61); -fx-background-color: rgba(0,128,0,0);  -fx-border-width: 4;");
         return textField;
     }
     ///Pub.................
@@ -525,6 +528,7 @@ public class test implements Initializable {
         textArea.setPrefHeight(height);
         textArea.setLayoutX(layoutX);
         textArea.setLayoutY(layoutY);
+        textArea.setStyle("-fx-text-fill: black; -fx-font-size: 13px; -fx-font-family: 'Cambria'; -fx-border-color: rgba(75,47,0,0.61); -fx-background-color: rgba(0,128,0,0); -fx-border-width: 4;");
         textArea.setEditable(false);
         return textArea;
     }
@@ -549,6 +553,7 @@ public class test implements Initializable {
         textArea.setLayoutX(layoutX);
         textArea.setLayoutY(layoutY);
         textArea.setEditable(false);
+        textArea.setStyle("-fx-text-fill: black; -fx-font-size: 13px; -fx-font-family: 'Cambria'; -fx-border-color: rgba(75,47,0,0.61); -fx-background-color: rgba(0,128,0,0); -fx-border-width: 4;");
         return textArea;
     }
     private TextArea createTextAreaPublicationNomUser(Text text, int caracteresParLigne, double width, double height, double layoutX, double layoutY) {
@@ -571,6 +576,7 @@ public class test implements Initializable {
         textArea.setPrefHeight(height);
         textArea.setLayoutX(layoutX);
         textArea.setLayoutY(layoutY);
+        textArea.setStyle("-fx-text-fill: black; -fx-font-size: 13px; -fx-font-family: 'Cambria'; -fx-border-color: rgba(75,47,0,0.61); -fx-background-color: rgba(0,128,0,0); -fx-border-width: 4;");
         textArea.setEditable(false);
         return textArea;
     }
@@ -595,6 +601,7 @@ public class test implements Initializable {
         textArea.setLayoutX(layoutX);
         textArea.setLayoutY(layoutY);
         textArea.setEditable(false);
+        textArea.setStyle("-fx-text-fill: black; -fx-font-size: 13px; -fx-font-family: 'Cambria'; -fx-border-color: rgba(75,47,0,0.61); -fx-background-color: rgba(0,128,0,0); -fx-border-width: 4;");
         return textArea;
     }
     private Button createButtonPubliction(String text, double layoutX, double layoutY, double width, double height) {
@@ -629,7 +636,7 @@ public class test implements Initializable {
             textArea.setPrefWidth(200);
             textArea.setPrefHeight(50);
             textArea.setWrapText(true);
-            textArea.setStyle("-fx-text-fill: black; -fx-font-size: 10px; -fx-font-family: 'Arial'; -fx-border-color: #FF0000FF; -fx-background-color: rgba(0,128,0,0); -fx-border-width: 2;");            return textArea;
+            textArea.setStyle("-fx-text-fill: black; -fx-font-size: 13px; -fx-font-family: 'Cambria'; -fx-border-color: rgba(75,47,0,0.61); -fx-background-color: rgba(0,128,0,0); -fx-border-width: 4;");            return textArea;
         }
     @FXML
     void AjouterForumStage(ActionEvent event) {
@@ -724,8 +731,11 @@ public class test implements Initializable {
     @FXML
     void GetPubliction(ActionEvent event) {
         TitreForumP.setText(forum1.getTitre());
+        TitreForumP.setStyle("-fx-text-fill: black; -fx-font-size: 10px; -fx-font-family: 'Cambria Bold'; -fx-border-color: rgba(75,47,0,0.61); -fx-background-color: rgba(0,128,0,0); -fx-border-width: 4;");
         DescriptionForumP.setText(forum1.getDescription());
+        DescriptionForumP.setStyle("-fx-text-fill: black; -fx-font-size: 10px; -fx-font-family: 'Cambria Bold'; -fx-border-color: rgba(75,47,0,0.61); -fx-background-color: rgba(0,128,0,0); -fx-border-width: 4;");
         nomFormationP.setText(forum1.getFormation().getNomF());
+        nomFormationP.setStyle("-fx-text-fill: black; -fx-font-size: 10px; -fx-font-family: 'Cambria Bold'; -fx-border-color: rgba(75,47,0,0.61); -fx-background-color: rgba(0,128,0,0); -fx-border-width: 4;");
         refreshUIPublication( forum1.getIdForum());
         PUbAll.setVisible(true);
         PUbAll.setManaged(true);
@@ -754,25 +764,37 @@ public class test implements Initializable {
 
     public void AjouterPubliction(ActionEvent actionEvent) {
         try {
-            Forum forum=new Forum();
+            Forum forum = new Forum();
             int idForum = forum1.getIdForum();
             forum.setIdForum(idForum);
-            User user=new User();
+            User user = new User();
             int iduser = Integer.parseInt(idUser.getText());
             user.setIdUser(iduser);
-            servicePublication.ajouter(new Publication(contenuPublication.getText(),pathImage,forum,user));
-           // System.out.println(pathImage+"bikaboka");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setContentText("GG");
-            alert.show();
+
+            String contenu = contenuPublication.getText();
+            String regex = "^[a-zA-Z0-9\\s]+$";
+
+            if (contenu.matches(regex)) {
+                // Le contenu est valide, vous pouvez ajouter la publication
+                servicePublication.ajouter(new Publication(contenu, pathImage, forum, user));
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setContentText("GG");
+                alert.show();
+            } else {
+                // Affichez un message d'erreur si le contenu n'est pas valide
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setContentText("Le contenu ne doit contenir que des lettres, des chiffres et des espaces.");
+                alert.showAndWait();
+            }
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("SQL Exception");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
-        refreshUIPublication( forum1.getIdForum());
+        refreshUIPublication(forum1.getIdForum());
     }
 
     public void ImporteImage(ActionEvent actionEvent) {
@@ -803,84 +825,7 @@ public class test implements Initializable {
 
         }
     }
-//    @FXML
-//    void getImageModifier(ActionEvent event) {
-//        FileChooser fileChooser = new FileChooser();
-//
-//        // Obtenez le chemin du répertoire des ressources
-//        String currentDir = System.getProperty("user.dir");
-//        String resourceDir = currentDir + "/src/main/resources/PubImages";
-//
-//        // Définissez le répertoire initial du FileChooser
-//        File initialDirectory = new File(resourceDir);
-//        fileChooser.setInitialDirectory(initialDirectory);
-//
-//        fileChooser.setTitle("Sélectionner une image");
-//        File selectedFile = fileChooser.showOpenDialog(null);
-//
-//        if (selectedFile != null) {
-//            String imagePath = selectedFile.getAbsolutePath();
-//
-//            // Extraire la partie après "resources/images"
-//            String relativePath = imagePath.substring(resourceDir.length() + 1);
-//
-//            getPathImageModifier = relativePath;
-//            System.out.println(getPathImageModifier);
-//            System.out.println("+++++++++++++++");
-//            ImageView imageView = creerImageView(relativePath,100,100,10,10);
-//            imagepublictionModifier.getChildren().add(imageView);
-//
-//
-//        }
-//
-//    }
-//    @FXML
-//    void viderImagemodifier(ActionEvent event){
-//        modifierPublictionFinale.setVisible(false);
-//        modifierPublictionFinale.setManaged(false);
-//
-//    }
-//    @FXML
-//    void modifierPubliction(ActionEvent event) {
-//        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-//        confirmationAlert.setTitle("Confirmation de modification");
-//        confirmationAlert.setHeaderText(null);
-//        confirmationAlert.setContentText("Êtes-vous sûr de vouloir modifier ce publiction ?");
-//
-//        // Afficher la boîte de dialogue de confirmation et attendre la réponse de l'utilisateur
-//        confirmationAlert.showAndWait().ifPresent(response -> {
-//            if (response == ButtonType.OK) {
-//                System.out.println(getPathImageModifier);
-//
-//
-//                Publication publicationfinal = new Publication(ContenuPublictionModifier.getText(),getPathImageModifier,forum1,userP);
-//                publicationfinal.setIdP(publicationamodifier.getIdP());
-//
-//                try {
-//                    servicePublication.modifier(publicationfinal);
-//                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-//                    successAlert.setTitle("Modification réussie");
-//                    successAlert.setHeaderText(null);
-//                    successAlert.setContentText("La modification du publiction a été effectuée avec succès.");
-//                    successAlert.show();
-//                } catch (SQLException e) {
-//                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-//                    errorAlert.setTitle("Erreur de modification");
-//                    errorAlert.setHeaderText(null);
-//                    errorAlert.setContentText("Une erreur s'est produite lors de la modification du publication.\n" + e.getMessage());
-//                    errorAlert.showAndWait();
-//                }
-//            }
-//        });
-//
-//        imagepublictionModifier.getChildren().clear();
-//        ContenuPublictionModifier.clear();
-//        refreshUIPublication( forum1.getIdForum());
-//
-//
-//
-//
-//    }
+
 @FXML
 void getImageModifier(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
@@ -929,25 +874,34 @@ void getImageModifier(ActionEvent event) {
         // Afficher la boîte de dialogue de confirmation et attendre la réponse de l'utilisateur
         confirmationAlert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+                String contenuModifier = ContenuPublictionModifier.getText();
+                String regex = "^[a-zA-Z0-9\\s]+$";
 
+                if (contenuModifier.matches(regex)) {
+                    // Le contenu est valide, vous pouvez procéder à la modification
+                    // Utiliser la variable qui stocke le chemin de l'image sélectionnée
+                    Publication publicationfinal = new Publication(contenuModifier, selectedImagePathModifier, forum1, userP);
+                    publicationfinal.setIdP(publicationamodifier.getIdP());
 
-
-                // Utiliser la variable qui stocke le chemin de l'image sélectionnée
-                Publication publicationfinal = new Publication(ContenuPublictionModifier.getText(), selectedImagePathModifier, forum1, userP);
-                publicationfinal.setIdP(publicationamodifier.getIdP());
-
-                try {
-                    servicePublication.modifier(publicationfinal);
-                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                    successAlert.setTitle("Modification réussie");
-                    successAlert.setHeaderText(null);
-                    successAlert.setContentText("La modification du publiction a été effectuée avec succès.");
-                    successAlert.show();
-                } catch (SQLException e) {
+                    try {
+                        servicePublication.modifier(publicationfinal);
+                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                        successAlert.setTitle("Modification réussie");
+                        successAlert.setHeaderText(null);
+                        successAlert.setContentText("La modification du publiction a été effectuée avec succès.");
+                        successAlert.show();
+                    } catch (SQLException e) {
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setTitle("Erreur de modification");
+                        errorAlert.setHeaderText(null);
+                        errorAlert.setContentText("Une erreur s'est produite lors de la modification du publication.\n" + e.getMessage());
+                        errorAlert.showAndWait();
+                    }
+                } else {
+                    // Affichez un message d'erreur si le contenu n'est pas valide
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                    errorAlert.setTitle("Erreur de modification");
-                    errorAlert.setHeaderText(null);
-                    errorAlert.setContentText("Une erreur s'est produite lors de la modification du publication.\n" + e.getMessage());
+                    errorAlert.setTitle("Erreur");
+                    errorAlert.setContentText("Le contenu ne doit contenir que des lettres, des chiffres et des espaces.");
                     errorAlert.showAndWait();
                 }
             }
@@ -960,30 +914,34 @@ void getImageModifier(ActionEvent event) {
 
 
     @FXML
-    private void handleButtonAction() {
-        // Obtenez le contenu de la TextArea
-        String contenu = contenuPublication.getText();
+    void orderByNblike(ActionEvent event) {
 
-        // Appliquez la regex autorisant les lettres, les chiffres et les espaces
-        String regex = "^[a-zA-Z0-9\\s]+$";
 
-        // Vérifiez si la chaîne correspond à la regex
-        if (contenu.matches(regex)) {
-            // La chaîne est valide, vous pouvez continuer le traitement
-            System.out.println("La chaîne est valide.");
-        } else {
-            // Affichez un message d'erreur si la chaîne n'est pas valide
-            showAlert("Erreur", "Contenu non valide", "La chaîne ne doit contenir que des lettres, des chiffres et des espaces.");
+    }
+    private void refreshUIPublication(int x, String tri) {
+        List<Publication> publications = servicePublication.getAll(x);
+
+        // Vérifier le critère de tri sélectionné
+        if ("Tri par Likes (Ascendant)".equals(tri)) {
+            Collections.sort(publications, Comparator.comparingInt(Publication::getNbLike));
+        } else if ("Tri par Likes (Descendant)".equals(tri)) {
+            Collections.sort(publications, (p1, p2) -> Integer.compare(p2.getNbLike(), p1.getNbLike()));
         }
+        // Ajoutez d'autres conditions pour d'autres critères de tri si nécessaire
+
+        createUIElementsPubliction(publications);
+    }
+    @FXML
+    void triComboBox(ActionEvent event) {
+        String selectedTri = triComboBox.getSelectionModel().getSelectedItem();
+
+        // Appelez la méthode de rafraîchissement avec le critère de tri sélectionné
+        refreshUIPublication(forum1.getIdForum(), selectedTri);
+
     }
 
-    private void showAlert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
+
+
 
 }
 

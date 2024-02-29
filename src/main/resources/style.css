@@ -15,7 +15,7 @@
 }
 
 .scroll-pane {
-    -fx-background-color: #080b1f;
+    -fx-background-color: rgba(75, 47, 0, 0.61);
 }
 
 .scroll-bar:horizontal, .scroll-bar:vertical{
@@ -57,7 +57,7 @@
     -fx-background-color: #ffffff; /* Fond transparent */
     -fx-border:#ffffff; /* Pas de bordure */
     -fx-font-size: 14px; /* Taille de police */
-    -fx-prompt-text-fill: #999999; /* Couleur du texte d'invite */
+    -fx-prompt-text-fill: rgba(0, 0, 0, 0.51); /* Couleur du texte d'invite */
 }
 
 /* Style pour la flèche du ComboBox */
@@ -68,9 +68,24 @@
 
 /* Style pour la liste déroulante du ComboBox */
 .combo-box .list-view {
-    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-background-color: rgba(75, 47, 0, 0.61); /* Couleur de fond */
     -fx-text-fill: #ffffff; /* Couleur du texte */
-    -fx-border-color: #ffffff; /* Couleur de la bordure */
-    -fx-border-radius: 5px; /* Rayon de la bordure */
+    -fx-border-color: rgba(75, 47, 0, 0.61); /* Couleur de la bordure */
+    -fx-border-radius: 5px;
+}
+
+
+.text-area {
+    -fx-background-color: rgba(75, 47, 0, 0.61);
+    -fx-text-fill: #e7e5e5;
+    -fx-border-width: 10;
+}
+
+.text-area:hover {
+    -fx-background-color: rgba(75, 47, 0, 0.61);
+}
+
+.text-area:pressed {
+    -fx-background-color: #eccfa7;
 }
 

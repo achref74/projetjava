@@ -18,9 +18,22 @@ public class ServiceForum implements IService<Forum> {
     Connection cnx = DataSource.getInstance().getCnx();
     public void ajouter(Forum forum) throws SQLException{
 
+        // Vérification Regex pour le titre (exemple de regex, ajustez selon vos besoins)
+        if (!forum.getTitre().matches("^[a-zA-Z0-9\\s]+$")) {
+            System.out.println("Titre invalide. Utilisez des caractères alphanumériques et des espaces uniquement.");
+            return; // Arrêtez l'ajout si le titre n'est pas valide
+        }
+
+        // Vérification Regex pour la description (exemple de regex, ajustez selon vos besoins)
+        if (!forum.getDescription().matches("^[a-zA-Z0-9\\s]+$")) {
+            System.out.println("Description invalide. Utilisez des caractères alphanumériques et des espaces uniquement.");
+            return; // Arrêtez l'ajout si la description n'est pas valide
+        }
+
+        // Si les validations Regex passent, exécutez la requête SQL
         String req = "INSERT INTO `forum`(`titre`,`dateCreation`, `description`, `idFormation`) VALUES (?, ?, ?, ?)";
 
-            PreparedStatement ps = cnx.prepareStatement(req);
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
             ps.setString(1, forum.getTitre());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
             String formattedDate = forum.getDateCreation().format(formatter);
@@ -28,7 +41,10 @@ public class ServiceForum implements IService<Forum> {
             ps.setString(3, forum.getDescription());
             ps.setInt(4, forum.getFormation().getIdFormation());
             ps.executeUpdate();
-            System.out.println("forum ajouté !");
+            System.out.println("Forum ajouté !");
+        } catch (SQLException e) {
+            e.printStackTrace(); // Gérer les erreurs SQL
+        }
 
     }
     public void modifier(Forum forum) throws SQLException {

@@ -52,19 +52,37 @@ public class AjouterTEST implements Initializable {
             Formation formation = (Formation) AfficherFormationNom.getValue();
             int idFormation = formation.getIdFormation();
 
-            serviceForum.ajouter(new Forum(TItreForum.getText(), descriptionForum.getText(), formation));
+            String titre = TItreForum.getText();
+            String description = descriptionForum.getText();
+
+            // Vérification Regex pour le titre (exemple de regex, ajustez selon vos besoins)
+            if (!titre.matches("^[a-zA-Z0-9\\s]+$")) {
+                showAlert("Titre invalide", "Utilisez des caractères alphanumériques et des espaces uniquement.");
+                return; // Arrêtez l'ajout si le titre n'est pas valide
+            }
+
+            // Vérification Regex pour la description (exemple de regex, ajustez selon vos besoins)
+            if (!description.matches("^[a-zA-Z0-9\\s]+$")) {
+                showAlert("Description invalide", "Utilisez des caractères alphanumériques et des espaces uniquement.");
+                return; // Arrêtez l'ajout si la description n'est pas valide
+            }
+
+            serviceForum.ajouter(new Forum(titre, description, formation));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("GG");
             alert.show();
         } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("SQL Exception");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            showAlert("SQL Exception", e.getMessage());
         }
         chargerFormations();
 
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @FXML

@@ -110,11 +110,12 @@ public class Publication {
         this.user = user;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Publication that)) return false;
-        return idP == that.idP;
+        return idP == that.idP ;
     }
 
     @Override
