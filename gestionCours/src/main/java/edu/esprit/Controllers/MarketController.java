@@ -3,6 +3,7 @@ package edu.esprit.Controllers;
 import edu.esprit.entities.Cours;
 import edu.esprit.entities.Question;
 import edu.esprit.services.ServiceCours;
+import edu.esprit.services.ServiceEvaluation;
 import edu.esprit.tests.MyListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MarketController implements Initializable {
+    @FXML
+    private Label msg ;
 
     @FXML
     private VBox chosenFruitCard;
@@ -96,14 +99,13 @@ public class MarketController implements Initializable {
         long heures = cours.getDuree() / 3600;
         long minutes = (cours.getDuree() % 3600) / 60;
         long secondes = cours.getDuree() % 60;
-        duree.setText(String.format("%dh %dmin %dsc", heures, minutes, secondes)); // Formatage de la durée
+        duree.setText(String.format("%dh %dmin %dsc", heures, minutes, secondes));
 
         prerequis.setText(cours.getPrerequis());
         ressource.setText(cours.getRessource());
 
-        // Mettre à jour l'image
-        String imagePath = "/images/" + cours.getImage();
-        Image image = new Image(getClass().getResourceAsStream(imagePath));
+        String imagePath = "file:///C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images/" + cours.getImage();
+        Image image = new Image(imagePath);
         fruitImg.setImage(image);
         currentImageName = cours.getImage();
         selectedId = String.valueOf(cours.getId_cours());
@@ -134,7 +136,7 @@ public class MarketController implements Initializable {
     private String selectedImageURL;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        msg.setVisible(false);
         liste.addAll(getData());
         if (!liste.isEmpty()) {
             Iterator<Cours> iterator = liste.iterator();
@@ -179,13 +181,12 @@ public class MarketController implements Initializable {
                     row++;
                 }
 
-                grid.add(anchorPane, column++, row); //(child,column,row)
-                //set grid width
+                grid.add(anchorPane, column++, row);
+
                 grid.setMinWidth(Region.USE_COMPUTED_SIZE);
                 grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
                 grid.setMaxWidth(Region.USE_PREF_SIZE);
 
-                //set grid height
                 grid.setMinHeight(Region.USE_COMPUTED_SIZE);
                 grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
                 grid.setMaxHeight(Region.USE_PREF_SIZE);
@@ -201,7 +202,7 @@ public class MarketController implements Initializable {
             fileChooser.setTitle("Choisir une image");
 
             // Définir le répertoire initial sur le dossier "images" de votre projet
-            String userDirectoryString = System.getProperty("user.dir") + "/src/main/resources/images";
+           String userDirectoryString = System.getProperty("user.dir") + "/src/main/resources/images";
             File userDirectory = new File(userDirectoryString);
             fileChooser.setInitialDirectory(userDirectory);
 
@@ -218,56 +219,21 @@ public class MarketController implements Initializable {
     }
 
 
-@FXML
+    @FXML
     private void supprimerCours() {
-        // Vérifiez si l'ID du cours sélectionné n'est pas vide
+
         if (selectedId != null && !selectedId.isEmpty()) {
             // Convertissez l'ID en entier si nécessaire
             int id = Integer.parseInt(selectedId);
 
-            // Appelez la méthode de service pour supprimer le cours avec l'ID sélectionné
             ServiceCours serviceCours = new ServiceCours();
             serviceCours.supprimer(id);
 
-            // Mettez à jour la liste des cours après la suppression
             liste.clear();
             liste.addAll(getData());
+            grid.getChildren().clear();
+            refreshGrid();
 
-            // Rafraîchissez l'affichage après la suppression
-            grid.getChildren().clear(); // Effacez le contenu actuel du grid
-
-            int column = 0;
-            int row = 1;
-
-            // Réinitialisez l'affichage avec la nouvelle liste de cours
-            try {
-                for (Cours cours : liste) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("/Item.fxml"));
-                    AnchorPane anchorPane = fxmlLoader.load();
-
-                    ItemController itemController = fxmlLoader.getController();
-
-                    if (itemController != null) {
-                        itemController.setData(cours, myListener);
-                    } else {
-                        System.err.println("itemController est null");
-                    }
-                    column++;
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-
-                    grid.add(anchorPane, column, row); //(child,column,row)
-                    GridPane.setMargin(anchorPane, new Insets(10));
-                }
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            // Effacez les champs de la carte chosenFruitCard
             clearChosenCours();
         }
     }
@@ -286,12 +252,8 @@ public class MarketController implements Initializable {
 
     private String currentImageName;
     private void modifierCours() {
-        // Vérifiez si l'ID du cours sélectionné n'est pas vide
         if (selectedId != null && !selectedId.isEmpty()) {
-            // Convertissez l'ID en entier si nécessaire
             int id = Integer.parseInt(selectedId);
-
-            // Obtenez les nouvelles valeurs des champs de l'interface utilisateur
             String newName = fruitNameLable.getText();
             String newDate = date.getText();
             String newDescription = description.getText();
@@ -299,56 +261,61 @@ public class MarketController implements Initializable {
             String newPrerequis = prerequis.getText();
             String newRessource = ressource.getText();
 
-            try {
-                // Créez un nouvel objet Cours avec les valeurs mises à jour
-                Cours cours = new Cours();
 
+            try {
+                Cours cours = new Cours();
                 cours.setId_cours(id);
                 cours.setNom(newName);
-                cours.setDate(java.sql.Date.valueOf(newDate)); // Conversion String vers java.sql.Date
+                cours.setDate(java.sql.Date.valueOf(newDate));
                 cours.setDescrption(newDescription);
-                String regex = "\\d+h\\s*\\d+min\\s*\\d+sc";
-                if (!newDuree.matches(regex)) {
-                    // Afficher un message d'erreur à l'utilisateur ou gérer la validation d'une autre manière
-                    System.err.println("La durée doit être au format 'xh ymin zsc'.");
-                    return; // Sortir de la méthode si la validation échoue
+
+                String[] parts = newDuree.split("\\s+");
+                int heures = Integer.parseInt(parts[0].replace("h", ""));
+                int minutes = Integer.parseInt(parts[1].replace("min", ""));
+                int secondes = Integer.parseInt(parts[2].replace("sc", ""));
+
+                if (heures < 0 || minutes < 0 || secondes < 0) {
+
+                    msg.setText("valeur<0");
+                    msg.setVisible(true);
+                    return;
                 }
 
-                // Convertir la durée en entier après validation réussie
-                cours.setDuree(Integer.parseInt(newDuree.replaceAll("[^0-9]", "")));
+                String regex = "\\d+h\\s*\\d+min\\s*\\d+sc";
+                if (!newDuree.matches(regex)) {
+                    System.err.println("La durée doit être au format 'xh ymin zsc'.");
+                    msg.setText("La durée doit être au format 'xh ymin zsc'.");
+                    msg.setVisible(true);
+                    return;
+                }
+
+                int totalSeconds = heures * 3600 + minutes * 60 + secondes;
+                cours.setDuree(totalSeconds);
+
                 cours.setPrerequis(newPrerequis);
                 cours.setRessource(newRessource);
                 if (selectedImageURL != null && !selectedImageURL.isEmpty()) {
                     String imageName = selectedImageURL.substring(selectedImageURL.lastIndexOf("/") + 1);
                     cours.setImage(imageName);
                 } else {
-                    // Conservez l'image actuelle si aucune nouvelle image n'est sélectionnée.
                     cours.setImage(currentImageName);
                 }
 
-                // Appelez la méthode de service pour mettre à jour le cours
                 ServiceCours serviceCours = new ServiceCours();
                 serviceCours.modifier(cours);
-
-                // Mettez à jour l'affichage global
-
-
 
                 liste.clear();
                 liste.addAll(getData());
                 grid.getChildren().clear();
-               // setChosenCours(cours);
-  refreshGrid();
+                refreshGrid();
             } catch (Exception e) {
                 e.printStackTrace();
-                // Gérez les erreurs ici
             }
         }
     }
 
-    // Méthode pour afficher les cours dans la grille
     private void refreshGrid() {
-        grid.getChildren().clear(); // Effacer la grille pour la rafraîchir
+        grid.getChildren().clear();
         int column = 0;
         int row = 1;
         for (Cours cours : liste) {
@@ -364,7 +331,7 @@ public class MarketController implements Initializable {
                         column = 0;
                         row++;
                     }
-                    grid.add(anchorPane, column++, row); //(child,column,row)
+                    grid.add(anchorPane, column++, row);
                     GridPane.setMargin(anchorPane, new Insets(10));
                 }
             } catch (IOException e) {
@@ -381,18 +348,12 @@ public class MarketController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEvaluation.fxml"));
             Parent root = loader.load();
-
-            // Accéder au contrôleur du fichier FXML chargé
             AfficherEvaluation controller = loader.getController();
-
-            // Passer l'ID du cours sélectionné au contrôleur
             controller.setCoursId(selectedId);
-
-            // Changer la scène vers le contrôleur EvaluationController
             evaluation.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
-            // Gérer les erreurs ici
+
         }
     }
 
@@ -406,11 +367,10 @@ public class MarketController implements Initializable {
 
             controller.setCoursId(selectedId);
 
-            // Changer la scène vers le contrôleur EvaluationController
             evaluation.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
-            // Gérer les erreurs ici
+
         }
     }
 

@@ -33,17 +33,12 @@ public class Evaluation {
 
     public int getNote() {
 
-        if ((note < 0)||(note >20)) {
-            throw new IllegalArgumentException("La note doit être comprise entre zéro et 20 .");
-        }
+
         return note;
     }
 
     public void setNote(int note) {
 
-        if ((note < 0)||(note >20)) {
-            throw new IllegalArgumentException("La note doit être comprise entre zéro et 20 .");
-        }
 
         this.note = note;
     }

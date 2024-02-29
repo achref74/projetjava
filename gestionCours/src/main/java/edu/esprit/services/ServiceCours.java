@@ -68,7 +68,7 @@ public class ServiceCours implements IService<Cours>{
     public void supprimer(int id) {
         String req ="DELETE FROM `cours` WHERE id_cours=?" ;
         try {ServiceEvaluation s =new ServiceEvaluation();
-            s.supprimerEvaluationById(id);
+            s.supprimerEvaluationByIdCours(id);
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -186,7 +186,10 @@ public class ServiceCours implements IService<Cours>{
 
     }
 
+public boolean isvalideduree(int duree){
 
+        return duree>0 ;
+}
 
 
 }

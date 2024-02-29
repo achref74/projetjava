@@ -73,10 +73,13 @@
                                 </ImageView>
                             </children>
                         </HBox>
-                        <Pane prefHeight="34.0" prefWidth="962.0" />
+                        <Pane prefHeight="34.0" prefWidth="962.0">
+                     <children>
+                        <Button fx:id="retourF" layoutX="20.0" layoutY="-1.0" mnemonicParsing="false" onAction="#retourFormateur" prefHeight="16.0" prefWidth="26.0" styleClass="search-button" stylesheets="@style.css" text="&lt;" />
+                     </children></Pane>
                         <HBox alignment="CENTER" prefHeight="530.0" prefWidth="730.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <VBox fx:id="Evaluation" alignment="CENTER" prefHeight="642.0" prefWidth="704.0" style="-fx-background-color: #BC8F8F;" stylesheets="@style.css">
+                                <VBox fx:id="Evaluation" alignment="CENTER" prefHeight="604.0" prefWidth="704.0" style="-fx-background-color: #BC8F8F;" stylesheets="@style.css">
                                     <children>
                                         <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
                                             <VBox.margin>
@@ -99,6 +102,7 @@
                                                    </font>
                                                 </Label>
                                                 <TextField fx:id="note" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Note : " />
+                                                <Label fx:id="msg" prefHeight="30.0" prefWidth="100.0" text="0&lt;Note&lt;=20" textFill="#f40505" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0">
@@ -256,16 +260,6 @@
                                         <String fx:value="shadow" />
                                     </styleClass>
                                 </VBox>
-                        <Button fx:id="retourF" mnemonicParsing="false" onAction="#retourFormateur" prefHeight="16.0" prefWidth="26.0" styleClass="add-btn" stylesheets="@style.css" text="&lt;">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="30.0" top="620.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="retourC" mnemonicParsing="false" onAction="#retourClient" prefHeight="13.0" prefWidth="26.0" styleClass="add-btn" stylesheets="@style.css" text="&gt;">
-                           <HBox.margin>
-                              <Insets top="610.0" />
-                           </HBox.margin>
-                        </Button>
                             </children>
                         </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" />

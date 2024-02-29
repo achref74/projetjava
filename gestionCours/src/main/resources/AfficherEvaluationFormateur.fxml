@@ -19,7 +19,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.AfficherEFormateur">
     <children>
-      <ImageView fitHeight="818.0" fitWidth="1315.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="949.0" fitWidth="1535.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/Capture.JPG" />
          </image>
@@ -96,7 +96,10 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Pane prefHeight="84.0" prefWidth="96.0" />
+                                <Pane prefHeight="84.0" prefWidth="96.0">
+                           <children>
+                              <Button fx:id="retour" layoutX="-3.0" layoutY="18.0" mnemonicParsing="false" onAction="#retour" styleClass="search-button" stylesheets="@style.css" text="&lt;" />
+                           </children></Pane>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="416.0" styleClass="free-delivery-card" stylesheets="@style.css">
                                     <children>
                                         <VBox alignment="CENTER" prefHeight="100.0" prefWidth="246.0">
@@ -202,6 +205,11 @@
                                     </VBox>
                                             </children>
                                         </HBox>
+                              <Label fx:id="msg" text="0&lt;Note&lt;=20" textFill="#e70808">
+                                 <VBox.margin>
+                                    <Insets left="410.0" />
+                                 </VBox.margin>
+                              </Label>
                                         <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
                                             <VBox.margin>
                                                 <Insets top="20.0" />

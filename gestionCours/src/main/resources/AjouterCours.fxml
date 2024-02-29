@@ -50,12 +50,19 @@
                         <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
 
                         </ImageView>
-                  <VBox layoutX="120.0" layoutY="104.0" prefHeight="463.0" prefWidth="420.0" style="-fx-background-color: #bc8f8f; -fx-border-image-width: 0;" styleClass="chosen-fruit-card" stylesheets="@style.css">
+                  <VBox layoutX="120.0" layoutY="104.0" prefHeight="463.0" prefWidth="449.0" style="-fx-background-color: #bc8f8f; -fx-border-image-width: 0;" styleClass="chosen-fruit-card" stylesheets="@style.css">
                      <children>
-                        <VBox prefHeight="423.0" prefWidth="371.0" style="-fx-background-color: white;" stylesheets="@style.css">
+                        <VBox prefHeight="423.0" prefWidth="458.0" style="-fx-background-color: white;" stylesheets="@style.css">
                            <VBox.margin>
                               <Insets left="30.0" right="30.0" top="20.0" />
                            </VBox.margin>
+                           <children>
+                              <Label fx:id="msg" prefHeight="18.0" prefWidth="86.0" text="Duree negative" textFill="#f20c0c">
+                                 <VBox.margin>
+                                    <Insets left="300.0" top="245.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
                         </VBox>
                      </children></VBox>
                         <TextField fx:id="nom" layoutX="273.0" layoutY="169.0" prefHeight="16.0" prefWidth="148.0" promptText="Nom" style="-fx-border-color: white; -fx-border-radius: 4em; -fx-control-inner-background: white;" styleClass="shadow" stylesheets="@style.css" />

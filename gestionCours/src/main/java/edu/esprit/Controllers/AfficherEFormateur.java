@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -19,6 +20,9 @@ import java.net.URL;
 import java.util.*;
 
 public class AfficherEFormateur implements Initializable {
+
+    @FXML
+    private Label msg ;
 
     @FXML
     private VBox Evaluation;
@@ -49,6 +53,8 @@ public class AfficherEFormateur implements Initializable {
 
     // Méthode pour définir l'ID du cours
     public void setCoursId(String coursId) {
+
+
         this.coursId = coursId;
         ServiceEvaluation se = new ServiceEvaluation();
         ServiceQuestion sq = new ServiceQuestion(); // Création du service de question ici
@@ -89,6 +95,8 @@ public class AfficherEFormateur implements Initializable {
                 "#BC8F8F", "#F4A460", "#DAA520", "#8B4513", "#46637F",
                 "#44505E", "#7D5147", "#7F5A45", "#7E8C6B"
         ));
+
+
     }
 
     // Méthode pour initialiser le GridPane avec les questions
@@ -119,6 +127,8 @@ public class AfficherEFormateur implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
 
@@ -164,12 +174,14 @@ public class AfficherEFormateur implements Initializable {
             String nomEvaluation = nom.getText();
             int noteEvaluation = Integer.parseInt(note.getText());
 
-            // Mettre à jour l'évaluation avec les nouvelles valeurs
+
             e.setNom(nomEvaluation);
             e.setNote(noteEvaluation);
-
-            // Utiliser le service ServiceEvaluation pour modifier l'évaluation
             ServiceEvaluation serviceEvaluation = new ServiceEvaluation();
+            if(!serviceEvaluation.isnotevalid(Integer.parseInt(note.getText())))
+                msg.setVisible(true);
+            else {
+
             serviceEvaluation.modifier(e); // Assurez-vous que votre service dispose d'une méthode modifier(Evaluation evaluation)
 
             // Afficher un message de confirmation à l'utilisateur
@@ -181,7 +193,7 @@ public class AfficherEFormateur implements Initializable {
 
             // Vous pouvez implémenter une redirection vers une autre vue ou effectuer toute autre action nécessaire ici
 
-        } else {
+        } }else {
             // Afficher un message d'erreur si l'évaluation est nulle
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("Erreur");
@@ -191,5 +203,22 @@ public class AfficherEFormateur implements Initializable {
         }}
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        msg.setVisible(false);
         }
+
+    @FXML
+    private Button retour;
+    public void retour(javafx.event.ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Market.fxml"));
+            retour.getScene().setRoot(root);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Sorry");
+            alert.setTitle("Error");
+            alert.show();
+        }
+
+    }
 }

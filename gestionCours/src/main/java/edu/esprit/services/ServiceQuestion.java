@@ -10,6 +10,9 @@ import java.util.Set;
 public class ServiceQuestion implements IService<Question>{
     Connection cnx = DataSource.getInstance().getCnx();
     public void ajouter(Question q ){}
+
+
+
     public void ajouter(Question question, int id_e) {
         if (ServiceEvaluation.existe(id_e)) {
             String req = "INSERT INTO `question`(`ressource`, `duree`, `point`, `choix1`, `choix2`, `choix3`,  `crx`, `id_e`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";

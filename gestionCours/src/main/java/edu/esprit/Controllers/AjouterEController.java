@@ -10,10 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert;
@@ -72,6 +69,8 @@ public class AjouterEController implements Initializable {
     private VBox Evaluation1;
     @FXML
     private Button retourC;
+    @FXML
+    private Label msg ;
 
     @FXML
     private Button retourF;
@@ -113,6 +112,7 @@ public class AjouterEController implements Initializable {
                 "#BC8F8F", "#F4A460", "#DAA520", "#8B4513", "#46637F",
                 "#44505E", "#7D5147", "#7F5A45", "#7E8C6B"
         ));
+        msg.setVisible(false);
     }
 
     @FXML
@@ -122,7 +122,14 @@ public class AjouterEController implements Initializable {
     }
     @FXML
     private void ajouterEvaluation(ActionEvent event) {
-        if (!nom.getText().isEmpty() && !note.getText().isEmpty()) {
+        if (nom.getText().isEmpty() || note.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Champs vides");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir tous les champs.");
+            alert.showAndWait();
+            return;
+        }
             try {
                 String nomEvaluation = nom.getText();
                 int noteEvaluation = Integer.parseInt(note.getText());
@@ -139,17 +146,19 @@ public class AjouterEController implements Initializable {
                     return; // Arrêter l'exécution de la méthode
                 }
 
+
+                 if(!serviceEvaluation.isnotevalid(Integer.parseInt(note.getText())))
+                  msg.setVisible(true);
+                    else {
                 serviceEvaluation.ajouter(nouvelleEvaluation, Integer.parseInt(coursId));
                 System.out.println("Nouvelle évaluation ajoutée avec succès : " + nouvelleEvaluation);
                 nom.clear();
                 note.clear();
-                setCoursId(coursId);
+                setCoursId(coursId);}
             } catch (NumberFormatException e) {
                 System.err.println("Erreur lors de la conversion de la note en nombre : " + e.getMessage());
             }
-        } else {
-            System.err.println("Le nom ou la note de l'évaluation est vide !");
-        }
+
     }
 
     private boolean isEvaluationFilled(Evaluation evaluation) {
@@ -159,6 +168,7 @@ public class AjouterEController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         ajouterBtn.setOnAction(this::ajouterEvaluation);
         nom.setText("");
         note.setText("0");
@@ -173,23 +183,44 @@ public class AjouterEController implements Initializable {
             // Remplir les champs nom et note avec les valeurs de l'évaluation existante
             nom.setText(e.getNom());
             note.setText(String.valueOf(e.getNote()));
+
+
+
         }
     }
 
     @FXML
     private void ajouterQuestion(ActionEvent event) {
         String ressourceText = ressource.getText();
-        int dureeValue = Integer.parseInt(duree.getText());
-        int pointValue = Integer.parseInt(point.getText());
+        String dureeText = duree.getText();
+        String pointText = point.getText();
         String choix1Text = premierchoix.getText();
         String choix2Text = deuxiemechoix.getText();
         String choix3Text = troisiemechoix.getText();
         String crxText = crx.getText();
 
+        // Vérification des champs vides
+        if (ressourceText.isEmpty() || dureeText.isEmpty() || pointText.isEmpty() || choix1Text.isEmpty() || choix2Text.isEmpty() || choix3Text.isEmpty() || crxText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir tous les champs.");
+            alert.showAndWait();
+            return;
+        }
+
+        int dureeValue = Integer.parseInt(dureeText);
+        int pointValue = Integer.parseInt(pointText);
+
+
+
+
+
         Question question = new Question(ressourceText, dureeValue, pointValue, choix1Text, choix2Text, choix3Text, crxText);
         int id_e = e.getId_e();
 
         ServiceQuestion serviceQuestion = new ServiceQuestion();
+
         serviceQuestion.ajouter(question, id_e);
 
         System.out.println("Nouvelle question ajoutée avec succès : " + question);
@@ -205,20 +236,12 @@ public class AjouterEController implements Initializable {
         setCoursId(coursId);
     }
     public void retourClient(javafx.event.ActionEvent actionEvent) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEvaluation.fxml"));
-            retourC.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Sorry");
-            alert.setTitle("Error");
-            alert.show();
-        }
+
 
     }
     public void retourFormateur(javafx.event.ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherEvaluationFormateur.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Market.fxml"));
             retourF.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

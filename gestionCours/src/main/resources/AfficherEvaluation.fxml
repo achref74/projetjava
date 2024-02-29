@@ -96,8 +96,11 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Pane prefHeight="84.0" prefWidth="96.0" />
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="416.0" styleClass="free-delivery-card" stylesheets="@style.css">
+                                <Pane prefHeight="84.0" prefWidth="96.0">
+                           <children>
+                              <Button fx:id="retour" layoutX="-9.0" layoutY="15.0" mnemonicParsing="false" onAction="#retour" prefHeight="26.0" prefWidth="37.0" styleClass="search-button" stylesheets="@style.css" text="&lt;" />
+                           </children></Pane>
+                                <HBox alignment="CENTER" prefHeight="85.0" prefWidth="419.0" styleClass="free-delivery-card" stylesheets="@style.css">
                                     <children>
                                         <VBox alignment="CENTER" prefHeight="100.0" prefWidth="246.0">
                                             <children>
@@ -167,22 +170,22 @@
                                     </VBox>
                                     <VBox prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <TextField fx:id="note" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Note : " />
                                           <Label prefHeight="50.0" prefWidth="220.0" text="Note" textFill="#f4f3f3">
                                              <font>
                                                 <Font name="Cambria" size="40.0" />
                                              </font>
                                           </Label>
+                                          <TextField fx:id="note" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Note : " />
                                        </children>
                                     </VBox>
                                     <VBox prefHeight="86.0" prefWidth="92.0">
                                        <children>
-                                          <TextField fx:id="nom" prefHeight="36.0" prefWidth="81.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Nom : " />
                                           <Label prefHeight="50.0" prefWidth="220.0" text="Nom" textFill="#f4f3f3">
                                              <font>
                                                 <Font name="Cambria" size="40.0" />
                                              </font>
                                           </Label>
+                                          <TextField fx:id="nom" prefHeight="36.0" prefWidth="81.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Nom : " />
                                        </children></VBox>
                                  </children>
                               </HBox>

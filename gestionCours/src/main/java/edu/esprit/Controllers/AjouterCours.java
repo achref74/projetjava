@@ -5,6 +5,7 @@ import edu.esprit.services.ServiceCours;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
@@ -18,17 +19,18 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 
-
-
-
-public class AjouterCours {
+public class AjouterCours implements Initializable {
     @FXML
     private Text Duree;
 
+    @FXML
+    private Label msg;
 
 
     @FXML
@@ -67,15 +69,16 @@ public class AjouterCours {
     private TextField ressource;
     private final ServiceCours sp = new ServiceCours();
 
+    private String selectedImagePath;
+
     @FXML
     void selectImage(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
-        
+
         File initialDirectory = new File("C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images");
         fileChooser.setInitialDirectory(initialDirectory);
 
-        // Filtrer les extensions d'image
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images", "*.jpg", "*.jpeg", "*.png", "*.gif");
         fileChooser.getExtensionFilters().add(extFilter);
 
@@ -83,10 +86,11 @@ public class AjouterCours {
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
-            String absolutePath = selectedFile.getAbsolutePath();
-            Image newImage = new Image("file:///" + absolutePath);
+            // Stockez uniquement le nom du fichier
+            selectedImagePath = selectedFile.getName();
+            Image newImage = new Image(selectedFile.toURI().toString());
             image.setImage(newImage);
-            System.out.println("Chemin d'accès de l'image sélectionnée : " + absolutePath);
+            System.out.println("Nom de l'image sélectionnée : " + selectedImagePath);
         }
     }
     @FXML
@@ -95,9 +99,19 @@ public class AjouterCours {
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
         Alert alert;
+
+
+        if (nom.getText().isEmpty() || description.getText().isEmpty() || prerequis.getText().isEmpty() || ressource.getText().isEmpty() || duree.getText().isEmpty()) {
+            alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Champs vides");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir tous les champs.");
+            alert.showAndWait();
+            return;
+        }
         try {
 
-            if (image.getImage() == null) {
+            if (selectedImagePath == null || selectedImagePath.isEmpty()) {
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erreur");
                 alert.setContentText("Veuillez sélectionner une image.");
@@ -106,20 +120,25 @@ public class AjouterCours {
             }
 
 
-            sp.ajouter(new Cours(
-                    nom.getText(),
-                    description.getText(),
-                    prerequis.getText(),
-                    ressource.getText(),
-                    sqlDate,
-                    Integer.parseInt(duree.getText()),
-                    image.getImage().getUrl()
-            ));
+            if(!sp.isvalideduree(Integer.parseInt(duree.getText())))
+            {  msg.setVisible(true);
+
+
+            }else {
+                sp.ajouter(new Cours(
+                        nom.getText(),
+                        description.getText(),
+                        prerequis.getText(),
+                        ressource.getText(),
+                        sqlDate,
+                        Integer.parseInt(duree.getText()),
+                        selectedImagePath // Utilisez le nom de l'image
+                ));
 
             alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("Cours ajouté avec succès !");
-            alert.show();
+            alert.show();}
         } catch (NumberFormatException e) {
             // Gérer l'exception si la conversion de la durée en entier échoue
             alert = new Alert(Alert.AlertType.ERROR);
@@ -178,4 +197,8 @@ public class AjouterCours {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        msg.setVisible(false);
+    }
 }

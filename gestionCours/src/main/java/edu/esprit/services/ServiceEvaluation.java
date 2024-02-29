@@ -89,6 +89,28 @@ public class ServiceEvaluation implements IService <Evaluation>{
         }
     }
 
+    public void supprimerEvaluationByIdCours(int id) {
+        try {
+            ServiceQuestion s = new ServiceQuestion();
+            // Récupérer l'évaluation
+            Evaluation e = this.getEvaluationByIdCours(id);
+            // Vérifier si l'évaluation récupérée n'est pas nulle
+            if (e != null) {
+                // Supprimer les questions liées à cette évaluation
+                s.supprimerQuestionsById(e.getId_e());
+                // Supprimer l'évaluation elle-même
+                String req = "DELETE FROM `evaluation` WHERE id_cours = ?";
+                PreparedStatement ps = cnx.prepareStatement(req);
+                ps.setInt(1, id);
+                int rowsAffected = ps.executeUpdate();
+                System.out.println(rowsAffected + " évaluation supprimée !");
+            } else {
+                System.out.println("Aucune évaluation trouvée pour l'ID de cours spécifié !");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression des évaluations : " + e.getMessage());
+        }
+    }
     @Override
     public Evaluation getOneById(int id) {
 
@@ -160,23 +182,26 @@ return false ; }
 
     public Evaluation getEvaluationByIdCours(int id) {
         Evaluation ev = null;
-        String req = "Select * from evaluation WHERE id_cours =" + id;
-        try {
-            Statement st = cnx.createStatement();
-            ResultSet res = st.executeQuery(req);
-            if (res.next()) {
-                int id_e = res.getInt("id_e");
-                String nom = res.getString("nom");
-                int note = res.getInt("note");
-                ServiceQuestion s = new ServiceQuestion();
-                Set<Question> questions = s.getQuestionsByIdEvaluation(id);
-                ev = new Evaluation(id_e, nom, note, questions);
+        String req = "SELECT * FROM evaluation WHERE id_cours = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setInt(1, id);
+            try (ResultSet res = ps.executeQuery()) {
+                if (res.next()) {
+                    int id_e = res.getInt("id_e");
+                    String nom = res.getString("nom");
+                    int note = res.getInt("note");
+                    ServiceQuestion s = new ServiceQuestion();
+                    Set<Question> questions = s.getQuestionsByIdEvaluation(id_e);
+                    ev = new Evaluation(id_e, nom, note, questions);
+                }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erreur lors de la récupération de l'évaluation : " + e.getMessage());
         }
-        return ev; // Retourner l'objet Evaluation si trouvé
+        return ev;
     }
+
+    public boolean isnotevalid(int note){return (note>0)&&(note<=20); }
 
 
 

@@ -37,22 +37,25 @@ public class ItemController {
         this.nameLabel.setText(cours.getNom());
 
         long heures = cours.getDuree() / 3600;
-        long minutes = (cours.getDuree()% 3600) / 60;
+        long minutes = (cours.getDuree() % 3600) / 60;
         long secondes = cours.getDuree() % 60;
-        this.priceLable.setText("" + heures +"h "+minutes +"min "+secondes +"sc");
+        this.priceLable.setText(heures + "h " + minutes + "min " + secondes + "sc");
+
         try {
-
-
-            String imagePath = "file:///C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images/" + cours.getImage();
-            URL url = new URL(imagePath);
-            Image image = new Image(url.openStream());
-            this.img.setImage(image);
-        } catch (IOException e) {
+            String imagePath = "/images/" + cours.getImage();// Utilisation d'un chemin relatif
+            URL url = getClass().getResource(imagePath);
+            if (url != null) {
+                Image image = new Image(url.toExternalForm());
+                this.img.setImage(image);
+            } else {
+                System.err.println("Impossible de charger l'image : " + imagePath);
+                // Afficher une image par défaut ou un message d'erreur
+            }
+        } catch (Exception e) {
+            System.err.println("Erreur lors du chargement de l'image : " + e.getMessage());
             e.printStackTrace();
         }
-
     }
-
     public Cours getCours() {
         return this.cours;
     }
