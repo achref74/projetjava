@@ -175,7 +175,7 @@ public class ReplyWindowController {
             // Now you have the responseId, you can use it as needed (e.g., for deletion)
             System.out.println("Selected Response ID: " + responseId);
 
-
+            ReponseTextArea.setText(selectedResponse.getDescription());
             return selectedResponse;
         }
 
