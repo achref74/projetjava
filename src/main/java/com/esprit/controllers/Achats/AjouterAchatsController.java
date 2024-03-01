@@ -10,6 +10,7 @@ import com.itextpdf.text.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -20,6 +21,8 @@ import javafx.scene.layout.StackPane;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -92,7 +95,26 @@ public class AjouterAchatsController {
         // If all validations pass, proceed to add the purchase
         Achat newAchat = new Achat(cbFormation.getValue(), cbOutils.getValue(), totalPrice, datePicker.getValue());
         serviceAchat.ajouter(newAchat);
-        showAlert(Alert.AlertType.INFORMATION, "Achat Ajoutée", "Achat ajouté avec succès!");
+        //showAlert(Alert.AlertType.INFORMATION, "Achat Ajoutée", "Achat ajouté avec succès!");
+
+
+
+        Notifications.create()
+                .styleClass(
+                        "-fx-background-color: #28a745; " + // Couleur de fond
+                                "-fx-text-fill: white; " + // Couleur du texte
+                                "-fx-background-radius: 5px; " + // Bord arrondi
+                                "-fx-border-color: #ffffff; " + // Couleur de la bordure
+                                "-fx-border-width: 2px;" // Largeur de la bordure
+                )
+                .title("achat Ajouté avec succès")
+                .position(Pos.TOP_RIGHT) // Modifier la position ici
+                .hideAfter(Duration.seconds(20))
+                .show();
+
+
+
+
         generateInvoice(newAchat);
 
         // Load the view to display purchases

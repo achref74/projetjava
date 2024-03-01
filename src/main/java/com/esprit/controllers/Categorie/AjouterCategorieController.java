@@ -5,10 +5,13 @@ import com.esprit.services.CategorieService2;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 
@@ -47,7 +50,21 @@ public class AjouterCategorieController {
 
 
                 cs.ajouter(new Categorie(nom, description));
-                showAlert(Alert.AlertType.INFORMATION, "Categorie Ajoutée", "La catégorie a été ajoutée avec succès !");
+                //showAlert(Alert.AlertType.INFORMATION, "Categorie Ajoutée", "La catégorie a été ajoutée avec succès !");
+
+
+                Notifications.create()
+                        .styleClass(
+                                "-fx-background-color: #28a745; " + // Couleur de fond
+                                        "-fx-text-fill: white; " + // Couleur du texte
+                                        "-fx-background-radius: 5px; " + // Bord arrondi
+                                        "-fx-border-color: #ffffff; " + // Couleur de la bordure
+                                        "-fx-border-width: 2px;" // Largeur de la bordure
+                        )
+                        .title("CATEGORIE Ajouté avec succès")
+                        .position(Pos.TOP_RIGHT) // Modifier la position ici
+                        .hideAfter(Duration.seconds(20))
+                        .show();
 
 
                 loadAfficherCategorieView();
