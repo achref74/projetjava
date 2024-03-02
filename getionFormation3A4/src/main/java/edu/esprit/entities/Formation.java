@@ -18,10 +18,7 @@ public class Formation {
    private int idUser;
     private int idCategorie;
 
-<<<<<<< Updated upstream
-=======
     private String imageUrl; // Nouvel attribut pour l'URL de l'image
->>>>>>> Stashed changes
 
 
     public Formation(int idFormation, String nom, String description, Date dateDebut, Date dateFin,
@@ -49,8 +46,6 @@ public class Formation {
         this.idCategorie=0;
 
     }
-<<<<<<< Updated upstream
-=======
     public Formation(int idFormation, String nom, String description, Date dateDebut, Date dateFin,
                      double prix, int nbrCours,String imageUrl) {
         this.idFormation = idFormation;
@@ -63,7 +58,6 @@ public class Formation {
        this.imageUrl=imageUrl;
 
     }
->>>>>>> Stashed changes
 public Formation(){}
     public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours,int idUser,int idCategorie) {
 
@@ -78,11 +72,7 @@ public Formation(){}
 
     }
 
-<<<<<<< Updated upstream
-    public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours) {
-=======
     public Formation(String nom, String description, Date dateDebut, Date dateFin,double prix, int nbrCours, String imageUrl) {
->>>>>>> Stashed changes
 
         this.nom = nom;
         this.description = description;
@@ -90,11 +80,6 @@ public Formation(){}
         this.dateFin = dateFin;
         this.prix = prix;
         this.nbrCours = nbrCours;
-<<<<<<< Updated upstream
-
-
-    }
-=======
         this.idUser=2;
         this.imageUrl = imageUrl; // Initialisez imageUrl
 
@@ -114,7 +99,6 @@ public Formation(){}
         this.idUser = idUser;
     }
 
->>>>>>> Stashed changes
     public int getIdFormation() {
         return idFormation;
     }
@@ -197,11 +181,7 @@ public Formation(){}
                 ", dateFin='" + dateFin + '\'' +
                 ", prix=" + prix +
                 ", nbrCours=" + nbrCours +
-<<<<<<< Updated upstream
-
-=======
                 ", imageUrl='" + imageUrl + '\'' + // Ajout de imageUrl à la sortie
->>>>>>> Stashed changes
                 '}';
     }
 

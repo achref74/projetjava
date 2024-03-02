@@ -182,8 +182,8 @@ formation.setNom(res.getString("nom"));
 
         return offres;
     }
-    public Set<Offre> getAll2() throws SQLException{
-        Set<Offre> offres = new HashSet<>();
+    public List<Offre> getAll2() throws SQLException{
+        List<Offre> offres = new ArrayList<>();
 
 
         String req = "SELECT * FROM offre ";
@@ -196,15 +196,42 @@ formation.setNom(res.getString("nom"));
             String description = res.getString("description");
             Date dateD = res.getDate("dateD");
             Date dateF = res.getDate("dateF");
-            Offre offre = new Offre(prixOffre, description, dateD, dateF);
+            int idFormation = res.getInt("idFormation");
+            Offre offre = new Offre(idOffre,prixOffre, description, dateD, dateF, idFormation);
 
             offres.add(offre);
-            System.out.println(offres);
         }
 
 
         return offres;
     }
+    public boolean offreExistsForFormation(int idFormation) throws SQLException {
+        boolean offreExists = false;
+
+        ResultSet res= null;
+
+        try {
+            // Créer la connexion à la base de données
+
+            // Préparer la requête SQL pour vérifier l'existence de l'offre
+            String query = "SELECT COUNT(*) FROM offre WHERE idFormation = ?";
+            PreparedStatement ps = cnx.prepareStatement(query);
+            ps.setInt(1, idFormation);
+             res = ps.executeQuery();
+
+            // Récupérer le résultat
+            if (res.next()) {
+                int count = res.getInt(1);
+                if (count > 0) {
+                    offreExists = true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return offreExists;
+    }
+
 
     public void supprimeroffreById(int id) throws SQLException{
 

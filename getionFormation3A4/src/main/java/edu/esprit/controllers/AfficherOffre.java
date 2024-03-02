@@ -195,14 +195,11 @@ listO.clear();
                         setChosenFormation(offre);
                     }
 
-<<<<<<< Updated upstream
-=======
                     @Override
                     public void onClickListener2(Formation var3) {
 
                     }
 
->>>>>>> Stashed changes
 
                 };
             }
@@ -317,11 +314,7 @@ ServiceOffre so=new ServiceOffre();
 
         descripO.clear();
         dateFO.clear();
-<<<<<<< Updated upstream
-        dateFO.clear();
-=======
         dateDO.clear();
->>>>>>> Stashed changes
         prixFO.clear();
         descripO.setText("");
     }
@@ -349,12 +342,6 @@ ServiceOffre so=new ServiceOffre();
                 fxerrordate1.setVisible(false);
 
                 try {
-<<<<<<< Updated upstream
-                    Offre offre = new Offre();
-                    offre.setIdOffre(id);
-                    offre.setDateD(java.sql.Date.valueOf(newDateD));
-                    offre.setDateF(java.sql.Date.valueOf(newDateF));
-=======
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate dateD = LocalDate.parse(newDateD, formatter);
                     LocalDate dateF = LocalDate.parse(newDateF, formatter);
@@ -363,7 +350,6 @@ ServiceOffre so=new ServiceOffre();
                     offre.setDateD(java.sql.Date.valueOf(dateD));
                     offre.setDateF(java.sql.Date.valueOf(dateF));
 
->>>>>>> Stashed changes
                     offre.setDescription(newDescription);
                     offre.setPrixOffre(Double.parseDouble(newPrix));
 

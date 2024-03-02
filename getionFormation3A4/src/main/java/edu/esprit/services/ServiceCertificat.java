@@ -98,11 +98,7 @@ public class ServiceCertificat implements IService<Certificat>{
     public List<Certificat> getAll() throws SQLException{
         List<Certificat> certificats = new ArrayList<>();
 
-<<<<<<< Updated upstream
-        String req = "SELECT c.*, f.nom FROM certificat c INNER JOIN formation f ON c.idFormation = f.idFormation";
-=======
         String req = "SELECT * FROM certificat ";
->>>>>>> Stashed changes
 
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
@@ -113,14 +109,8 @@ public class ServiceCertificat implements IService<Certificat>{
                 Date dateObtention = res.getDate("dateObtention");
                 int nbrCours = res.getInt("nbrCours");
                 //int idUser = res.getInt("idUser");
-<<<<<<< Updated upstream
-                Formation formation =new Formation();
-                formation.setNom(res.getString("nom"));
-                Certificat certificat = new Certificat(idCertificat, titre, description, dateObtention, nbrCours,formation);
-=======
                 //Formation formation =new Formation();
                 Certificat certificat = new Certificat(titre, description, dateObtention, nbrCours);
->>>>>>> Stashed changes
                 certificats.add(certificat);
             }
 

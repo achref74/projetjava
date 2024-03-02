@@ -1,15 +1,11 @@
 package edu.esprit.controllers;
 
-<<<<<<< Updated upstream
-import edu.esprit.entities.Formation;
-import edu.esprit.entities.Offre;
-=======
 import edu.esprit.entities.Certificat;
 import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
 import edu.esprit.services.ServiceCertificat;
->>>>>>> Stashed changes
 import edu.esprit.services.ServiceFormation;
+import edu.esprit.services.ServiceOffre;
 import edu.esprit.tests.MyListenerF;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,32 +14,19 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-<<<<<<< Updated upstream
-=======
 import javafx.scene.image.Image;
->>>>>>> Stashed changes
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-<<<<<<< Updated upstream
-
-=======
 import javafx.stage.FileChooser;
 
 import java.io.File;
->>>>>>> Stashed changes
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-<<<<<<< Updated upstream
-import java.util.*;
-
-public class AffichageF_Formateur implements Initializable{
-
-=======
 import java.time.LocalDate;
 import java.util.*;
 
@@ -51,7 +34,6 @@ public class AffichageF_Formateur implements Initializable{
     private String currentImageName;
 
     private String selectedImageUrl;
->>>>>>> Stashed changes
     @FXML
     private VBox chosenFruitCard;
     @FXML
@@ -73,12 +55,8 @@ public class AffichageF_Formateur implements Initializable{
 
     @FXML
     private GridPane grid;
-<<<<<<< Updated upstream
-
-=======
 @FXML
 private Button certificatF;
->>>>>>> Stashed changes
     @FXML
     private Button modifierF;
     @FXML
@@ -99,23 +77,30 @@ private Button certificatF;
     private Set<Formation> listF = new HashSet<>();
     private MyListenerF myListener;
     private String selectedIdF ;
-<<<<<<< Updated upstream
-
-=======
     private String selectedNomF ;
     private String selectedNbrCF ;
     private String selectedDescripF ;
->>>>>>> Stashed changes
 
+
+    private List<Offre> listO = new ArrayList<>();
+
+    private List<Offre> getData_offre() {
+        List<Offre> listO = new ArrayList<>();
+        ServiceOffre sf =new ServiceOffre();
+
+        try {
+            listO=sf.getAll2();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return listO;
+    }
     @FXML
     void navigatetoMesFormationAction(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Affichage.fxml"));
-<<<<<<< Updated upstream
-            ok1.getScene().setRoot(root);
-=======
             prixF.getScene().setRoot(root);
->>>>>>> Stashed changes
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Sorry");
@@ -148,13 +133,6 @@ private Button certificatF;
         nbrCours.setText(String.valueOf(formation.getNbrCours()));
         descripF.setText(formation.getDescription());
         prixF.setText(String.valueOf(formation.getPrix()));
-<<<<<<< Updated upstream
-
-        selectedIdF = String.valueOf(formation.getIdFormation());
-        //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
-
-
-=======
         selectedNbrCF=String.valueOf(formation.getNbrCours());
         selectedNomF=String.valueOf(formation.getNom());
         selectedDescripF=String.valueOf(formation.getDescription());
@@ -165,7 +143,6 @@ private Button certificatF;
         Image image = new Image(imagePath);
         fruitImg.setImage(image);
         currentImageName = formation.getImageUrl();
->>>>>>> Stashed changes
         List<String> colorPalette = new ArrayList<>();
         colorPalette.add("#D4A5A5");
         colorPalette.add("#A0522D");
@@ -210,8 +187,6 @@ private Button certificatF;
                 public void onClickListener1(Offre var2) {
 
                 }
-<<<<<<< Updated upstream
-=======
 
                 @Override
                 public void onClickListener2(Formation var3) {
@@ -219,56 +194,9 @@ private Button certificatF;
                 }
 
 
->>>>>>> Stashed changes
             };
         }
-        int column = 0;
-        int row = 1;
-        try {
-
-
-            int i = 0;
-            for (Formation formation : listF) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ItemF.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                ItemF itemF = fxmlLoader.getController();
-
-
-                if  (itemF != null) {
-
-                    itemF.setData(formation, myListener);
-                } else  System.err.println("itemController est null");
-                i++;
-                if (column == 3) {
-                    column = 0;
-                    row++;
-                }
-
-                grid.add(anchorPane, column++, row); //(child,column,row)
-                //set grid width
-                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                grid.setMaxWidth(Region.USE_PREF_SIZE);
-
-                //set grid height
-                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                grid.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(10));
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-<<<<<<< Updated upstream
-
-    }
-
-
-=======
+       refreshDisplayAfterOffer();
         certificatF.setOnAction(event -> ajouterCertificat());
         fruitImg.setOnMouseClicked(event -> {
             FileChooser fileChooser = new FileChooser();
@@ -324,7 +252,6 @@ private Button certificatF;
     private static void openDirectoryInWindows() throws Exception {
         Runtime.getRuntime().exec("explorer C:\\Users\\DELL GAMING\\Desktop\\PI\\getionFormation3A4\\src\\main\\resources\\Pdf");
     }
->>>>>>> Stashed changes
 
     private void clearChosenCours() {
         nomF.clear();
@@ -336,7 +263,56 @@ private Button certificatF;
         nomF.setText("");
     }
 
+    public void refreshDisplayAfterOffer() {
 
+        // Clear existing items
+        grid.getChildren().clear();
+
+        // Reload data
+        listF = getData();
+        listO = getData_offre();// Suppose this fetches the updated list of formations
+        // Recreate display items for each formation
+        int column = 0, row = 1; int i=0;
+        for (Formation formation : listF) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/ItemF.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                ItemF itemController = fxmlLoader.getController();
+
+                if (itemController != null) {
+                    itemController.setData(formation, myListener);
+                    for (Offre offre : listO){
+
+                        if (itemController.getFormation().getIdFormation() == offre.getIdFormation()) {
+                            // Update display with new price if needed
+                            itemController.updatePrixDisplay(offre.getPrixOffre());
+                            break;// This assumes you want to update all displayed formations
+                        }}}
+                i++;
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+
+                grid.add(anchorPane, column++, row);
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                //set grid height
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 

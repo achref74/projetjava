@@ -12,9 +12,6 @@ import edu.esprit.entities.Offre;
 public interface MyListenerF {
     void onClickListener(Formation var1);
     void onClickListener1(Offre var2);
-<<<<<<< Updated upstream
-=======
     void onClickListener2(Formation var3);
 
->>>>>>> Stashed changes
 }

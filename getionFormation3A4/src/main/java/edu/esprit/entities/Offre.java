@@ -38,6 +38,17 @@ private int idFormation;
         this.dateF = dateF;
 
     }
+
+    public Offre(int idOffre,double prixOffre, String description, Date dateD, Date dateF, int idFormation) {
+        this.idOffre = idOffre;
+
+        this.prixOffre = prixOffre;
+        this.description = description;
+        this.dateD = dateD;
+        this.dateF = dateF;
+        this.idFormation = idFormation;
+
+    }
     public Offre(double prixOffre, String description, Date dateD, Date dateF) {
 
         this.prixOffre = prixOffre;

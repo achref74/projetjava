@@ -24,29 +24,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<<<<<<< Updated upstream
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="824.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Affichage">
-=======
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="797.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Affichage">
->>>>>>> Stashed changes
     <children>
       <TabPane fx:id="tabPane" layoutY="-30.0" prefHeight="824.0" prefWidth="1315.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="tabF" text="Formation">
             <content>
-<<<<<<< Updated upstream
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <BorderPane prefHeight="798.0" prefWidth="1315.0">
-                           <left>
-                              <VBox prefHeight="200.0" prefWidth="435.0" style="-fx-border-style: none;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
-=======
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="776.0" prefWidth="1315.0">
                      <children>
                         <BorderPane prefHeight="798.0" prefWidth="1315.0">
                            <left>
                               <VBox prefHeight="809.0" prefWidth="430.0" style="-fx-border-style: none; -fx-background-color: #05071F;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
->>>>>>> Stashed changes
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
                                        <children>
@@ -83,11 +71,7 @@
                                        </styleClass>
                                     </HBox>
                                     <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
-<<<<<<< Updated upstream
-                                    <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="749.0" prefWidth="334.0" stylesheets="@style.css">
-=======
                                     <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="681.0" prefWidth="330.0" stylesheets="@style.css">
->>>>>>> Stashed changes
                                        <VBox.margin>
                                           <Insets left="50.0" right="50.0" />
                                        </VBox.margin>
@@ -107,12 +91,6 @@
                                              </VBox.margin>
                                           </HBox>
                                           <ImageView fx:id="fruitImg" fitHeight="133.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
-<<<<<<< Updated upstream
-                                             <image>
-                                                <Image url="@images/home_img.jpg" />
-                                             </image>
-=======
->>>>>>> Stashed changes
                                              <VBox.margin>
                                                 <Insets top="20.0" />
                                              </VBox.margin>
@@ -164,7 +142,7 @@
                                                       <Insets left="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField fx:id="dateF" prefHeight="26.0" prefWidth="107.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
+                                                <TextField fx:id="dateF" prefHeight="26.0" prefWidth="116.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
                                                    <HBox.margin>
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
@@ -368,120 +346,6 @@
                                                  <Insets bottom="5.0" top="50.0" />
                                               </VBox.margin>
                                            </ImageView>
-<<<<<<< Updated upstream
-                                           <Button fx:id="btnUser1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="285.0" stylesheets="@style.css" text="Utilisateurs" textFill="#e7e5e5">
-                                              <graphic>
-                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" style="-fx-fill: white;">
-                                                    <image>
-                                                       <Image url="@images/user.png" />
-                                                    </image>
-                                                 </ImageView>
-                                              </graphic>
-                                              <opaqueInsets>
-                                                 <Insets />
-                                              </opaqueInsets>
-                                              <VBox.margin>
-                                                 <Insets />
-                                              </VBox.margin>
-                                              <padding>
-                                                 <Insets left="50.0" />
-                                              </padding>
-                                              <cursor>
-                                                 <Cursor fx:constant="HAND" />
-                                              </cursor>
-                                           </Button>
-                                           <Button fx:id="btnOutils1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="296.0" stylesheets="@style.css" text="Outils">
-                                              <graphic>
-                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                       <Image url="@images/outil.png" />
-                                                    </image>
-                                                 </ImageView>
-                                              </graphic>
-                                              <padding>
-                                                 <Insets left="50.0" />
-                                              </padding>
-                                              <cursor>
-                                                 <Cursor fx:constant="HAND" />
-                                              </cursor>
-                                           </Button>
-                                           <Button fx:id="btnFormation" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#navigatetoFormation" prefHeight="42.0" prefWidth="301.0" stylesheets="@style.css" text="Formation">
-                                              <graphic>
-                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                       <Image url="@images/formation.png" />
-                                                    </image>
-                                                 </ImageView>
-                                              </graphic>
-                                              <padding>
-                                                 <Insets left="50.0" />
-                                              </padding>
-                                              <cursor>
-                                                 <Cursor fx:constant="HAND" />
-                                              </cursor>
-                                           </Button>
-                                           <Button fx:id="btnCours1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="303.0" stylesheets="@style.css" text="Cours">
-                                              <graphic>
-                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                       <Image url="@images/cours.png" />
-                                                    </image>
-                                                 </ImageView>
-                                              </graphic>
-                                              <padding>
-                                                 <Insets left="50.0" />
-                                              </padding>
-                                              <cursor>
-                                                 <Cursor fx:constant="HAND" />
-                                              </cursor>
-                                           </Button>
-                                           <Button fx:id="btnForum1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="318.0" stylesheets="@style.css" text="Forum">
-                                              <graphic>
-                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                       <Image url="@images/forum.png" />
-                                                    </image>
-                                                 </ImageView>
-                                              </graphic>
-                                              <padding>
-                                                 <Insets left="50.0" />
-                                              </padding>
-                                              <cursor>
-                                                 <Cursor fx:constant="HAND" />
-                                              </cursor>
-                                           </Button>
-                                           <Button fx:id="btnReclamation1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="309.0" stylesheets="@style.css" text="Reclamation">
-                                              <graphic>
-                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                       <Image url="@images/reclamation.png" />
-                                                    </image>
-                                                 </ImageView>
-                                              </graphic>
-                                              <padding>
-                                                 <Insets left="50.0" />
-                                              </padding>
-                                              <cursor>
-                                                 <Cursor fx:constant="HAND" />
-                                              </cursor>
-                                           </Button>
-                                           <Button fx:id="btnSignout1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="310.0" stylesheets="@style.css" text="Se Deconnecter">
-                                              <graphic>
-                                                 <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                       <Image url="@images/signOut.png" />
-                                                    </image>
-                                                 </ImageView>
-                                              </graphic>
-                                              <padding>
-                                                 <Insets left="50.0" />
-                                              </padding>
-                                              <cursor>
-                                                 <Cursor fx:constant="HAND" />
-                                              </cursor>
-                                           </Button>
-=======
->>>>>>> Stashed changes
                                         </children>
                                      </VBox>
                                      <StackPane layoutX="241.0" layoutY="1.0" prefHeight="798.0" prefWidth="1075.0" style="-fx-background-color: #02030A;">
@@ -489,8 +353,6 @@
 
                                            <Pane fx:id="pnlOverview" prefHeight="798.0" prefWidth="998.0" style="-fx-background-color: #e7e5e5;">
                                               <children>
-<<<<<<< Updated upstream
-=======
                                     <ImageView fitHeight="853.0" fitWidth="1544.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/Back.jpg" />
@@ -508,22 +370,11 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                     </VBox>
->>>>>>> Stashed changes
                                                  <Label layoutX="55.0" layoutY="25.0" prefHeight="35.0" prefWidth="63.0" text="Offre" textFill="#e7e5e5">
                                                     <font>
                                                        <Font size="24.0" />
                                                     </font>
                                                  </Label>
-<<<<<<< Updated upstream
-                                    <TextField fx:id="prixO" layoutX="484.0" layoutY="284.0" prefHeight="27.0" prefWidth="148.0" style="-fx-border-radius: 4em; -fx-control-inner-background: #02030A; -fx-border-color: #B7C3D7;" styleClass="transparent" stylesheets="@style.css" />
-                                    <TextArea fx:id="descripO" layoutX="485.0" layoutY="344.0" prefHeight="72.0" prefWidth="148.0" style="-fx-border-radius: 4;" styleClass="transparent" stylesheets="@style.css" />
-                                    <DatePicker fx:id="dateDO" layoutX="483.0" layoutY="427.0" prefHeight="26.0" prefWidth="151.0" style="-fx-border-radius: 4em;" styleClass="transparent" stylesheets="@style.css" />
-                                    <DatePicker fx:id="dateFO" layoutX="484.0" layoutY="465.0" prefHeight="26.0" prefWidth="150.0" style="-fx-border-color: #B7C3D7; -fx-border-radius: 4em;" />
-                                    <Text fill="#2a73ff" layoutX="391.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" textAlignment="CENTER" wrappingWidth="43.44140625" />
-                                    <Text fill="#2a73ff" layoutX="399.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin" />
-                                    <TextField fx:id="nomFO" layoutX="126.0" layoutY="153.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
-                                    <Button fx:id="ajouterOffre" layoutX="493.0" layoutY="529.0" mnemonicParsing="false" onAction="#navigatetoFormation" prefHeight="27.0" prefWidth="91.0" style="-fx-background-color: #ddb78c;-fx-control-inner-background: #02030A;-fx-border-radius: 4em;" stylesheets="@style.css" text="Ajouter" textAlignment="CENTER" textFill="WHITE">
-=======
                                     <TextField fx:id="prixO" layoutX="448.0" layoutY="314.0" prefHeight="27.0" prefWidth="148.0" style="-fx-border-radius: 4em; -fx-control-inner-background: #02030A; -fx-border-color: #B7C3D7;" styleClass="transparent" stylesheets="@style.css" />
                                     <TextArea fx:id="descripO" layoutX="449.0" layoutY="368.0" prefHeight="72.0" prefWidth="148.0" style="-fx-border-radius: 4;" stylesheets="@style.css" />
                                     <DatePicker fx:id="dateDO" layoutX="447.0" layoutY="451.0" prefHeight="26.0" prefWidth="151.0" style="-fx-border-radius: 4em;" stylesheets="@style.css" />
@@ -538,19 +389,10 @@
                                        </font></Text>
                                     <TextField fx:id="nomFO" layoutX="398.0" layoutY="176.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
                                     <Button fx:id="ajouterOffre" layoutX="457.0" layoutY="566.0" mnemonicParsing="false" onAction="#navigatetoFormation" prefHeight="27.0" prefWidth="91.0" style="-fx-control-inner-background: #02030A; -fx-border-radius: 4em;" styleClass="search-button" stylesheets="@style.css" text="Ajouter" textAlignment="CENTER" textFill="WHITE">
->>>>>>> Stashed changes
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-<<<<<<< Updated upstream
-                                    <Text fill="#2a73ff" layoutX="394.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut" />
-                                    <Text fill="#2a73ff" layoutX="388.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER" wrappingWidth="73.7484130859375" />
-                                    <TextField fx:id="idFO" layoutX="483.0" layoutY="226.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
-                                    <Label fx:id="fxerrordate2" layoutX="485.0" layoutY="500.0" prefHeight="17.0" prefWidth="134.0" text="date fin non valide" textFill="RED" />
-                                    <Label fx:id="fxerrorprix2" layoutX="490.0" layoutY="317.0" prefHeight="17.0" prefWidth="142.0" text="prix invalid" textFill="RED" />
-                                    <Label layoutX="66.0" layoutY="90.0" prefHeight="50.0" prefWidth="378.0" text="Nom de la Formation" textFill="#878787">
-=======
                                     <Text fill="#46637f" layoutX="335.0" layoutY="469.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut">
                                        <font>
                                           <Font size="20.0" />
@@ -563,13 +405,10 @@
                                     <Label fx:id="fxerrordate2" layoutX="456.0" layoutY="516.0" prefHeight="17.0" prefWidth="134.0" text="date fin non valide" textFill="RED" />
                                     <Label fx:id="fxerrorprix2" layoutX="454.0" layoutY="345.0" prefHeight="17.0" prefWidth="142.0" text="prix invalid" textFill="RED" />
                                     <Label layoutX="341.0" layoutY="116.0" prefHeight="50.0" prefWidth="378.0" text="Nom de la Formation" textFill="#878787">
->>>>>>> Stashed changes
                                        <font>
                                           <Font name="Cambria" size="29.0" />
                                        </font>
                                     </Label>
-<<<<<<< Updated upstream
-=======
                                     <Button fx:id="btnFormation" layoutX="34.0" layoutY="35.0" mnemonicParsing="false" onAction="#navigatetoFormation" prefHeight="26.0" prefWidth="43.0" styleClass="search-button" stylesheets="@style.css" textFill="WHITE">
                                        <graphic>
                                           <ImageView fitHeight="9.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -579,7 +418,6 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
->>>>>>> Stashed changes
 
                                               </children>
                                               <StackPane.margin>

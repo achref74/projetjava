@@ -1,6 +1,8 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Certificat;
+import edu.esprit.controllers.Affichage;
+
 import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
 import edu.esprit.services.ServiceCertificat;
@@ -12,20 +14,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-<<<<<<< Updated upstream
-=======
 import javafx.scene.image.Image;
->>>>>>> Stashed changes
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-<<<<<<< Updated upstream
-=======
 import java.io.File;
->>>>>>> Stashed changes
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -49,10 +45,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-<<<<<<< Updated upstream
-=======
 import javafx.stage.FileChooser;
->>>>>>> Stashed changes
 
 import java.io.IOException;
 import java.net.URL;
@@ -96,10 +89,7 @@ public class AffichageF_Client implements Initializable{
 
     @FXML
     private ScrollPane scroll;
-<<<<<<< Updated upstream
-=======
     private String currentImageName;
->>>>>>> Stashed changes
 
     @FXML
     private Button supprimerF;
@@ -111,11 +101,22 @@ private Button certificatF;
     private String selectedNomF ;
     private String selectedNbrCF ;
     private String selectedDescripF ;
-<<<<<<< Updated upstream
-=======
     private String selectedImageUrl;
->>>>>>> Stashed changes
 
+    private List<Offre> listO = new ArrayList<>();
+
+    private List<Offre> getData_offre() {
+        List<Offre> listO = new ArrayList<>();
+        ServiceOffre sf =new ServiceOffre();
+
+        try {
+            listO=sf.getAll2();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return listO;
+    }
     private Set<Formation> getData() {
         Set<Formation> listF = new HashSet<>();
         ServiceFormation sf =new ServiceFormation();
@@ -146,13 +147,10 @@ selectedNbrCF=String.valueOf(formation.getNbrCours());
 selectedNomF=String.valueOf(formation.getNom());
 selectedDescripF=String.valueOf(formation.getDescription());
         selectedIdF = String.valueOf(formation.getIdFormation());
-<<<<<<< Updated upstream
-=======
         String imagePath = "file:///C:/Users/DELL GAMING/Desktop/PI/getionFormation3A4/src/main/resources/images/" + formation.getImageUrl();
         Image image = new Image(imagePath);
         fruitImg.setImage(image);
         currentImageName = formation.getImageUrl();
->>>>>>> Stashed changes
         //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
 
 
@@ -182,6 +180,7 @@ selectedDescripF=String.valueOf(formation.getDescription());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         listF.addAll(getData());
         if (!listF.isEmpty()) {
             Iterator<Formation> iterator = listF.iterator();
@@ -198,61 +197,18 @@ selectedDescripF=String.valueOf(formation.getDescription());
                 public void onClickListener1(Offre var2) {
 
                 }
-<<<<<<< Updated upstream
-=======
 
                 @Override
                 public void onClickListener2(Formation var3) {
 
                 }
->>>>>>> Stashed changes
+
+
             };
         }
-        int column = 0;
-        int row = 1;
-        try {
+    refreshDisplayAfterOffer();
 
-
-            int i = 0;
-            for (Formation formation : listF) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ItemF.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                ItemF itemF = fxmlLoader.getController();
-
-
-                if  (itemF != null) {
-
-                    itemF.setData(formation, myListener);
-                } else  System.err.println("itemController est null");
-                i++;
-                if (column == 3) {
-                    column = 0;
-                    row++;
-                }
-
-                grid.add(anchorPane, column++, row); //(child,column,row)
-                //set grid width
-                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                grid.setMaxWidth(Region.USE_PREF_SIZE);
-
-                //set grid height
-                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                grid.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(10));
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         certificatF.setOnAction(event -> ajouterCertificat());
-<<<<<<< Updated upstream
-
-=======
         fruitImg.setOnMouseClicked(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Choisir une image");
@@ -269,10 +225,58 @@ selectedDescripF=String.valueOf(formation.getDescription());
                 fruitImg.setImage(newImage);
             }
         });
->>>>>>> Stashed changes
     }
 
+    public void refreshDisplayAfterOffer() {
 
+        // Clear existing items
+        grid.getChildren().clear();
+
+        // Reload data
+        listF = getData();
+        listO = getData_offre();// Suppose this fetches the updated list of formations
+        // Recreate display items for each formation
+        int column = 0, row = 1; int i=0;
+        for (Formation formation : listF) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/ItemF.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                ItemF itemController = fxmlLoader.getController();
+
+                if (itemController != null) {
+                    itemController.setData(formation, myListener);
+                    for (Offre offre : listO){
+
+                        if (itemController.getFormation().getIdFormation() == offre.getIdFormation()) {
+                            // Update display with new price if needed
+                            itemController.updatePrixDisplay(offre.getPrixOffre());
+                            break;// This assumes you want to update all displayed formations
+                        }}}
+                i++;
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+
+                grid.add(anchorPane, column++, row);
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                //set grid height
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void clearChosenCours() {
         nomF.clear();

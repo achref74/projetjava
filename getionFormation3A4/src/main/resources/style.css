@@ -50,10 +50,7 @@
 
 .transparent{
     -fx-background-color: rgba(0,0,0,0);
-<<<<<<< Updated upstream
-=======
     -fx-text-fill: black;
->>>>>>> Stashed changes
 }
 
 .search-button{
