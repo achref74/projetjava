@@ -38,7 +38,7 @@
                </font></Text>
             <TextField fx:id="TItreForum" layoutX="126.0" layoutY="86.0" prefHeight="25.0" prefWidth="167.0" stylesheets="style.css" />
             <ComboBox fx:id="AfficherFormationNom" layoutX="126.0" layoutY="234.0" prefHeight="25.0" prefWidth="167.0" />
-            <TextArea fx:id="descriptionForum" layoutX="126.0" layoutY="126.0" prefHeight="99.0" prefWidth="227.0"  />
+            <TextArea fx:id="descriptionForum" layoutX="126.0" layoutY="126.0" prefHeight="99.0" prefWidth="227.0" />
          </children>
       </Pane>
    </children>

@@ -131,6 +131,7 @@ public class ServicePublication implements IService<Publication> {
             publication.setUser(user);
             Forum forum=new Forum();
             forum.setTitre(cs.getString("titre"));
+            forum.setIdForum(cs.getInt("idForum"));
             publication.setForum(forum);
 
 

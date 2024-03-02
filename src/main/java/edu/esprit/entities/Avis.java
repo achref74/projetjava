@@ -2,6 +2,7 @@ package edu.esprit.entities;
 
 import java.util.Objects;
 
+
 public class Avis {
     private int idAvis;
     private int rate;

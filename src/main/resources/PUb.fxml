@@ -17,8 +17,10 @@
       <Text layoutX="240.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IDUser" wrappingWidth="58.40000000000009" />
       <TextField fx:id="idforum" layoutX="300.0" layoutY="196.0" />
       <TextArea fx:id="ContenuPublication" layoutX="300.0" layoutY="49.0" prefHeight="95.0" prefWidth="200.0" />
-      <Pane fx:id="Photo" layoutX="22.0" layoutY="64.0" prefHeight="226.0" prefWidth="200.0" />
+      <Pane fx:id="Photo" layoutX="426.0" layoutY="267.0" prefHeight="84.0" prefWidth="106.0" />
       <TextField fx:id="idUser" layoutX="301.0" layoutY="228.0" />
       <Button layoutX="261.0" layoutY="296.0" mnemonicParsing="false" onAction="#AjouterPubliction" text="Ajouter" />
+      <Text fx:id="idForumBZi" layoutX="38.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="184.53668212890625" />
+      <Text fx:id="nblikMax" layoutX="14.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="167.7366943359375" />
    </children>
 </AnchorPane>
