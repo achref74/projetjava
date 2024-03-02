@@ -342,6 +342,7 @@ private String selectedNomF;
 
         listF.addAll(getData());
         if (!listF.isEmpty()) {
+
             Iterator<Formation> iterator = listF.iterator();
             Formation firstFormation = iterator.next();
             setChosenFormation(firstFormation);
@@ -359,52 +360,10 @@ private String selectedNomF;
 
                 @Override
                 public void onClickListener2(Formation var3) {
-
                 }
-
-
             };
         }
-       /* int column = 0;
-        int row = 1;
-        try {
 
-
-            int i = 0;
-            for (Formation formation : listF) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ItemF.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                ItemF itemF = fxmlLoader.getController();
-
-                if (itemF != null) {
-
-                    itemF.setData(formation, myListener);
-                } else System.err.println("itemController est null");
-                i++;
-                if (column == 3) {
-                    column = 0;
-                    row++;
-                }
-
-                grid.add(anchorPane, column++, row); //(child,column,row)
-                //set grid width
-                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                grid.setMaxWidth(Region.USE_PREF_SIZE);
-
-                //set grid height
-                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                grid.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(10));
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
         refreshDisplayAfterOffer();
         modifierF.setOnAction(event -> modifierFormation());
         supprimerF.setOnAction(event -> supprimerFormations());

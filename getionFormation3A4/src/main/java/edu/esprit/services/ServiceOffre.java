@@ -43,6 +43,35 @@ public class ServiceOffre implements IService<Offre> {
         System.out.println("Offre ajoutée !");
     }
 
+    public void ajouter1(Offre offre) throws SQLException{
+        String req = "INSERT INTO `offre`(`prixOffre`, `description`, `dateD`, `dateF`) VALUES (?,?,?,?)";
+
+        // Convertir java.util.Date en java.sql.Date
+        java.sql.Date dateDebutSql = new java.sql.Date(offre.getDateD().getTime());
+        java.sql.Date dateFinSql = new java.sql.Date(offre.getDateF().getTime());
+
+        // Validation du prix
+        if (!isValidPrix(offre.getPrixOffre())) {
+            System.out.println("Le prix de l'offre doit être positif!");
+            return;
+        }
+
+        // Validation des dates
+        if (!isValidDate(dateDebutSql, dateFinSql)) {
+            System.out.println("Les dates de l'offre ne sont pas valides!");
+            return;
+        }
+
+        // Si les validations sont passées, exécuter l'insertion
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setDouble(1, offre.getPrixOffre());
+        ps.setString(2, offre.getDescription());
+        ps.setDate(3, dateDebutSql);
+        ps.setDate(4, dateFinSql);
+        ps.executeUpdate();
+        System.out.println("Offre ajoutée !");
+    }
+
 
     public void ajouter(Offre offre, int idFormation) throws SQLException{
 
@@ -182,6 +211,20 @@ formation.setNom(res.getString("nom"));
 
         return offres;
     }
+    public List<Date> getAllEndDate() throws SQLException {
+        List<Date> dates = new ArrayList<>();
+
+        String req = "SELECT dateF FROM offre";
+
+        Statement st = cnx.createStatement();
+        ResultSet res = st.executeQuery(req);
+        while (res.next()) {
+            Date dateF = res.getDate("dateF");
+            dates.add(dateF);
+        }
+        return dates;
+    }
+
     public List<Offre> getAll2() throws SQLException{
         List<Offre> offres = new ArrayList<>();
 

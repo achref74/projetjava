@@ -1,5 +1,11 @@
 package edu.esprit.controllers;
 
+import java.text.DateFormat;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import java.util.Properties;
+import java.util.Date;
 
 import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
@@ -93,7 +99,6 @@ public class AfficherOffre implements Initializable {
 
     @FXML
     private ScrollPane scroll1;
-
     @FXML
     private Button supprimerO;
 
@@ -117,6 +122,7 @@ public class AfficherOffre implements Initializable {
         };
         private MyListenerF myListenerO;
         private String selectedIdF ;
+    private String selectedDate;
 
         private List<Offre> getData() {
             List<Offre> listO = new ArrayList<>();
@@ -142,6 +148,7 @@ public class AfficherOffre implements Initializable {
             descripO.setText(offre.getDescription());
             prixFO.setText(String.valueOf(offre.getPrixOffre()));
             selectedIdF = String.valueOf(offre.getIdOffre());
+            selectedDate= String.valueOf(offre.getDateF());
             idF.setText(String.valueOf(offre.getIdOffre()));
             //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
 
@@ -244,6 +251,8 @@ listO.clear();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
+
             modifierO.setOnAction(event -> modifierOffre());
             supprimerO.setOnAction(event -> supprimerOffre());
 
@@ -260,7 +269,7 @@ listO.clear();
             int id = Integer.parseInt(selectedIdF);
 
             // Appelez la méthode de service pour supprimer le cours avec l'ID sélectionné
-ServiceOffre so=new ServiceOffre();
+            ServiceOffre so=new ServiceOffre();
             try {
                 so.supprimer(id);
             } catch (SQLException e) {
@@ -367,6 +376,8 @@ ServiceOffre so=new ServiceOffre();
             }
         }
     }
+
+
 
 
 }

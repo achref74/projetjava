@@ -7,6 +7,9 @@ import edu.esprit.services.ServiceCertificat;
 import edu.esprit.services.ServiceFormation;
 import edu.esprit.services.ServiceOffre;
 import edu.esprit.tests.MyListenerF;
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -196,6 +199,43 @@ private Button certificatF;
 
             };
         }
+        // Création d'une tâche TimerTask pour vérifier la date de fin de l'offre
+        TimerTask tache = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    ServiceOffre so = new ServiceOffre();
+                    List<java.sql.Date> allEndDatesSql = so.getAllEndDate();
+                    List<Date>  allEndDatesUtil= new ArrayList<>();
+
+                    for (java.sql.Date endDateSql : allEndDatesSql) {
+                        // Obtenir la date actuelle
+                        Date currentDate = new Date();
+
+                        // Calculer la différence en millisecondes
+                        long differenceInMillis = endDateSql.getTime() - currentDate.getTime();
+
+                        // Convertir la différence en jours
+                        long differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24);
+
+                        // Vérifier si la différence est inférieure ou égale à 2 jours
+                        if (differenceInDays <= 2) {
+                            // Envoyer un e-mail au client
+                            envoyerMail("mariemmbarek597@gmail.com", "Votre offre se termine bientôt",
+                                    "Votre offre se termine dans 2 jours. Profitez-en dès maintenant !");
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    // Gérer les erreurs ici
+                }
+            }
+        };
+
+        // Création d'une instance Timer pour planifier la tâche toutes les 24 heures
+        Timer timer = new Timer();
+        // Planifier la tâche pour commencer immédiatement et se répéter toutes les 24 heures
+        timer.schedule(tache, 0, 24 * 60 * 60 * 1000);
        refreshDisplayAfterOffer();
         certificatF.setOnAction(event -> ajouterCertificat());
         fruitImg.setOnMouseClicked(event -> {
@@ -215,6 +255,38 @@ private Button certificatF;
             }
         });
 
+    }
+
+    public void envoyerMail(String destinataire, String sujet, String contenu) {
+        // Configuration des propriétés pour l'envoi de l'e-mail
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com"); // Pour les comptes Gmail
+        props.put("mail.smtp.port", "587"); // Port SMTP de Gmail avec TLS
+        props.put("mail.smtp.starttls.enable", "true"); // Activer le chiffrement TLS
+        props.put("mail.smtp.auth", "true"); // Authentification requise
+
+        // Authentification de l'expéditeur
+        Session session = Session.getInstance(props, new jakarta.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("yasminebousselmi5t@gmail.com", "rxxa yjyz lohl lcxe");
+            }
+        });
+
+        try {
+            // Création du message
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("yasminebousselmi5t@gmail.com")); // Remplacez par votre adresse e-mail
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinataire)); // Adresse destinataire
+            message.setSubject(sujet); // Sujet du mail
+            message.setText(contenu); // Contenu du mail
+
+            // Envoi du message
+            Transport.send(message);
+            System.out.println("Mail envoyé avec succès !");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            // Gérer les erreurs ici
+        }
     }
     public  void ajouterCertificat()
     {

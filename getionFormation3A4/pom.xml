@@ -43,12 +43,14 @@
             <artifactId>pdfbox</artifactId>
             <version>2.0.24</version>
         </dependency>
-        <!-- Dépendance pour JavaMail -->
         <dependency>
             <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version> <!-- Version actuelle de JavaMail -->
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version> <!-- Dernière version de Jakarta Mail -->
         </dependency>
+
+
+
     </dependencies>
     <build>
         <plugins>

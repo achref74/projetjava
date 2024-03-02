@@ -1,7 +1,6 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Certificat;
-import edu.esprit.controllers.Affichage;
 
 import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
@@ -20,38 +19,32 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import java.util.Properties;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
-import edu.esprit.entities.Formation;
-import edu.esprit.services.ServiceFormation;
-import edu.esprit.tests.MyListenerF;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+
+
 public class AffichageF_Client implements Initializable{
 
     @FXML
@@ -102,7 +95,7 @@ private Button certificatF;
     private String selectedNbrCF ;
     private String selectedDescripF ;
     private String selectedImageUrl;
-
+private String selectedDate;
     private List<Offre> listO = new ArrayList<>();
 
     private List<Offre> getData_offre() {
@@ -117,6 +110,7 @@ private Button certificatF;
 
         return listO;
     }
+
     private Set<Formation> getData() {
         Set<Formation> listF = new HashSet<>();
         ServiceFormation sf =new ServiceFormation();
@@ -145,6 +139,7 @@ private Button certificatF;
         prixF.setText(String.valueOf(formation.getPrix()));
 selectedNbrCF=String.valueOf(formation.getNbrCours());
 selectedNomF=String.valueOf(formation.getNom());
+selectedDate=String.valueOf(formation.getDateFin());
 selectedDescripF=String.valueOf(formation.getDescription());
         selectedIdF = String.valueOf(formation.getIdFormation());
         String imagePath = "file:///C:/Users/DELL GAMING/Desktop/PI/getionFormation3A4/src/main/resources/images/" + formation.getImageUrl();
@@ -206,8 +201,47 @@ selectedDescripF=String.valueOf(formation.getDescription());
 
             };
         }
-    refreshDisplayAfterOffer();
 
+        // Création d'une tâche TimerTask pour vérifier la date de fin de l'offre
+        TimerTask tache = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    ServiceOffre so = new ServiceOffre();
+                    List<java.sql.Date> allEndDatesSql = so.getAllEndDate();
+                    List<Date>  allEndDatesUtil= new ArrayList<>();
+
+                    for (java.sql.Date endDateSql : allEndDatesSql) {
+                        // Obtenir la date actuelle
+                        Date currentDate = new Date();
+                        System.out.println( endDateSql);
+
+                        // Calculer la différence en millisecondes
+                        long differenceInMillis = endDateSql.getTime() - currentDate.getTime();
+
+                        // Convertir la différence en jours
+                        long differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24);
+
+                        // Vérifier si la différence est inférieure ou égale à 2 jours
+                        if (differenceInDays <= 2) {
+                            // Envoyer un e-mail au client
+                            envoyerMail("mariemmbarek597@gmail.com", "Votre offre se termine bientôt",
+                                    "Votre offre se termine dans 2 jours. Profitez-en dès maintenant !");
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    // Gérer les erreurs ici
+                }
+            }
+        };
+
+        // Création d'une instance Timer pour planifier la tâche toutes les 24 heures
+        Timer timer = new Timer();
+        // Planifier la tâche pour commencer immédiatement et se répéter toutes les 24 heures
+        timer.schedule(tache, 0, 24 * 60 * 60 * 1000);
+
+        refreshDisplayAfterOffer();
         certificatF.setOnAction(event -> ajouterCertificat());
         fruitImg.setOnMouseClicked(event -> {
             FileChooser fileChooser = new FileChooser();
@@ -225,6 +259,37 @@ selectedDescripF=String.valueOf(formation.getDescription());
                 fruitImg.setImage(newImage);
             }
         });
+    }
+    public void envoyerMail(String destinataire, String sujet, String contenu) {
+        // Configuration des propriétés pour l'envoi de l'e-mail
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com"); // Pour les comptes Gmail
+        props.put("mail.smtp.port", "587"); // Port SMTP de Gmail avec TLS
+        props.put("mail.smtp.starttls.enable", "true"); // Activer le chiffrement TLS
+        props.put("mail.smtp.auth", "true"); // Authentification requise
+
+        // Authentification de l'expéditeur
+        Session session = Session.getInstance(props, new jakarta.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("yasminebousselmi5t@gmail.com", "rxxa yjyz lohl lcxe");
+            }
+        });
+
+        try {
+            // Création du message
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("yasminebousselmi5t@gmail.com")); // Remplacez par votre adresse e-mail
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinataire)); // Adresse destinataire
+            message.setSubject(sujet); // Sujet du mail
+            message.setText(contenu); // Contenu du mail
+
+            // Envoi du message
+            Transport.send(message);
+            System.out.println("Mail envoyé avec succès !");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            // Gérer les erreurs ici
+        }
     }
 
     public void refreshDisplayAfterOffer() {
