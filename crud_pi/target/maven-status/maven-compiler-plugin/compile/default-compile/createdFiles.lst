@@ -1,5 +1,6 @@
 edu\esprit\services\ServiceFormation.class
 edu\esprit\services\ServiceReponse.class
+edu\esprit\controllers\AfficherReclamationBack$1.class
 edu\esprit\controllers\AfficherReclamationBack.class
 edu\esprit\controllers\ReclamationController.class
 edu\esprit\controllers\AfficherReclamation$1$1.class

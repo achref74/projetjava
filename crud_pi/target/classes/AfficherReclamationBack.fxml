@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -98,7 +99,7 @@
                     <Insets left="50.0" />
                 </padding>
             </Button>
-            <Button fx:id="btnReclamation" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Reclamation" >
+            <Button fx:id="btnReclamation" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Reclamation">
                 <graphic>
                     <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                         <image>
@@ -133,8 +134,9 @@
                      <image>
                         <Image url="file:/C:/Users/Home/OneDrive%20-%20ESPRIT/Bureau/pipi/crud_pi/src/main/resources/images/imagebg.jpg" />
                      </image></ImageView>
-                    <TextField layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                    <Label layoutX="55.0" layoutY="52.0" text="Reclamationet" textFill="#e7e5e5">
+                    <TextField fx:id="searchBar" layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em; -fx-text-fill: white;" />
+                    <DatePicker fx:id="datePicker" promptText="Choose a date" />
+                    <Label layoutX="23.0" layoutY="18.0" prefHeight="70.0" prefWidth="183.0" text="Reclamationet" textFill="#3f2872">
                         <font>
                             <Font size="24.0" />
                         </font>
