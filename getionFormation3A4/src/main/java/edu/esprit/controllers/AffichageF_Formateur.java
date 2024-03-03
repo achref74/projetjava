@@ -32,10 +32,14 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class AffichageF_Formateur implements Initializable{
     private String currentImageName;
-
+@FXML
+private  TextField chercherF_C;
     private String selectedImageUrl;
     @FXML
     private VBox chosenFruitCard;
@@ -236,7 +240,7 @@ private Button certificatF;
         Timer timer = new Timer();
         // Planifier la tâche pour commencer immédiatement et se répéter toutes les 24 heures
         timer.schedule(tache, 0, 24 * 60 * 60 * 1000);
-       refreshDisplayAfterOffer();
+       refreshDisplayAfterOffer(getData());
         certificatF.setOnAction(event -> ajouterCertificat());
         fruitImg.setOnMouseClicked(event -> {
             FileChooser fileChooser = new FileChooser();
@@ -254,6 +258,9 @@ private Button certificatF;
                 fruitImg.setImage(newImage);
             }
         });
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+        executorService.scheduleAtFixedRate( new OfferCleanupTask(), 0, 1, TimeUnit.DAYS);
 
     }
 
@@ -335,13 +342,13 @@ private Button certificatF;
         nomF.setText("");
     }
 
-    public void refreshDisplayAfterOffer() {
+    public void refreshDisplayAfterOffer(Set<Formation> listF) {
 
         // Clear existing items
         grid.getChildren().clear();
 
         // Reload data
-        listF = getData();
+
         listO = getData_offre();// Suppose this fetches the updated list of formations
         // Recreate display items for each formation
         int column = 0, row = 1; int i=0;
@@ -383,6 +390,32 @@ private Button certificatF;
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    public void search(javafx.scene.input.KeyEvent keyEvent) {
+
+        String text = chercherF_C.getText();
+        // Efface le contenu actuel de la grille
+        grid.getChildren().clear();
+
+        if (chercherF_C.getText().isEmpty()) {
+            refreshDisplayAfterOffer(getData());
+
+        } else {
+            // Si le champ de recherche n'est pas vide, effectuer une recherche dynamique par nom de formation
+            // Récupère les formations correspondant au texte saisi
+            Set<Formation> formations = null;
+            try {
+                ServiceFormation sf=new ServiceFormation();
+                formations = sf.rechercherFormationsParNom(text);
+                // Affiche les formations trouvées dans la grille
+                refreshDisplayAfterOffer(formations);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+
+
         }
     }
 

@@ -54,6 +54,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class AfficherOffre implements Initializable {
 
@@ -64,6 +67,8 @@ public class AfficherOffre implements Initializable {
     @FXML
     private TextField dateDO;
 
+    @FXML
+    private TextField chercherF_C;
     @FXML
     private TextField dateFO;
 
@@ -118,9 +123,9 @@ public class AfficherOffre implements Initializable {
 
 
 
-        private List<Offre> listO = new ArrayList<>() {
-        };
-        private MyListenerF myListenerO;
+    private List<Offre> listO = new ArrayList<>();
+
+    private MyListenerF myListenerO;
         private String selectedIdF ;
     private String selectedDate;
 
@@ -255,12 +260,63 @@ listO.clear();
 
             modifierO.setOnAction(event -> modifierOffre());
             supprimerO.setOnAction(event -> supprimerOffre());
+            ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
+            executorService.scheduleAtFixedRate( new OfferCleanupTask(), 0, 1, TimeUnit.DAYS);
 
 
 
         }
+    public void refreshDisplayAfterOffer(List<Offre> listO) {
 
+        // Clear existing items
+        grid.getChildren().clear();
+
+
+        int column = 0;
+        int row = 1;
+        int i = 0;
+        try {
+
+
+
+            for (Offre offre : listO) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/ItemO.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                ItemO itemO = fxmlLoader.getController();
+
+
+                if  (itemO != null) {
+
+                    itemO.setData1(offre, myListenerO);
+                } else  System.err.println("itemController est null");
+                i++;
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+
+                grid.add(anchorPane, column++, row); //(child,column,row)
+                //set grid width
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                //set grid height
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     private void supprimerOffre() {
         // Vérifiez si l'ID du cours sélectionné n'est pas vide
         if (selectedIdF != null && !selectedIdF.isEmpty()) {
@@ -374,6 +430,34 @@ listO.clear();
                     // Gérer les erreurs ici
                 }
             }
+        }
+    }
+
+    public void search(javafx.scene.input.KeyEvent keyEvent) {
+
+        String text = chercherF_C.getText();
+        // Efface le contenu actuel de la grille
+        grid.getChildren().clear();
+
+        if (chercherF_C.getText().isEmpty()) {
+            refreshDisplayAfterOffer(getData());
+
+        } else {
+            // Si le champ de recherche n'est pas vide, effectuer une recherche dynamique par nom de formation
+            // Récupère les formations correspondant au texte saisi
+            List<Offre> offres = null;
+            try {
+                ServiceOffre so=new ServiceOffre();
+                offres = so.rechercherOffreParNom(text);
+
+                // Affiche les formations trouvées dans la grille
+                refreshDisplayAfterOffer(offres);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+
+
         }
     }
 

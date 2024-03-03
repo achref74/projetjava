@@ -3,6 +3,7 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Formation;
 import edu.esprit.tests.MyListenerF;
+import edu.esprit.utils.DataSource;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -16,9 +17,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class ItemF {
+    static Connection cnx = DataSource.getInstance().getCnx();
+
     @FXML
     private Label nomLabel;
     @FXML
@@ -86,6 +92,7 @@ public class ItemF {
     public void setFormation(Formation formation) {
         this.formation = formation;
     }
+
 }
 
 

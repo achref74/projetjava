@@ -4,6 +4,7 @@ import edu.esprit.entities.Certificat;
 
 import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
+import edu.esprit.controllers.OfferCleanupTask;
 import edu.esprit.services.ServiceCertificat;
 import edu.esprit.services.ServiceFormation;
 import edu.esprit.services.ServiceOffre;
@@ -26,6 +27,8 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+
+import java.awt.event.KeyEvent;
 import java.util.Properties;
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +39,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -45,7 +51,7 @@ import javafx.stage.FileChooser;
 
 
 
-public class AffichageF_Client implements Initializable{
+public class AffichageF_Client implements Initializable {
 
     @FXML
     private VBox chosenFruitCard;
@@ -53,7 +59,10 @@ public class AffichageF_Client implements Initializable{
     private TextField prixF;
     @FXML
     private TextField dateD;
-
+    @FXML
+    private TextField chercherF_C;
+    ServiceFormation sf = new ServiceFormation();
+    List<Formation> result = null;
     @FXML
     private TextField dateF;
 
@@ -86,24 +95,26 @@ public class AffichageF_Client implements Initializable{
 
     @FXML
     private Button supprimerF;
-@FXML
-private Button certificatF;
+    @FXML
+    private Button certificatF;
     private Set<Formation> listF = new HashSet<>();
     private MyListenerF myListener;
-    private String selectedIdF ;
-    private String selectedNomF ;
-    private String selectedNbrCF ;
-    private String selectedDescripF ;
+    private String selectedIdF;
+    private String selectedNomF;
+    private String selectedNbrCF;
+    private String selectedDescripF;
     private String selectedImageUrl;
-private String selectedDate;
+    private String selectedDate;
+    @FXML
+    private TextField rechercheF;
     private List<Offre> listO = new ArrayList<>();
 
     private List<Offre> getData_offre() {
         List<Offre> listO = new ArrayList<>();
-        ServiceOffre sf =new ServiceOffre();
+        ServiceOffre sf = new ServiceOffre();
 
         try {
-            listO=sf.getAll2();
+            listO = sf.getAll2();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -113,10 +124,10 @@ private String selectedDate;
 
     private Set<Formation> getData() {
         Set<Formation> listF = new HashSet<>();
-        ServiceFormation sf =new ServiceFormation();
+        ServiceFormation sf = new ServiceFormation();
 
         try {
-            listF=sf.getAll1();
+            listF = sf.getAll1();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -137,10 +148,10 @@ private String selectedDate;
         nbrCours.setText(String.valueOf(formation.getNbrCours()));
         descripF.setText(formation.getDescription());
         prixF.setText(String.valueOf(formation.getPrix()));
-selectedNbrCF=String.valueOf(formation.getNbrCours());
-selectedNomF=String.valueOf(formation.getNom());
-selectedDate=String.valueOf(formation.getDateFin());
-selectedDescripF=String.valueOf(formation.getDescription());
+        selectedNbrCF = String.valueOf(formation.getNbrCours());
+        selectedNomF = String.valueOf(formation.getNom());
+        selectedDate = String.valueOf(formation.getDateFin());
+        selectedDescripF = String.valueOf(formation.getDescription());
         selectedIdF = String.valueOf(formation.getIdFormation());
         String imagePath = "file:///C:/Users/DELL GAMING/Desktop/PI/getionFormation3A4/src/main/resources/images/" + formation.getImageUrl();
         Image image = new Image(imagePath);
@@ -167,7 +178,7 @@ selectedDescripF=String.valueOf(formation.getDescription());
         Random random = new Random();
 
 
-        String color =colorPalette.get(random.nextInt(colorPalette.size()));
+        String color = colorPalette.get(random.nextInt(colorPalette.size()));
 
         chosenFruitCard.setStyle("-fx-background-color: " + color + ";\n" +
                 "    -fx-background-radius: 30;");
@@ -209,12 +220,12 @@ selectedDescripF=String.valueOf(formation.getDescription());
                 try {
                     ServiceOffre so = new ServiceOffre();
                     List<java.sql.Date> allEndDatesSql = so.getAllEndDate();
-                    List<Date>  allEndDatesUtil= new ArrayList<>();
+                    List<Date> allEndDatesUtil = new ArrayList<>();
 
                     for (java.sql.Date endDateSql : allEndDatesSql) {
                         // Obtenir la date actuelle
                         Date currentDate = new Date();
-                        System.out.println( endDateSql);
+                        System.out.println(endDateSql);
 
                         // Calculer la différence en millisecondes
                         long differenceInMillis = endDateSql.getTime() - currentDate.getTime();
@@ -241,7 +252,7 @@ selectedDescripF=String.valueOf(formation.getDescription());
         // Planifier la tâche pour commencer immédiatement et se répéter toutes les 24 heures
         timer.schedule(tache, 0, 24 * 60 * 60 * 1000);
 
-        refreshDisplayAfterOffer();
+        refreshDisplayAfterOffer(getData());
         certificatF.setOnAction(event -> ajouterCertificat());
         fruitImg.setOnMouseClicked(event -> {
             FileChooser fileChooser = new FileChooser();
@@ -259,7 +270,14 @@ selectedDescripF=String.valueOf(formation.getDescription());
                 fruitImg.setImage(newImage);
             }
         });
+
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+        executorService.scheduleAtFixedRate(new OfferCleanupTask(), 0, 1, TimeUnit.DAYS);
+
     }
+
+
     public void envoyerMail(String destinataire, String sujet, String contenu) {
         // Configuration des propriétés pour l'envoi de l'e-mail
         Properties props = new Properties();
@@ -292,16 +310,16 @@ selectedDescripF=String.valueOf(formation.getDescription());
         }
     }
 
-    public void refreshDisplayAfterOffer() {
+    public void refreshDisplayAfterOffer(Set<Formation> listF) {
 
         // Clear existing items
         grid.getChildren().clear();
 
-        // Reload data
-        listF = getData();
+        // Reload data;
         listO = getData_offre();// Suppose this fetches the updated list of formations
         // Recreate display items for each formation
-        int column = 0, row = 1; int i=0;
+        int column = 0, row = 1;
+        int i = 0;
         for (Formation formation : listF) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -312,13 +330,15 @@ selectedDescripF=String.valueOf(formation.getDescription());
 
                 if (itemController != null) {
                     itemController.setData(formation, myListener);
-                    for (Offre offre : listO){
+                    for (Offre offre : listO) {
 
                         if (itemController.getFormation().getIdFormation() == offre.getIdFormation()) {
                             // Update display with new price if needed
                             itemController.updatePrixDisplay(offre.getPrixOffre());
                             break;// This assumes you want to update all displayed formations
-                        }}}
+                        }
+                    }
+                }
                 i++;
                 if (column == 3) {
                     column = 0;
@@ -352,16 +372,17 @@ selectedDescripF=String.valueOf(formation.getDescription());
         nbrCours.clear();
         nomF.setText("");
     }
+
     ///******************pdf*************************///
     private static void openDirectoryInWindows() throws Exception {
         Runtime.getRuntime().exec("explorer C:\\Users\\DELL GAMING\\Desktop\\PI\\getionFormation3A4\\src\\main\\resources\\Pdf");
     }
-    public  void ajouterCertificat()
-    {
+
+    public void ajouterCertificat() {
         LocalDate currentDate = LocalDate.now();
         java.sql.Date date = java.sql.Date.valueOf(currentDate);
 
-        ServiceCertificat sc=new ServiceCertificat();
+        ServiceCertificat sc = new ServiceCertificat();
 
         try {
             sc.ajouter(new Certificat(
@@ -388,6 +409,33 @@ selectedDescripF=String.valueOf(formation.getDescription());
             alert.showAndWait();
         }
 
+    }
+
+
+    public void search(javafx.scene.input.KeyEvent keyEvent) {
+
+        String text = chercherF_C.getText();
+        // Efface le contenu actuel de la grille
+        grid.getChildren().clear();
+
+        if (chercherF_C.getText().isEmpty()) {
+            refreshDisplayAfterOffer(getData());
+
+        } else {
+            // Si le champ de recherche n'est pas vide, effectuer une recherche dynamique par nom de formation
+            // Récupère les formations correspondant au texte saisi
+            Set<Formation> formations = null;
+            try {
+                formations = sf.rechercherFormationsParNom(text);
+                // Affiche les formations trouvées dans la grille
+                refreshDisplayAfterOffer(formations);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+
+
+        }
     }
 
 

@@ -27,6 +27,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class AffichageF_Back implements Initializable {
     private String selectedImageUrl;
@@ -157,6 +160,9 @@ public class AffichageF_Back implements Initializable {
         }
      offreF.setOnAction(event -> afficherOffre());
         certificatF.setOnAction(event -> afficherCertif());
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+        executorService.scheduleAtFixedRate( new OfferCleanupTask(), 0, 1, TimeUnit.DAYS);
 
     }
 

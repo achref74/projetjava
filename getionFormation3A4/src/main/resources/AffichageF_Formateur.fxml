@@ -43,7 +43,7 @@
                                 <Insets left="30.0" right="30.0" />
                             </VBox.margin>
                             <children>
-                                <TextField prefHeight="36.0" prefWidth="238.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css" text="Tapez pour rechercher ">
+                                <TextField fx:id="chercherF_C" onKeyTyped="#search" prefHeight="36.0" prefWidth="238.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css">
                                     <HBox.margin>
                                         <Insets left="20.0" />
                                     </HBox.margin>
@@ -51,7 +51,6 @@
                                         <Font name="Cambria" size="18.0" />
                                     </font>
                                 </TextField>
-                        <Button fx:id="ok11" mnemonicParsing="false" onAction="#navigatetoMesFormationAction" prefHeight="35.0" prefWidth="86.0" styleClass="search-button" stylesheets="@style.css" text="Ok" textFill="WHITE" />
                             </children>
                             <styleClass>
                                 <String fx:value="search-box" />

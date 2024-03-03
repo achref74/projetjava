@@ -28,6 +28,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Affichage implements Initializable {
     @FXML
@@ -69,6 +72,10 @@ public class Affichage implements Initializable {
     private TextField nbrCours;
     @FXML
     private TextField nomFO;
+
+    @FXML
+    private TextField chercherF_C;
+
     @FXML
     private TextField ressource;
 
@@ -160,6 +167,7 @@ private String selectedImageUrl;
     @FXML
     private TextArea descripO1;
 
+    ServiceFormation sf=new ServiceFormation();
 
 
     @FXML
@@ -364,7 +372,7 @@ private String selectedNomF;
             };
         }
 
-        refreshDisplayAfterOffer();
+        refreshDisplayAfterOffer(getData());
         modifierF.setOnAction(event -> modifierFormation());
         supprimerF.setOnAction(event -> supprimerFormations());
         ajouterOffre.setOnAction(event -> AjouterOffre());
@@ -385,6 +393,10 @@ private String selectedNomF;
                 fruitImg.setImage(newImage);
             }
         });
+
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+        executorService.scheduleAtFixedRate( new OfferCleanupTask(), 0, 1, TimeUnit.DAYS);
     }
 
     @FXML
@@ -558,7 +570,7 @@ private String selectedNomF;
                     );
 
                     sp.ajouter(offre);
-                    refreshDisplayAfterOffer(); // Rafraîchissez l'affichage avec le nouveau prix
+                    refreshDisplayAfterOffer(getData()); // Rafraîchissez l'affichage avec le nouveau prix
                     // Mise à jour de l'interface utilisateur pour refléter le nouveau prix
                     // Affichez un message de succès
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -579,13 +591,12 @@ private String selectedNomF;
     }
 
 
-    public void refreshDisplayAfterOffer() {
+    public void refreshDisplayAfterOffer( Set<Formation> listF) {
 
         // Clear existing items
         grid.getChildren().clear();
 
         // Reload data
-        listF = getData();
         listO = getData_offre();// Suppose this fetches the updated list of formations
         // Recreate display items for each formation
         int column = 0, row = 1; int i=0;
@@ -627,6 +638,31 @@ private String selectedNomF;
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    public void search(javafx.scene.input.KeyEvent keyEvent) {
+
+        String text = chercherF_C.getText();
+        // Efface le contenu actuel de la grille
+        grid.getChildren().clear();
+
+        if (chercherF_C.getText().isEmpty()) {
+            refreshDisplayAfterOffer(getData());
+
+        } else {
+            // Si le champ de recherche n'est pas vide, effectuer une recherche dynamique par nom de formation
+            // Récupère les formations correspondant au texte saisi
+            Set<Formation> formations = null;
+            try {
+                formations = sf.rechercherFormationsParNom(text);
+                // Affiche les formations trouvées dans la grille
+                refreshDisplayAfterOffer(formations);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+
+
         }
     }
 

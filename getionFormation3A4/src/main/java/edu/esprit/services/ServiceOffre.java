@@ -13,7 +13,7 @@ public class ServiceOffre implements IService<Offre> {
     private Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
-    public void ajouter(Offre offre) throws SQLException{
+    public void ajouter(Offre offre) throws SQLException {
         String req = "INSERT INTO `offre`(`prixOffre`, `description`, `dateD`, `dateF`, `idFormation`) VALUES (?,?,?,?,?)";
 
         // Convertir java.util.Date en java.sql.Date
@@ -43,7 +43,7 @@ public class ServiceOffre implements IService<Offre> {
         System.out.println("Offre ajoutée !");
     }
 
-    public void ajouter1(Offre offre) throws SQLException{
+    public void ajouter1(Offre offre) throws SQLException {
         String req = "INSERT INTO `offre`(`prixOffre`, `description`, `dateD`, `dateF`) VALUES (?,?,?,?)";
 
         // Convertir java.util.Date en java.sql.Date
@@ -73,39 +73,40 @@ public class ServiceOffre implements IService<Offre> {
     }
 
 
-    public void ajouter(Offre offre, int idFormation) throws SQLException{
+    public void ajouter(Offre offre, int idFormation) throws SQLException {
 
-             String req = "INSERT INTO `offre`(`prixOffre`, `description`, `dateD`, `dateF`,`idFormation`) VALUES (?,?,?,?,?)";
+        String req = "INSERT INTO `offre`(`prixOffre`, `description`, `dateD`, `dateF`,`idFormation`) VALUES (?,?,?,?,?)";
 
-                 PreparedStatement ps = cnx.prepareStatement(req);
-                 ps.setDouble(1, offre.getPrixOffre());
-                 ps.setString(2, offre.getDescription());
-                 ps.setDate(3, new java.sql.Date(offre.getDateD().getTime()));
-                 ps.setDate(4, new java.sql.Date(offre.getDateF().getTime()));
-                 ps.setInt(5, offre.getIdFormation());
-                 ps.executeUpdate();
-                 System.out.println("offre ajouté !");
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setDouble(1, offre.getPrixOffre());
+        ps.setString(2, offre.getDescription());
+        ps.setDate(3, new java.sql.Date(offre.getDateD().getTime()));
+        ps.setDate(4, new java.sql.Date(offre.getDateF().getTime()));
+        ps.setInt(5, offre.getIdFormation());
+        ps.executeUpdate();
+        System.out.println("offre ajouté !");
 
 
     }
+
     @Override
-    public void modifier(Offre offre) throws SQLException{
+    public void modifier(Offre offre) throws SQLException {
         // Assurez-vous que la connexion à la base de données (cnx) est correctement établie
 
         String req = "UPDATE offre SET prixOffre = ?, description = ?, dateD = ?, dateF = ?  WHERE idOffre = ?";
 
-            PreparedStatement ps = cnx.prepareStatement(req);
-        java.sql.Date    a=  new java.sql.Date(offre.getDateD().getTime());
-        java.sql.Date    b=new java.sql.Date(offre.getDateF().getTime());
+        PreparedStatement ps = cnx.prepareStatement(req);
+        java.sql.Date a = new java.sql.Date(offre.getDateD().getTime());
+        java.sql.Date b = new java.sql.Date(offre.getDateF().getTime());
         if (!isValidPrix(offre.getPrixOffre())) {
             System.out.println("Le prix doit etre positive!");
 
-            return;}
-        else if(!isValidDate(a,b)) {
+            return;
+        } else if (!isValidDate(a, b)) {
             System.out.println("Le prix doit etre positive!");
 
             return;
-        } else if (!isValidDate(a,b)&&!isValidPrix(offre.getPrixOffre())) {
+        } else if (!isValidDate(a, b) && !isValidPrix(offre.getPrixOffre())) {
             System.out.println("Le prix doit etre positive et la date n'est pas valide!");
             return;
 
@@ -124,40 +125,40 @@ public class ServiceOffre implements IService<Offre> {
     }
 
     @Override
-    public void supprimer(int idOffre) throws SQLException{
+    public void supprimer(int idOffre) throws SQLException {
         String req = "DELETE FROM offre WHERE idOffre = ?";
 
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, idOffre);
-            ps.executeUpdate();
-            System.out.println("Offre supprimé !");
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, idOffre);
+        ps.executeUpdate();
+        System.out.println("Offre supprimé !");
 
     }
 
     @Override
-    public Offre getOneById(int idOffre) throws SQLException{
-        Offre offre=null;
+    public Offre getOneById(int idOffre) throws SQLException {
+        Offre offre = null;
         String req = "SELECT o.*, f.nom FROM offre o INNER JOIN formation f ON o.idFormation = f.idFormation WHERE o.idOffre = ?";
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, idOffre);
-            ResultSet res = ps.executeQuery();
-        Formation formation=new Formation();
-            if (res.next()) {
-                double prixOffre = res.getDouble("prixOffre");
-                String description = res.getString("description");
-                Date dateD = res.getDate("dateD");
-                Date dateF = res.getDate("dateF");
-formation.setNom(res.getString("nom"));
-                 offre = new Offre(idOffre, prixOffre, description, dateD, dateF,formation);
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, idOffre);
+        ResultSet res = ps.executeQuery();
+        Formation formation = new Formation();
+        if (res.next()) {
+            double prixOffre = res.getDouble("prixOffre");
+            String description = res.getString("description");
+            Date dateD = res.getDate("dateD");
+            Date dateF = res.getDate("dateF");
+            formation.setNom(res.getString("nom"));
+            offre = new Offre(idOffre, prixOffre, description, dateD, dateF, formation);
 
-                offre.setPrixOffre(prixOffre);
-                offre.setDescription(description);
-                offre.setDateD(dateD);
-                offre.setDateF(dateF);
-                offre.setFormation(formation);
+            offre.setPrixOffre(prixOffre);
+            offre.setDescription(description);
+            offre.setDateD(dateD);
+            offre.setDateF(dateF);
+            offre.setFormation(formation);
 
-                return offre;
-            }
+            return offre;
+        }
 
 
         return null;
@@ -165,31 +166,31 @@ formation.setNom(res.getString("nom"));
 
 
     @Override
-    public List<Offre> getAll() throws SQLException{
+    public List<Offre> getAll() throws SQLException {
         List<Offre> offres = new ArrayList<>();
 
 
         String req = "SELECT o.*, f.nom FROM offre o INNER JOIN formation f ON o.idFormation = f.idFormation";
 
-            Statement st = cnx.createStatement();
-            ResultSet res = st.executeQuery(req);
-            while (res.next()) {
-                int idOffre = res.getInt("idOffre");
-                double prixOffre = res.getDouble("prixOffre");
-                String description = res.getString("description");
-                Date dateD = res.getDate("dateD");
-                Date dateF = res.getDate("dateF");
-                Formation formation =new Formation();
-                formation.setNom(res.getString("nom"));
-                Offre offre = new Offre(prixOffre, description, dateD, dateF,formation);
-                offres.add(offre);
-            }
+        Statement st = cnx.createStatement();
+        ResultSet res = st.executeQuery(req);
+        while (res.next()) {
+            int idOffre = res.getInt("idOffre");
+            double prixOffre = res.getDouble("prixOffre");
+            String description = res.getString("description");
+            Date dateD = res.getDate("dateD");
+            Date dateF = res.getDate("dateF");
+            Formation formation = new Formation();
+            formation.setNom(res.getString("nom"));
+            Offre offre = new Offre(prixOffre, description, dateD, dateF, formation);
+            offres.add(offre);
+        }
 
 
         return offres;
     }
 
-    public List<Offre> getAll1() throws SQLException{
+    public List<Offre> getAll1() throws SQLException {
         List<Offre> offres = new ArrayList<>();
 
 
@@ -203,7 +204,30 @@ formation.setNom(res.getString("nom"));
             String description = res.getString("description");
             Date dateD = res.getDate("dateD");
             Date dateF = res.getDate("dateF");
-            Offre offre = new Offre(idOffre,prixOffre, description, dateD, dateF);
+            Offre offre = new Offre(idOffre, prixOffre, description, dateD, dateF);
+
+            offres.add(offre);
+        }
+
+
+        return offres;
+    }
+    public List<Offre> rechercherOffreParNom(String descriptionO) throws SQLException {
+        List<Offre> offres = new ArrayList<>();
+
+        String query = "SELECT * FROM offre WHERE LOWER(description) LIKE  '"+descriptionO+"%' ";
+        PreparedStatement ps = cnx.prepareStatement(query);
+
+        ResultSet res = ps.executeQuery();
+
+        // Parcourir les résultats de la requête et ajouter les formations à la liste
+        while (res.next()) {
+            int idOffre = res.getInt("idOffre");
+            double prixOffre = res.getDouble("prixOffre");
+            String description = res.getString("description");
+            Date dateD = res.getDate("dateD");
+            Date dateF = res.getDate("dateF");
+            Offre offre = new Offre(idOffre, prixOffre, description, dateD, dateF);
 
             offres.add(offre);
         }
@@ -225,7 +249,7 @@ formation.setNom(res.getString("nom"));
         return dates;
     }
 
-    public List<Offre> getAll2() throws SQLException{
+    public List<Offre> getAll2() throws SQLException {
         List<Offre> offres = new ArrayList<>();
 
 
@@ -240,7 +264,7 @@ formation.setNom(res.getString("nom"));
             Date dateD = res.getDate("dateD");
             Date dateF = res.getDate("dateF");
             int idFormation = res.getInt("idFormation");
-            Offre offre = new Offre(idOffre,prixOffre, description, dateD, dateF, idFormation);
+            Offre offre = new Offre(idOffre, prixOffre, description, dateD, dateF, idFormation);
 
             offres.add(offre);
         }
@@ -248,10 +272,11 @@ formation.setNom(res.getString("nom"));
 
         return offres;
     }
+
     public boolean offreExistsForFormation(int idFormation) throws SQLException {
         boolean offreExists = false;
 
-        ResultSet res= null;
+        ResultSet res = null;
 
         try {
             // Créer la connexion à la base de données
@@ -260,7 +285,7 @@ formation.setNom(res.getString("nom"));
             String query = "SELECT COUNT(*) FROM offre WHERE idFormation = ?";
             PreparedStatement ps = cnx.prepareStatement(query);
             ps.setInt(1, idFormation);
-             res = ps.executeQuery();
+            res = ps.executeQuery();
 
             // Récupérer le résultat
             if (res.next()) {
@@ -276,20 +301,30 @@ formation.setNom(res.getString("nom"));
     }
 
 
-    public void supprimeroffreById(int id) throws SQLException{
+    public void supprimeroffreById(int id) throws SQLException {
 
 
-            String req = "DELETE FROM `offre` WHERE idFormation = ?";
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, id);
-            int rowsAffected = ps.executeUpdate();
-            System.out.println(rowsAffected + " offre supprimée !");
+        String req = "DELETE FROM `offre` WHERE idFormation = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, id);
+        int rowsAffected = ps.executeUpdate();
+        System.out.println(rowsAffected + " offre supprimée !");
 
     }
 
     public boolean isValidPrix(Double prix) {
-        return prix > 0   ; }
-    public boolean isValidDate(java.sql.Date dt1 , java.sql.Date dt2) {
-        return dt1.before(dt2)  ; }
-}
+        return prix > 0;
+    }
+
+    public boolean isValidDate(java.sql.Date dt1, java.sql.Date dt2) {
+        return dt1.before(dt2);
+    }
+
+
+
+
+    }
+
+
+
 
