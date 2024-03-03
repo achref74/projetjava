@@ -10,15 +10,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="725.0" prefWidth="1100.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierFormateur">
+<AnchorPane prefHeight="725.0" prefWidth="978.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierFormateur">
    <children>
-      <TextField fx:id="nom1" layoutX="467.0" layoutY="110.0" prefHeight="40.0" prefWidth="149.0" />
-      <TextField fx:id="prenom1" layoutX="902.0" layoutY="105.0" prefHeight="40.0" prefWidth="150.0" />
-      <TextField fx:id="email1" layoutX="467.0" layoutY="180.0" prefHeight="40.0" prefWidth="149.0" />
-      <TextField fx:id="dt1" layoutX="902.0" layoutY="173.0" prefHeight="40.0" prefWidth="149.0" />
-      <TextField fx:id="adresse1" layoutX="466.0" layoutY="272.0" prefHeight="40.0" prefWidth="149.0" />
-      <TextField fx:id="numtel1" layoutX="902.0" layoutY="244.0" prefHeight="40.0" prefWidth="149.0" />
-      <TextField fx:id="disponibilite1" layoutX="467.0" layoutY="344.0" prefHeight="40.0" prefWidth="149.0" />
+      <ImageView fitHeight="798.0" fitWidth="1639.0" layoutX="-286.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Capture.JPG" />
+         </image>
+      </ImageView>
+      <TextField fx:id="nom1" layoutX="467.0" layoutY="110.0" prefHeight="40.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="prenom1" layoutX="795.0" layoutY="106.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="email1" layoutX="467.0" layoutY="180.0" prefHeight="40.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="dt1" layoutX="793.0" layoutY="176.0" prefHeight="40.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="adresse1" layoutX="466.0" layoutY="272.0" prefHeight="40.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="numtel1" layoutX="793.0" layoutY="237.0" prefHeight="40.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="disponibilite1" layoutX="467.0" layoutY="344.0" prefHeight="40.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
       <Text fill="GREY" layoutX="353.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom:" wrappingWidth="80.0">
          <font>
             <Font size="17.0" />
@@ -29,7 +34,7 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="GREY" layoutX="712.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom:" wrappingWidth="80.0">
+      <Text fill="GREY" layoutX="642.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom:" wrappingWidth="80.0">
          <font>
             <Font size="17.0" />
          </font>
@@ -39,12 +44,12 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="GREY" layoutX="716.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date De Naissance:" wrappingWidth="172.0">
+      <Text fill="GREY" layoutX="646.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date De Naissance:" wrappingWidth="172.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="GREY" layoutX="716.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero tel:" wrappingWidth="149.0">
+      <Text fill="GREY" layoutX="646.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero tel:" wrappingWidth="149.0">
          <font>
             <Font size="17.0" />
          </font>
@@ -54,7 +59,7 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="GREY" layoutX="716.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Specialité:" wrappingWidth="149.0">
+      <Text fill="GREY" layoutX="646.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Specialité:" wrappingWidth="149.0">
          <font>
             <Font size="17.0" />
          </font>
@@ -64,12 +69,12 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="GREY" layoutX="716.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CV" wrappingWidth="149.0">
+      <Text fill="GREY" layoutX="646.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CV" wrappingWidth="149.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="GREY" layoutX="716.0" layoutY="606.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre" wrappingWidth="149.0">
+      <Text fill="GREY" layoutX="646.0" layoutY="606.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre" wrappingWidth="149.0">
          <font>
             <Font size="17.0" />
          </font>
@@ -79,18 +84,18 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <ComboBox fx:id="fxgenre" layoutX="893.0" layoutY="580.0" prefHeight="40.0" prefWidth="150.0" />
+      <ComboBox fx:id="fxgenre" layoutX="792.0" layoutY="568.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
       <Label fx:id="fxerrormail" alignment="CENTER" layoutX="455.0" layoutY="232.0" prefHeight="25.0" prefWidth="172.0" text="Email invalid" textFill="RED">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Label fx:id="fxerrornum" alignment="CENTER" layoutX="891.0" layoutY="290.0" prefHeight="25.0" prefWidth="172.0" text="numero invalid" textFill="RED">
+      <Label fx:id="fxerrornum" alignment="CENTER" layoutX="795.0" layoutY="290.0" prefHeight="25.0" prefWidth="172.0" text="numero invalid" textFill="RED">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <ComboBox fx:id="niveauaca" layoutX="467.0" layoutY="422.0" prefHeight="40.0" prefWidth="150.0" />
-      <ComboBox fx:id="specialite" layoutX="893.0" layoutY="347.0" prefHeight="40.0" prefWidth="150.0" />
-      <ImageView fx:id="fximg" fitHeight="150.0" fitWidth="200.0" layoutX="868.0" layoutY="410.0" onMouseClicked="#choisirphoto" pickOnBounds="true" preserveRatio="true" />
+      <ComboBox fx:id="niveauaca" layoutX="467.0" layoutY="422.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <ComboBox fx:id="specialite" layoutX="792.0" layoutY="336.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <ImageView fx:id="fximg" fitHeight="150.0" fitWidth="200.0" layoutX="752.0" layoutY="398.0" onMouseClicked="#choisirphoto" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="photoprofile" fitHeight="150.0" fitWidth="200.0" layoutX="442.0" layoutY="497.0" onMouseClicked="#choisirphotoprofile" pickOnBounds="true" preserveRatio="true" />
       <AnchorPane prefHeight="729.0" prefWidth="272.0" style="-fx-background-color: #05071F;">
          <children>
@@ -103,5 +108,10 @@
             <Button layoutX="137.0" layoutY="567.0" mnemonicParsing="false" onAction="#modofoerformateur" prefHeight="40.0" prefWidth="104.0" style="-fx-background-color: #0D0D3D; -fx-background-radius: 20;" text="Modifier" textFill="#1868fc" />
          </children>
       </AnchorPane>
+      <Label layoutX="563.0" layoutY="28.0" text="Modifier Compte" textFill="#4d492c">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

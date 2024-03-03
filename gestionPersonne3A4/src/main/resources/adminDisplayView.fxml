@@ -23,8 +23,8 @@
                </font></Text>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                      <TextField fx:id="fxserarchText" onKeyReleased="#initContainer" prefHeight="26.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
-                  <ImageView fitHeight="30.0" fitWidth="35.0" onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
+                      <TextField fx:id="fxserarchText" onKeyReleased="#search" prefHeight="26.0" prefWidth="169.0" style="-fx-background-radius: 30;" />
+                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/search.png" />
                      </image>

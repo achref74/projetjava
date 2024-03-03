@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 public  class ServiceUser implements IServiceUser<User> {
     Connection cnx = DataSource.getInstance().getCnx();
+    List<User> lu = getAll();
     public static int codeAjout = 0;
     @Override
     public void ajouter(User user) {
@@ -45,6 +46,7 @@ public  class ServiceUser implements IServiceUser<User> {
 
                     ps.executeUpdate();
                     System.out.println("Client added !");
+                    lu = getAll();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
@@ -74,6 +76,7 @@ public  class ServiceUser implements IServiceUser<User> {
 
                     ps.executeUpdate();
                     System.out.println("formateur added !");
+                    lu = getAll();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
@@ -96,6 +99,7 @@ public  class ServiceUser implements IServiceUser<User> {
 
                     ps.executeUpdate();
                     System.out.println("admin added !");
+                    lu = getAll();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
@@ -132,6 +136,7 @@ public  class ServiceUser implements IServiceUser<User> {
                 ps.setInt(11, c.getId());
                 ps.executeUpdate();
                 System.out.println("Client updated !");
+                lu = getAll();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
@@ -164,6 +169,7 @@ public  class ServiceUser implements IServiceUser<User> {
                 ps.setInt(14, f.getId());
                 ps.executeUpdate();
                 System.out.println("formateur updated !");
+                lu = getAll();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
@@ -185,6 +191,7 @@ public  class ServiceUser implements IServiceUser<User> {
                 ps.setInt(10, a.getId());
                 ps.executeUpdate();
                 System.out.println("admin updated !");
+                lu = getAll();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
@@ -211,10 +218,12 @@ public  class ServiceUser implements IServiceUser<User> {
                     System.out.println("Admin with id= " + id + " deleted !");
             } else {
                 System.out.println("No user found with id= " + id);
+                return;
             }
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ps.executeUpdate();
+            lu = getAll();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -351,9 +360,10 @@ public  class ServiceUser implements IServiceUser<User> {
     }
 
     public List<User> rechercher(String text, String role) {
-        if (role.equals("client")) return getAll().stream().filter(x->x instanceof Client).filter(x->x.getNom().contains(text) || x.getPrenom().contains(text)).collect(Collectors.toList());
-        else if (role.equals("formateur")) return getAll().stream().filter(x->x instanceof Formateur).filter(x->x.getNom().contains(text) || x.getPrenom().contains(text)).collect(Collectors.toList());
-        else return getAll().stream().filter(x->x.getNom().contains(text) || x.getPrenom().contains(text)).collect(Collectors.toList());
+        if (role.equals("client")) return lu.stream().filter(x->x instanceof Client).filter(x->x.getNom().contains(text) || x.getPrenom().contains(text)).collect(Collectors.toList());
+        else if (role.equals("formateur")) return lu.stream().filter(x->x instanceof Formateur).filter(x->x.getNom().contains(text) || x.getPrenom().contains(text)).collect(Collectors.toList());
+        else if(role.equals("all")) return lu.stream().filter(x->x instanceof Formateur || x instanceof Client).filter(x-> (x.getNom().contains(text) || x.getPrenom().contains(text)) ).collect(Collectors.toList());
+        return null;
     }
     private String hashof(String text) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
@@ -361,6 +371,11 @@ public  class ServiceUser implements IServiceUser<User> {
         byte[] hash = md.digest();
         return new String(hash);
     }
+    public boolean userExists(String email) {
+        // Utilise la liste des utilisateurs récupérés par getAll() pour vérifier si l'email existe.
+        return getAll().stream().anyMatch(user -> user.getEmail().equals(email));
+    }
+
 }
 
 

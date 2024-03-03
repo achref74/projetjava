@@ -52,8 +52,8 @@ public class ProfilAdmin implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //int id = Integer.parseInt(getUserId());
-       Admin a = (Admin) su.getOneById(36);
+        int id = Integer.parseInt(getUserId());
+       Admin a = (Admin) su.getOneById(id);
         fxnom.setText(a.getNom()+" "+a.getPrenom());
         fxmail.setText(a.getEmail());
         fxdate.setText(String.valueOf(a.getDateNaissance()));

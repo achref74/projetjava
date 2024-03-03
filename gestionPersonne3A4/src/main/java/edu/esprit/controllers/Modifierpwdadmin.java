@@ -37,7 +37,8 @@ public class Modifierpwdadmin implements Initializable {
     private Label fxa;
 
     ServiceUser s=new ServiceUser();
-    Admin u= (Admin) s.getOneById(36);
+    int id = Integer.parseInt(getUserId());
+    Admin u = (Admin) s.getOneById(id);
 
     @FXML
     void retournerprofile(ActionEvent event) {
@@ -55,31 +56,42 @@ public class Modifierpwdadmin implements Initializable {
 
     @FXML
     void retournerprofile2(ActionEvent event) throws NoSuchAlgorithmException {
-        if(!(fxneauvau.getText().equals(fxneauvau2.getText()))&& !(hashof(fxancien.getText()).equals(u.getMdp()))){
-            fxn.setVisible(true);
-            fxa.setVisible(true);
-        } else if (!(fxneauvau.getText().equals(fxneauvau2.getText()))) {
-            fxn.setVisible(true);
-            fxa.setVisible(false);
+        if (!fxancien.getText().isEmpty() && !fxneauvau.getText().isEmpty() && !fxneauvau2.getText().isEmpty()){
+            if(!(fxneauvau.getText().equals(fxneauvau2.getText()))&& !(hashof(fxancien.getText()).equals(u.getMdp()))){
+                fxn.setVisible(true);
+                fxa.setVisible(true);
+            } else if (!(fxneauvau.getText().equals(fxneauvau2.getText()))) {
+                fxn.setVisible(true);
+                fxa.setVisible(false);
 
-        } else if (!(hashof(fxancien.getText()).equals((u.getMdp())))) {
-            fxn.setVisible(false);
-            fxa.setVisible(true);
+            } else if (!(hashof(fxancien.getText()).equals((u.getMdp())))) {
+                fxn.setVisible(false);
+                fxa.setVisible(true);
 
-        }else{
-            Admin c=new Admin(u.getId(),u.getNom(),u.getPrenom(),u.getEmail(),u.getDateNaissance(),u.getAdresse(),u.getNumtel(),hashof(fxneauvau.getText()),u.getImg(),u.getGenre());
-            s.modifier(c);
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/profil3.fxml"));
-                fxancien.getScene().setRoot(root);
-            } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Sorry");
-                alert.setTitle("Error");
-                alert.show();
+
+            }else{
+                Admin c=new Admin(u.getId(),u.getNom(),u.getPrenom(),u.getEmail(),u.getDateNaissance(),u.getAdresse(),u.getNumtel(),hashof(fxneauvau.getText()),u.getImg(),u.getGenre());
+                s.modifier(c);
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/profil3.fxml"));
+                    fxancien.getScene().setRoot(root);
+                } catch (IOException e) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Sorry");
+                    alert.setTitle("Error");
+                    alert.show();
+                }
+
             }
 
-        }}
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Sorry please fill all data");
+            alert.setTitle("ERROR");
+            alert.show();
+        }
+
+    }
 
     private String hashof(String text) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
@@ -92,5 +104,21 @@ public class Modifierpwdadmin implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fxn.setVisible(false);
         fxa.setVisible(false);
+    }
+    public String getUserId(){
+        String data = null;
+
+        try {
+            File file = new File("src/main/resources/fichiers/session.txt");
+            Scanner myReader = new Scanner(file);
+            if (myReader.hasNextLine()) {
+                data = myReader.nextLine();
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return data;
     }
 }

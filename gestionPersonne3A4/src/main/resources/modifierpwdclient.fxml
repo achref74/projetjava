@@ -11,6 +11,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="978.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Modifierpwdclient">
    <children>
+      <ImageView fitHeight="821.0" fitWidth="1336.0" layoutX="-284.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Capture.JPG" />
+         </image>
+      </ImageView>
       <Pane prefHeight="725.0" prefWidth="236.0" style="-fx-background-color: #05071F;">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="18.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
@@ -20,7 +25,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="452.0" layoutY="41.0" prefHeight="35.0" prefWidth="302.0" text="Modifier Mot De Passe:" textFill="#b9b388">
+      <Label layoutX="452.0" layoutY="41.0" prefHeight="35.0" prefWidth="302.0" text="Modifier Mot De Passe:" textFill="#726c44">
          <font>
             <Font name="System Bold Italic" size="24.0" />
          </font>

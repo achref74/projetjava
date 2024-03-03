@@ -61,6 +61,16 @@ public class CreeCompte {
     @FXML
     void createAccount(ActionEvent event) {
         try {
+            if (fxnom.getText().trim().isEmpty() || fxprenom.getText().trim().isEmpty() ||
+                    fxemail.getText().trim().isEmpty() || fxadresse.getText().trim().isEmpty() ||
+                    fxnumtel.getText().trim().isEmpty() || fxdate.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Champs Manquants");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez remplir tous les champs.");
+                alert.showAndWait();
+                return; // Stop exécution si champs vides
+            }
             if (!(sp.isValidPhoneNumber(Integer.parseInt(fxnumtel.getText()))) && !sp.isValidEmail(fxemail.getText())) {
 
                 fxerrornum.setVisible(true);

@@ -4,71 +4,97 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="725.0" prefWidth="978.0" style="-fx-background-color: #05071F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierClient">
+<AnchorPane prefHeight="725.0" prefWidth="978.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierClient">
    <children>
-      <TextField fx:id="nom1" layoutX="148.0" layoutY="87.0" />
-      <TextField fx:id="prenom1" layoutX="674.0" layoutY="88.0" />
-      <TextField fx:id="email1" layoutX="148.0" layoutY="148.0" />
-      <TextField fx:id="dt1" layoutX="674.0" layoutY="147.0" />
-      <TextField fx:id="adresse1" layoutX="134.0" layoutY="226.0" />
-      <TextField fx:id="numtel1" layoutX="674.0" layoutY="227.0" />
-      <Button layoutX="748.0" layoutY="25.0" mnemonicParsing="false" onAction="#modofoerformateur" prefHeight="25.0" prefWidth="72.0" text="Modifier" />
-      <Button layoutX="29.0" layoutY="25.0" mnemonicParsing="false" onAction="#retournerFormateur" prefHeight="25.0" prefWidth="80.0" text="Retourner" />
-      <Text fill="WHITE" layoutX="54.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom:" wrappingWidth="80.0">
+      <ImageView fitHeight="884.0" fitWidth="1425.0" layoutX="-447.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Capture.JPG" />
+         </image>
+      </ImageView>
+      <TextField fx:id="nom1" layoutX="348.0" layoutY="99.0" prefHeight="41.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="prenom1" layoutX="781.0" layoutY="102.0" prefHeight="41.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="email1" layoutX="356.0" layoutY="174.0" prefHeight="41.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="dt1" layoutX="788.0" layoutY="186.0" prefHeight="41.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="adresse1" layoutX="356.0" layoutY="289.0" prefHeight="41.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="numtel1" layoutX="788.0" layoutY="281.0" prefHeight="41.0" prefWidth="149.0" style="-fx-background-radius: 20;" />
+      <Text fill="GREY" layoutX="257.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom:" wrappingWidth="80.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="54.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" wrappingWidth="80.0">
+      <Text fill="GREY" layoutX="263.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" wrappingWidth="80.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="573.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom:" wrappingWidth="80.0">
+      <Text fill="GREY" layoutX="663.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom:" wrappingWidth="80.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="36.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse:" wrappingWidth="80.0">
+      <Text fill="GREY" layoutX="263.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse:" wrappingWidth="80.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="495.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date De Naissance:" wrappingWidth="172.0">
+      <Text fill="GREY" layoutX="609.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date De Naissance:" wrappingWidth="172.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="556.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero tel:" wrappingWidth="115.0">
+      <Text fill="GREY" layoutX="670.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero tel:" wrappingWidth="115.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="573.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre:" wrappingWidth="80.0">
+      <Text fill="GREY" layoutX="670.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre:" wrappingWidth="80.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="35.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo De Profil:" wrappingWidth="149.0">
+      <Text fill="GREY" layoutX="207.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo De Profil:" wrappingWidth="149.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <ComboBox fx:id="fxgenre" layoutX="667.0" layoutY="305.0" prefWidth="150.0" />
-      <Label fx:id="fxerrormail" layoutX="148.0" layoutY="181.0" prefHeight="25.0" prefWidth="172.0" text="Email invalid" textFill="RED" />
-      <Label fx:id="fxerrornum" layoutX="674.0" layoutY="262.0" prefHeight="25.0" prefWidth="172.0" text="numero invalid" textFill="RED" />
-      <ImageView fx:id="photoprofile" fitHeight="150.0" fitWidth="200.0" layoutX="197.0" layoutY="305.0" onMouseClicked="#choisirphotoprofile" pickOnBounds="true" preserveRatio="true" />
-      <ComboBox fx:id="fxnivsco" layoutX="673.0" layoutY="368.0" prefWidth="150.0" />
-      <Text fill="WHITE" layoutX="510.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau Scolaire:" wrappingWidth="142.0">
+      <ComboBox fx:id="fxgenre" layoutX="788.0" layoutY="399.0" prefHeight="41.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <Label fx:id="fxerrormail" alignment="CENTER" layoutX="344.0" layoutY="225.0" prefHeight="25.0" prefWidth="172.0" text="Email invalid" textFill="RED">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Label fx:id="fxerrornum" alignment="CENTER" layoutX="777.0" layoutY="340.0" prefHeight="25.0" prefWidth="172.0" text="numero invalid" textFill="RED">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <ImageView fx:id="photoprofile" fitHeight="150.0" fitWidth="200.0" layoutX="366.0" layoutY="379.0" onMouseClicked="#choisirphotoprofile" pickOnBounds="true" preserveRatio="true" />
+      <ComboBox fx:id="fxnivsco" layoutX="788.0" layoutY="482.0" prefHeight="41.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
+      <Text fill="GREY" layoutX="632.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau Scolaire:" wrappingWidth="142.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
+      <Pane layoutY="4.0" prefHeight="791.0" prefWidth="208.0" style="-fx-background-color: #05071F;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="172.0" layoutX="14.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="489.0" layoutY="30.0" text="Modifier Compte" textFill="#3c3a2c">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="242.0" layoutY="24.0" mnemonicParsing="false" onAction="#retournerFormateur" prefHeight="41.0" prefWidth="103.0" style="-fx-background-radius: 20; -fx-background-color: #0D0D3D;" text="Retourner" textFill="#2383ff" />
+      <Button layoutX="746.0" layoutY="605.0" mnemonicParsing="false" onAction="#modofoerformateur" prefHeight="41.0" prefWidth="103.0" style="-fx-background-radius: 20; -fx-background-color: #0D0D3D;" text="Modifier" textFill="#1f80ff" />
    </children>
 </AnchorPane>

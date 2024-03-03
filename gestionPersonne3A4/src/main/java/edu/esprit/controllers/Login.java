@@ -17,14 +17,39 @@ import javafx.stage.Stage;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.security.NoSuchAlgorithmException;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.Random;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 
 public class Login {
+    private static class LoginAttempt {
+        int attempts;
+        LocalDateTime lastAttemptTime;
+
+        LoginAttempt() {
+            this.attempts = 1;
+            this.lastAttemptTime = LocalDateTime.now();
+        }
+
+        void incrementAttempts() {
+            this.attempts++;
+            this.lastAttemptTime = LocalDateTime.now();
+        }
+
+        boolean canAttempt() {
+            return LocalDateTime.now().isAfter(this.lastAttemptTime.plusMinutes(15)) || this.attempts < 3;
+        }
+
+        void reset() {
+            this.attempts = 0;
+            this.lastAttemptTime = LocalDateTime.now();
+        }
+    }
+
+    private Map<String, LoginAttempt> loginAttempts = new HashMap<>();
+
     @FXML
     public Label errormsg;
     @FXML
@@ -32,6 +57,9 @@ public class Login {
 
     @FXML
     private TextField f2;
+    public Login() {
+        loadLoginAttempts();
+    }
 
 
     private void sendEmailWithOTP(String toEmail, String otp) {
@@ -62,6 +90,88 @@ public class Login {
         }
     }
 
+    @FXML
+    private void navigateafficher(ActionEvent event) {
+        try {
+            String mail = f1.getText();
+            String pass = f2.getText();
+            ServiceUser s = new ServiceUser();
+            errormsg.setText("");
+
+            if (pass.isEmpty() || mail.isEmpty()) {
+                showAlert("ERROR !!", "PLEASE FILL ALL DATA");
+                return;
+            }
+
+            // Chargement des tentatives précédentes (si l'application vient d'être lancée)
+            loadLoginAttempts();
+
+            // Vérification si l'utilisateur existe
+            if (!s.userExists(mail)) {
+                showAlert("Login Failed", "User does not exist.");
+                return;
+            }
+
+            // Obtention ou création de l'objet LoginAttempt pour cet utilisateur
+            LoginAttempt attempt = loginAttempts.getOrDefault(mail, new LoginAttempt());
+
+            // Vérification si le compte est actuellement banni
+            if (!attempt.canAttempt()) {
+                showAlert("Account Locked", "Your account has been locked due to too many failed login attempts. Please try again in 15 minutes.");
+                return;
+            }
+
+            // Tentative de connexion
+            String accountType = s.login(mail, pass);
+            if (accountType .equals("Nulle")) {
+                // Échec de la connexion, gestion de la tentative échouée
+                attempt.incrementAttempts();
+                loginAttempts.put(mail, attempt);
+                saveLoginAttempts();
+
+                if (attempt.attempts >= 3) {
+                    showAlert("Too Many Failed Attempts", "Your account has been locked for 15 minutes.");
+                } else {
+                    showAlert("Login Failed", "Incorrect password. Please try again.");
+                }
+            } else {
+                // Réussite de la connexion, réinitialisation des tentatives
+                attempt.reset();
+                loginAttempts.put(mail, attempt);
+                saveLoginAttempts();
+
+                // Redirection vers la scène appropriée
+                if ("Admin".equals(accountType)) {
+                    loadScene("/menuAdmin.fxml", event);
+                } else {
+                    initiateOTPProcess(mail, accountType, event);
+                }
+                storeSession(s.getIdByEmail(mail));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error", "An unexpected error occurred.");
+        }
+    }
+
+
+    private void resetLoginAttempt(String mail) {
+        LoginAttempt attempt = loginAttempts.getOrDefault(mail, new LoginAttempt());
+        attempt.reset();
+        loginAttempts.put(mail, attempt);
+        saveLoginAttempts();
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+// Assurez-vous que les méthodes `loadScene`, `initiateOTPProcess`, `saveLoginAttempts`, `storeSession` et `userExists` sont correctement implémentées.
+
     private String generateOTP() {
         int length = 6;
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -72,53 +182,6 @@ public class Login {
         }
         return sb.toString();
     }
-
-    @FXML
-    private void navigateafficher(ActionEvent event) throws IOException, NoSuchAlgorithmException {
-        String mail = f1.getText();
-        String pass = f2.getText();
-        ServiceUser s = new ServiceUser();
-        errormsg.setText("");
-
-        if (pass.isEmpty() || mail.isEmpty()) {
-            // Error handling for empty fields
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR !!");
-            alert.setContentText("PLEASE FILL ALL DATA");
-            alert.showAndWait();
-        } else {
-            String accountType = s.login(mail, pass);
-            if(accountType.equals("Admin")){
-                loadScene("/menuAdmin.fxml",event);
-            }
-           else if (accountType.equals("client") || accountType.equals("Formateur") ) {
-                String otp = generateOTP();
-                sendEmailWithOTP(mail, otp);
-                errormsg.setVisible(false);
-
-                TextInputDialog dialog = new TextInputDialog();
-                dialog.setTitle("OTP Verification");
-                dialog.setHeaderText(null);
-                dialog.setContentText("Enter your OTP:");
-                Optional<String> result = dialog.showAndWait();
-
-                if (result.isPresent() && result.get().equals(otp)) {
-                    // Proceed with navigation after successful OTP verification
-                    String fxmlPath = accountType.equals("Admin") ? "/menuAdmin.fxml" : "/menuApplication.fxml";
-                    Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-                    f1.getScene().setRoot(root);
-                    storeSession(s.getIdByEmail(mail));
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setContentText("Incorrect OTP. Please try again.");
-                    alert.showAndWait();
-                }
-            } else {
-                errormsg.setText("User name or password is incorrect");
-            }
-        }
-    }
-
 
     public void navigatesinscrire(ActionEvent actionEvent) {
         try {
@@ -151,6 +214,80 @@ public class Login {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    private void saveLoginAttempts() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/fichiers/loginAttempts.txt"))) {
+            for (Map.Entry<String, LoginAttempt> entry : loginAttempts.entrySet()) {
+                bw.write(entry.getKey() + "," + entry.getValue().attempts + "," + entry.getValue().lastAttemptTime);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadLoginAttempts() {
+        loginAttempts.clear(); // Clear existing attempts
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/fichiers/loginAttempts.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    String email = parts[0];
+                    LoginAttempt attempt = new LoginAttempt();
+                    attempt.attempts = Integer.parseInt(parts[1]);
+                    attempt.lastAttemptTime = LocalDateTime.parse(parts[2]);
+                    loginAttempts.put(email, attempt);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Login attempts file not found. Starting fresh.");
+        } catch (IOException | DateTimeParseException e) {
+            e.printStackTrace();
+        }
+    }
+    private void initiateOTPProcess(String mail, String accountType, ActionEvent event) throws IOException {
+        // Générer un OTP. Cette méthode suppose que vous avez une manière de générer un OTP unique.
+        String otp = generateOTP();
+
+        // Simuler l'envoi de l'OTP à l'utilisateur. Dans une application réelle, vous enverriez l'OTP via un service d'email ou de SMS.
+        sendEmailWithOTP(mail, otp);
+
+        // Demander à l'utilisateur de saisir l'OTP envoyé.
+        TextInputDialog otpDialog = new TextInputDialog();
+        otpDialog.setTitle("Verification OTP");
+        otpDialog.setHeaderText("Une vérification OTP est nécessaire pour continuer");
+        otpDialog.setContentText("Veuillez entrer l'OTP envoyé à votre adresse email:");
+
+        // Afficher la boîte de dialogue et attendre la saisie de l'utilisateur.
+        Optional<String> result = otpDialog.showAndWait();
+
+        // Vérifier si l'OTP saisi par l'utilisateur correspond à celui généré/envoyé.
+        if (result.isPresent() && result.get().equals(otp)) {
+            // L'OTP est correct, naviguer vers la scène appropriée en fonction du type de compte.
+            String fxmlPath = accountType.equals("Admin") ? "/menuAdmin.fxml" : "/menuApplication.fxml";
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            f1.getScene().setRoot(root);
+        } else {
+            // L'OTP est incorrect, afficher un message d'erreur.
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de vérification OTP");
+            alert.setHeaderText(null);
+            alert.setContentText("L'OTP saisi est incorrect. Veuillez réessayer.");
+            alert.showAndWait();
+        }
+    }
+    private void handleFailedLoginAttempt(String mail) {
+        LoginAttempt attempt = loginAttempts.getOrDefault(mail, new LoginAttempt());
+        attempt.incrementAttempts();
+        loginAttempts.put(mail, attempt);
+        saveLoginAttempts();
+
+        if (attempt.attempts >= 3) {
+            showAlert("Account Locked", "Your account has been locked due to too many failed login attempts. Please try again in 15 minutes.");
+        } else {
+            showAlert("Login Failed", "Incorrect password. Please try again.");
         }
     }
 

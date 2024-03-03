@@ -128,6 +128,7 @@ public class AdminDisplay implements Initializable{
         initialize(null, null);
     }
 
+    /*
     public void search(MouseEvent mouseEvent) {
         String role = null;
         if (fxtout.isSelected()) role = "all";
@@ -139,14 +140,27 @@ public class AdminDisplay implements Initializable{
         lu = result;
         container.getChildren().clear();
         initialize(null, null);
-    }
+    }*/
 
-    public void initContainer(KeyEvent keyEvent) {
+    public void search(KeyEvent keyEvent) {
+        String role = null;
+
         if(fxserarchText.getText().isEmpty()){
             if(fxtout.isSelected()) affichageTotal(null);
             else if(fxclient.isSelected()) onlyClient(null);
             else if(fxformateur.isSelected()) onlyFormateur(null);
+        }else{
+            if (fxtout.isSelected()) role = "all";
+            else if (fxclient.isSelected()) role = "client";
+            else role = "formateur";
+
+            String text = fxserarchText.getText();
+            List<User> result = su.rechercher(text,role);
+            lu = result;
+            container.getChildren().clear();
+            initialize(null, null);
         }
+
     }
 
     public void navigerAdmin(ActionEvent actionEvent) {
