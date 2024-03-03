@@ -72,7 +72,7 @@ public class ServiceQuestion implements IService<Question>{
             System.err.println("Erreur lors de la mise à jour de la réponse : " + e.getMessage());
             e.printStackTrace();       }
     }
-    public void modifierFormateur(Question question) {
+    public void modifiercorrection(Question question) {
         String req = "UPDATE `question` SET `ressource`=?, `duree`=?, `point`=?, `choix1`=?, `choix2`=?, `choix3`=?, `crx`=? WHERE `id_q`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -82,7 +82,6 @@ public class ServiceQuestion implements IService<Question>{
             ps.setString(4, question.getChoix1());
             ps.setString(5, question.getChoix2());
             ps.setString(6, question.getChoix3());
-
             ps.setString(7, question.getCrx());
             ps.setInt(8, question.getId_q());
             ps.executeUpdate();

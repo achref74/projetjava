@@ -81,17 +81,19 @@ this.crx.setText(question.getCrx());
         } else if (troisiemechoix.isSelected()) {
             reponse=text3.getText();
         }
-        // Enregistrer les modifications dans la base de données
+        question.setRessource(ressource.getText());
         question.setReponse(reponse);
-            question.setCrx(crx.getText());
-            question.setChoix1(text1.getText());
+         question.setChoix1(text1.getText());
             question.setChoix2(text2.getText());
             question.setChoix3(text3.getText());
+            question.setCrx(
+
+          crx.getText()  );
             question.setDuree(Integer.parseInt(duree.getText()));
             question.setPoint(Integer.parseInt(points.getText()));
 
             ServiceQuestion serviceQuestion = new ServiceQuestion(); // Vous devriez peut-être réfléchir à une meilleure gestion de la création du service
-            serviceQuestion.modifier(question);
+            serviceQuestion.modifiercorrection(question);
         } catch (NumberFormatException e) {
             // Gérez l'exception si la conversion de chaînes en entiers échoue
             // Par exemple, affichez un message d'erreur à l'utilisateur

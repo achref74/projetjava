@@ -4,8 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -28,38 +26,23 @@
             <left>
                 <VBox prefHeight="810.0" prefWidth="353.0" style="-fx-border-style: none; -fx-background-color: #05071F;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
-                            <children>
-                                <Label prefHeight="50.0" prefWidth="505.0" text="Infos d'une Evalutaion" textFill="#878787">
-                                    <font>
-                                        <Font name="Cambria Bold" size="24.0" />
-                                    </font>
-                           <HBox.margin>
-                              <Insets left="30.0" />
-                           </HBox.margin>
-                                </Label>
-                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0" stylesheets="@style.css" VBox.vgrow="NEVER">
-                            <VBox.margin>
-                                <Insets left="30.0" right="30.0" />
-                            </VBox.margin>
-                            <children>
-                                <TextField prefHeight="36.0" prefWidth="297.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css" text="Tapez pour rechercher ">
-                                    <HBox.margin>
-                                        <Insets left="20.0" />
-                                    </HBox.margin>
-                                    <font>
-                                        <Font name="Cambria" size="18.0" />
-                                    </font>
-                                </TextField>
-                                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@style.css" text="Ok" textFill="WHITE" />
-                            </children>
-                            <styleClass>
-                                <String fx:value="search-box" />
-                                <String fx:value="shadow" />
-                            </styleClass>
-                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logo.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="70.0" top="-80.0" />
+                     </VBox.margin>
+                  </ImageView>
+                          <Label prefHeight="50.0" prefWidth="505.0" text="Infos d'une Evalutaion" textFill="#878787">
+                              <font>
+                                  <Font name="Cambria Bold" size="24.0" />
+                              </font>
+                     <VBox.margin>
+                        <Insets left="30.0" />
+                     </VBox.margin>
+                          </Label>
                     </children>
                 </VBox>
             </left>
@@ -146,18 +129,18 @@
                             </VBox.margin>
                         </HBox>
                         <Pane prefHeight="48.0" prefWidth="909.0" />
-                        <HBox alignment="CENTER" prefHeight="645.0" prefWidth="909.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="513.0" prefWidth="962.0" VBox.vgrow="ALWAYS">
                             <children>
-                        <VBox fx:id="Evaluation" alignment="CENTER" prefHeight="631.0" prefWidth="735.0" style="-fx-background-color: #BC8F8F;" stylesheets="@style.css">
+                        <VBox fx:id="Evaluation" alignment="CENTER" prefHeight="531.0" prefWidth="760.0" style="-fx-background-color: #BC8F8F;" stylesheets="@style.css">
                            <children>
-                              <HBox prefHeight="0.0" prefWidth="919.0">
+                              <HBox prefHeight="66.0" prefWidth="740.0">
                                  <VBox.margin>
-                                    <Insets left="20.0" top="30.0" />
+                                    <Insets bottom="30.0" left="20.0" top="20.0" />
                                  </VBox.margin>
                                  <children>
                                     <Label prefHeight="50.0" prefWidth="220.0" text="Evaluation" textFill="#f4f3f3">
                                        <font>
-                                          <Font name="Cambria" size="40.0" />
+                                          <Font name="Cambria" size="36.0" />
                                        </font>
                                     </Label>
                                     <VBox prefHeight="58.0" prefWidth="178.0">
@@ -172,48 +155,52 @@
                                        <children>
                                           <Label prefHeight="50.0" prefWidth="220.0" text="Note" textFill="#f4f3f3">
                                              <font>
-                                                <Font name="Cambria" size="40.0" />
+                                                <Font name="Cambria" size="36.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="note" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Note : " />
+                                          <Label fx:id="note" prefHeight="50.0" prefWidth="220.0" textFill="#f4f3f3">
+                                             <font>
+                                                <Font name="Cambria" size="24.0" />
+                                             </font>
+                                          </Label>
                                        </children>
                                     </VBox>
                                     <VBox prefHeight="86.0" prefWidth="92.0">
                                        <children>
                                           <Label prefHeight="50.0" prefWidth="220.0" text="Nom" textFill="#f4f3f3">
                                              <font>
-                                                <Font name="Cambria" size="40.0" />
+                                                <Font name="Cambria" size="36.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="nom" prefHeight="36.0" prefWidth="81.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Nom : " />
+                                          <Label fx:id="nom" prefHeight="50.0" prefWidth="220.0" textFill="#f4f3f3">
+                                             <font>
+                                                <Font name="Cambria" size="24.0" />
+                                             </font>
+                                          </Label>
                                        </children></VBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="726.0" prefWidth="939.0">
+                              <HBox alignment="CENTER" prefHeight="357.0" prefWidth="735.0">
                                  <children>
-                                    <ScrollPane fx:id="scroll" prefHeight="495.0" prefWidth="717.0" styleClass="transparent" stylesheets="@style.css">
-                                       <content>
-                                          <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
-                                             <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                                             </rowConstraints>
-                                          </GridPane>
-                                       </content>
-                                    </ScrollPane>
+                                     <GridPane fx:id="grid" alignment="center" hgap="10" maxHeight="453.0" maxWidth="714.0" prefHeight="400.0" prefWidth="714.0" style="-fx-background-color: black;" vgap="10">
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                       </rowConstraints>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </GridPane>
                                  </children>
                               </HBox>
                               <Pane prefHeight="26.0" prefWidth="863.0" />
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
                            </children>
                            <styleClass>
                               <String fx:value="chosen-fruit-card" />
                               <String fx:value="shadow" />
                            </styleClass>
+                           <HBox.margin>
+                              <Insets bottom="30.0" top="40.0" />
+                           </HBox.margin>
                         </VBox>
                             </children>
                         </HBox>

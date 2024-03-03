@@ -167,39 +167,7 @@
     -fx-background-radius: 30;
 }
 
-.check-box {
-    -fx-background-color: transparent;
-    -fx-text-fill: #afa5dc;
-}
 
-.check-box .box {
-    -fx-background-color: transparent;
-    -fx-border-color: #afa5dc;
-}
-
-.check-box .box:hover {
-    -fx-background-color: #6460AA;
-}
-
-.check-box:selected .box {
-    -fx-background-color: #4CAF50;
-}
-
-.check-box .text {
-    -fx-font-family: "Cambria";
-    -fx-font-size: 18px;
-}
-
-.check-box:selected .text {
-    -fx-fill: #FFFFFF;
-}
-
-.check-box:selected .box {
-    -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 3px;
-    -fx-padding: 1px 3px 3px 3px;
-    -fx-transition: all 0.3s ease;
-}
 
 .text-area-no-border {
     -fx-border-width: 0;
@@ -209,4 +177,41 @@
 
     -fx-control-inner-background:white ;
 }
+.checkbox {
+    -fx-background-color: transparent;
+}
 
+.checkbox > .box {
+    -fx-background-color: #828282; /* Couleur de fond grise */
+    -fx-border-color: #828282; /* Couleur de la bordure grise */
+    -fx-background-radius: 50; /* Forme de cercle */
+    -fx-border-radius: 50; /* Forme de cercle */
+}
+
+.checkbox > .box > .mark {
+    -fx-background-color: transparent; /* Couleur de la coche transparente */
+}
+
+.checkbox:hover > .box {
+    -fx-background-color: lightgray; /* Couleur de fond gris clair au survol */
+}
+
+.checkbox:focused > .box {
+    -fx-background-color: lightgray; /* Couleur de fond gris clair lorsqu'il est sélectionné */
+}
+
+.checkbox:selected > .box {
+    -fx-background-color: #828282; /* Couleur de fond gris lorsque sélectionné */
+}
+
+.checkbox:selected > .box > .mark {
+    -fx-background-color: transparent; /* Couleur de la coche transparente lorsque sélectionné */
+}
+
+.checkbox:selected:hover > .box {
+    -fx-background-color: lightgray; /* Couleur de fond gris clair lorsqu'il est sélectionné et au survol */
+}
+
+.checkbox:selected:focused > .box {
+    -fx-background-color: lightgray; /* Couleur de fond gris clair lorsqu'il est sélectionné et lorsqu'il a le focus */
+}

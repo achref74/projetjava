@@ -1,4 +1,4 @@
-package edu.esprit.Controllers;
+package  edu.esprit.Controllers;
 
 import edu.esprit.entities.Evaluation;
 import edu.esprit.entities.Question;
@@ -38,10 +38,10 @@ public class AfficherEvaluation implements Initializable {
     private TextField duree;
 
     @FXML
-    private TextField nom;
+    private Label nom;
 
     @FXML
-    private TextField note;
+    private Label note;
 
     @FXML
     private TextField points;
@@ -71,93 +71,85 @@ public class AfficherEvaluation implements Initializable {
 
     private String coursId;
 
-    // Méthode pour définir l'ID du cours
+    private int currentQuestionIndex = 0;
 
-
-
+    private List<Question> listeQuestions = new ArrayList<>();
 
     public void setCoursId(String coursId) {
         this.coursId = coursId;
         ServiceEvaluation se = new ServiceEvaluation();
-        ServiceQuestion sq = new ServiceQuestion(); // Création du service de question ici
+        ServiceQuestion sq = new ServiceQuestion();
 
         try {
-            // Convertir coursId en int
             int idInt = Integer.parseInt(coursId);
-
-            // Récupérer l'évaluation par ID
             e = se.getEvaluationByIdCours(idInt);
 
-            // Vérifier si l'évaluation n'est pas null
             if (e != null) {
-                // Définir le nom et la note de l'évaluation dans les TextField
                 nom.setText(e.getNom());
                 note.setText(String.valueOf(e.getNote()));
 
-                // Récupérer les questions par ID d'évaluation
-                liste = sq.getQuestionsByIdEvaluation(e.getId_e());
+                Set<Question> questionsSet = sq.getQuestionsByIdEvaluation(e.getId_e());
+                listeQuestions.clear(); // Assurez-vous que la liste est vide avant de l'ajouter
+                listeQuestions.addAll(questionsSet); // Convertir le Set en List pour un accès indexé
 
-                // Une fois que la liste des questions est récupérée, vous pouvez appeler la méthode pour initialiser le contenu de votre GridPane
-                initializeQuestionsGrid();
+                if (!listeQuestions.isEmpty()) {
+                    // Afficher la première question
+                    loadCurrentQuestion();
+                }
             } else {
-                // Gestion du cas où l'évaluation est null
                 nom.setText("Evaluation non trouvée");
                 note.setText("");
             }
         } catch (NumberFormatException e) {
-            // Gestion de l'erreur de conversion de l'ID
             System.err.println("Erreur de format pour l'ID du cours : " + coursId);
             nom.setText("Erreur de format ID");
             note.setText("");
         }
-
-        // Ajouter les couleurs à la palette
-        colorPalette.addAll(List.of(
-                "#D4A5A5", "#A0522D", "#8B4513", "#CD853F", "#D2B48C",
-                "#BC8F8F", "#F4A460", "#DAA520", "#8B4513", "#46637F",
-                "#44505E", "#7D5147", "#7F5A45", "#7E8C6B"
-        ));
     }
 
-    // Méthode pour initialiser le GridPane avec les questions
-    private void initializeQuestionsGrid() {
-        // Parcourir la liste des questions et ajouter les contrôleurs dans le GridPane
-        int column = 0;
-        int row = 1;
-        try {
-            for (Question question : liste) {
+    private void loadCurrentQuestion() {
+        if (currentQuestionIndex < listeQuestions.size()) {
+            grid.getChildren().clear(); // Effacer toutes les questions précédemment affichées
+
+            Question currentQuestion = listeQuestions.get(currentQuestionIndex);
+
+            try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Question.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
+                // Spécifier les contraintes de disposition pour la question dans le GridPane
+                GridPane.setConstraints(anchorPane, 0, 0); // Position (0,0)
+
                 QuestionController questionController = fxmlLoader.getController();
-
                 if (questionController != null) {
-                    questionController.setData(question, myListener);
-                    grid.add(anchorPane, column++, row);
-
-                    // Réinitialiser la colonne et passer à la ligne suivante si nécessaire
-                    if (column == 1) {
-                        column = 0;
-                        row++;
-                    }
-                } else {
-                    System.err.println("questionController est null");
+                    questionController.setData(currentQuestion, myListener);
+                    questionController.setParentController(this); // Passer la référence
+                    grid.getChildren().add(anchorPane); // Ajouter la question au GridPane
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        }
+    }
+    // Méthode pour passer à la question suivante
+    public void nextQuestion() {
+        if (currentQuestionIndex < listeQuestions.size() - 1) {
+            currentQuestionIndex++;
+            loadCurrentQuestion();
+        } else {
+            // Gérer la fin de l'évaluation ici
+            System.out.println("Fin de l'évaluation");
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
-
     }
 
     @FXML
     private Button retour;
+
     public void retour(javafx.event.ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Market.fxml"));
@@ -168,6 +160,5 @@ public class AfficherEvaluation implements Initializable {
             alert.setTitle("Error");
             alert.show();
         }
-
     }
 }
