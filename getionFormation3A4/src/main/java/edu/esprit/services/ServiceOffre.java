@@ -7,6 +7,8 @@ import edu.esprit.utils.DataSource;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class ServiceOffre implements IService<Offre> {
 
@@ -213,41 +215,71 @@ public class ServiceOffre implements IService<Offre> {
         return offres;
     }
     public List<Offre> rechercherOffreParNom(String descriptionO) throws SQLException {
+        String query = "SELECT * FROM offre WHERE LOWER(description) LIKE ?";
         List<Offre> offres = new ArrayList<>();
 
-        String query = "SELECT * FROM offre WHERE LOWER(description) LIKE  '"+descriptionO+"%' ";
-        PreparedStatement ps = cnx.prepareStatement(query);
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setString(1, descriptionO.toLowerCase() + '%');
+            try (ResultSet res = ps.executeQuery()) {
+                offres = StreamSupport.stream(
+                                Spliterators.spliteratorUnknownSize(
+                                        new Iterator<Offre>() {
+                                            @Override
+                                            public boolean hasNext() {
+                                                try {
+                                                    return res.next();
+                                                } catch (SQLException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                            }
 
-        ResultSet res = ps.executeQuery();
-
-        // Parcourir les résultats de la requête et ajouter les formations à la liste
-        while (res.next()) {
-            int idOffre = res.getInt("idOffre");
-            double prixOffre = res.getDouble("prixOffre");
-            String description = res.getString("description");
-            Date dateD = res.getDate("dateD");
-            Date dateF = res.getDate("dateF");
-            Offre offre = new Offre(idOffre, prixOffre, description, dateD, dateF);
-
-            offres.add(offre);
+                                            @Override
+                                            public Offre next() {
+                                                try {
+                                                    int idOffre = res.getInt("idOffre");
+                                                    double prixOffre = res.getDouble("prixOffre");
+                                                    String description = res.getString("description");
+                                                    Date dateD = res.getDate("dateD");
+                                                    Date dateF = res.getDate("dateF");
+                                                    return new Offre(idOffre, prixOffre, description, dateD, dateF);
+                                                } catch (SQLException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                            }
+                                        },
+                                        Spliterator.ORDERED),
+                                false)
+                        .collect(Collectors.toList());
+            }
         }
-
-
         return offres;
     }
-    public List<Date> getAllEndDate() throws SQLException {
-        List<Date> dates = new ArrayList<>();
 
-        String req = "SELECT dateF FROM offre";
+    public Map<Integer, List<Date>> getAllEndDates() throws SQLException {
+        Map<Integer, List<Date>> datesWithIds = new HashMap<>();
 
+        String req = "SELECT dateF, idFormation FROM offre";
         Statement st = cnx.createStatement();
         ResultSet res = st.executeQuery(req);
         while (res.next()) {
             Date dateF = res.getDate("dateF");
-            dates.add(dateF);
+            int idFormation = res.getInt("idFormation");
+
+            // Vérifier si la clé existe déjà dans la map
+            if (datesWithIds.containsKey(idFormation)) {
+                // Si oui, ajouter la date à la liste existante
+                datesWithIds.get(idFormation).add(dateF);
+            } else {
+                // Sinon, créer une nouvelle liste et ajouter la date
+                List<Date> dates = new ArrayList<>();
+                dates.add(dateF);
+                datesWithIds.put(idFormation, dates);
+            }
         }
-        return dates;
+        return datesWithIds;
     }
+
+
 
     public List<Offre> getAll2() throws SQLException {
         List<Offre> offres = new ArrayList<>();

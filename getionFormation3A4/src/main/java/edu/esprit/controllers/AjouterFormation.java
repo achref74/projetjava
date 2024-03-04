@@ -13,6 +13,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -33,7 +36,7 @@ public class AjouterFormation implements Initializable {
     private TextField nomF;
 
     @FXML
-    private ImageView image;
+    private MediaView image;
 
     @FXML
     private TextArea descripF;
@@ -54,27 +57,37 @@ private Button btnFormation;
     private String imagePath;
 
     @FXML
-    void selectImage(MouseEvent event) {
+    void selectVideo(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une image");
+        fileChooser.setTitle("Choisir une vidéo");
 
+        // Ensure the initial directory exists
         File initialDirectory = new File("C:\\Users\\DELL GAMING\\Desktop\\PI\\getionFormation3A4\\src\\main\\resources\\images");
-        fileChooser.setInitialDirectory(initialDirectory);
+        if (initialDirectory.exists() && initialDirectory.isDirectory()) {
+            fileChooser.setInitialDirectory(initialDirectory);
+        } else {
+            System.out.println("The specified initial directory does not exist or is not a directory.");
+        }
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images", "*.jpg", "*.jpeg", "*.png", "*.gif");
+        // Set the extension filter for video files
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Vidéos (*.mp4, *.avi, *.mov)", "*.mp4", "*.avi", "*.mov");
         fileChooser.getExtensionFilters().add(extFilter);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
-            // Stockez uniquement le nom du fichier
+            // Stockez uniquement le chemin relatif ou le nom de la vidéo sélectionnée
             selectedImagePath = selectedFile.getName();
-            Image newImage = new Image(selectedFile.toURI().toString());
-           image.setImage(newImage);
-            System.out.println("Nom de l'image sélectionnée : " + selectedImagePath);
+            Media media = new Media(new File(String.valueOf(selectedFile)).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            image.setMediaPlayer(mediaPlayer);
+
+
+            // Ici, vous pouvez ajouter la logique pour utiliser la vidéo sélectionnée, comme la charger dans un lecteur multimédia.
         }
     }
+
 
     @FXML
     void AjouterFormationAction(ActionEvent event) {

@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.media.MediaView?>
 <AnchorPane onMousePressed="#click" prefHeight="215.0" prefWidth="243.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ItemF">
     <children>
         <VBox alignment="TOP_CENTER" layoutX="63.0" layoutY="8.0" prefHeight="215.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="0.0">
@@ -33,11 +34,11 @@
                         <Insets left="20.0" right="-89.0" top="20.0" />
                     </VBox.margin>
                 </HBox>
-                <ImageView fx:id="img" fitHeight="97.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true">
+                <MediaView fx:id="img" fitHeight="97.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets right="-76.0" top="9.0" />
                </VBox.margin>
-                </ImageView>
+                </MediaView>
             </children>
         </VBox>
     </children>

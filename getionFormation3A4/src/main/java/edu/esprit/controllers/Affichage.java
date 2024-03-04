@@ -16,10 +16,15 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -203,10 +208,17 @@ private String selectedNomF;
 
     @FXML
     private ScrollPane scroll1;
-
+private String selectedVideoUrl;
     @FXML
     private Button supprimerO;
-
+    @FXML
+    private MediaView video;
+    @FXML
+    private Button playPauseButton;
+    @FXML
+    private Slider volumeSlider;
+    @FXML
+    private Slider progressSlider;
     @FXML
     void navigatetoFormationAction(ActionEvent event) {
         try {
@@ -305,10 +317,46 @@ private String selectedNomF;
         selectedNomF= String.valueOf(formation.getNom());
         selectedIdF=String.valueOf(formation.getIdFormation());
         selectedPrix=String.valueOf(formation.getPrix());
-        String imagePath = "file:///C:/Users/DELL GAMING/Desktop/PI/getionFormation3A4/src/main/resources/images/" + formation.getImageUrl();
-        Image image = new Image(imagePath);
-        fruitImg.setImage(image);
+
+        String videoFile = "C:\\Users\\DELL GAMING\\Desktop\\PI\\getionFormation3A4\\src\\main\\resources\\images\\" + formation.getImageUrl();
         currentImageName = formation.getImageUrl();
+        //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
+        // Remplacez par le chemin de votre vidéo
+
+        Media media = new Media(new File(videoFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        video.setMediaPlayer(mediaPlayer);
+        playPauseButton.setOnAction(e -> {
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayer.pause();
+                playPauseButton.setText("Play");
+            } else {
+                mediaPlayer.play();
+                playPauseButton.setText("Pause");
+            }
+        });
+
+        // Curseur de volume
+        volumeSlider.setValue(mediaPlayer.getVolume() * 100);
+        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            mediaPlayer.setVolume(volumeSlider.getValue() / 100);
+        });
+
+        // Barre de progression
+        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            if (!progressSlider.isValueChanging()) {
+                progressSlider.setValue(newTime.toMillis() / mediaPlayer.getTotalDuration().toMillis() * 100);
+            }
+        });
+        progressSlider.setOnMouseReleased(e -> {
+            mediaPlayer.seek(Duration.millis(progressSlider.getValue() / 100 * mediaPlayer.getTotalDuration().toMillis()));
+        });
+
+        mediaPlayer.setOnReady(() -> {
+            progressSlider.setMax(100);
+        });
+
+
 
 
         List<String> colorPalette = new ArrayList<>();
@@ -371,34 +419,50 @@ private String selectedNomF;
                 }
             };
         }
+        clearChosenCours();
 
         refreshDisplayAfterOffer(getData());
         modifierF.setOnAction(event -> modifierFormation());
         supprimerF.setOnAction(event -> supprimerFormations());
         ajouterOffre.setOnAction(event -> AjouterOffre());
 
-        fruitImg.setOnMouseClicked(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Choisir une image");
 
-            // Définir le répertoire initial sur le dossier "images" de votre projet
-            String userDirectoryString = System.getProperty("user.dir") + "/src/main/resources/images";
-            File userDirectory = new File(userDirectoryString);
-            fileChooser.setInitialDirectory(userDirectory);
-
-            File selectedFile = fileChooser.showOpenDialog(null);
-            if (selectedFile != null) {
-                selectedImageUrl = selectedFile.toURI().toString();
-                Image newImage = new Image(selectedImageUrl);
-                fruitImg.setImage(newImage);
-            }
-        });
 
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
         executorService.scheduleAtFixedRate( new OfferCleanupTask(), 0, 1, TimeUnit.DAYS);
     }
+    @FXML
+    void selectVideo(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une vidéo");
 
+        // Ensure the initial directory exists
+        File initialDirectory = new File("C:\\Users\\DELL GAMING\\Desktop\\PI\\getionFormation3A4\\src\\main\\resources\\images");
+        if (initialDirectory.exists() && initialDirectory.isDirectory()) {
+            fileChooser.setInitialDirectory(initialDirectory);
+        } else {
+            System.out.println("The specified initial directory does not exist or is not a directory.");
+        }
+
+        // Set the extension filter for video files
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Vidéos (*.mp4, *.avi, *.mov)", "*.mp4", "*.avi", "*.mov");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            // Stockez uniquement le chemin relatif ou le nom de la vidéo sélectionnée
+            selectedVideoUrl = selectedFile.getName();
+            Media media = new Media(new File(String.valueOf(selectedFile)).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            video.setMediaPlayer(mediaPlayer);
+
+
+            // Ici, vous pouvez ajouter la logique pour utiliser la vidéo sélectionnée, comme la charger dans un lecteur multimédia.
+        }
+    }
     @FXML
     private void supprimerFormations() {
         // Vérifiez si l'ID du cours sélectionné n'est pas vide
@@ -486,7 +550,6 @@ private String selectedNomF;
             String newPrix = prixF.getText();
             String newNbrCours = nbrCours.getText();
 
-
             ServiceFormation sp = new ServiceFormation();
 
             if (!sp.isValidPrix(Double.valueOf(newPrix)) && !sp.isValidDate(java.sql.Date.valueOf(newDateD), java.sql.Date.valueOf(newDateF))) {
@@ -502,29 +565,30 @@ private String selectedNomF;
                 fxerrorprix1.setVisible(false);
                 fxerrordate1.setVisible(false);
                 try {
-                    // Créez un nouvel objet Cours avec les valeurs mises à jour
+                    // Créez un nouvel objet Formation avec les valeurs mises à jour
                     Formation formation = new Formation();
                     formation.setIdFormation(id);
                     formation.setNom(newName);
                     formation.setDateDebut(java.sql.Date.valueOf(newDateD));
-                    formation.setDateFin(java.sql.Date.valueOf(newDateF)); // Conversion String vers java.sql.Date
+                    formation.setDateFin(java.sql.Date.valueOf(newDateF));
                     formation.setDescription(newDescription);
                     formation.setPrix(Double.parseDouble(newPrix));
                     formation.setNbrCours(Integer.parseInt(newNbrCours));
-                    if (selectedImageUrl != null && !selectedImageUrl.isEmpty()) {
-                        String imageName = selectedImageUrl.substring(selectedImageUrl.lastIndexOf("/") + 1);
-                        formation.setImageUrl(imageName);
+                    System.out.println(selectedVideoUrl);
+                    if (selectedVideoUrl != null && !selectedVideoUrl.isEmpty()) {
+                        String videoName = selectedVideoUrl.substring(selectedVideoUrl.lastIndexOf("/") + 1);
+                        formation.setImageUrl(videoName); // Supposons que vous avez ajouté un champ pour l'URL de la vidéo
                     } else {
-                        formation.setImageUrl(currentImageName);
+                        formation.setImageUrl(currentImageName); // Supposons que vous avez une variable pour le nom de la vidéo actuelle
                     }
-                    // Appelez la méthode de service pour mettre à jour le cours
+                    // Appelez la méthode de service pour mettre à jour la formation
                     sp.modifier(formation);
 
                     // Mettez à jour l'affichage global
                     listF.clear();
                     listF.addAll(getData());
 
-                    grid.getChildren().clear(); // Effacez le contenu actuel du grid
+                    grid.getChildren().clear();
                     initialize(null, null); // Réinitialisez l'affichage
 
                 } catch (Exception e) {
@@ -534,6 +598,9 @@ private String selectedNomF;
             }
         }
     }
+
+
+
 
     public void AjouterOffre() {
         // Vérifiez que tous les champs sont remplis
@@ -654,7 +721,7 @@ private String selectedNomF;
             // Récupère les formations correspondant au texte saisi
             Set<Formation> formations = null;
             try {
-                formations = sf.rechercherFormationsParNom(text);
+                formations = sf.rechercherFormationsParNom1(text);
                 // Affiche les formations trouvées dans la grille
                 refreshDisplayAfterOffer(formations);
             } catch (SQLException e) {

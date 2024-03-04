@@ -49,6 +49,11 @@
             <version>2.0.1</version> <!-- Dernière version de Jakarta Mail -->
         </dependency>
 
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>17.0.1</version>
+        </dependency>
 
 
     </dependencies>

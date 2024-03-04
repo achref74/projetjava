@@ -23,7 +23,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +59,7 @@ private  TextField chercherF_C;
     private TextArea descripF;
 
     @FXML
-    private ImageView fruitImg;
+    private MediaView video;
 
     @FXML
     private TextField nomF;
@@ -76,7 +80,12 @@ private Button certificatF;
 
     @FXML
     private ScrollPane scroll;
-
+    @FXML
+    private Button playPauseButton;
+    @FXML
+    private Slider volumeSlider;
+    @FXML
+    private Slider progressSlider;
     @FXML
     private Button supprimerF;
     @FXML
@@ -146,10 +155,48 @@ private Button certificatF;
         selectedIdF = String.valueOf(formation.getIdFormation());
         //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
 
-        String imagePath = "file:///C:/Users/DELL GAMING/Desktop/PI/getionFormation3A4/src/main/resources/images/" + formation.getImageUrl();
-        Image image = new Image(imagePath);
-        fruitImg.setImage(image);
+        String videoFile = "C:\\Users\\DELL GAMING\\Desktop\\PI\\getionFormation3A4\\src\\main\\resources\\images\\" + formation.getImageUrl();
+
+
         currentImageName = formation.getImageUrl();
+        //fruitPriceLabel.setText(MainFx.CURRENCY + cours.getDuree());
+        // Remplacez par le chemin de votre vidéo
+
+        Media media = new Media(new File(videoFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        video.setMediaPlayer(mediaPlayer);
+        playPauseButton.setOnAction(e -> {
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayer.pause();
+                playPauseButton.setText("Play");
+            } else {
+                mediaPlayer.play();
+                playPauseButton.setText("Pause");
+            }
+        });
+
+        // Curseur de volume
+        volumeSlider.setValue(mediaPlayer.getVolume() * 100);
+        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            mediaPlayer.setVolume(volumeSlider.getValue() / 100);
+        });
+
+        // Barre de progression
+        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            if (!progressSlider.isValueChanging()) {
+                progressSlider.setValue(newTime.toMillis() / mediaPlayer.getTotalDuration().toMillis() * 100);
+            }
+        });
+        progressSlider.setOnMouseReleased(e -> {
+            mediaPlayer.seek(Duration.millis(progressSlider.getValue() / 100 * mediaPlayer.getTotalDuration().toMillis()));
+        });
+
+        mediaPlayer.setOnReady(() -> {
+            progressSlider.setMax(100);
+        });
+
+        // Optionnel : ajuster la vidéo pour qu'elle s'adapte
+        video.setPreserveRatio(true);
         List<String> colorPalette = new ArrayList<>();
         colorPalette.add("#D4A5A5");
         colorPalette.add("#A0522D");
@@ -203,30 +250,41 @@ private Button certificatF;
 
             };
         }
-        // Création d'une tâche TimerTask pour vérifier la date de fin de l'offre
+        clearChosenCours();
+
         TimerTask tache = new TimerTask() {
             @Override
             public void run() {
                 try {
                     ServiceOffre so = new ServiceOffre();
-                    List<java.sql.Date> allEndDatesSql = so.getAllEndDate();
-                    List<Date>  allEndDatesUtil= new ArrayList<>();
+                    Map<Integer, List<java.sql.Date>> allEndDates = so.getAllEndDates(); // Modification ici
 
-                    for (java.sql.Date endDateSql : allEndDatesSql) {
-                        // Obtenir la date actuelle
-                        Date currentDate = new Date();
+                    for (Map.Entry<Integer, List<java.sql.Date>> entry : allEndDates.entrySet()) { // Modification ici
+                        int idFormation = entry.getKey();
+                        List<java.sql.Date> endDates = entry.getValue(); // Modification ici
 
-                        // Calculer la différence en millisecondes
-                        long differenceInMillis = endDateSql.getTime() - currentDate.getTime();
+                        // Obtenir la formation par ID
+                        ServiceFormation sf = new ServiceFormation();
+                        Formation formation = sf.getOneById(idFormation);
+                        if (formation != null) {
+                            for (Date endDate : endDates) { // Modification ici
+                                // Obtenir la date actuelle
+                                Date currentDate = new Date();
+                                System.out.println(endDate);
 
-                        // Convertir la différence en jours
-                        long differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24);
+                                // Calculer la différence en millisecondes
+                                long differenceInMillis = endDate.getTime() - currentDate.getTime();
 
-                        // Vérifier si la différence est inférieure ou égale à 2 jours
-                        if (differenceInDays <= 2) {
-                            // Envoyer un e-mail au client
-                            envoyerMail("mariemmbarek597@gmail.com", "Votre offre se termine bientôt",
-                                    "Votre offre se termine dans 2 jours. Profitez-en dès maintenant !");
+                                // Convertir la différence en jours
+                                long differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24);
+
+                                // Vérifier si la différence est inférieure ou égale à 2 jours
+                                if (differenceInDays <= 2) {
+                                    // Envoyer un e-mail au client avec le nom de la formation
+                                    envoyerMail("mariemmbarek597@gmail.com", "Votre offre pour la formation " + formation.getNom() + " se termine bientôt",
+                                            "Votre offre pour la formation " + formation.getNom() + " se termine dans " + differenceInDays + " jours. Profitez-en dès maintenant !");
+                                }
+                            }
                         }
                     }
                 } catch (SQLException e) {
@@ -242,22 +300,7 @@ private Button certificatF;
         timer.schedule(tache, 0, 24 * 60 * 60 * 1000);
        refreshDisplayAfterOffer(getData());
         certificatF.setOnAction(event -> ajouterCertificat());
-        fruitImg.setOnMouseClicked(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Choisir une image");
 
-            // Définir le répertoire initial sur le dossier "images" de votre projet
-            String userDirectoryString = System.getProperty("user.dir") + "/src/main/resources/images";
-            File userDirectory = new File(userDirectoryString);
-            fileChooser.setInitialDirectory(userDirectory);
-
-            File selectedFile = fileChooser.showOpenDialog(null);
-            if (selectedFile != null) {
-                selectedImageUrl = selectedFile.toURI().toString();
-                Image newImage = new Image(selectedImageUrl);
-                fruitImg.setImage(newImage);
-            }
-        });
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
         executorService.scheduleAtFixedRate( new OfferCleanupTask(), 0, 1, TimeUnit.DAYS);
@@ -407,7 +450,7 @@ private Button certificatF;
             Set<Formation> formations = null;
             try {
                 ServiceFormation sf=new ServiceFormation();
-                formations = sf.rechercherFormationsParNom(text);
+                formations = sf.rechercherFormationsParNom1(text);
                 // Affiche les formations trouvées dans la grille
                 refreshDisplayAfterOffer(formations);
             } catch (SQLException e) {

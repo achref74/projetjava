@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -31,7 +34,7 @@ public class ItemF {
     private Label prixLabel;
 
     @FXML
-    private ImageView img;
+    private MediaView img;
     private Formation formation;
     private MyListenerF myListener;
 
@@ -57,8 +60,10 @@ public class ItemF {
 
             URL url = getClass().getResource(imagePath);
             if (url != null) {
-                Image image = new Image(url.toExternalForm());
-                this.img.setImage(image);
+
+                Media media = new Media(url.toExternalForm());
+                MediaPlayer mediaPlayer = new MediaPlayer(media);
+                this.img.setMediaPlayer(mediaPlayer);
             } else {
                 System.err.println("Impossible de charger l'image : " + imagePath);
                 // Afficher une image par défaut ou un message d'erreur

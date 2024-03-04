@@ -16,8 +16,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Slider?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AffichageF_Client">
     <children>
         <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -72,11 +74,18 @@
                                         <Insets left="20.0" top="30.0" />
                                     </VBox.margin>
                                 </HBox>
-                                <ImageView fx:id="fruitImg" fitHeight="133.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                                <Slider fx:id="volumeSlider" layoutX="137.0" layoutY="433.0" orientation="VERTICAL" prefWidth="200">
+                                    <VBox.margin>
+                                        <Insets bottom="-148.0" left="3.0" right="-307.0" />
+                                    </VBox.margin></Slider>
+                                <MediaView fx:id="video" fitHeight="133.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+
                                     <VBox.margin>
                                         <Insets top="20.0" />
                                     </VBox.margin>
-                                </ImageView>
+                                </MediaView>
+                                <Button fx:id="playPauseButton" layoutX="20" layoutY="410" text="Play" />
+                                <Slider fx:id="progressSlider" layoutX="100" layoutY="440" prefHeight="14.0" prefWidth="277.0" />
                                 <HBox alignment="CENTER" prefHeight="169.0" prefWidth="334.0">
                                     <children>
                                         <Label prefHeight="53.0" prefWidth="167.0" text="Description :  " textFill="WHITE">

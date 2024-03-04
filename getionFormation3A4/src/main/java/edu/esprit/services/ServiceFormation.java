@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class ServiceFormation implements IService<Formation> {
 
@@ -279,6 +281,51 @@ public class ServiceFormation implements IService<Formation> {
 
         return formations;
     }
+    public Set<Formation> rechercherFormationsParNom1(String nomF) throws SQLException {
+        String query = "SELECT * FROM formation WHERE LOWER(nom) LIKE ?";
+        Set<Formation> formations = new HashSet<>();
+
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setString(1, nomF.toLowerCase() + '%');
+            try (ResultSet res = ps.executeQuery()) {
+                formations = StreamSupport.stream(
+                                Spliterators.spliteratorUnknownSize(
+                                        new Iterator<Formation>() {
+                                            @Override
+                                            public boolean hasNext() {
+                                                try {
+                                                    return res.next();
+                                                } catch (SQLException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                            }
+
+                                            @Override
+                                            public Formation next() {
+                                                try {
+                                                    int idF = res.getInt("idFormation");
+                                                    String nom = res.getString("nom");
+                                                    String description = res.getString("description");
+                                                    Date dateDebut = res.getDate("dateD");
+                                                    Date dateFin = res.getDate("dateF");
+                                                    double prix = res.getDouble("prix");
+                                                    int nbrCours = res.getInt("nbrCours");
+                                                    String imageUrl = res.getString("imageUrl");
+                                                    int idCategorie = res.getInt("idCategorie");
+                                                    return new Formation(idF, nom, description, dateDebut, dateFin, prix, nbrCours, imageUrl);
+                                                } catch (SQLException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                            }
+                                        },
+                                        Spliterator.ORDERED),
+                                false)
+                        .collect(Collectors.toSet());
+            }
+        }
+        return formations;
+    }
+
 
 
 }
