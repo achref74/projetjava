@@ -18,11 +18,14 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AfficherEFormateur implements Initializable {
 
     @FXML
     private Label msg ;
+    @FXML
+    private TextField searchField ;
 
     @FXML
     private VBox Evaluation;
@@ -201,10 +204,72 @@ public class AfficherEFormateur implements Initializable {
             errorAlert.setContentText("Impossible de modifier l'évaluation car elle n'existe pas !");
             errorAlert.showAndWait();
         }}
+
+    private Set<Question> filterQuestions(String searchString) {
+        // Si la recherche est vide, retourner la liste complète des questions
+        if (searchString == null || searchString.isEmpty()) {
+            return liste;
+        }
+
+        // Filtrer les questions en fonction de la ressource, choix1, choix2, choix3 ou correction
+        return liste.stream()
+                .filter(question ->
+                        question.getRessource().toLowerCase().contains(searchString.toLowerCase()) ||
+                                question.getChoix1().toLowerCase().contains(searchString.toLowerCase()) ||
+                                question.getChoix2().toLowerCase().contains(searchString.toLowerCase()) ||
+                                question.getChoix3().toLowerCase().contains(searchString.toLowerCase()) ||
+                                question.getCrx().toLowerCase().contains(searchString.toLowerCase()))
+                .collect(Collectors.toSet());
+    }
+    private void afficherQuestions(Set<Question> questionsList) {
+        // Effacer les questions précédentes du GridPane
+        grid.getChildren().clear();
+
+        // Initialiser les variables de position dans le GridPane
+        int column = 0;
+        int row = 1;
+
+        try {
+            // Parcourir la liste des questions filtrées
+            for (Question question : questionsList) {
+                // Charger le fichier FXML de l'élément de question
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/QuestionFormateur.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                // Récupérer le contrôleur de l'élément de question
+                QuestionFormateurController questionFormateur = fxmlLoader.getController();
+
+                if (questionFormateur != null) {
+                    // Définir les données de la question et le gestionnaire d'événements dans le contrôleur de l'élément de question
+                    questionFormateur.set(question, myListener);
+
+                    // Ajouter l'élément de question au GridPane et incrémenter les variables de position
+                    grid.add(anchorPane, column++, row);
+
+                    // Réinitialiser la colonne et passer à la ligne suivante si nécessaire
+                    if (column == 1) {
+                        column = 0;
+                        row++;
+                    }
+                } else {
+                    System.err.println("questionFormateur est null");
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         msg.setVisible(false);
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Filtrer les questions en fonction du texte de recherche
+            Set<Question> filteredQuestions = filterQuestions(newValue);
+            // Mettre à jour l'affichage des questions
+            afficherQuestions(filteredQuestions);
+        });
         }
 
     @FXML

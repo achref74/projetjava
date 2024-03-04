@@ -26,7 +26,7 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 public class AfficherEvaluation implements Initializable {
     public static final String ACCOUNT_SID = "ACb65e44c3e078d2e73b833e4dcb25007a";
-    public static final String AUTH_TOKEN = "2c8c949cdf777285a3bf4fa28b00192f";
+    public static final String AUTH_TOKEN = "c53c4a301803fe75bc81f49fd4c172c0";
     public static final String TWILIO_NUMBER = "+14846015242";
     @FXML
     private VBox Evaluation;
@@ -183,7 +183,7 @@ public class AfficherEvaluation implements Initializable {
 
             // Envoyer la note et la mention par SMS
             String messageBody = "Votre note finale est : " + formattedPointsFinal + ". Mention: " + mention + ".";
-        //   sendSms("+21653946055", TWILIO_NUMBER, messageBody);
+          // sendSms("+21653946055", TWILIO_NUMBER, messageBody);
         }
 
     }

@@ -1,5 +1,6 @@
 package edu.esprit.Controllers;
 
+import edu.esprit.entities.Cours;
 import edu.esprit.entities.Evaluation;
 import edu.esprit.services.ServiceEvaluation;
 import edu.esprit.tests.MyListener;
@@ -12,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -22,11 +24,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Back2Controller implements Initializable {
     @FXML
     private GridPane grid;
-
+    @FXML
+    private TextField searchField;
     @FXML
     private ScrollPane scroll;
 
@@ -104,8 +108,57 @@ public class Back2Controller implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Mettre à jour la liste des cours en fonction du texte de recherche
+            Set<Evaluation> filteredList = liste.stream()
+                    .filter(evaluation -> evaluation.getNom().toLowerCase().contains(newValue.toLowerCase()) || // Recherche par nom
+                            // Recherche par date
+                            String.valueOf(evaluation.getNote()).contains(newValue) ) // Recherche par ressource)
+                    .collect(Collectors.toSet());
+            afficherEvaluation(filteredList);
+        });
 
+    }
+    private void afficherEvaluation(Set<Evaluation> evaluationList) {
+        grid.getChildren().clear(); // Effacer les cours précédents
 
+        int column = 0;
+        int row = 1;
+        try {
+            int i = 0;
+            for (Evaluation evaluation : evaluationList) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/Evaluation.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                EvaluationController itemController = fxmlLoader.getController();
+
+                if (itemController != null) {
+                    itemController.setData(evaluation, myListener);
+                } else {
+                    System.err.println("evaluation est nulle");
+                }
+                i++;
+                if (column == 1) {
+                    column = 0;
+                    row++;
+                }
+
+                grid.add(anchorPane, column++, row);
+
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

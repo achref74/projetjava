@@ -20,6 +20,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
 
 
 import java.io.File;
@@ -28,8 +31,11 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AfficherCoursClient implements Initializable {
     @FXML
@@ -65,8 +71,8 @@ public class AfficherCoursClient implements Initializable {
     private Label ressource;
     @FXML
     private Button ajouterC;
-  /*  @FXML
-    private TextField image;*/
+   @FXML
+    private TextField searchField;
 
     @FXML
     private ScrollPane scroll;
@@ -85,6 +91,8 @@ public class AfficherCoursClient implements Initializable {
     private String selectedId ;
 
 
+
+
     private Set<Cours> getData() {
         Set<Cours> liste = new HashSet<>();
         ServiceCours serviceCours =new ServiceCours();
@@ -92,11 +100,11 @@ public class AfficherCoursClient implements Initializable {
         return liste;
     }
 
+
+
+
+
     private void setChosenCours(Cours cours) {
-
-
-
-
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -148,16 +156,26 @@ public class AfficherCoursClient implements Initializable {
 
         liste.addAll(getData());
         if (!liste.isEmpty()) {
+            for (Cours cours : liste) {
+                LocalDate dateCours = Instant.ofEpochMilli(cours.getDate().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+                if (dateCours.equals(LocalDate.now())) {
+                    // Envoyer l'e-mail avec le nom du cours
+                    sendEmail(cours.getNom());
+
+                }
+            }
+
             Iterator<Cours> iterator = liste.iterator();
             Cours firstCours = iterator.next();
 
             setChosenCours(firstCours);
-
             myListener = new MyListener() {
 
 
 
                 LocalDate dateActuelle = LocalDate.now();
+
+
 
                 @Override
                 public void onClickListener(Cours cours) {
@@ -173,6 +191,10 @@ public class AfficherCoursClient implements Initializable {
                     } else {
                         setChosenCours(cours);
                     }
+
+
+
+
                 }
 
                 @Override
@@ -222,12 +244,83 @@ public class AfficherCoursClient implements Initializable {
             throw new RuntimeException(e);
         }
 
-
-
-
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Mettre à jour la liste des cours en fonction du texte de recherche
+            Set<Cours> filteredList = liste.stream()
+                    .filter(cours -> cours.getNom().toLowerCase().contains(newValue.toLowerCase()))
+                    .collect(Collectors.toSet());
+            afficherCours(filteredList);
+        });
     }
+    private void afficherCours(Set<Cours> coursList) {
+        grid.getChildren().clear(); // Effacer les cours précédents
 
+        int column = 0;
+        int row = 1;
+        try {
+            int i = 0;
+            for (Cours cours : coursList) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/Item.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
 
+                ItemController itemController = fxmlLoader.getController();
+
+                if (itemController != null) {
+                    itemController.setData(cours, myListener);
+                } else {
+                    System.err.println("itemController est null");
+                }
+                i++;
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+
+                grid.add(anchorPane, column++, row);
+
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void sendEmail(String coursNom) {
+        // Paramètres SMTP
+        String host = "smtp.gmail.com";
+        int port = 587; // Port pour Gmail
+        String username = "loudjeinbouguerra@gmail.com";
+        String password = "hhud wtnc tnft oowa";
+
+        try {
+            // Création de l'e-mail
+            HtmlEmail email = new HtmlEmail();
+            email.setHostName(host);
+            email.setSmtpPort(port);
+            email.setAuthenticator(new DefaultAuthenticator(username, password));
+            email.setStartTLSEnabled(true);
+            email.setFrom(username);
+            email.addTo("yasminebousselmi5t@gmail.com");
+            email.setSubject("Nouveau cours disponible : " + coursNom);
+            email.setMsg("Le cours " + coursNom + " est maintenant disponible.");
+
+            // Envoi de l'e-mail
+            email.send();
+
+            System.out.println("E-mail envoyé avec succès.");
+
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+    }
 
     private String currentImageName;
 
@@ -247,8 +340,6 @@ public class AfficherCoursClient implements Initializable {
 
         }
     }
-
-
 
 
 

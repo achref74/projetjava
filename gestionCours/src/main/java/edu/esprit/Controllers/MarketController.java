@@ -31,6 +31,9 @@ import java.util.*;
 public class MarketController implements Initializable {
     @FXML
     private Label msg ;
+    @FXML
+    private TextField searchField;
+
 
     @FXML
     private VBox chosenFruitCard;
@@ -197,6 +200,8 @@ public class MarketController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        setupSearchField();
+        refreshGrid(liste);
         fruitImg.setOnMouseClicked(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Choisir une image");
@@ -218,7 +223,46 @@ public class MarketController implements Initializable {
 
     }
 
+    private void refreshGrid(Set<Cours> courses) {
+        grid.getChildren().clear();
+        int column = 0;
+        int row = 1;
+        for (Cours cours : courses) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/Item.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+                ItemController itemController = fxmlLoader.getController();
+                if (itemController != null) {
+                    itemController.setData(cours, myListener);
+                    if (column == 3) {
+                        column = 0;
+                        row++;
+                    }
+                    grid.add(anchorPane, column++, row);
+                    GridPane.setMargin(anchorPane, new Insets(10));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    private void setupSearchField() {
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                Set<Cours> filteredCourses = new HashSet<>();
+                for (Cours cours : liste) {
+                    if (cours.getNom().toLowerCase().contains(newValue.toLowerCase())) {
+                        filteredCourses.add(cours);
+                    }
+                }
+                refreshGrid(filteredCourses);
+            } else {
+                refreshGrid(liste);
+            }
+        });
+    }
     @FXML
     private void supprimerCours() {
 
