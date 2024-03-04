@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="603.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Loginfaceid">
+   <children>
+      <ImageView fx:id="im" fitHeight="150.0" fitWidth="200.0" layoutX="703.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="200.0" layoutY="255.0" mnemonicParsing="false" onAction="#capture" text="capture" />
+   </children>
+</AnchorPane>

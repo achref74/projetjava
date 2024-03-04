@@ -376,7 +376,155 @@ public  class ServiceUser implements IServiceUser<User> {
         return getAll().stream().anyMatch(user -> user.getEmail().equals(email));
     }
 
+
+
+
+
+    public User verifyphonenumver(int numTel) {
+        String req = "SELECT *  from `User` where numtel=" + numTel;
+        Client c = null;
+        Formateur f = null;
+        Admin a = null;
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery(req);
+
+            if (res.next()) {
+                int idUser = res.getInt("idUser");
+                String nom = res.getString("nom");
+                String prenom = res.getString("prenom");
+                String email = res.getString("email");
+                Date dateNaissance = res.getDate("dateNaissance");
+                String adresse = res.getString("adresse");
+                int numtel = res.getInt("numtel");
+                String img = res.getString("imageProfil");
+                String genre = res.getString("genre");
+                String mdp = res.getString("mdp");
+                int role = res.getInt("role");
+                if (role == 1) {
+                    String specialite = res.getString("specialite");
+                    String niveau_Academique = res.getString("niveauAcademique");
+                    int disonibilite = res.getInt("disponiblite");
+                    String cv = res.getString("cv");
+                    f = new Formateur(idUser, nom, prenom, email, dateNaissance, adresse, numtel, mdp,img,genre, specialite, niveau_Academique, disonibilite, cv);
+                    return f;
+                } else if (role == 0) {
+                    String niveau_scolaire = res.getString("niveau_scolaire");
+                    c = new Client(idUser, nom, prenom, email, dateNaissance, adresse, numtel, mdp,img,genre, niveau_scolaire);
+                    return c;
+                } else if (role == 2) {
+                    a = new Admin(idUser, nom, prenom, email, dateNaissance, adresse, numtel, mdp,img,genre);
+                    return a;
+                }
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return f;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public boolean changepassword(User user) {
+
+            String req = "UPDATE  `User`set mdp=? where idUser=?";
+            try {
+                PreparedStatement ps = cnx.prepareStatement(req);
+
+                ps.setString(1, user.getMdp());
+
+                ps.setInt(2, user.getId());
+                ps.executeUpdate();
+                System.out.println("password updated !");
+               return true;
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+              return false;
+            }
+
+    }
+
+
+
+
+
+
+
+    public User getOneByEmail(String id) {
+
+        String req = "SELECT *  from `User` where email='"+id+"'";
+        Client c = null;
+        Formateur f = null;
+        Admin a = null;
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery(req);
+
+            if (res.next()) {
+                int idUser = res.getInt("idUser");
+                String nom = res.getString("nom");
+                String prenom = res.getString("prenom");
+                String email = res.getString("email");
+                Date dateNaissance = res.getDate("dateNaissance");
+                String adresse = res.getString("adresse");
+                int numtel = res.getInt("numtel");
+                String img = res.getString("imageProfil");
+                String genre = res.getString("genre");
+                String mdp = res.getString("mdp");
+                int role = res.getInt("role");
+                if (role == 1) {
+                    String specialite = res.getString("specialite");
+                    String niveau_Academique = res.getString("niveauAcademique");
+                    int disonibilite = res.getInt("disponiblite");
+                    String cv = res.getString("cv");
+                    f = new Formateur(idUser, nom, prenom, email, dateNaissance, adresse, numtel, mdp,img,genre, specialite, niveau_Academique, disonibilite, cv);
+                    return f;
+                } else if (role == 0) {
+                    String niveau_scolaire = res.getString("niveau_scolaire");
+                    c = new Client(idUser, nom, prenom, email, dateNaissance, adresse, numtel, mdp,img,genre, niveau_scolaire);
+                    return c;
+                } else if (role == 2) {
+                    a = new Admin(idUser, nom, prenom, email, dateNaissance, adresse, numtel, mdp,img,genre);
+                    return a;
+                }
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return f;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

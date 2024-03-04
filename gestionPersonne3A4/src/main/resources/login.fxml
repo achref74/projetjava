@@ -63,6 +63,8 @@
                   <Glow level="0.61" />
                </effect>
             </Text>
+            <Button layoutX="191.0" layoutY="545.0" mnemonicParsing="false" onAction="#forgetpassword" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #faf0be; -fx-background-radius: 20;" text="forget password" textFill="#5c508f" />
+            <Button layoutX="191.0" layoutY="415.0" mnemonicParsing="false" onAction="#loginfaceid" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #faf0be; -fx-background-radius: 20;" text="login with face id" textFill="#5c508f" />
          </children>
       </Pane>
    </children>

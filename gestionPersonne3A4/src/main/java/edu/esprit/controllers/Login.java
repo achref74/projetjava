@@ -2,16 +2,14 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.User;
 import edu.esprit.service.ServiceUser;
+import edu.esprit.service.TwilloService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import javax.mail.*;
@@ -24,6 +22,40 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Login {
+    @FXML
+    private PasswordField f2;
+    ServiceUser e = new ServiceUser();
+    @FXML
+    public void forgetpassword(ActionEvent actionEvent) throws IOException {
+
+
+        FXMLLoader load = new FXMLLoader(getClass().getResource("/sendtothisnumber.fxml"));
+        Parent root =load.load();
+        Sendtothisnumber c2=  load.getController();
+        Scene ss= new Scene(root);
+        Stage s= new Stage();
+        s=(Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        s.setScene(ss);
+        s.show();
+
+    }
+
+    @FXML
+    public void loginfaceid(ActionEvent actionEvent) throws IOException {
+        f1.getText();
+        User user =  e.getOneByEmail(f1.getText());
+        System.out.println(user);
+        FXMLLoader load = new FXMLLoader(getClass().getResource("/loginfaceid.fxml"));
+        Parent root =load.load();
+        Loginfaceid c2=  load.getController();
+        c2.getuser(user);
+        Scene ss= new Scene(root);
+        Stage s= new Stage();
+        s=(Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        s.setScene(ss);
+        s.show();
+    }
+
     private static class LoginAttempt {
         int attempts;
         LocalDateTime lastAttemptTime;
@@ -55,8 +87,6 @@ public class Login {
     @FXML
     private TextField f1;
 
-    @FXML
-    private TextField f2;
     public Login() {
         loadLoginAttempts();
     }
@@ -183,6 +213,7 @@ public class Login {
         return sb.toString();
     }
 
+    @FXML
     public void navigatesinscrire(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/creeCompte.fxml"));

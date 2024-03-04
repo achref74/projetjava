@@ -90,7 +90,7 @@ public class Menu implements Initializable {
     private Timeline idleTimeline;
 
     // Définir la durée d'inactivité après laquelle l'utilisateur sera déconnecté (en millisecondes)
-    private static final int IDLE_TIME = 120000; // 2 minute
+    private static final int IDLE_TIME = 30000; // 2 minute
 
     public void navigatelogin(ActionEvent actionEvent) {
         try {
