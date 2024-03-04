@@ -1,5 +1,7 @@
 package  edu.esprit.Controllers;
 
+
+
 import edu.esprit.entities.Evaluation;
 import edu.esprit.entities.Question;
 import edu.esprit.services.ServiceEvaluation;
@@ -16,11 +18,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.*;
-
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 public class AfficherEvaluation implements Initializable {
-
+    public static final String ACCOUNT_SID = "ACb65e44c3e078d2e73b833e4dcb25007a";
+    public static final String AUTH_TOKEN = "2c8c949cdf777285a3bf4fa28b00192f";
+    public static final String TWILIO_NUMBER = "+14846015242";
     @FXML
     private VBox Evaluation;
 
@@ -89,11 +96,13 @@ public class AfficherEvaluation implements Initializable {
                 note.setText(String.valueOf(e.getNote()));
 
                 Set<Question> questionsSet = sq.getQuestionsByIdEvaluation(e.getId_e());
-                listeQuestions.clear(); // Assurez-vous que la liste est vide avant de l'ajouter
-                listeQuestions.addAll(questionsSet); // Convertir le Set en List pour un accès indexé
-
+                listeQuestions.clear(); //
+                List<Question> questionsList = new ArrayList<>(questionsSet);
+                Collections.shuffle(questionsList);
+                // Sélectionner les 5 premières questions après le mélange
+                listeQuestions = questionsList.subList(0, Math.min(5, questionsList.size()));
                 if (!listeQuestions.isEmpty()) {
-                    // Afficher la première question
+
                     loadCurrentQuestion();
                 }
             } else {
@@ -109,7 +118,7 @@ public class AfficherEvaluation implements Initializable {
 
     private void loadCurrentQuestion() {
         if (currentQuestionIndex < listeQuestions.size()) {
-            grid.getChildren().clear(); // Effacer toutes les questions précédemment affichées
+            grid.getChildren().clear();
 
             Question currentQuestion = listeQuestions.get(currentQuestionIndex);
 
@@ -117,30 +126,79 @@ public class AfficherEvaluation implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Question.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
-                // Spécifier les contraintes de disposition pour la question dans le GridPane
-                GridPane.setConstraints(anchorPane, 0, 0); // Position (0,0)
+                GridPane.setConstraints(anchorPane, 0, 0);
 
                 QuestionController questionController = fxmlLoader.getController();
                 if (questionController != null) {
                     questionController.setData(currentQuestion, myListener);
-                    questionController.setParentController(this); // Passer la référence
-                    grid.getChildren().add(anchorPane); // Ajouter la question au GridPane
+                    questionController.setParentController(this);
+                    grid.getChildren().add(anchorPane);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-    // Méthode pour passer à la question suivante
     public void nextQuestion() {
         if (currentQuestionIndex < listeQuestions.size() - 1) {
             currentQuestionIndex++;
             loadCurrentQuestion();
         } else {
-            // Gérer la fin de l'évaluation ici
-            System.out.println("Fin de l'évaluation");
+
+            double sumPoints = 0.0;
+            for (Question question : listeQuestions) {
+                sumPoints += question.getPoint();
+            }
+
+
+            double sumPointsFinal = 0.0;
+            for (Question question : listeQuestions) {
+                if (question.getReponse().equals(question.getCrx())) {
+                    double pointsFinal = question.getPoint() * e.getNote() / sumPoints;
+                    sumPointsFinal += pointsFinal;
+                } else {
+                    sumPointsFinal += 0;
+                }
+            }
+
+            String formattedPointsFinal = String.format("%.2f", sumPointsFinal);
+            System.out.println("Note finale de l'évaluation : " + formattedPointsFinal);
+
+            // Déterminer la mention
+            String mention;
+            double halfNote = e.getNote() / 2.0;
+            double threeQuartersNote = e.getNote() * 3.0 / 4.0;
+
+            if (sumPointsFinal < halfNote) {
+                mention = "Echec";
+            } else if (sumPointsFinal >= halfNote && sumPointsFinal < threeQuartersNote) {
+                mention = "Reussite";
+            } else if (sumPointsFinal >= threeQuartersNote && sumPointsFinal < e.getNote()) {
+                mention = "Bien";
+            } else if (sumPointsFinal >= e.getNote()) {
+                mention = "Excellent";
+            } else {
+                mention = ""; // Au cas où aucun des cas ci-dessus n'est valide
+            }
+
+            // Envoyer la note et la mention par SMS
+            String messageBody = "Votre note finale est : " + formattedPointsFinal + ". Mention: " + mention + ".";
+        //   sendSms("+21653946055", TWILIO_NUMBER, messageBody);
         }
+
     }
+        private void sendSms(String to, String from, String body) {
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+            Message message = Message
+                    .creator(new PhoneNumber(to),
+                            new PhoneNumber(from),
+                            body)
+                    .create();
+
+            System.out.println("SMS envoyé avec succès: SID=" + message.getSid());
+        }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -152,7 +210,7 @@ public class AfficherEvaluation implements Initializable {
 
     public void retour(javafx.event.ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Market.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherCoursClient.fxml"));
             retour.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

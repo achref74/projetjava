@@ -35,6 +35,12 @@
             <artifactId>javafx-media</artifactId>
             <version>21.0.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>8.22.0</version> <!-- Utilisez la dernière version disponible -->
+        </dependency>
     </dependencies>
 
     <build>
