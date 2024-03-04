@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #02030A;" stylesheets="style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ReplyWindowController">
+<VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #A67B5B;" stylesheets="style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ReplyWindowController">
     <Label fx:id="reclamationUserLabel" />
     <Label fx:id="reclamationOutilLabel" />
     <Label fx:id="reclamationFormationLabel" />

@@ -135,7 +135,6 @@
                         <Image url="file:/C:/Users/Home/OneDrive%20-%20ESPRIT/Bureau/pipi/crud_pi/src/main/resources/images/imagebg.jpg" />
                      </image></ImageView>
                     <TextField fx:id="searchBar" layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em; -fx-text-fill: white;" />
-                    <DatePicker fx:id="datePicker" promptText="Choose a date" />
                     <Label layoutX="23.0" layoutY="18.0" prefHeight="70.0" prefWidth="183.0" text="Reclamationet" textFill="#3f2872">
                         <font>
                             <Font size="24.0" />

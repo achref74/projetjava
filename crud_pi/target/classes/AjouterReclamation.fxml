@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterReclamation" stylesheets="style.css">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #A67B5B;" stylesheets="style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterReclamation">
     <children>
         <Label layoutX="99.0" layoutY="79.0" prefHeight="17.0" prefWidth="102.0" text="Select Formation:" />
         <Label layoutX="96.0" layoutY="138.0" prefHeight="17.0" prefWidth="89.0" text="Select Outil:" />

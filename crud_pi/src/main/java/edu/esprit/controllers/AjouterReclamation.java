@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +41,7 @@ public class AjouterReclamation {
     @FXML
     private Button afficherReclamationButton;
     private AfficherReclamationBack afficherReclamationBackController;
+
 
 
     public void setAfficherReclamationBackController(AfficherReclamationBack afficherReclamationBackController) {
@@ -81,12 +83,83 @@ public class AjouterReclamation {
         Formation selectedFormation = formationComboBox.getValue();
         Outil selectedOutil = outilComboBox.getValue();
         String description = descriptionTextArea.getText();
+        User user1 = new User();
+        user1.setId_user(2);
+
+        // Check if either formation or outil is selected
+        if ((selectedFormation == null && selectedOutil == null) || description.isEmpty()) {
+            // Display an alert or handle the situation accordingly
+            System.out.println("Please select either formation or outil and fill in description.");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Description");
+            alert.setContentText("Please select either formation or outil and fill in description.");
+            alert.show();
+            return;
+        }
+
+        // Validate the description using regex
+        String descriptionPattern = "^[a-zA-Z0-9\\s]+$";
+        Pattern pattern = Pattern.compile(descriptionPattern);
+        Matcher matcher = pattern.matcher(description);
+
+        if (!matcher.matches()) {
+            // Display an alert or handle the situation accordingly
+            System.out.println("Invalid characters in the description.");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Description");
+            alert.setContentText("The description only contains numbers and letters.");
+            alert.show();
+            return;
+        }
+
+        // Create a new Reclamation object only if either formation or outil is selected
+        Reclamation reclamation;
+        if (selectedFormation.getId_formation()!=-1) {
+            reclamation = new Reclamation(user1, new Outil(-1), selectedFormation, description);
+        } else {
+            reclamation = new Reclamation(user1, selectedOutil, new Formation(-1), description);
+        }
+
+        try {
+            // Add the reclamation to the database
+            serviceReclamation.ajouter(reclamation);
+            System.out.println("Reclamation added successfully!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Reclamation");
+            alert.setContentText("Reclamation added successfully.");
+            alert.show();
+
+            // Notify the AfficherReclamationBack controller to update the UI
+            if (afficherReclamationBackController != null) {
+                afficherReclamationBackController.updateReclamationList();
+            }
+
+            // Close the AjouterReclamation stage
+            Stage stage = (Stage) formationComboBox.getScene().getWindow();
+            stage.close();
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Reclamation");
+            alert.setContentText("Failed to add reclamation.");
+            alert.show();
+            e.printStackTrace(); // Handle database exception appropriately
+            System.out.println("Error adding reclamation.");
+        }
+    }
+    /*public void addReclamation() {
+        // Retrieve selected values from ComboBoxes and TextArea
+        Formation selectedFormation = formationComboBox.getValue();
+        Outil selectedOutil = outilComboBox.getValue();
+        String description = descriptionTextArea.getText();
         User user1= new User();
         user1.setId_user(2);
 
         // Check if all required fields are selected/entered
-        if (selectedFormation == null || selectedOutil == null || description.isEmpty()) {
+       // if (selectedFormation == null || selectedOutil == null || description.isEmpty()) {
+
             // Display an alert or handle the situation accordingly
+        if ((selectedFormation == null && selectedOutil == null) || description.isEmpty()) {
+
             System.out.println("Please fill in all fields.");
             System.out.println("Invalid characters in the description.");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -138,7 +211,7 @@ public class AjouterReclamation {
             e.printStackTrace(); // Handle database exception appropriately
             System.out.println("Error adding reclamation.");
         }
-    }
+    }*/
     @FXML
     public void openAfficherReclamation() {
         try {

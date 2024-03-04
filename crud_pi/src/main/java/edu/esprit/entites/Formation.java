@@ -15,6 +15,10 @@ public class Formation {
     public Formation() {
     }
 
+    public Formation(int id_formation) {
+        this.id_formation = id_formation;
+    }
+
     public Formation(int id_formation , String nom) {
         this.id_formation = id_formation;
         this.nom=nom;
