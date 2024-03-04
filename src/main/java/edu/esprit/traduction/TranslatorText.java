@@ -3,64 +3,93 @@ package edu.esprit.traduction;
 import com.google.gson.*;
 import okhttp3.*;
 
+
+
 import java.io.IOException;
-import java.net.ProtocolException;
-import java.net.UnknownHostException;
 
 public class TranslatorText {
     private static final String key = "592e62314d1a46f1a94ab25e39d11ef3";
     private static String location = "westeurope";
-
-    // Cette fonction effectue une requête POST.
-    public static Response post() throws IOException {
+    private static TranslatorText instance;
+    public static Response post(String textToTranslate,String fromLanguage,String toLanguage) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "[{\"Text\": \"I would really like to drive your car around the block a few times!\"}]");
+        String jsonBody = "[{\"Text\": \"" + textToTranslate + "\"}]";
+        RequestBody body = RequestBody.create(mediaType, jsonBody);
+
+        // Utilisation de variables pour les langues source et cible
+
+
+        String translationEndpoint = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from=" + fromLanguage + "&to=" + toLanguage;
+
         Request request = new Request.Builder()
-                .url("https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from=en&to=fr")
+                .url(translationEndpoint)
                 .post(body)
                 .addHeader("Ocp-Apim-Subscription-Key", key)
                 .addHeader("Ocp-Apim-Subscription-Region", location)
                 .addHeader("Content-type", "application/json")
                 .build();
+
         return client.newCall(request).execute();
     }
 
-    public static String prettify(String jsonText) {
+
+    public static String extractTranslatedText(String responseBody) {
         JsonParser parser = new JsonParser();
-        JsonElement json = parser.parse(jsonText);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(json);
+        JsonArray jsonArray = parser.parse(responseBody).getAsJsonArray();
+
+        if (jsonArray.size() > 0) {
+            JsonObject firstTranslation = jsonArray.get(0).getAsJsonObject();
+
+            if (firstTranslation.has("translations")) {
+                JsonArray translationsArray = firstTranslation.getAsJsonArray("translations");
+
+                if (translationsArray.size() > 0) {
+                    JsonObject translationObject = translationsArray.get(0).getAsJsonObject();
+
+                    if (translationObject.has("text")) {
+                        return translationObject.get("text").getAsString();
+                    }
+                }
+            }
+        }
+
+        return "Impossible d'extraire le texte traduit de la réponse JSON.";
     }
+    public static TranslatorText getInstance(){
+        if(instance == null)
+            instance = new TranslatorText();
+        return instance;
+    }
+
 
     public static void main(String[] args) {
         try {
+            String textToTranslate = "bonjour mon amis";
+
+
+            String from="fr";
+            String to="en";
+
             System.out.println("Envoi de la requête à l'API de traduction...");
-            Response response = post();
+            Response response = post(textToTranslate,from,to);
 
             System.out.println("Réponse brute de l'API :");
-            System.out.println(response.body().string());
+            String responseBody = response.body().string();
+            System.out.println(responseBody);
 
             // Additional logging for debugging
             int statusCode = response.code();
             System.out.println("\nCode de statut HTTP : " + statusCode);
 
-            if (statusCode == 401) {
-                System.out.println("Unauthorized: Check your API key and permissions.");
-            } else {
-                System.out.println("\nRéponse formatée (JSON indenté) :");
-                System.out.println(prettify(response.body().string()));
-            }
+            // Afficher uniquement le texte traduit
+            String translatedText = extractTranslatedText(responseBody);
+            System.out.println("\nTexte traduit :");
+            System.out.println(translatedText);
+
         } catch (IOException e) {
-            System.out.println("Une erreur s'est produite : " + e.getMessage());
-            if (e instanceof ProtocolException) {
-                System.out.println("Protocol exception. Check the API endpoint and key.");
-            } else if (e instanceof UnknownHostException) {
-                System.out.println("Unknown host. Check your internet connection or API endpoint.");
-            } else {
-                e.printStackTrace();
-            }
+            System.out.println(e.getMessage());
         }
     }
 }

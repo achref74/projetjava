@@ -135,12 +135,12 @@ public class PUb implements Initializable {
 
     }
     private void updateIdForum(ActionEvent event) {
-        int idForum = refreshUI();
+        int idForum = refreshUIidForum();
         System.out.println(idForum);
 
         try {
             Publication publicationWithMostLikes=findPublicationWithMostLikes(servicePublication.getAll());
-            nblikMax.setText(publicationWithMostLikes.getContenu()+publicationWithMostLikes.getNbLike());
+            nblikMax.setText(publicationWithMostLikes.getForum().getTitre()+publicationWithMostLikes.getContenu()+publicationWithMostLikes.getNbLike());
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -161,7 +161,7 @@ public class PUb implements Initializable {
                 .map(Map.Entry::getKey)
                 .orElse(-1);
     }
-    private int refreshUI() {
+    private int refreshUIidForum() {
         try {
             List<Publication> publications = servicePublication.getAll();
             int idForum = findMostRepeatedIdForum(publications);

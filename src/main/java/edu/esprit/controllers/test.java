@@ -6,7 +6,10 @@ import edu.esprit.entities.Publication;
 import edu.esprit.entities.User;
 import edu.esprit.services.ServiceForum;
 import edu.esprit.services.ServicePublication;
+import edu.esprit.traduction.TranslatorText;
 import edu.esprit.utils.DataSource;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,13 +39,17 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
-
+import javafx.util.Duration;
+import okhttp3.Response;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 
 public class test implements Initializable {
@@ -103,14 +110,21 @@ public class test implements Initializable {
     @FXML
     private Pane modifierPublictionFinale;
     @FXML
-    private ComboBox<String> triComboBox;
+    private Text forumActif;
+    @FXML
+    private Text publicationLikk;
+    private Timeline timeline;
+
+    @FXML
+    private TextField rechercheTextField;
+
+
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         refreshUI();
-
         chargerFormations();
         modiferForumPane.setVisible(false);
         modiferForumPane.setManaged(false);
@@ -120,23 +134,56 @@ public class test implements Initializable {
         PaneAjouterPublication.setManaged(false);
         modifierPublictionFinale.setVisible(false);
         modifierPublictionFinale.setManaged(false);
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), this::updateIdForum));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+        rechercheTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                List<Forum> forums=rechercherForums(newValue);
+                createUIElements(forums);
+            }
+        });
     }
     private void refreshUI() {
         try {
             List<Forum> forums = serviceForum.getAll();
+
+
             createUIElements(forums);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+    public List<Forum> rechercherForums(String titreRecherche) {
+        List<Forum> resultats = new ArrayList<>();
+        try {
+            List<Forum> forums = serviceForum.getAll();
+            for (Forum forum : forums) {
+                if (forum.getTitre().contains(titreRecherche)) {
+                    resultats.add(forum);
+                    System.out.println(resultats);
+                }
+            }
+            return resultats;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    void mmm(ActionEvent event) {
+        String titreRecherche;
+        titreRecherche=rechercheTextField.getText();
+        List<Forum> forums=rechercherForums(titreRecherche);
+        createUIElements(forums);
+
+    }
     private void refreshUIPublicationNbLike(int x, TextArea textAreaNblike, Publication publication) {
-        // Mettre à jour le compteur de "likes" dans le TextArea fourni
         textAreaNblike.setText("likes : " + publication.getNbLike());
     }
     private void refreshUIPublication(int x) {
 
             List<Publication> publications = servicePublication.getAll(x);
-       // Collections.sort(publications, (p1, p2) -> Integer.compare(p2.getNbLike(), p1.getNbLike()));
             createUIElementsPubliction(publications);
 
     }
@@ -297,10 +344,86 @@ public class test implements Initializable {
                     myButtonMoin.setDisable(true);
                 }
             });
+            Button myButtonTraduction = createButtonPubliction("Traduction", 325, 12,80,20);
+            myButtonTraduction.setStyle("-fx-background-color : #4B2F00; -fx-text-fill : #e7e5e5;");
+            myButtonTraduction.setOnAction(event -> {
+                TranslatorText translatorText = TranslatorText.getInstance();
+
+                String textToTranslate = textContenu.getText();
+                System.out.println(textToTranslate);
+                String from = "fr";
+                String to = "en";
+
+                System.out.println("Envoi de la requête à l'API de traduction...");
+
+                try {
+                    Response response = translatorText.post(textToTranslate, from, to);
+
+                    System.out.println("Réponse brute de l'API :");
+                    String responseBody = response.body().string();
+                    System.out.println(responseBody);
+
+                    // Additional logging for debugging
+                    int statusCode = response.code();
+                    System.out.println("\nCode de statut HTTP : " + statusCode);
+
+                    // Afficher uniquement le texte traduit
+                    String translatedText = translatorText.extractTranslatedText(responseBody);
+                    System.out.println("\nTexte traduit :");
+                    System.out.println(translatedText);
+                    textContenu.setText(translatedText);
+                    textAreaContenu.setText(textContenu.getText());
+
+
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
 
 
 
-            finPub.getChildren().addAll( textAreaContenu,textAreaNblike,myButtonPlus,myButtonMoin);
+            });
+            Button myButtonTraductionAnnuler = createButtonPubliction("Annuler", 305, 48,60,20);
+            myButtonTraductionAnnuler.setStyle("-fx-background-color : #4B2F00; -fx-text-fill : #e7e5e5;");
+            myButtonTraductionAnnuler.setOnAction(event -> {
+                TranslatorText translatorText = TranslatorText.getInstance();
+
+                String textToTranslate = textContenu.getText();
+                System.out.println(textToTranslate);
+                String from = "en";
+                String to = "fr";
+
+                System.out.println("Envoi de la requête à l'API de traduction...");
+
+                try {
+                    Response response = translatorText.post(textToTranslate, from, to);
+
+                    System.out.println("Réponse brute de l'API :");
+                    String responseBody = response.body().string();
+                    System.out.println(responseBody);
+
+                    // Additional logging for debugging
+                    int statusCode = response.code();
+                    System.out.println("\nCode de statut HTTP : " + statusCode);
+
+                    // Afficher uniquement le texte traduit
+                    String translatedText = translatorText.extractTranslatedText(responseBody);
+                    System.out.println("\nTexte traduit :");
+                    System.out.println(translatedText);
+                    textContenu.setText(translatedText);
+                    textAreaContenu.setText(textContenu.getText());
+
+
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
+
+
+            });
+
+
+
+            finPub.getChildren().addAll( textAreaContenu,textAreaNblike,myButtonPlus,myButtonMoin,myButtonTraduction,myButtonTraductionAnnuler);
             Pane finalPane = new Pane();
             finalPane.setPrefWidth(500);
             finalPane.getChildren().addAll(tetePub, image, finPub);
@@ -314,7 +437,7 @@ public class test implements Initializable {
     }
 
     private void createUIElements(List<Forum> forums) {
-        mohamed.getChildren().clear(); // Clear existing elements
+        mohamed.getChildren().clear();
 
         int i = 0;
         for (Forum forum : forums) {
@@ -860,8 +983,6 @@ void getImageModifier(ActionEvent event) {
     void viderImagemodifier(ActionEvent event) {
         modifierPublictionFinale.setVisible(false);
         modifierPublictionFinale.setManaged(false);
-        // Remettre à zéro la variable qui stocke le chemin de l'image sélectionnée
-//        selectedImagePathModifier = null;
     }
 
     @FXML
@@ -912,36 +1033,48 @@ void getImageModifier(ActionEvent event) {
         refreshUIPublication(forum1.getIdForum());
     }
 
+    public static Publication findPublicationWithMostLikes(List<Publication> publications) {
+        Optional<Publication> publicationWithMostLikes = publications.stream()
+                .max(Comparator.comparingInt(Publication::getNbLike));
+        System.out.println("+++++");
 
-    @FXML
-    void orderByNblike(ActionEvent event) {
-
-
+        return publicationWithMostLikes.orElse(null);
     }
-    private void refreshUIPublication(int x, String tri) {
-        List<Publication> publications = servicePublication.getAll(x);
-
-        // Vérifier le critère de tri sélectionné
-        if ("Tri par Likes (Ascendant)".equals(tri)) {
-            Collections.sort(publications, Comparator.comparingInt(Publication::getNbLike));
-        } else if ("Tri par Likes (Descendant)".equals(tri)) {
-            Collections.sort(publications, (p1, p2) -> Integer.compare(p2.getNbLike(), p1.getNbLike()));
+    private int refreshUIidForum() {
+        try {
+            List<Publication> publications = servicePublication.getAll();
+            int idForum = findMostRepeatedIdForum(publications);
+            return idForum;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        // Ajoutez d'autres conditions pour d'autres critères de tri si nécessaire
-
-        createUIElementsPubliction(publications);
     }
-    @FXML
-    void triComboBox(ActionEvent event) {
-        String selectedTri = triComboBox.getSelectionModel().getSelectedItem();
+    public static int findMostRepeatedIdForum(List<Publication> publications) {
+        Map<Integer, Long> idForumCounts = publications.stream()
+                .collect(Collectors.groupingBy(pub -> pub.getForum().getIdForum(), Collectors.counting()));
 
-        // Appelez la méthode de rafraîchissement avec le critère de tri sélectionné
-        refreshUIPublication(forum1.getIdForum(), selectedTri);
-
+        return idForumCounts.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(-1);
     }
+    private void updateIdForum(ActionEvent event) {
+        int idForum = refreshUIidForum();
+        System.out.println(idForum);
 
+        try {
+            Publication publicationWithMostLikes=findPublicationWithMostLikes(servicePublication.getAll());
 
+            publicationLikk.setText("Titre Forum :"+publicationWithMostLikes.getForum().getTitre()+"\n"+"Nom User"+publicationWithMostLikes.getUser().getNom()+"\n"+publicationWithMostLikes.getNbLike()+"likes");
 
-
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            Forum forum= serviceForum.getOneById(idForum);
+            forumActif.setText("zibest Forum :"+forum.getTitre());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
-
