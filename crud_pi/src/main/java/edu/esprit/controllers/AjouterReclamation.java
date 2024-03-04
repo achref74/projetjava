@@ -67,11 +67,7 @@ public class AjouterReclamation {
     private void populateOutilComboBox() {
         try {
             ObservableList<Outil> outils = FXCollections.observableArrayList(serviceOutil.getAll());
-
                 outilComboBox.setItems(outils);
-
-
-
         } catch (SQLException e) {
             e.printStackTrace(); // Handle exception appropriately
         }

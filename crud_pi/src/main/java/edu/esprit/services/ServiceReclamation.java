@@ -142,11 +142,12 @@ public class ServiceReclamation implements IService<Reclamation> {
         Set<Reclamation> Reclamations = new HashSet<>();
 
        // String req = "SELECT * FROM `reclamation` WHERE 1";
-        String reqq = "SELECT  r.id_reclamation, u.nom AS user_nom,o.nom AS outil_nom,f.nom AS formation_nom, r.description, r.date FROM reclamation r JOIN  user u ON r.id_user = u.idUser JOIN  outil o ON r.id_outil = o.idoutils JOIN  formation f ON r.id_formation = f.idFormation;";
+       // String reqq = "SELECT  r.id_reclamation, u.nom AS user_nom,o.nom AS outil_nom,f.nom AS formation_nom, r.description, r.date FROM reclamation r JOIN  user u ON r.id_user = u.idUser JOIN  outil o ON r.id_outil = o.idoutils JOIN  formation f ON r.id_formation = f.idFormation;";
         String rec="SELECT r.id_reclamation, u.nom AS user_nom, u.idUser AS user_id, o.nom AS outil_nom, o.idoutils AS outil_id, f.nom AS formation_nom, f.idFormation AS formation_id, r.description, r.date FROM reclamation r JOIN user u ON r.id_user = u.idUser JOIN outil o ON r.id_outil = o.idoutils JOIN formation f ON r.id_formation = f.idFormation;";
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(rec);
             while (res.next()){
+
                 int id = res.getInt("id_reclamation");
                 Formation formation = new Formation();
                 formation.setId_formation(res.getInt("formation_id"));
@@ -163,6 +164,37 @@ public class ServiceReclamation implements IService<Reclamation> {
                 Reclamation r = new Reclamation(id,user,outil,formation,description,date);
                 Reclamations.add(r);
             }
+
+        return Reclamations;
+    }
+    public Set<Reclamation> getReclamationByidUser(int userid) throws SQLException{
+        Set<Reclamation> Reclamations = new HashSet<>();
+
+        // String req = "SELECT * FROM `reclamation` WHERE 1";
+        // String reqq = "SELECT  r.id_reclamation, u.nom AS user_nom,o.nom AS outil_nom,f.nom AS formation_nom, r.description, r.date FROM reclamation r JOIN  user u ON r.id_user = u.idUser JOIN  outil o ON r.id_outil = o.idoutils JOIN  formation f ON r.id_formation = f.idFormation;";
+        String rec="SELECT r.id_reclamation, u.nom AS user_nom, u.idUser AS user_id, o.nom AS outil_nom, o.idoutils AS outil_id, f.nom AS formation_nom, f.idFormation AS formation_id, r.description, r.date FROM reclamation r JOIN user u ON r.id_user = u.idUser JOIN outil o ON r.id_outil = o.idoutils JOIN formation f ON r.id_formation = f.idFormation where u.idUser= ?;";
+        PreparedStatement st = cnx.prepareStatement(rec);
+        st.setInt(1,userid);
+        ResultSet res = st.executeQuery();
+
+
+        while (res.next()){
+            int id = res.getInt("id_reclamation");
+            Formation formation = new Formation();
+            formation.setId_formation(res.getInt("formation_id"));
+            formation.setNom(res.getString("formation_nom"));
+            User user = new User();
+            user.setId_user(res.getInt("user_id"));
+            user.setNom(res.getString("user_nom"));
+            Outil outil = new Outil();
+            outil.setId_outil(res.getInt("outil_id"));
+            outil.setNom(res.getString("outil_nom"));
+            String description = res.getString("description");
+            java.sql.Timestamp timestamp = res.getTimestamp("date");
+            LocalDateTime date = timestamp.toLocalDateTime();
+            Reclamation r = new Reclamation(id,user,outil,formation,description,date);
+            Reclamations.add(r);
+        }
 
         return Reclamations;
     }
