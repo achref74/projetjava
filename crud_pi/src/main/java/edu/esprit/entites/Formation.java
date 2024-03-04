@@ -34,4 +34,8 @@ public class Formation {
     public String toString() {
         return nom;
     }
+    public String tooString() {
+        return "test"+nom;
+    }
+
 }

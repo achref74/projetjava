@@ -42,7 +42,7 @@ public class Outil {
 
     @Override
     public String toString() {
-        return nom ;
+        return id_outil+"wiiiiiiiiiw"+nom ;
 
     }
 }

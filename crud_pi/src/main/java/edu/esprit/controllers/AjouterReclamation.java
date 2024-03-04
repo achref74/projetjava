@@ -1,3 +1,5 @@
+
+
 package edu.esprit.controllers;
 
 import edu.esprit.entites.Formation;
@@ -7,6 +9,7 @@ import edu.esprit.entites.User;
 import edu.esprit.services.ServiceFormation;
 import edu.esprit.services.ServiceOutil;
 import edu.esprit.services.ServiceReclamation;
+import edu.esprit.utils.DataSource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,10 +22,19 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 public class AjouterReclamation {
 
@@ -41,7 +53,7 @@ public class AjouterReclamation {
     @FXML
     private Button afficherReclamationButton;
     private AfficherReclamationBack afficherReclamationBackController;
-
+    Connection cnx = DataSource.getInstance().getCnx();
 
 
     public void setAfficherReclamationBackController(AfficherReclamationBack afficherReclamationBackController) {
@@ -49,28 +61,76 @@ public class AjouterReclamation {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
         // Populate ComboBoxes with data from the database
         populateFormationComboBox();
         populateOutilComboBox();
     }
 
     private void populateFormationComboBox() {
+        Set<Formation> formations = new HashSet<>();
         try {
-            ObservableList<Formation> formations = FXCollections.observableArrayList(serviceFormation.getAll());
-            formationComboBox.setItems(formations);
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM `formation` WHERE 1");
+            while (rs.next()) {
+                int idFormation = rs.getInt("idFormation");
+                String nomFormation = rs.getString("nom");
+                formations.add(new Formation(idFormation, nomFormation));
+            }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle exception appropriately
+            System.out.println(e.getMessage());
         }
-    }
+        formationComboBox.getItems().addAll(formations);
+        // Utilisez un StringConverter pour afficher uniquement les noms et prénoms dans le ChoiceBox
+        formationComboBox.setConverter(new StringConverter<Formation>() {
 
-    private void populateOutilComboBox() {
+            @Override
+            public String toString(Formation formation) {
+                // Affichez le nom et prénom de l'utilisateur dans le ChoiceBox
+                return formation != null ? formation.getNom() : " " ;
+            }
+
+            @Override
+            public Formation fromString(String string) {
+                // Vous n'avez probablement pas besoin d'implémenter cette méthode pour un ChoiceBox
+                return null;
+            }
+        });
+
+
+    }
+    private void populateOutilComboBox() throws SQLException {
+
+        Set<Outil> outils = new HashSet<>();
         try {
-            ObservableList<Outil> outils = FXCollections.observableArrayList(serviceOutil.getAll());
-                outilComboBox.setItems(outils);
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM `outil` WHERE 1");
+            while (rs.next()) {
+                int id = rs.getInt("idoutils");
+                String nom =rs.getString("nom");
+                Outil f = new Outil(id,nom);
+                outils.add(f);
+            }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle exception appropriately
+            System.out.println(e.getMessage());
         }
+        outilComboBox.getItems().addAll(outils);
+        // Utilisez un StringConverter pour afficher uniquement les noms et prénoms dans le ChoiceBox
+        outilComboBox.setConverter(new StringConverter<Outil>() {
+
+            @Override
+            public String toString(Outil outil) {
+                // Affichez le nom et prénom de l'utilisateur dans le ChoiceBox
+                return outil != null ? outil.getNom() : " " ;
+            }
+
+            @Override
+            public Outil fromString(String string) {
+                // Vous n'avez probablement pas besoin d'implémenter cette méthode pour un ChoiceBox
+                return null;
+            }
+        });
+
     }
 
     @FXML

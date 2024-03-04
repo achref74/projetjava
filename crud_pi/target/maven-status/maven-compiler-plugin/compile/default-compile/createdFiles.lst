@@ -5,6 +5,7 @@ edu\esprit\controllers\AfficherReclamationBack.class
 edu\esprit\controllers\CaptchaI.class
 edu\esprit\controllers\ReclamationController.class
 edu\esprit\controllers\AfficherReclamation$1$1.class
+edu\esprit\controllers\AjouterReclamation$2.class
 edu\esprit\utils\DataSource.class
 edu\esprit\controllers\AjouterReclamation.class
 edu\esprit\controllers\ReplyWindowController.class
@@ -15,5 +16,6 @@ edu\esprit\controllers\AjouterFormation.class
 edu\esprit\controllers\ModifierReclamation.class
 edu\esprit\controllers\AfficherReclamation.class
 edu\esprit\entites\Reponse.class
+edu\esprit\controllers\AjouterReclamation$1.class
 edu\esprit\controllers\AfficherReclamation$1.class
 edu\esprit\tests\Main.class
