@@ -22,6 +22,7 @@ import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 import org.controlsfx.control.Notifications;
 
 import java.io.File;
@@ -60,8 +61,28 @@ public class AjouterAchatsController {
         outilsService = new OutilsService2();
         serviceAchat = new AchatService2();
         cbOutils.getItems().addAll(outilsService.getAll());
-        cbFormation.getItems().addAll(FormationService.getAll());
-    }
+       cbFormation.getItems().addAll(FormationService.getAll());
+
+
+        cbFormation.setConverter(new StringConverter<Formation>() {
+
+                @Override
+                public String toString(Formation formation) {
+                    // Affichez le nom et prénom de l'utilisateur dans le ChoiceBox
+                    return formation != null ? formation.getNom() : " " ;
+                }
+
+                @Override
+                public Formation fromString(String string) {
+                    // Vous n'avez probablement pas besoin d'implémenter cette méthode pour un ChoiceBox
+                    return null;
+                }
+            });
+
+
+        }
+
+
     public void handleAjouterAchats(ActionEvent actionEvent) throws DocumentException, IOException {
         // Check if ComboBoxes have selected items and DatePicker has a selected date
         if (cbOutils.getValue() == null || cbFormation.getValue() == null || datePicker.getValue() == null) {

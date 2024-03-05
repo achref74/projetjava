@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Random;
 
 public class AjouterOutilsController {
 
@@ -37,6 +38,29 @@ public class AjouterOutilsController {
     private OutilsService2 outilsService;
     @FXML
     private StackPane mainContentPane;
+    @FXML
+    private TextField validateCaptcha;
+    @FXML
+    private TextField captchaCodeValue;
+    private  String a ="";
+    public static String createCaptchaValue(){
+        Random random = new Random();
+        int length=7+(Math.abs(random.nextInt()) % 3);
+        StringBuffer captchaStrBuffer = new StringBuffer() ;
+        for (int i=0; i<length;i++) {
+            int baseCharacterNumber = Math.abs(random.nextInt()%62);
+            int characterNumber = 0 ;
+            if(baseCharacterNumber < 26) {
+                characterNumber= 65 + baseCharacterNumber ;
+            } else if (baseCharacterNumber < 52) {
+                characterNumber = 97 + (baseCharacterNumber - 26);
+            }else {
+                characterNumber = 48 + (baseCharacterNumber-52);
+            }
+            captchaStrBuffer.append((char)characterNumber);
+        }
+        return captchaStrBuffer.toString();
+}
 
     @FXML
     public void initialize() {
@@ -44,6 +68,8 @@ public class AjouterOutilsController {
         outilsService = new OutilsService2();
 
         cbCategorie.getItems().addAll(categorieService.getAll());
+        a = createCaptchaValue();
+        captchaCodeValue.setText(a);
     }
 
     @FXML
@@ -62,49 +88,55 @@ public class AjouterOutilsController {
             showAlert(Alert.AlertType.ERROR, "Erreur", null, "Veuillez remplir tous les champs.");
             return;
         }
+        if (validateCaptcha.getText().equals(a)) {
 
-        // Validate numeric fields
-        double prix;
-        prix = Double.parseDouble(prixStr);
-        try {
-            if (prix == 0) {
-                throw new NumberFormatException("Le prix total doit être supérieur à 0.");
+
+            // Validate numeric fields
+            double prix;
+            try {
+                prix = Double.parseDouble(prixStr);
+                if (prix <= 0) {
+                    throw new NumberFormatException("Le prix total doit être supérieur à 0.");
+                }
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", null, "Le champ Prix doit être un nombre valide.");
+                return;
             }
 
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", null, "Le champ Prix doit être un nombre valide et supérieur à 0.");
-            return;
-        }
+            String stock;
+            try {
+                stock = stockStr; // Assuming stock is a String. If it's numeric, similar parsing as 'prix' can be applied.
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", null, "Le champ Stock doit être un nombre valide.");
+                return;
+            }
 
-        String stock;
-        try {
-            stock = stockStr; // Assuming stock is a String. If it's numeric, similar parsing as 'prix' can be applied.
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", null, "Le champ Stock doit être un nombre valide.");
-            return;
-        }
+            // If all validations pass, proceed to add the outil
+            outil newOutil = new outil(nom, description, prix, ressources, stock, etat, categorie, imagePath);
+            outilsService.ajouter(newOutil);
 
-        // If all validations pass, proceed to add the outil
-        outil newOutil = new outil(nom, description, prix, ressources, stock, etat, categorie, imagePath);
-        outilsService.ajouter(newOutil);
+            //showAlert(Alert.AlertType.INFORMATION, "Outils Ajoutée", null, "Outil ajouté avec succès!");
+            Notifications.create()
+                    .styleClass(
+                            "-fx-background-color: #28a745; " + // Couleur de fond
+                                    "-fx-text-fill: white; " + // Couleur du texte
+                                    "-fx-background-radius: 5px; " + // Bord arrondi
+                                    "-fx-border-color: #ffffff; " + // Couleur de la bordure
+                                    "-fx-border-width: 2px;" // Largeur de la bordure
+                    )
+                    .title("Outils Ajouté avec succès")
+                    .position(Pos.TOP_RIGHT) // Modifier la position ici
+                    .hideAfter(Duration.seconds(20))
+                    .show();
+            loadAfficherOutilsView();
 
-        //showAlert(Alert.AlertType.INFORMATION, "Outils Ajoutée", null, "Outil ajouté avec succès!");
-        Notifications.create()
-                .styleClass(
-                        "-fx-background-color: #28a745; " + // Couleur de fond
-                                "-fx-text-fill: white; " + // Couleur du texte
-                                "-fx-background-radius: 5px; " + // Bord arrondi
-                                "-fx-border-color: #ffffff; " + // Couleur de la bordure
-                                "-fx-border-width: 2px;" // Largeur de la bordure
-                )
-                .title("Outils Ajouté avec succès")
-                .position(Pos.TOP_RIGHT) // Modifier la position ici
-                .hideAfter(Duration.seconds(20))
-                .show();
-
+        }else {  Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("code captcha invalide  : " );
+               alert.show();}
 
         // After adding, load the AfficherOutils view
-        loadAfficherOutilsView();
+
+
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String header, String message) {

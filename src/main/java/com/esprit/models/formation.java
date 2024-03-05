@@ -148,7 +148,7 @@ public class Formation {
  */
     @Override
     public String toString() {
-        return this.nom ;
+        return"ddddd"+ this.nom ;
     }
 
     @Override
