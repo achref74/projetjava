@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="edu.esprit.controllers.ModifierReclamation"
+            prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #A67B5B;" stylesheets="style.css">
+    <children>
+        <Label layoutX="99.0" layoutY="79.0" prefHeight="17.0" prefWidth="102.0" text="Select Formation:" />
+        <Label layoutX="96.0" layoutY="138.0" prefHeight="17.0" prefWidth="89.0" text="Select Outil:" />
+        <Label layoutX="96.0" layoutY="192.0" text="Description:" />
+        <ComboBox fx:id="formationComboBox" layoutX="204.0" layoutY="75.0" prefWidth="150.0" />
+        <ComboBox fx:id="outilComboBox" layoutX="204.0" layoutY="134.0" prefWidth="150.0" />
+        <TextArea fx:id="descriptionTextArea" layoutX="200.0" layoutY="172.0" prefHeight="117.0" prefWidth="199.0" />
+        <Button layoutX="247.0" layoutY="316.0" onAction="#updateReclamation" text="update Reclamation" />
+    </children>
+</AnchorPane>
