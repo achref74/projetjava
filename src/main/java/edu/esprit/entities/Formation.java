@@ -22,10 +22,6 @@ public class Formation {
         return nomF;
     }
 
-    @Override
-    public String toString() {
-        return nomF ;
-    }
 
     public void setNomF(String nomF) {
         this.nomF = nomF;

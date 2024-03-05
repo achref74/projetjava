@@ -40,13 +40,13 @@ public class ServicePublication implements IService<Publication> {
         if (publication.getContenu() == null || publication.getContenu().isEmpty()) {
             System.out.println("Le contenu de la publication est obligatoire.");
         }else {
-        String req = "UPDATE publication SET contenuP = ?, image = ?,nbLike=?,idUser=? WHERE idP = ?";
+        String req = "UPDATE publication SET contenuP = ?, image = ? WHERE idP = ?";
         PreparedStatement  prepardstatement = cnx.prepareStatement(req);
         prepardstatement.setString(1, publication.getContenu());
         prepardstatement.setString(2, publication.getImage());
-        prepardstatement.setInt(3, publication.getNbLike());
-        prepardstatement.setInt(4, publication.getUser().getIdUser());
-        prepardstatement.setInt(5, publication.getIdP());
+        prepardstatement.setInt(3, publication.getIdP());
+//        prepardstatement.setInt(3, publication.getNbLike());
+//        prepardstatement.setInt(4, publication.getUser().getIdUser());
         prepardstatement.executeUpdate();
         System.out.println("publiction modifié");}
 

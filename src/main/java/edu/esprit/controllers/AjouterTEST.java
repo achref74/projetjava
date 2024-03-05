@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -50,10 +51,14 @@ public class AjouterTEST implements Initializable {
     void AjouterForum(ActionEvent event) {
         try {
             Formation formation = (Formation) AfficherFormationNom.getValue();
-            int idFormation = formation.getIdFormation();
+           // int idFormation = formation.getIdFormation();
 
             String titre = TItreForum.getText();
             String description = descriptionForum.getText();
+            if (titre.isEmpty() || description.isEmpty()) {
+                showAlert("Champ(s) vide(s)", "Veuillez remplir tous les champs requis.");
+                return; // Arrêtez l'ajout si l'un des champs est vide
+            }
 
             // Vérification Regex pour le titre (exemple de regex, ajustez selon vos besoins)
             if (!titre.matches("^[a-zA-Z0-9\\s]+$")) {
@@ -73,7 +78,7 @@ public class AjouterTEST implements Initializable {
             alert.setContentText("GG");
             alert.show();
         } catch (SQLException e) {
-            showAlert("SQL Exception", e.getMessage());
+//            showAlert("SQL Exception", e.getMessage());
         }
         chargerFormations();
 
@@ -114,8 +119,24 @@ public class AjouterTEST implements Initializable {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        AfficherFormationNom.getItems().addAll(formations);
+        // Utilisez un StringConverter pour afficher uniquement les noms et prénoms dans le ChoiceBox
+        AfficherFormationNom.setConverter(new StringConverter<Formation>() {
 
-        ObservableList<Formation> observableFormations = FXCollections.observableArrayList(formations);
-        AfficherFormationNom.setItems(observableFormations);
+            @Override
+            public String toString(Formation formation) {
+                // Affichez le nom et prénom de l'utilisateur dans le ChoiceBox
+                return formation != null ? formation.getNomF() : " " ;
+            }
+
+            @Override
+            public Formation fromString(String string) {
+                // Vous n'avez probablement pas besoin d'implémenter cette méthode pour un ChoiceBox
+                return null;
+            }
+        });
+
+//        ObservableList<Formation> observableFormations = FXCollections.observableArrayList(formations);
+//        AfficherFormationNom.setItems(observableFormations);
     }
 }

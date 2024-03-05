@@ -51,6 +51,12 @@ public class PUb implements Initializable {
     private final ServicePublication servicePublication =new ServicePublication();
 
 
+    @FXML
+    private TextField nomFormPubR;
+    @FXML
+    private Text nbPUB;
+
+
 
     @FXML
     void AjouterPubliction(ActionEvent event) {
@@ -132,6 +138,20 @@ public class PUb implements Initializable {
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), this::updateIdForum));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+        List<Publication> publications = null;
+        try {
+            publications = servicePublication.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        int idForumToCount =42;
+
+        long repetitions = countRepetitionsOfIdForum(publications, idForumToCount);
+        System.out.println("Le nombre de répétitions de l'idForum " + idForumToCount + " est : " + repetitions);
+        String nomForumToCount ="chama9ma9";
+        long repetitionsOfNomForum =countRepetitionsOfNomForum(publications, nomForumToCount);
+        System.out.println("Le nombre de répétitions de Forum " + nomForumToCount + " est : " + repetitionsOfNomForum);
+
 
     }
     private void updateIdForum(ActionEvent event) {
@@ -177,6 +197,32 @@ public class PUb implements Initializable {
 
         return publicationWithMostLikes.orElse(null);
     }
+    public static long countRepetitionsOfIdForum(List<Publication> publications, int idForumToCount) {
+        return publications.stream()
+                .filter(pub -> pub.getForum().getIdForum() == idForumToCount)
+                .count();
+    }
+    public static long countRepetitionsOfNomForum(List<Publication> publications, String nomForumToCount) {
+        return publications.stream()
+                .filter(pub -> pub.getForum().getTitre().equals(nomForumToCount))
+                .count();
+    }
+
+
+    @FXML
+    void combienub(ActionEvent event) {
+        List<Publication> publications ;
+        try {
+            publications = servicePublication.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        String nomForumToCount =nomFormPubR.getText();
+        long repetitionsOfNomForum =countRepetitionsOfNomForum(publications, nomForumToCount);
+        nbPUB.setText("contien "+String.valueOf(repetitionsOfNomForum)+" publictions");
+    }
+
+
 
 }
 

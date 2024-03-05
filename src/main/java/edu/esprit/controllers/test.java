@@ -11,6 +11,8 @@ import edu.esprit.utils.DataSource;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +23,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,24 +38,36 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 import okhttp3.Response;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 
 public class test implements Initializable {
@@ -117,6 +135,13 @@ public class test implements Initializable {
 
     @FXML
     private TextField rechercheTextField;
+    private String imageMeme;
+    @FXML
+    private TextField nomFormPubR;
+    @FXML
+    private Text nbPUB;
+
+
 
 
 
@@ -144,6 +169,8 @@ public class test implements Initializable {
                 createUIElements(forums);
             }
         });
+        ScrolFelhi.setVisible(true);
+
     }
     private void refreshUI() {
         try {
@@ -160,9 +187,9 @@ public class test implements Initializable {
         try {
             List<Forum> forums = serviceForum.getAll();
             for (Forum forum : forums) {
-                if (forum.getTitre().contains(titreRecherche)) {
+                if (forum.getFormation().getNomF().contains(titreRecherche)) {
                     resultats.add(forum);
-                    System.out.println(resultats);
+                  //  System.out.println(resultats);
                 }
             }
             return resultats;
@@ -170,14 +197,23 @@ public class test implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    @FXML
-    void mmm(ActionEvent event) {
-        String titreRecherche;
-        titreRecherche=rechercheTextField.getText();
-        List<Forum> forums=rechercherForums(titreRecherche);
-        createUIElements(forums);
-
+    public List<Forum> rechercherForumsDate(LocalDateTime dateRecherche) {
+        List<Forum> resultats = new ArrayList<>();
+        try {
+            List<Forum> forums = serviceForum.getAll();
+            for (Forum forum : forums) {
+                // Comparaison des dates
+                if (forum.getDateCreation().isEqual(dateRecherche)) {
+                    resultats.add(forum);
+                   // System.out.println(resultats);
+                }
+            }
+            return resultats;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
     private void refreshUIPublicationNbLike(int x, TextArea textAreaNblike, Publication publication) {
         textAreaNblike.setText("likes : " + publication.getNbLike());
     }
@@ -259,11 +295,12 @@ public class test implements Initializable {
                     publicationamodifier.setIdP(publication.getIdP());
                     publicationamodifier.setNbLike(publication.getNbLike());
                     publicationamodifier.setImage(publication.getImage());
+                    imageMeme=publication.getImage();
                     publicationamodifier.setForum(forum1);
-                    userP.setIdUser(2);
+
                     publicationamodifier.setUser(userP);
                     ImageView imageViewModifier = creerImageView(publication.getImage(),100,100,10,10);
-                    System.out.println(pathImage);
+                   // System.out.println(pathImage);
 
                     imagepublictionModifier.setLayoutX(118);
                     imagepublictionModifier.setLayoutY(121);
@@ -276,7 +313,7 @@ public class test implements Initializable {
 
 
                 }
-                //  refreshUIPublication( forum1.getIdForum());
+                  refreshUIPublication( forum1.getIdForum());
 
             });
             Text textNblike=createTextNblike(nbLike);
@@ -284,18 +321,18 @@ public class test implements Initializable {
             Button myButtonPlus = createButtonPubliction("+", 427, 55,40,20);
             myButtonPlus.setStyle("-fx-background-color : #4B2F00; -fx-text-fill : #e7e5e5;");
             myButtonPlus.setOnAction(event -> {
-                System.out.println("Button clicked!");
+               // System.out.println("Button clicked!");
                 int newLikeCount = publication.getNbLike() + 1;
                 Publication publication1 = new Publication();
                 publication1.setIdP(publication.getIdP());
                 publication1.setNbLike(newLikeCount);
                 try {
                     servicePublication.modifierNbLike(publication1);
-                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                    successAlert.setTitle("Modification réussie");
-                    successAlert.setHeaderText(null);
-                    successAlert.setContentText("valider.");
-                    successAlert.show();
+//                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+//                    successAlert.setTitle("Modification réussie");
+//                    successAlert.setHeaderText(null);
+//                    successAlert.setContentText("valider.");
+//                    successAlert.show();
                 } catch (SQLException e) {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                     errorAlert.setTitle("Erreur de modification");
@@ -327,11 +364,11 @@ public class test implements Initializable {
 
                     try {
                         servicePublication.modifierNbLike(publication1);
-                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                        successAlert.setTitle("Modification réussie");
-                        successAlert.setHeaderText(null);
-                        successAlert.setContentText("Validation.");
-                        successAlert.show();
+//                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+//                        successAlert.setTitle("Modification réussie");
+//                        successAlert.setHeaderText(null);
+//                        successAlert.setContentText("Validation.");
+//                        successAlert.show();
                     } catch (SQLException e) {
                         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                         errorAlert.setTitle("Erreur de modification");
@@ -423,6 +460,8 @@ public class test implements Initializable {
 
 
 
+
+
             finPub.getChildren().addAll( textAreaContenu,textAreaNblike,myButtonPlus,myButtonMoin,myButtonTraduction,myButtonTraductionAnnuler);
             Pane finalPane = new Pane();
             finalPane.setPrefWidth(500);
@@ -479,8 +518,8 @@ public class test implements Initializable {
                 }
 
                 forum1.setIdForum(forum.getIdForum());
-                System.out.println(forum1.getIdForum());
-                System.out.println(forum1.getFormation().getIdFormation());
+               // System.out.println(forum1.getIdForum());
+               // System.out.println(forum1.getFormation().getIdFormation());
 
                 TitreForumModifier.setText(forum1.getTitre());
                 DescriptionForumModifier.setText(forum1.getDescription());
@@ -497,8 +536,8 @@ public class test implements Initializable {
                 }
 
                 forum1.setIdForum(forum.getIdForum());
-                System.out.println(forum1.getIdForum());
-                System.out.println(forum1.getFormation().getIdFormation());
+               // System.out.println(forum1.getIdForum());
+              //  System.out.println(forum1.getFormation().getIdFormation());
 
                 // Mettez à jour les éléments d'interface utilisateur appropriés ici
                 // TitreForumModifier.setText(forum1.getTitre());
@@ -608,7 +647,7 @@ public class test implements Initializable {
     }
     ///Pub.................
     private ImageView creerImageView(String cheminImage, int width, int height, double layoutX, double layoutY ) {
-        System.out.println(cheminImage);
+       // System.out.println(cheminImage);
         ImageView imageView = new ImageView();
         imageView.setFitWidth(width);
         imageView.setFitHeight(height);
@@ -801,9 +840,24 @@ public class test implements Initializable {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        ForumFormationModifier.getItems().addAll(formations);
+        // Utilisez un StringConverter pour afficher uniquement les noms et prénoms dans le ChoiceBox
+        ForumFormationModifier.setConverter(new StringConverter<Formation>() {
 
-        ObservableList<Formation> observableFormations = FXCollections.observableArrayList(formations);
-        ForumFormationModifier.setItems(observableFormations);
+            @Override
+            public String toString(Formation formation) {
+                // Affichez le nom et prénom de l'utilisateur dans le ChoiceBox
+                return formation != null ? formation.getNomF() : " " ;
+            }
+
+            @Override
+            public Formation fromString(String string) {
+                // Vous n'avez probablement pas besoin d'implémenter cette méthode pour un ChoiceBox
+                return null;
+            }
+        });
+       /* ObservableList<Formation> observableFormations = FXCollections.observableArrayList(formations);
+        ForumFormationModifier.setItems(observableFormations);*/
     }
 
 
@@ -862,12 +916,15 @@ public class test implements Initializable {
         refreshUIPublication( forum1.getIdForum());
         PUbAll.setVisible(true);
         PUbAll.setManaged(true);
+        ScrolFelhi.setVisible(false);
     }
 
     @FXML
     void QuitterPubliction(ActionEvent event) {
         PUbAll.setVisible(false);
         PUbAll.setManaged(false);
+        ScrolFelhi.setVisible(true);
+
 
     }
     
@@ -884,22 +941,29 @@ public class test implements Initializable {
         PaneAjouterPublication.setManaged(true);
 
     }
-
+    @FXML
     public void AjouterPubliction(ActionEvent actionEvent) {
         try {
-            Forum forum = new Forum();
-            int idForum = forum1.getIdForum();
-            forum.setIdForum(idForum);
+            // Utilisez directement forum1 au lieu de créer une nouvelle instance inutile de Forum
+           // int idForum = forum1.getIdForum();
+
             User user = new User();
             int iduser = Integer.parseInt(idUser.getText());
             user.setIdUser(iduser);
 
             String contenu = contenuPublication.getText();
             String regex = "^[a-zA-Z0-9\\s]+$";
+            if (contenu.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setContentText("Champ(s) vide(s), Veuillez remplir tous les champs requis.");
+                alert.showAndWait();
+                return; // Arrêtez l'ajout si l'un des champs est vide
+            }
 
             if (contenu.matches(regex)) {
                 // Le contenu est valide, vous pouvez ajouter la publication
-                servicePublication.ajouter(new Publication(contenu, pathImage, forum, user));
+                servicePublication.ajouter(new Publication(contenu, pathImage, forum1, user));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setContentText("GG");
@@ -917,7 +981,8 @@ public class test implements Initializable {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
-        refreshUIPublication(forum1.getIdForum());
+        // Vous devez adapter la méthode refreshUIPublication en fonction de votre code, car elle n'est pas fournie ici
+         refreshUIPublication(forum1.getIdForum());
     }
 
     public void ImporteImage(ActionEvent actionEvent) {
@@ -941,7 +1006,7 @@ public class test implements Initializable {
             String relativePath = imagePath.substring(resourceDir.length() + 1);
 
             pathImage = relativePath;
-            System.out.println(pathImage);
+           // System.out.println(pathImage);
             ImageView imageView = creerImageView(relativePath,100,100,10,10);
             imagePubliction.getChildren().add(imageView);
 
@@ -971,12 +1036,13 @@ void getImageModifier(ActionEvent event) {
         String relativePath = imagePath.substring(resourceDir.length() + 1);
 
         selectedImagePathModifier = relativePath; // Stocker le chemin de l'image sélectionnée
-        System.out.println(selectedImagePathModifier);
-        System.out.println("+++++++++++++++");
+
         ImageView imageView = creerImageView(relativePath, 100, 100, 10, 10);
         imagepublictionModifier.getChildren().clear();
         imagepublictionModifier.getChildren().add(imageView);
+
     }
+
 }
 
     @FXML
@@ -997,6 +1063,8 @@ void getImageModifier(ActionEvent event) {
             if (response == ButtonType.OK) {
                 String contenuModifier = ContenuPublictionModifier.getText();
                 String regex = "^[a-zA-Z0-9\\s]+$";
+//                String ima = null;
+//                if (ima.isEmpty()){ima=selectedImagePathModifier;}
 
                 if (contenuModifier.matches(regex)) {
                     // Le contenu est valide, vous pouvez procéder à la modification
@@ -1031,12 +1099,13 @@ void getImageModifier(ActionEvent event) {
         imagepublictionModifier.getChildren().clear();
         ContenuPublictionModifier.clear();
         refreshUIPublication(forum1.getIdForum());
+
     }
 
     public static Publication findPublicationWithMostLikes(List<Publication> publications) {
         Optional<Publication> publicationWithMostLikes = publications.stream()
                 .max(Comparator.comparingInt(Publication::getNbLike));
-        System.out.println("+++++");
+       // System.out.println("+++++");
 
         return publicationWithMostLikes.orElse(null);
     }
@@ -1060,7 +1129,7 @@ void getImageModifier(ActionEvent event) {
     }
     private void updateIdForum(ActionEvent event) {
         int idForum = refreshUIidForum();
-        System.out.println(idForum);
+       // System.out.println(idForum);
 
         try {
             Publication publicationWithMostLikes=findPublicationWithMostLikes(servicePublication.getAll());
@@ -1077,4 +1146,28 @@ void getImageModifier(ActionEvent event) {
             throw new RuntimeException(e);
         }
     }
+
+
+
+    public static long countRepetitionsOfNomForum(List<Publication> publications, String nomForumToCount) {
+        return publications.stream()
+                .filter(pub -> pub.getForum().getTitre().equals(nomForumToCount))
+                .count();
+    }
+
+
+    @FXML
+    void combienub(ActionEvent event) {
+        List<Publication> publications ;
+        try {
+            publications = servicePublication.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        String nomForumToCount =nomFormPubR.getText();
+        long repetitionsOfNomForum =countRepetitionsOfNomForum(publications, nomForumToCount);
+        nbPUB.setText("contien "+String.valueOf(repetitionsOfNomForum)+" publictions");
+    }
+
+
 }
