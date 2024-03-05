@@ -2,14 +2,16 @@ package edu.esprit.services;
 
 import edu.esprit.entities.Certificat;
 import edu.esprit.entities.Formation;
+import edu.esprit.entities.Offre;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-public class ServiceCertificat implements IService<Certificat>{
+public class ServiceCertificat implements IService1<Certificat> {
 
     private Connection cnx = DataSource.getInstance().getCnx();
 
@@ -94,7 +96,7 @@ public class ServiceCertificat implements IService<Certificat>{
     }
 
 
-    @Override
+
     public List<Certificat> getAll() throws SQLException{
         List<Certificat> certificats = new ArrayList<>();
 
@@ -127,5 +129,47 @@ public class ServiceCertificat implements IService<Certificat>{
             System.out.println(rowsAffected + " certificat supprimée !");
 
     }
+
+    public List<Certificat> rechercherOffreParTitre(String titre) throws SQLException {
+        String query = "SELECT * FROM certificat WHERE LOWER(titre) LIKE ?";
+        List<Certificat> offres = new ArrayList<>();
+
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setString(1, titre.toLowerCase() + '%');
+            try (ResultSet res = ps.executeQuery()) {
+                offres = StreamSupport.stream(
+                                Spliterators.spliteratorUnknownSize(
+                                        new Iterator<Certificat>() {
+                                            @Override
+                                            public boolean hasNext() {
+                                                try {
+                                                    return res.next();
+                                                } catch (SQLException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                            }
+
+                                            @Override
+                                            public Certificat next() {
+                                                try {
+                                                    int idCertificat = res.getInt("idCertificat");
+                                                    String titre = res.getString("titre");
+                                                    String description = res.getString("description");
+                                                    Date dateObtention = res.getDate("dateObtention");
+                                                    int nbrCours = res.getInt("nbrCours");
+                                                    return new Certificat(titre, description, dateObtention, nbrCours);
+                                                } catch (SQLException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                            }
+                                        },
+                                        Spliterator.ORDERED),
+                                false)
+                        .collect(Collectors.toList());
+            }
+        }
+        return offres;
+    }
+
 }
 

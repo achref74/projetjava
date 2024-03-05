@@ -219,59 +219,6 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                            <children>
-                                <Pane prefHeight="84.0" prefWidth="96.0" />
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="416.0" styleClass="free-delivery-card" stylesheets="@style.css">
-                                    <children>
-                                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="325.0">
-                                            <children>
-                                                <Label prefHeight="30.0" prefWidth="277.0" text="Les Formations les plus vendus   " textFill="#878787">
-                                                    <font>
-                                                        <Font name="Cambria Bold" size="18.0" />
-                                                    </font>
-                                                </Label>
-                                                <Label prefHeight="16.0" prefWidth="190.0" text="Plus que 5 milles acheteurs " textFill="#878787">
-                                                    <font>
-                                                        <Font name="Cambria" size="15.0" />
-                                                    </font>
-                                                </Label>
-                                            </children>
-                                        </VBox>
-                                        <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@images/home_img.jpg" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                </HBox>
-                                <Pane prefHeight="84.0" prefWidth="96.0" HBox.hgrow="ALWAYS" />
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="369.0" styleClass="shopping-online-card" stylesheets="@style.css">
-                                    <children>
-                                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="422.0">
-                                            <children>
-                                                <Label prefHeight="30.0" prefWidth="304.0" text="Les Formateurs les plus populaires " textFill="#878787">
-                                                    <font>
-                                                        <Font name="Cambria Bold" size="18.0" />
-                                                    </font>
-                                                </Label>
-                                                <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@images/home_img.jpg" />
-                                                    </image>
-                                                    <VBox.margin>
-                                                        <Insets right="-230.0" />
-                                                    </VBox.margin>
-                                                </ImageView>
-                                            </children>
-                                        </VBox>
-                                    </children>
-                                </HBox>
-                            </children>
-                            <VBox.margin>
-                                <Insets left="20.0" right="20.0" top="10.0" />
-                            </VBox.margin>
-                        </HBox>
                         <Pane prefHeight="84.0" prefWidth="96.0" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                             <children>

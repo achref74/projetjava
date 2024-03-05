@@ -7,6 +7,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -21,11 +22,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.media.MediaView?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="797.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Affichage">
     <children>
       <TabPane fx:id="tabPane" layoutY="-30.0" prefHeight="824.0" prefWidth="1315.0" tabClosingPolicy="UNAVAILABLE">
@@ -228,93 +228,62 @@
                                           <Insets left="20.0" right="20.0" />
                                        </VBox.margin>
                                        <children>
-                                          <Button fx:id="retour" mnemonicParsing="false" onAction="#navigatetoFormationAction" prefHeight="13.0" prefWidth="29.0" styleClass="search-button" stylesheets="@style.css" textFill="WHITE">
-                                             <graphic>
-                                                <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@images/left.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </Button>
                                           <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <Button fx:id="ajouterF" layoutX="574.0" layoutY="14.0" mnemonicParsing="false" onAction="#navigatetoAjouterFormationAction" prefHeight="40.0" prefWidth="120.0" styleClass="search-button" stylesheets="@style.css" text="Ajouter Formation" textFill="WHITE" />
-                                                <Label layoutX="82.0" layoutY="18.0" prefHeight="29.0" prefWidth="77.0" text="Francais" textFill="#878787" underline="true">
+                                                <Label layoutX="82.0" layoutY="18.0" prefHeight="29.0" prefWidth="108.0" text="Francais" textFill="#878787" underline="true">
                                                    <font>
                                                       <Font name="Cambria" size="18.0" />
                                                    </font>
+                                                   <padding>
+                                                      <Insets left="24.0" />
+                                                   </padding>
                                                 </Label>
                                                 <Label layoutX="14.0" layoutY="18.0" prefHeight="29.0" prefWidth="88.0" text="langue " textFill="#878787">
                                                    <font>
                                                       <Font name="Cambria Bold" size="18.0" />
                                                    </font>
+                                                   <padding>
+                                                      <Insets left="25.0" />
+                                                   </padding>
                                                 </Label>
                                                 <Button fx:id="offre" layoutX="454.0" layoutY="14.0" mnemonicParsing="false" onAction="#navigatetoOffre" prefHeight="40.0" prefWidth="120.0" styleClass="search-button" stylesheets="@style.css" text="Mes Offres" textFill="WHITE" />
                                              </children>
                                           </Pane>
-                                          <Label prefHeight="62.0" prefWidth="100.0" text="Mon panier " textFill="#878787">
-                                             <font>
-                                                <Font name="Cambria" size="18.0" />
-                                             </font>
-                                          </Label>
                                        </children>
                                     </HBox>
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Pane prefHeight="84.0" prefWidth="96.0" />
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="416.0" styleClass="free-delivery-card" stylesheets="@style.css">
+                                          <Pane prefHeight="84.0" prefWidth="96.0">
                                              <children>
-                                                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="325.0">
-                                                   <children>
-                                                      <Label prefHeight="30.0" prefWidth="277.0" text="Les Formations les plus vendus   " textFill="#878787">
-                                                         <font>
-                                                            <Font name="Cambria Bold" size="18.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label prefHeight="16.0" prefWidth="190.0" text="Plus que 5 milles acheteurs " textFill="#878787">
-                                                         <font>
-                                                            <Font name="Cambria" size="15.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                </VBox>
-                                                <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@images/home_img.jpg" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </HBox>
-                                          <Pane prefHeight="84.0" prefWidth="96.0" HBox.hgrow="ALWAYS" />
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="369.0" styleClass="shopping-online-card" stylesheets="@style.css">
-                                             <children>
-                                                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="422.0">
-                                                   <children>
-                                                      <Label prefHeight="30.0" prefWidth="304.0" text="Les Formateurs les plus populaires " textFill="#878787">
-                                                         <font>
-                                                            <Font name="Cambria Bold" size="18.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                                                <Button fx:id="retour" layoutX="-15.0" layoutY="-12.0" mnemonicParsing="false" onAction="#navigatetoFormationAction" prefHeight="13.0" prefWidth="29.0" styleClass="search-button" stylesheets="@style.css" textFill="WHITE">
+                                                   <graphic>
+                                                      <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@images/home_img.jpg" />
+                                                            <Image url="@images/left.png" />
                                                          </image>
-                                                         <VBox.margin>
-                                                            <Insets right="-230.0" />
-                                                         </VBox.margin>
                                                       </ImageView>
-                                                   </children>
-                                                </VBox>
+                                                   </graphic>
+                                                </Button>
                                              </children>
-                                          </HBox>
+                                             <HBox.margin>
+                                                <Insets left="9.0" />
+                                             </HBox.margin></Pane>
+                                          <Pane prefHeight="84.0" prefWidth="96.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label layoutX="650.0" layoutY="-34.0" prefHeight="62.0" prefWidth="100.0" text="Mon panier " textFill="#878787">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children></Pane>
                                        </children>
                                        <VBox.margin>
                                           <Insets left="20.0" right="20.0" top="10.0" />
                                        </VBox.margin>
                                     </HBox>
                                     <Pane prefHeight="84.0" prefWidth="96.0" />
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                    <HBox alignment="CENTER" prefHeight="722.0" prefWidth="885.0" VBox.vgrow="ALWAYS">
                                        <children>
                                           <ScrollPane fx:id="scroll" prefHeight="570.0" prefWidth="785.0" styleClass="transparent" stylesheets="@style.css">
                                              <content>

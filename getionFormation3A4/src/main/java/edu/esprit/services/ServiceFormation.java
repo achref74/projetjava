@@ -1,10 +1,7 @@
 package edu.esprit.services;
 
-import edu.esprit.entities.Certificat;
 import edu.esprit.entities.Formation;
-import edu.esprit.entities.Offre;
 import edu.esprit.utils.DataSource;
-import javafx.stage.Stage;
 
 import java.sql.*;
 import java.sql.Date;
@@ -12,7 +9,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class ServiceFormation implements IService<Formation> {
+public class ServiceFormation implements IService1<Formation> {
 
 
     static Connection cnx = DataSource.getInstance().getCnx();
@@ -145,7 +142,7 @@ public class ServiceFormation implements IService<Formation> {
     }
 
 
-    @Override
+
     public List<Formation> getAll() throws SQLException {
         List<Formation> formations = new ArrayList<>();
 

@@ -129,8 +129,8 @@ public class AfficherOffre implements Initializable {
         private String selectedIdF ;
     private String selectedDate;
 
-        private List<Offre> getData() {
-            List<Offre> listO = new ArrayList<>();
+        private Set<Offre> getData() {
+            Set<Offre> listO = new HashSet<>();
             ServiceOffre sf =new ServiceOffre();
 
             try {
@@ -267,7 +267,7 @@ listO.clear();
 
 
         }
-    public void refreshDisplayAfterOffer(List<Offre> listO) {
+    public void refreshDisplayAfterOffer(Set<Offre> listO) {
 
         // Clear existing items
         grid.getChildren().clear();
@@ -445,7 +445,7 @@ listO.clear();
         } else {
             // Si le champ de recherche n'est pas vide, effectuer une recherche dynamique par nom de formation
             // Récupère les formations correspondant au texte saisi
-            List<Offre> offres = null;
+            Set<Offre> offres = null;
             try {
                 ServiceOffre so=new ServiceOffre();
                 offres = so.rechercherOffreParNom(text);

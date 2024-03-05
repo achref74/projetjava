@@ -4,7 +4,6 @@ import edu.esprit.entities.Certificat;
 import javafx.util.Duration;
 import edu.esprit.entities.Formation;
 import edu.esprit.entities.Offre;
-import edu.esprit.controllers.OfferCleanupTask;
 import edu.esprit.services.ServiceCertificat;
 import edu.esprit.services.ServiceFormation;
 import edu.esprit.services.ServiceOffre;
@@ -14,8 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;

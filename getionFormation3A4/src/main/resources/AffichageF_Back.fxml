@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -211,6 +212,11 @@
                                           </Label>
                                           <Button fx:id="offreF" layoutX="571.0" layoutY="41.0" mnemonicParsing="false" onAction="#navigatetoOffre" prefHeight="25.0" prefWidth="81.0" styleClass="search-button" stylesheets="@style.css" text="Offre" textFill="WHITE" />
                                           <Button fx:id="certificatF" layoutX="659.0" layoutY="42.0" mnemonicParsing="false" onAction="#navigatetoCertif" prefHeight="25.0" prefWidth="81.0" styleClass="search-button" stylesheets="@style.css" text="Certificat" textFill="WHITE" />
+                                          <TextField fx:id="chercherF_C" layoutX="284.0" layoutY="37.0" onKeyTyped="#search" prefHeight="36.0" prefWidth="238.0" promptText="Type here to search" stylesheets="@style.css">
+                                             <font>
+                                                <Font name="Cambria" size="18.0" />
+                                             </font>
+                                          </TextField>
                                        </children>
                                     </Pane>
                                  </children>
@@ -464,8 +470,7 @@
                                              <font>
                                                 <Font size="22.0" />
                                              </font>
-                                          </Label>
-                                       </children>
+                                          </Label>                                       </children>
                                     </Pane>
                                  </children>
                                  <VBox.margin>

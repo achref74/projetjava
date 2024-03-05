@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class ServiceOffre implements IService<Offre> {
+public class ServiceOffre implements IService1<Offre> {
 
     private Connection cnx = DataSource.getInstance().getCnx();
 
@@ -167,7 +167,7 @@ public class ServiceOffre implements IService<Offre> {
     }
 
 
-    @Override
+
     public List<Offre> getAll() throws SQLException {
         List<Offre> offres = new ArrayList<>();
 
@@ -192,8 +192,8 @@ public class ServiceOffre implements IService<Offre> {
         return offres;
     }
 
-    public List<Offre> getAll1() throws SQLException {
-        List<Offre> offres = new ArrayList<>();
+    public Set<Offre> getAll1() throws SQLException {
+        Set<Offre> offres = new HashSet<>();
 
 
         String req = "SELECT * FROM offre ";
@@ -214,9 +214,9 @@ public class ServiceOffre implements IService<Offre> {
 
         return offres;
     }
-    public List<Offre> rechercherOffreParNom(String descriptionO) throws SQLException {
+    public Set<Offre> rechercherOffreParNom(String descriptionO) throws SQLException {
         String query = "SELECT * FROM offre WHERE LOWER(description) LIKE ?";
-        List<Offre> offres = new ArrayList<>();
+        Set<Offre> offres = new HashSet<>();
 
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
             ps.setString(1, descriptionO.toLowerCase() + '%');
@@ -249,7 +249,7 @@ public class ServiceOffre implements IService<Offre> {
                                         },
                                         Spliterator.ORDERED),
                                 false)
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toSet());
             }
         }
         return offres;
