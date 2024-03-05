@@ -1,35 +1,32 @@
 package edu.esprit.tests;
 
 import edu.esprit.entities.*;
-import edu.esprit.services.ServiceAvis;
-import edu.esprit.services.ServiceCommentaire;
 import edu.esprit.services.ServiceForum;
 import edu.esprit.services.ServicePublication;
-import edu.esprit.utils.DataSource;
 
 import java.sql.SQLException;
 
 public class main {
     public static void main(String[] args) throws SQLException {
 
-        ServiceCommentaire sc = new ServiceCommentaire();
-        ServiceForum sf = new ServiceForum();
-        ServicePublication sp = new ServicePublication();
-        ServiceAvis sa = new ServiceAvis();
-        User user =new User();
-        user.setIdUser(1);
-        Formation formation=new Formation();
-        formation.setIdFormation(9);
-        Publication publication=new Publication();
-        publication.setIdP(4);
-        Forum forum=new Forum();
-        forum.setIdForum(14);
+//        ServiceCommentaire sc = new ServiceCommentaire();
+//        ServiceForum sf = new ServiceForum();
+//        ServicePublication sp = new ServicePublication();
+//        ServiceAvis sa = new ServiceAvis();
+//        User user =new User();
+//        user.setIdUser(1);
+//        Formation formation=new Formation();
+//        formation.setIdFormation(9);
+//        Publication publication=new Publication();
+//        publication.setIdP(4);
+//        Forum forum=new Forum();
+//        forum.setIdForum(14);
         /**********Publiction CRUD***********/
 //        sp.ajouter(new Publication("","image.png",0,forum,user));
 //        sp.modifier(new Publication(4,"bonjour mon amis","papa.png",2,forum,user));
 //        sp.supprimer(6);
 //        System.out.println(sp.getOneById(5));
-        System.out.println(sp.getAll());
+//        System.out.println(sp.getAll());
         /**********Forum CRUD***********/
 //        sf.ajouter(new Forum("forum1.2","felhiiibnj",formation));
 //        sf.modifier(new Forum(14,"kaki","bibi",formation));

@@ -138,7 +138,7 @@ public class PUb implements Initializable {
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), this::updateIdForum));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        List<Publication> publications = null;
+        Set<Publication> publications = null;
         try {
             publications = servicePublication.getAll();
         } catch (SQLException e) {
@@ -172,7 +172,7 @@ public class PUb implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    public static int findMostRepeatedIdForum(List<Publication> publications) {
+    public static int findMostRepeatedIdForum(Set<Publication> publications) {
         Map<Integer, Long> idForumCounts = publications.stream()
                 .collect(Collectors.groupingBy(pub -> pub.getForum().getIdForum(), Collectors.counting()));
 
@@ -183,26 +183,26 @@ public class PUb implements Initializable {
     }
     private int refreshUIidForum() {
         try {
-            List<Publication> publications = servicePublication.getAll();
+            Set<Publication> publications = servicePublication.getAll();
             int idForum = findMostRepeatedIdForum(publications);
             return idForum;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    public static Publication findPublicationWithMostLikes(List<Publication> publications) {
+    public static Publication findPublicationWithMostLikes(Set<Publication> publications) {
         Optional<Publication> publicationWithMostLikes = publications.stream()
                 .max(Comparator.comparingInt(Publication::getNbLike));
         System.out.println("+++++");
 
         return publicationWithMostLikes.orElse(null);
     }
-    public static long countRepetitionsOfIdForum(List<Publication> publications, int idForumToCount) {
+    public static long countRepetitionsOfIdForum(Set<Publication> publications, int idForumToCount) {
         return publications.stream()
                 .filter(pub -> pub.getForum().getIdForum() == idForumToCount)
                 .count();
     }
-    public static long countRepetitionsOfNomForum(List<Publication> publications, String nomForumToCount) {
+    public static long countRepetitionsOfNomForum(Set<Publication> publications, String nomForumToCount) {
         return publications.stream()
                 .filter(pub -> pub.getForum().getTitre().equals(nomForumToCount))
                 .count();
@@ -211,7 +211,7 @@ public class PUb implements Initializable {
 
     @FXML
     void combienub(ActionEvent event) {
-        List<Publication> publications ;
+        Set<Publication> publications ;
         try {
             publications = servicePublication.getAll();
         } catch (SQLException e) {

@@ -32,6 +32,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class AdminGestionForum implements Initializable {
     @FXML
@@ -88,13 +89,13 @@ public class AdminGestionForum implements Initializable {
     }
     protected void refreshUI() {
         try {
-            List<Forum> forums = serviceForum.getAll();
+            Set<Forum> forums = serviceForum.getAll();
             createUIElements(forums);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    private void createUIElements(List<Forum> forums) {
+    private void createUIElements(Set<Forum> forums) {
         ForumAfficheVbox.getChildren().clear(); // Clear existing elements
 
         int i = 0;

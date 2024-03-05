@@ -165,7 +165,7 @@ public class test implements Initializable {
         rechercheTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                List<Forum> forums=rechercherForums(newValue);
+                Set<Forum> forums=rechercherForums(newValue);
                 createUIElements(forums);
             }
         });
@@ -174,7 +174,7 @@ public class test implements Initializable {
     }
     private void refreshUI() {
         try {
-            List<Forum> forums = serviceForum.getAll();
+            Set<Forum> forums = serviceForum.getAll();
 
 
             createUIElements(forums);
@@ -182,10 +182,10 @@ public class test implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    public List<Forum> rechercherForums(String titreRecherche) {
-        List<Forum> resultats = new ArrayList<>();
+    public Set<Forum> rechercherForums(String titreRecherche) {
+        Set<Forum> resultats = new HashSet<>();
         try {
-            List<Forum> forums = serviceForum.getAll();
+            Set<Forum> forums = serviceForum.getAll();
             for (Forum forum : forums) {
                 if (forum.getFormation().getNomF().contains(titreRecherche)) {
                     resultats.add(forum);
@@ -200,7 +200,7 @@ public class test implements Initializable {
     public List<Forum> rechercherForumsDate(LocalDateTime dateRecherche) {
         List<Forum> resultats = new ArrayList<>();
         try {
-            List<Forum> forums = serviceForum.getAll();
+            Set<Forum> forums = serviceForum.getAll();
             for (Forum forum : forums) {
                 // Comparaison des dates
                 if (forum.getDateCreation().isEqual(dateRecherche)) {
@@ -475,7 +475,7 @@ public class test implements Initializable {
         ScrollPub.setStyle("-fx-background-color: transparent;");
     }
 
-    private void createUIElements(List<Forum> forums) {
+    private void createUIElements(Set<Forum> forums) {
         mohamed.getChildren().clear();
 
         int i = 0;
@@ -1102,7 +1102,7 @@ void getImageModifier(ActionEvent event) {
 
     }
 
-    public static Publication findPublicationWithMostLikes(List<Publication> publications) {
+    public static Publication findPublicationWithMostLikes(Set<Publication> publications) {
         Optional<Publication> publicationWithMostLikes = publications.stream()
                 .max(Comparator.comparingInt(Publication::getNbLike));
        // System.out.println("+++++");
@@ -1111,14 +1111,14 @@ void getImageModifier(ActionEvent event) {
     }
     private int refreshUIidForum() {
         try {
-            List<Publication> publications = servicePublication.getAll();
+            Set<Publication> publications = servicePublication.getAll();
             int idForum = findMostRepeatedIdForum(publications);
             return idForum;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    public static int findMostRepeatedIdForum(List<Publication> publications) {
+    public static int findMostRepeatedIdForum(Set<Publication> publications) {
         Map<Integer, Long> idForumCounts = publications.stream()
                 .collect(Collectors.groupingBy(pub -> pub.getForum().getIdForum(), Collectors.counting()));
 
@@ -1149,7 +1149,7 @@ void getImageModifier(ActionEvent event) {
 
 
 
-    public static long countRepetitionsOfNomForum(List<Publication> publications, String nomForumToCount) {
+    public static long countRepetitionsOfNomForum(Set<Publication> publications, String nomForumToCount) {
         return publications.stream()
                 .filter(pub -> pub.getForum().getTitre().equals(nomForumToCount))
                 .count();
@@ -1158,7 +1158,7 @@ void getImageModifier(ActionEvent event) {
 
     @FXML
     void combienub(ActionEvent event) {
-        List<Publication> publications ;
+        Set<Publication> publications ;
         try {
             publications = servicePublication.getAll();
         } catch (SQLException e) {

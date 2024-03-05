@@ -9,9 +9,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -112,12 +110,12 @@ public class ServicePublication implements IService<Publication> {
     }
 
     @Override
-    public List<Publication> getAll() throws SQLException {
+    public Set<Publication> getAll() throws SQLException {
         String req = "SELECT a.*, u.nom,f.titre FROM publication a INNER JOIN user u ON a.idUser = u.idUser INNER JOIN forum f ON a.idForum = f.idForum";
         Statement statement = cnx.createStatement();
 
         ResultSet cs = statement.executeQuery(req);
-        List<Publication> list = new ArrayList<>();
+        Set<Publication> list = new HashSet<>();
         while (cs.next()) {
             Publication publication = new Publication();
             publication.setContenu(cs.getString("contenuP"));
