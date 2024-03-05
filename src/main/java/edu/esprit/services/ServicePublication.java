@@ -110,12 +110,12 @@ public class ServicePublication implements IService<Publication> {
     }
 
     @Override
-    public Set<Publication> getAll() throws SQLException {
+    public List<Publication> getAll() throws SQLException {
         String req = "SELECT a.*, u.nom,f.titre FROM publication a INNER JOIN user u ON a.idUser = u.idUser INNER JOIN forum f ON a.idForum = f.idForum";
         Statement statement = cnx.createStatement();
 
         ResultSet cs = statement.executeQuery(req);
-        Set<Publication> list = new HashSet<>();
+        List<Publication> list = new ArrayList<>();
         while (cs.next()) {
             Publication publication = new Publication();
             publication.setContenu(cs.getString("contenuP"));
@@ -139,6 +139,7 @@ public class ServicePublication implements IService<Publication> {
         }
         return list;
     }
+
 
     public  List<Publication> getAll(int idForum)  {
         String req = "SELECT a.*, u.nom, f.titre FROM publication a INNER JOIN user u ON a.idUser = u.idUser INNER JOIN forum f ON a.idForum = f.idForum WHERE f.idForum = ?";
@@ -168,36 +169,5 @@ public class ServicePublication implements IService<Publication> {
             throw new RuntimeException(e);
         }
     }
-    public List<Publication> getAllArderbyid(int idForum) {
-        String req = "SELECT a.*, u.nom, f.titre FROM publication a INNER JOIN user u ON a.idUser = u.idUser INNER JOIN forum f ON a.idForum = f.idForum WHERE f.idForum = ?";
-        try (PreparedStatement statement = cnx.prepareStatement(req)) {
-            statement.setInt(1, idForum);
-            ResultSet cs = statement.executeQuery();
-            List<Publication> list = new ArrayList<>();
-            while (cs.next()) {
-                Publication publication = new Publication();
-                publication.setIdP(cs.getInt("idP"));
-                publication.setContenu(cs.getString("contenuP"));
-                publication.setImage(cs.getString("image"));
-                java.sql.Timestamp timestamp = cs.getTimestamp("dateCreation");
-                LocalDateTime dateCreation = timestamp.toLocalDateTime();
-                publication.setDateCreation(dateCreation);
-                publication.setNbLike(cs.getInt("nbLike"));
-                User user = new User();
-                user.setNom(cs.getString("nom"));
-                publication.setUser(user);
-                Forum forum = new Forum();
-                forum.setTitre(cs.getString("titre"));
-                publication.setForum(forum);
-                list.add(publication);
-            }
 
-            // Tri de la liste par nbLike en utilisant un Comparator
-            list.sort(Comparator.comparingInt(Publication::getNbLike).reversed());
-
-            return list;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

@@ -11,7 +11,11 @@ public class Forum {
     private String description;
     private Formation formation ;
 
-    public Forum( String titre,String description , Formation formation) {
+    public Forum(String titre) {
+        this.titre = titre;
+    }
+
+    public Forum(String titre, String description , Formation formation) {
         this.titre = titre;
         this.dateCreation = LocalDateTime.now();
         this.description = description ;

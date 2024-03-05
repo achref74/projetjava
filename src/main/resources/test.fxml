@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="745.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.test">
+<AnchorPane prefHeight="530.0" prefWidth="1362.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.test">
    <children>
       <ImageView fitHeight="539.0" fitWidth="1055.0" layoutX="387.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -165,13 +165,18 @@
       </Pane>
       <Pane layoutX="1093.0" layoutY="300.0" prefHeight="102.0" prefWidth="246.0" style="-fx-background-color: #e8e1d5; -fx-border-color: #4B2F00;">
          <children>
-            <TextField fx:id="nomFormPubR" layoutX="28.0" layoutY="20.0" />
             <Text fx:id="nbPUB" layoutX="35.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="148.9078125000001">
                <font>
                   <Font name="Cambria Bold" size="14.0" />
                </font>
             </Text>
-            <Button layoutX="184.0" layoutY="20.0" mnemonicParsing="false" onAction="#combienub" stylesheets="@style.css" text="voir" />
+            <Button layoutX="184.0" layoutY="37.0" mnemonicParsing="false" onAction="#combienub" stylesheets="@style.css" text="voir" />
+            <ComboBox fx:id="forumNom" layoutX="9.0" layoutY="37.0" prefWidth="150.0" />
+            <Text layoutX="10.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de publiction dans un forum" wrappingWidth="225.59997558593705">
+               <font>
+                  <Font name="Cambria Bold" size="13.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>

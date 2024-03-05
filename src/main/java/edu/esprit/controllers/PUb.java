@@ -1,5 +1,7 @@
 package edu.esprit.controllers;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 import edu.esprit.entities.Forum;
 import edu.esprit.entities.Publication;
 import edu.esprit.entities.User;
@@ -27,6 +29,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 public class PUb implements Initializable {
 
@@ -138,9 +143,10 @@ public class PUb implements Initializable {
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), this::updateIdForum));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        Set<Publication> publications = null;
+        List<Publication> publications = null;
         try {
             publications = servicePublication.getAll();
+            System.out.println(publications);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -151,6 +157,17 @@ public class PUb implements Initializable {
         String nomForumToCount ="chama9ma9";
         long repetitionsOfNomForum =countRepetitionsOfNomForum(publications, nomForumToCount);
         System.out.println("Le nombre de répétitions de Forum " + nomForumToCount + " est : " + repetitionsOfNomForum);
+       long x= countPublications(publications);
+        System.out.println(x);
+        System.out.println("bbbbbbbbbbb");
+       if (x>10){
+           String adminPhoneNumber = "+21651784706"; // Replace with the admin's phone number
+           String message = "Les publications attendent la limite.";
+           sendSmsNotification(adminPhoneNumber, message);
+       }
+
+
+
 
 
     }
@@ -172,7 +189,7 @@ public class PUb implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    public static int findMostRepeatedIdForum(Set<Publication> publications) {
+    public static int findMostRepeatedIdForum(List<Publication> publications) {
         Map<Integer, Long> idForumCounts = publications.stream()
                 .collect(Collectors.groupingBy(pub -> pub.getForum().getIdForum(), Collectors.counting()));
 
@@ -183,26 +200,26 @@ public class PUb implements Initializable {
     }
     private int refreshUIidForum() {
         try {
-            Set<Publication> publications = servicePublication.getAll();
+            List<Publication> publications = servicePublication.getAll();
             int idForum = findMostRepeatedIdForum(publications);
             return idForum;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    public static Publication findPublicationWithMostLikes(Set<Publication> publications) {
+    public static Publication findPublicationWithMostLikes(List<Publication> publications) {
         Optional<Publication> publicationWithMostLikes = publications.stream()
                 .max(Comparator.comparingInt(Publication::getNbLike));
         System.out.println("+++++");
 
         return publicationWithMostLikes.orElse(null);
     }
-    public static long countRepetitionsOfIdForum(Set<Publication> publications, int idForumToCount) {
+    public static long countRepetitionsOfIdForum(List<Publication> publications, int idForumToCount) {
         return publications.stream()
                 .filter(pub -> pub.getForum().getIdForum() == idForumToCount)
                 .count();
     }
-    public static long countRepetitionsOfNomForum(Set<Publication> publications, String nomForumToCount) {
+    public static long countRepetitionsOfNomForum(List<Publication> publications, String nomForumToCount) {
         return publications.stream()
                 .filter(pub -> pub.getForum().getTitre().equals(nomForumToCount))
                 .count();
@@ -211,7 +228,7 @@ public class PUb implements Initializable {
 
     @FXML
     void combienub(ActionEvent event) {
-        Set<Publication> publications ;
+        List<Publication> publications ;
         try {
             publications = servicePublication.getAll();
         } catch (SQLException e) {
@@ -221,6 +238,35 @@ public class PUb implements Initializable {
         long repetitionsOfNomForum =countRepetitionsOfNomForum(publications, nomForumToCount);
         nbPUB.setText("contien "+String.valueOf(repetitionsOfNomForum)+" publictions");
     }
+
+    public static long countPublications(List<Publication> publications) {
+        return publications.size();
+    }
+    // Your Twilio credentials
+    private static final String ACCOUNT_SID = "AC3adec15e66b733a2e5bd6860ee424a97";
+    private static final String AUTH_TOKEN = "327fd0cfd0e9c9bee18845bdb8e5ca89";
+    private static final String TWILIO_PHONE_NUMBER = "+19497103983";
+
+    static {
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+    }
+
+    public void sendSmsNotification(String toPhoneNumber, String messageBody) {
+        Message message = Message.creator(
+                new PhoneNumber(toPhoneNumber),  // To phone number
+                new PhoneNumber(TWILIO_PHONE_NUMBER),  // From Twilio phone number
+                messageBody
+        ).create();
+
+        System.out.println("Sent message with ID: " + message.getSid());
+    }
+
+
+
+
+    // Construct the SMS message to include the title and type
+
+
 
 
 

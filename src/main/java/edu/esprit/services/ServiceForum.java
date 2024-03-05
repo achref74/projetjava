@@ -91,12 +91,12 @@ public class ServiceForum implements IService<Forum> {
 
 
     @Override
-    public Set<Forum> getAll() throws SQLException {
+    public List<Forum> getAll() throws SQLException {
         String req = "SELECT a.*,f.nom FROM forum a  INNER JOIN formation f ON a.idFormation = f.idFormation";
         Statement statement = cnx.createStatement();
 
         ResultSet cs = statement.executeQuery(req);
-        Set<Forum> list = new HashSet<>();
+        List<Forum> list = new ArrayList<>();
         while (cs.next()) {
             Forum forum = new Forum();
             forum.setIdForum(cs.getInt("idForum"));

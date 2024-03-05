@@ -91,6 +91,8 @@ public class test implements Initializable {
 
     @FXML
     private ComboBox<Formation> ForumFormationModifier;
+    @FXML
+    private ComboBox<Forum> forumNom;
 
     @FXML
     private TextField TitreForumModifier;
@@ -137,8 +139,6 @@ public class test implements Initializable {
     private TextField rechercheTextField;
     private String imageMeme;
     @FXML
-    private TextField nomFormPubR;
-    @FXML
     private Text nbPUB;
 
 
@@ -159,22 +159,23 @@ public class test implements Initializable {
         PaneAjouterPublication.setManaged(false);
         modifierPublictionFinale.setVisible(false);
         modifierPublictionFinale.setManaged(false);
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), this::updateIdForum));
+        timeline = new Timeline(new KeyFrame(Duration.seconds(0.1), this::updateIdForum));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
         rechercheTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                Set<Forum> forums=rechercherForums(newValue);
+                List<Forum> forums=rechercherForums(newValue);
                 createUIElements(forums);
             }
         });
         ScrolFelhi.setVisible(true);
+        chargerForumNom();
 
     }
     private void refreshUI() {
         try {
-            Set<Forum> forums = serviceForum.getAll();
+            List<Forum> forums = serviceForum.getAll();
 
 
             createUIElements(forums);
@@ -182,10 +183,10 @@ public class test implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    public Set<Forum> rechercherForums(String titreRecherche) {
-        Set<Forum> resultats = new HashSet<>();
+    private List<Forum> rechercherForums(String titreRecherche) {
+        List<Forum> resultats = new ArrayList<>();
         try {
-            Set<Forum> forums = serviceForum.getAll();
+            List<Forum> forums = serviceForum.getAll();
             for (Forum forum : forums) {
                 if (forum.getFormation().getNomF().contains(titreRecherche)) {
                     resultats.add(forum);
@@ -200,7 +201,7 @@ public class test implements Initializable {
     public List<Forum> rechercherForumsDate(LocalDateTime dateRecherche) {
         List<Forum> resultats = new ArrayList<>();
         try {
-            Set<Forum> forums = serviceForum.getAll();
+            List<Forum> forums = serviceForum.getAll();
             for (Forum forum : forums) {
                 // Comparaison des dates
                 if (forum.getDateCreation().isEqual(dateRecherche)) {
@@ -475,7 +476,7 @@ public class test implements Initializable {
         ScrollPub.setStyle("-fx-background-color: transparent;");
     }
 
-    private void createUIElements(Set<Forum> forums) {
+    private void createUIElements(List<Forum> forums) {
         mohamed.getChildren().clear();
 
         int i = 0;
@@ -1102,23 +1103,23 @@ void getImageModifier(ActionEvent event) {
 
     }
 
-    public static Publication findPublicationWithMostLikes(Set<Publication> publications) {
+    private static Publication findPublicationWithMostLikes(List<Publication> publications) {
         Optional<Publication> publicationWithMostLikes = publications.stream()
                 .max(Comparator.comparingInt(Publication::getNbLike));
-       // System.out.println("+++++");
+
 
         return publicationWithMostLikes.orElse(null);
     }
     private int refreshUIidForum() {
         try {
-            Set<Publication> publications = servicePublication.getAll();
+            List<Publication> publications = servicePublication.getAll();
             int idForum = findMostRepeatedIdForum(publications);
             return idForum;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    public static int findMostRepeatedIdForum(Set<Publication> publications) {
+    private static int findMostRepeatedIdForum(List<Publication> publications) {
         Map<Integer, Long> idForumCounts = publications.stream()
                 .collect(Collectors.groupingBy(pub -> pub.getForum().getIdForum(), Collectors.counting()));
 
@@ -1149,7 +1150,7 @@ void getImageModifier(ActionEvent event) {
 
 
 
-    public static long countRepetitionsOfNomForum(Set<Publication> publications, String nomForumToCount) {
+    public static long countRepetitionsOfNomForum(List<Publication> publications, String nomForumToCount) {
         return publications.stream()
                 .filter(pub -> pub.getForum().getTitre().equals(nomForumToCount))
                 .count();
@@ -1158,15 +1159,52 @@ void getImageModifier(ActionEvent event) {
 
     @FXML
     void combienub(ActionEvent event) {
-        Set<Publication> publications ;
+        List<Publication> publications ;
         try {
             publications = servicePublication.getAll();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        String nomForumToCount =nomFormPubR.getText();
+//        String nomForumToCount =nomFormPubR.getText();
+
+             Forum forum= forumNom.getValue();
+        String nomForumToCount=forum.getTitre();
         long repetitionsOfNomForum =countRepetitionsOfNomForum(publications, nomForumToCount);
         nbPUB.setText("contien "+String.valueOf(repetitionsOfNomForum)+" publictions");
+        forumNom.getSelectionModel().clearSelection();
+        forumNom.setValue(null);
+
+    }
+    private void chargerForumNom() {
+        List<Forum> forums= new ArrayList<>();
+        try {
+            Statement st = MyConnection.getInstance().getCnx().createStatement();
+            ResultSet rs = st.executeQuery("SELECT titre FROM forum;");
+            while (rs.next()) {
+
+                String titre = rs.getString("titre");
+                forums.add(new Forum(titre));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        forumNom.getItems().addAll(forums);
+        // Utilisez un StringConverter pour afficher uniquement les noms et prénoms dans le ChoiceBox
+        forumNom.setConverter(new StringConverter<Forum>() {
+
+            @Override
+            public String toString(Forum forum) {
+                // Affichez le nom et prénom de l'utilisateur dans le ChoiceBox
+                return forum != null ? forum.getTitre() : " " ;
+            }
+
+            @Override
+            public Forum fromString(String string) {
+                // Vous n'avez probablement pas besoin d'implémenter cette méthode pour un ChoiceBox
+                return null;
+            }
+        });
+
     }
 
 

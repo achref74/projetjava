@@ -89,13 +89,13 @@ public class AdminGestionForum implements Initializable {
     }
     protected void refreshUI() {
         try {
-            Set<Forum> forums = serviceForum.getAll();
+            List<Forum> forums = serviceForum.getAll();
             createUIElements(forums);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    private void createUIElements(Set<Forum> forums) {
+    private void createUIElements(List<Forum> forums) {
         ForumAfficheVbox.getChildren().clear(); // Clear existing elements
 
         int i = 0;
