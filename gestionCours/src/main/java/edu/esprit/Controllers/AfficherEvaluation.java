@@ -17,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
+import java.io.*;
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.*;
@@ -25,6 +25,7 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 public class AfficherEvaluation implements Initializable {
+    private double meilleurScore = 0.0;
     public static final String ACCOUNT_SID = "ACb65e44c3e078d2e73b833e4dcb25007a";
     public static final String AUTH_TOKEN = "c53c4a301803fe75bc81f49fd4c172c0";
     public static final String TWILIO_NUMBER = "+14846015242";
@@ -46,6 +47,10 @@ public class AfficherEvaluation implements Initializable {
 
     @FXML
     private Label nom;
+    @FXML
+    private Label t;
+    @FXML
+    private Label meilleur;
 
     @FXML
     private Label note;
@@ -181,6 +186,12 @@ public class AfficherEvaluation implements Initializable {
                 mention = ""; // Au cas où aucun des cas ci-dessus n'est valide
             }
 
+            double scoreFinal = sumPointsFinal;
+            if (scoreFinal > meilleurScore) {
+                meilleurScore = scoreFinal;
+                // Sauvegarder le nouveau meilleur score
+                sauvegarderMeilleurScore();
+            }
             // Envoyer la note et la mention par SMS
             String messageBody = "Votre note finale est : " + formattedPointsFinal + ". Mention: " + mention + ".";
           // sendSms("+21653946055", TWILIO_NUMBER, messageBody);
@@ -199,10 +210,40 @@ public class AfficherEvaluation implements Initializable {
         }
 
 
+    // Méthode pour charger le meilleur score depuis le fichier de configuration
+    private void chargerMeilleurScore() {
+        Properties properties = new Properties();
+        try {
+            InputStream input = new FileInputStream("config.properties");
+            properties.load(input);
+            meilleurScore = Double.parseDouble(properties.getProperty("meilleurScore", "0.0"));
+            input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    // Méthode pour sauvegarder le meilleur score dans le fichier de configuration
+    private void sauvegarderMeilleurScore() {
+        Properties properties = new Properties();
+        try {
+            OutputStream output = new FileOutputStream("config.properties");
+            properties.setProperty("meilleurScore", String.valueOf(meilleurScore));
+            properties.store(output, null);
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        chargerMeilleurScore();
 
+        // Afficher le meilleur score
+        meilleur.setText("Meilleur Score jusqu'à présent "+meilleurScore);
+        ServiceEvaluation se =new ServiceEvaluation();
+        Evaluation e =se.getEvaluationPlusCourte();
+        t.setText(e.getNom()+" A ne pas rater ");
     }
 
     @FXML

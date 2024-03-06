@@ -215,3 +215,40 @@
 .checkbox:selected:focused > .box {
     -fx-background-color: lightgray; /* Couleur de fond gris clair lorsqu'il est sélectionné et lorsqu'il a le focus */
 }
+
+.combo-box {
+    -fx-background-color: #d1e7dd; /* Couleur de fond */
+    -fx-border-color: #a6a6a6; /* Couleur de la bordure */
+    -fx-border-radius: 4; /* Rayon de la bordure */
+    -fx-padding: 5; /* Rembourrage */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0); /* Effet d'ombre */
+}
+
+
+
+/* Style des cellules de la liste déroulante */
+.combo-box .list-cell {
+    -fx-background-color: #d1e7dd; /* Couleur de fond */
+    -fx-padding: 5; /* Rembourrage */
+    -fx-font-size: 14px; /* Taille de la police */
+}
+.combo-box .list-cell .text {
+    -fx-text-fill: #666666; /* Couleur du texte en gris foncé */
+}
+
+/* Style de la liste déroulante */
+.combo-box .list-view {
+    -fx-background-color: #d1e7dd; /* Couleur de fond */
+    -fx-background-insets: 0;
+}
+
+/* Style de la barre de défilement */
+.combo-box .list-view .scroll-bar {
+    -fx-background-color: transparent; /* Couleur de fond de la barre de défilement */
+}
+
+/* Style de la barre de défilement verticale */
+.combo-box .list-view .scroll-bar:vertical {
+    -fx-padding: 0; /* Rembourrage */
+}

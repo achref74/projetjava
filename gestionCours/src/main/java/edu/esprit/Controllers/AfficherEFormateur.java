@@ -1,10 +1,13 @@
 package edu.esprit.Controllers;
 
+import edu.esprit.entities.Cours;
 import edu.esprit.entities.Evaluation;
 import edu.esprit.entities.Question;
 import edu.esprit.services.ServiceEvaluation;
 import edu.esprit.services.ServiceQuestion;
 import edu.esprit.tests.MyListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +24,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AfficherEFormateur implements Initializable {
-
+    @FXML
+    private ComboBox<String> tri;
     @FXML
     private Label msg ;
     @FXML
@@ -45,6 +49,9 @@ public class AfficherEFormateur implements Initializable {
 
     @FXML
     private TextField note;
+
+    @FXML
+    private Label t;
 
     @FXML
     private ScrollPane scroll;
@@ -104,7 +111,10 @@ public class AfficherEFormateur implements Initializable {
 
     // Méthode pour initialiser le GridPane avec les questions
     private void initializeQuestionsGrid() {
-        // Parcourir la liste des questions et ajouter les contrôleurs dans le GridPane
+
+        ServiceEvaluation se =new ServiceEvaluation();
+        Evaluation ev =se.getEvaluationPlusCourte();
+        t.setText(ev.getNom()+" A ne pas rater ");
         int column = 0;
         int row = 1;
         try {
@@ -130,10 +140,34 @@ public class AfficherEFormateur implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        ObservableList<String> options = FXCollections.observableArrayList(
+                "Questions les plus dures", "Questions les moins dures","aucun");
+        tri.setItems(options);
 
+        tri.setOnAction(this::handleTriSelection);
 
     }
+    @FXML
+    private void handleTriSelection(ActionEvent event) {
+        String selectedTri = tri.getValue();
+        Set<Question> sortedCours =new HashSet<>();
+        if (selectedTri.equals("Questions les plus dures")) {
 
+            sortedCours = liste.stream()
+                    .sorted(Comparator.comparingInt(Question::getPoint))
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("Questions les moins dures")) {
+
+            sortedCours = liste.stream()
+                    .sorted(Comparator.comparingInt(Question::getPoint).reversed())
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("aucun")) {
+            // Triez les cours par date (les plus récents d'abord)
+            initializeQuestionsGrid();
+            return;
+        }
+        afficherQuestions(sortedCours);
+    }
 
     @FXML
     void supprimer(ActionEvent event) {
@@ -218,6 +252,7 @@ public class AfficherEFormateur implements Initializable {
                                 question.getChoix1().toLowerCase().contains(searchString.toLowerCase()) ||
                                 question.getChoix2().toLowerCase().contains(searchString.toLowerCase()) ||
                                 question.getChoix3().toLowerCase().contains(searchString.toLowerCase()) ||
+
                                 question.getCrx().toLowerCase().contains(searchString.toLowerCase()))
                 .collect(Collectors.toSet());
     }

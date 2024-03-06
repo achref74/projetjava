@@ -72,6 +72,21 @@ public class ServiceQuestion implements IService<Question>{
             System.err.println("Erreur lors de la mise à jour de la réponse : " + e.getMessage());
             e.printStackTrace();       }
     }
+    public boolean questionExisteParRessource(String ressource) {
+        String req = "SELECT * FROM question WHERE ressource = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, ressource);
+            ResultSet res = ps.executeQuery();
+            if (res.next()) {
+                // Si une ligne est retournée, cela signifie que la question existe déjà
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la vérification de l'existence de la question : " + e.getMessage());
+        }
+        return false;
+    }
     public void modifiercorrection(Question question) {
         String req = "UPDATE `question` SET `ressource`=?, `duree`=?, `point`=?, `choix1`=?, `choix2`=?, `choix3`=?, `crx`=? WHERE `id_q`=?";
         try {

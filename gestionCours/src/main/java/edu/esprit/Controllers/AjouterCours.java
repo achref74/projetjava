@@ -13,6 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.w3c.dom.Text;
@@ -40,10 +43,10 @@ public class AjouterCours implements Initializable {
     private Button btnFormation;
 
 
+
+
     @FXML
-    private ImageView image;
-
-
+    private MediaView image;
 
     @FXML
     private DatePicker date;
@@ -71,28 +74,40 @@ public class AjouterCours implements Initializable {
 
     private String selectedImagePath;
 
+    private String imagePath;
     @FXML
-    void selectImage(MouseEvent event) {
+    void selectVideo(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une image");
+        fileChooser.setTitle("Choisir une vidéo");
 
-        File initialDirectory = new File("C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images");
-        fileChooser.setInitialDirectory(initialDirectory);
+        // Ensure the initial directory exists
+        File initialDirectory = new File("C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/videos");
+        if (initialDirectory.exists() && initialDirectory.isDirectory()) {
+            fileChooser.setInitialDirectory(initialDirectory);
+        } else {
+            System.out.println("The specified initial directory does not exist or is not a directory.");
+        }
 
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images", "*.jpg", "*.jpeg", "*.png", "*.gif");
+        // Set the extension filter for video files
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Vidéos (*.mp4, *.avi, *.mov)", "*.mp4", "*.avi", "*.mov");
         fileChooser.getExtensionFilters().add(extFilter);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
-            // Stockez uniquement le nom du fichier
+            // Stockez uniquement le chemin relatif ou le nom de la vidéo sélectionnée
             selectedImagePath = selectedFile.getName();
-            Image newImage = new Image(selectedFile.toURI().toString());
-            image.setImage(newImage);
-            System.out.println("Nom de l'image sélectionnée : " + selectedImagePath);
+            Media media = new Media(new File(String.valueOf(selectedFile)).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            image.setMediaPlayer(mediaPlayer);
+
+
+            // Ici, vous pouvez ajouter la logique pour utiliser la vidéo sélectionnée, comme la charger dans un lecteur multimédia.
         }
     }
+
+
     @FXML
     void AjouterCoursAction(ActionEvent event) {
         java.util.Date utilDate = new java.util.Date();
@@ -125,6 +140,15 @@ public class AjouterCours implements Initializable {
 
 
             }else {
+
+                String nomCours = nom.getText();
+                if (sp.coursExiste(nomCours)) {
+                    alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Cours existant");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Le cours avec le nom " + nomCours + " existe déjà !");
+                    alert.showAndWait();
+                } else {
                 sp.ajouter(new Cours(
                         nom.getText(),
                         description.getText(),
@@ -133,12 +157,14 @@ public class AjouterCours implements Initializable {
                         sqlDate,
                         Integer.parseInt(duree.getText()),
                         selectedImagePath
-                ));
+                )); alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setContentText("Cours ajouté avec succès !");
+                    alert.show();
+                    navigatetoAfficherCoursAction(event);
+                }
 
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setContentText("Cours ajouté avec succès !");
-            alert.show();}
+            }
         } catch (NumberFormatException e) {
             // Gérer l'exception si la conversion de la durée en entier échoue
             alert = new Alert(Alert.AlertType.ERROR);
@@ -171,7 +197,7 @@ public class AjouterCours implements Initializable {
     }
     public void navigatetoAfficherCoursAction(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherCours.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Market.fxml"));
             nom.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -65,16 +65,6 @@
                                     </font>
                                 </Label>
                                 <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS" />
-                                <Label prefHeight="62.0" prefWidth="100.0" text="Mon panier " textFill="#878787">
-                                    <font>
-                                        <Font name="Cambria" size="18.0" />
-                                    </font>
-                                </Label>
-                                <ImageView fitHeight="50.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@images/artisan.jpg" />
-                                    </image>
-                                </ImageView>
                             </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
@@ -85,25 +75,20 @@
                            </children></Pane>
                                 <HBox alignment="CENTER" prefHeight="85.0" prefWidth="419.0" styleClass="free-delivery-card" stylesheets="@style.css">
                                     <children>
-                                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="246.0">
+                                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="319.0">
                                             <children>
-                                                <Label prefHeight="30.0" prefWidth="276.0" text="Les évaluations les plus dures" textFill="#878787">
+                                                <Label prefHeight="30.0" prefWidth="279.0" text="L'evaluation la plus courte est " textFill="#878787">
                                                     <font>
                                                         <Font name="Cambria Bold" size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <Label prefHeight="16.0" prefWidth="190.0" text="Reccord : 60/100 points " textFill="#878787">
+                                                <Label fx:id="t" prefHeight="16.0" prefWidth="190.0" textFill="#878787">
                                                     <font>
                                                         <Font name="Cambria" size="15.0" />
                                                     </font>
                                                 </Label>
                                             </children>
                                         </VBox>
-                                        <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@images/artisan.jpg" />
-                                            </image>
-                                        </ImageView>
                                     </children>
                                 </HBox>
                                 <Pane prefHeight="84.0" prefWidth="96.0" HBox.hgrow="ALWAYS" />
@@ -111,7 +96,7 @@
                                     <children>
                                         <VBox alignment="CENTER" prefHeight="100.0" prefWidth="422.0">
                                             <children>
-                                                <Label prefHeight="30.0" prefWidth="270.0" text="Meilleur Etudiant de l'année :" textFill="#878787">
+                                                <Label fx:id="meilleur" prefHeight="30.0" prefWidth="270.0" text="Meilleur Etudiant de l'année :" textFill="#878787">
                                                     <font>
                                                         <Font name="Cambria Bold" size="18.0" />
                                                     </font>

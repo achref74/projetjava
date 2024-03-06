@@ -4,26 +4,22 @@ import edu.esprit.entities.Cours;
 import edu.esprit.entities.Evaluation;
 import edu.esprit.services.ServiceEvaluation;
 import edu.esprit.tests.MyListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Back2Controller implements Initializable {
@@ -33,6 +29,8 @@ public class Back2Controller implements Initializable {
     private TextField searchField;
     @FXML
     private ScrollPane scroll;
+    @FXML
+    private ComboBox<String> tri;
 
     private Set<Evaluation> liste = new HashSet<>();
 
@@ -111,13 +109,37 @@ public class Back2Controller implements Initializable {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             // Mettre à jour la liste des cours en fonction du texte de recherche
             Set<Evaluation> filteredList = liste.stream()
-                    .filter(evaluation -> evaluation.getNom().toLowerCase().contains(newValue.toLowerCase()) || // Recherche par nom
-                            // Recherche par date
-                            String.valueOf(evaluation.getNote()).contains(newValue) ) // Recherche par ressource)
+                    .filter(evaluation ->  String.valueOf(evaluation.getNote()).contains(newValue) ) // Recherche par ressource)
                     .collect(Collectors.toSet());
             afficherEvaluation(filteredList);
         });
 
+        ObservableList<String> options = FXCollections.observableArrayList(
+                "les évaluations  les plus notées ", "Les évaluations les moins notées ","aucun");
+        tri.setItems(options);
+
+        tri.setOnAction(this::handleTriSelection);
+    }
+
+    @FXML
+    private void handleTriSelection(ActionEvent event) {
+        String selectedTri = tri.getValue();
+        Set<Evaluation> sortedE = new HashSet<>();
+        if (selectedTri.equals("Les évaluations les moins notées ")) {
+
+            sortedE = liste.stream()
+                    .sorted(Comparator.comparingInt(Evaluation::getNote))
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("les évaluations  les plus notées ")) {
+
+            sortedE = liste.stream()
+                    .sorted(Comparator.comparingInt(Evaluation::getNote).reversed())
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("aucun")) { afficherEvaluation(liste);
+            return;
+
+        }
+        afficherEvaluation(sortedE);
     }
     private void afficherEvaluation(Set<Evaluation> evaluationList) {
         grid.getChildren().clear(); // Effacer les cours précédents

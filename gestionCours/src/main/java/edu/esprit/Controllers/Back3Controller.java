@@ -4,11 +4,15 @@ import edu.esprit.entities.Evaluation;
 import edu.esprit.entities.Question;
 import edu.esprit.services.ServiceQuestion;
 import edu.esprit.tests.MyListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -17,10 +21,7 @@ import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Back3Controller implements Initializable {
@@ -30,6 +31,8 @@ public class Back3Controller implements Initializable {
     private TextField searchField;
     @FXML
     private ScrollPane scroll;
+    @FXML
+    private ComboBox<String> tri;
 
     private Set<Question> liste = new HashSet<>();
 
@@ -118,9 +121,35 @@ public class Back3Controller implements Initializable {
                                     String.valueOf(question.getCrx()).contains(newValue) // Recherche par CRX
                     )
                     .collect(Collectors.toSet());
-            afficherQuestions(filteredList); // Mettez à jour l'affichage avec la liste filtrée
+            afficherQuestions(filteredList);
+
+            ObservableList<String> options = FXCollections.observableArrayList(
+                    "Les questions  les plus dures", "Les questions les moins dures","aucun");
+            tri.setItems(options);
+
+            tri.setOnAction(this::handleTriSelection);
         });
 
+    }
+    @FXML
+    private void handleTriSelection(ActionEvent event) {
+        String selectedTri = tri.getValue();
+        Set<Question> sortedE = new HashSet<>();
+        if (selectedTri.equals("Les questions  les plus dures")) {
+
+            sortedE = liste.stream()
+                    .sorted(Comparator.comparingInt(Question::getPoint))
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("Les questions les moins dures")) {
+
+            sortedE = liste.stream()
+                    .sorted(Comparator.comparingInt(Question::getPoint).reversed())
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("aucun")) { afficherQuestions(liste);
+            return;
+
+        }
+        afficherQuestions(sortedE);
     }
     private void afficherQuestions(Set<Question> questionList) {
         grid.getChildren().clear(); // Effacer les cours précédents

@@ -37,7 +37,37 @@ public class ServiceCours implements IService<Cours>{
         }
 
     }
+    public boolean coursExiste(String nomCours) {
+        String req = "SELECT COUNT(*) FROM cours WHERE nom = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, nomCours);
+            ResultSet res = ps.executeQuery();
+            if (res.next()) {
+                int count = res.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    public Cours getCoursAvecDureeMinimale() {
+        Set<Cours> tousLesCours = getAll();
+        Cours coursAvecDureeMinimale = null;
+        int dureeMinimale = Integer.MAX_VALUE; // Initialisation avec une valeur maximale
 
+        for (Cours cours : tousLesCours) {
+            int duree = cours.getDuree();
+
+            if (duree < dureeMinimale) {
+                dureeMinimale = duree;
+                coursAvecDureeMinimale = cours;
+            }
+        }
+
+        return coursAvecDureeMinimale;
+    }
     @Override
     public void modifier(Cours c) {
         String req =" UPDATE `cours` SET `nom`=?, `description`=?,`date`=?,`duree`=?,`prerequis`=?,`ressource`=?,`image`=?,`idFormation`=? WHERE `id_cours`=?";

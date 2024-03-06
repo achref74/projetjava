@@ -18,7 +18,7 @@
 
 
     <children>
-      <ImageView fitHeight="902.0" fitWidth="1519.0" layoutX="-29.0" layoutY="-60.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="937.0" fitWidth="1669.0" layoutX="-29.0" layoutY="-60.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/Capture.JPG" />
          </image>

@@ -11,7 +11,41 @@ import java.util.Set;
 public class ServiceEvaluation implements IService <Evaluation>{
     static Connection cnx = DataSource.getInstance().getCnx();
     public void ajouter(Evaluation evaluation){}
+    public Evaluation getEvaluationPlusCourte() {
+        Evaluation evaluationPlusCourte = null;
+        int dureeMin = Integer.MAX_VALUE; // Initialiser à une valeur maximale
 
+        String req = "SELECT * FROM evaluation";
+
+        try (Statement st = cnx.createStatement();
+             ResultSet res = st.executeQuery(req)) {
+
+            while (res.next()) {
+                int id = res.getInt("id_e");
+                String nom = res.getString("nom");
+                int note = res.getInt("note");
+ServiceQuestion sq=new ServiceQuestion();
+                // Récupération des questions pour cette évaluation
+                Set<Question> questions = sq.getQuestionsByIdEvaluation(id);
+
+                // Calcul de la somme des durées de toutes les questions
+                int dureeTotale = 0;
+                for (Question question : questions) {
+                    dureeTotale += question.getDuree();
+                }
+
+                // Vérification si la durée totale est la plus courte
+                if (dureeTotale < dureeMin) {
+                    dureeMin = dureeTotale;
+                    evaluationPlusCourte = new Evaluation(id, nom, note, questions);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return evaluationPlusCourte;
+    }
     public void ajouter(Evaluation evaluation,int id_cours) {
 
 

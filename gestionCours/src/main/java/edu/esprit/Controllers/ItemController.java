@@ -8,18 +8,23 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 
 import java.io.IOException;
 import java.net.URL;
 
 
 public class ItemController {
+
+    @FXML
+    private MediaView img;
     @FXML
     private Label nameLabel;
     @FXML
     private Label priceLable;
-    @FXML
-    private ImageView img;
+
     private Cours cours;
     private MyListener myListener;
 
@@ -42,17 +47,20 @@ public class ItemController {
         this.priceLable.setText(heures + "h " + minutes + "min " + secondes + "sc");
 
         try {
-            String imagePath = "/images/" + cours.getImage();// Utilisation d'un chemin relatif
+            String imagePath = "/videos/" + cours.getImage();
+
             URL url = getClass().getResource(imagePath);
             if (url != null) {
-                Image image = new Image(url.toExternalForm());
-                this.img.setImage(image);
+
+                Media media = new Media(url.toExternalForm());
+                MediaPlayer mediaPlayer = new MediaPlayer(media);
+                this.img.setMediaPlayer(mediaPlayer);
             } else {
-                System.err.println("Impossible de charger l'image : " + imagePath);
+                System.err.println("Impossible de charger la video  : " + imagePath);
                 // Afficher une image par défaut ou un message d'erreur
             }
         } catch (Exception e) {
-            System.err.println("Erreur lors du chargement de l'image : " + e.getMessage());
+            System.err.println("Erreur lors du chargement de la video  : " + e.getMessage());
             e.printStackTrace();
         }
     }

@@ -3,31 +3,29 @@ package edu.esprit.Controllers;
 import edu.esprit.entities.Cours;
 import edu.esprit.services.ServiceCours;
 import edu.esprit.tests.MyListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BackController implements Initializable {
     @FXML
     private GridPane grid;
+    @FXML
+    private ComboBox<String> tri;
 
     @FXML
     private ScrollPane scroll;
@@ -123,7 +121,42 @@ public class BackController implements Initializable {
             afficherCours(filteredList);
         });
 
+        ObservableList<String> options = FXCollections.observableArrayList(
+                "Cours les plus courts", "Cours les plus longs","Cours les plus anciens","Cours les plus récents","aucun");
+        tri.setItems(options);
 
+        tri.setOnAction(this::handleTriSelection);
+    }
+
+    @FXML
+    private void handleTriSelection(ActionEvent event) {
+        String selectedTri = tri.getValue();
+        Set<Cours> sortedCours;
+        if (selectedTri.equals("Cours les plus courts")) {
+            // Triez les cours par durée (les plus courts d'abord)
+            sortedCours = liste.stream()
+                    .sorted(Comparator.comparingInt(Cours::getDuree))
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("Cours les plus longs")) {
+            // Triez les cours par durée (les plus longs d'abord)
+            sortedCours = liste.stream()
+                    .sorted(Comparator.comparingInt(Cours::getDuree).reversed())
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("Cours les plus récents")) {
+            // Triez les cours par date (les plus récents d'abord)
+            sortedCours = liste.stream()
+                    .sorted(Comparator.comparing(Cours::getDate).reversed())
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("Cours les plus anciens")) {
+            // Triez les cours par date (les plus anciens d'abord)
+            sortedCours = liste.stream()
+                    .sorted(Comparator.comparing(Cours::getDate))
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else {
+            afficherCours(liste);
+            return;
+        }
+        afficherCours(sortedCours);
     }
     private void afficherCours(Set<Cours> coursList) {
         grid.getChildren().clear(); // Effacer les cours précédents

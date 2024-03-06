@@ -5,16 +5,20 @@ import edu.esprit.entities.Question;
 import edu.esprit.services.ServiceCours;
 import edu.esprit.services.ServiceEvaluation;
 import edu.esprit.tests.MyListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -22,15 +26,30 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MarketController implements Initializable {
     @FXML
     private Label msg ;
+    @FXML
+    private Label t1 ;
+    @FXML
+    private Label t2 ;
+
+    @FXML
+    private ComboBox<String> tri;
     @FXML
     private TextField searchField;
 
@@ -65,8 +84,8 @@ public class MarketController implements Initializable {
     private TextField ressource;
     @FXML
     private Button ajouterC;
-  /*  @FXML
-    private TextField image;*/
+
+    private String selectedVideoUrl;
 
     @FXML
     private ScrollPane scroll;
@@ -80,10 +99,19 @@ public class MarketController implements Initializable {
     @FXML
     private Button supprimer;
     @FXML
+    private Button ajouter;
+    @FXML
     private Button evaluation;
     private MyListener myListener;
     private String selectedId ;
-
+    @FXML
+    private MediaView video;
+    @FXML
+    private Button playPauseButton;
+    @FXML
+    private Slider volumeSlider;
+    @FXML
+    private Slider progressSlider;
 
     private Set<Cours> getData() {
         Set<Cours> liste = new HashSet<>();
@@ -107,10 +135,50 @@ public class MarketController implements Initializable {
         prerequis.setText(cours.getPrerequis());
         ressource.setText(cours.getRessource());
 
-        String imagePath = "file:///C:/Users/LENOVO/Desktop/gestionCours/src/main/resources/images/" + cours.getImage();
-        Image image = new Image(imagePath);
-        fruitImg.setImage(image);
+
+        String videoFile = "C:\\projetPIDEV\\gestionCours\\src\\main\\resources\\videos\\" + cours.getImage();
         currentImageName = cours.getImage();
+
+        Media media = new Media(new File(videoFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        video.setMediaPlayer(mediaPlayer);
+        playPauseButton.setOnAction(e -> {
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayer.pause();
+                playPauseButton.setText("Play");
+            } else {
+                mediaPlayer.play();
+                playPauseButton.setText("Pause");
+            }
+        });
+
+        // Curseur de volume
+        volumeSlider.setValue(mediaPlayer.getVolume() * 100);
+        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            mediaPlayer.setVolume(volumeSlider.getValue() / 100);
+        });
+
+        // Barre de progression
+        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            if (!progressSlider.isValueChanging()) {
+                progressSlider.setValue(newTime.toMillis() / mediaPlayer.getTotalDuration().toMillis() * 100);
+            }
+        });
+        progressSlider.setOnMouseReleased(e -> {
+            mediaPlayer.seek(Duration.millis(progressSlider.getValue() / 100 * mediaPlayer.getTotalDuration().toMillis()));
+        });
+
+        mediaPlayer.setOnReady(() -> {
+            progressSlider.setMax(100);
+        });
+
+
+
+
+
+
+
+
         selectedId = String.valueOf(cours.getId_cours());
 
         List<String> colorPalette = new ArrayList<>();
@@ -136,9 +204,54 @@ public class MarketController implements Initializable {
                 "    -fx-background-radius: 30;");
     }
    private  Cours cours = new Cours();
+
+    @FXML
+    void selectVideo(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une vidéo");
+
+        // Ensure the initial directory exists
+        File initialDirectory = new File("C:\\projetPIDEV\\gestionCours\\src\\main\\resources\\videos\\");
+        if (initialDirectory.exists() && initialDirectory.isDirectory()) {
+            fileChooser.setInitialDirectory(initialDirectory);
+        } else {
+            System.out.println("The specified initial directory does not exist or is not a directory.");
+        }
+
+        // Set the extension filter for video files
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Vidéos (*.mp4, *.avi, *.mov)", "*.mp4", "*.avi", "*.mov");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            // Stockez uniquement le chemin relatif ou le nom de la vidéo sélectionnée
+            selectedVideoUrl = selectedFile.getName();
+            Media media = new Media(new File(String.valueOf(selectedFile)).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            video.setMediaPlayer(mediaPlayer);
+
+
+            // Ici, vous pouvez ajouter la logique pour utiliser la vidéo sélectionnée, comme la charger dans un lecteur multimédia.
+        }
+    }
     private String selectedImageURL;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ServiceCours s =new ServiceCours();
+        Cours coursAvecDureeMinimale = s.getCoursAvecDureeMinimale();
+        if (coursAvecDureeMinimale != null) {
+            // Convertir la durée en heures, minutes et secondes
+            int dureeEnSecondes = coursAvecDureeMinimale.getDuree();
+            int heures = dureeEnSecondes / 3600; // 3600 secondes dans une heure
+            int minutes = (dureeEnSecondes % 3600) / 60; // Le reste après avoir calculé les heures
+            int secondes = dureeEnSecondes % 60; // Le reste après avoir calculé les minutes
+
+            // Mettre à jour le contenu du champ t1 avec la durée formatée
+            t1.setText(String.format("Terminez en seulement %d h %d min %d s", heures, minutes, secondes));
+            t2.setText("le fameux  "+coursAvecDureeMinimale.getNom()+"magique");
+        }
        msg.setVisible(false);
         liste.addAll(getData());
         if (!liste.isEmpty()) {
@@ -202,27 +315,48 @@ public class MarketController implements Initializable {
         }
         setupSearchField();
         refreshGrid(liste);
-        fruitImg.setOnMouseClicked(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Choisir une image");
 
-            // Définir le répertoire initial sur le dossier "images" de votre projet
-           String userDirectoryString = System.getProperty("user.dir") + "/src/main/resources/images";
-            File userDirectory = new File(userDirectoryString);
-            fileChooser.setInitialDirectory(userDirectory);
-
-            File selectedFile = fileChooser.showOpenDialog(null);
-            if (selectedFile != null) {
-                selectedImageURL = selectedFile.toURI().toString();
-                Image newImage = new Image(selectedImageURL);
-                fruitImg.setImage(newImage);
-            }
-        });
         modifier.setOnAction(event -> modifierCours());
         supprimer.setOnAction(event -> supprimerCours());
+        ObservableList<String> options = FXCollections.observableArrayList(
+                "Cours les plus courts", "Cours les plus longs","Cours les plus anciens","Cours les plus récents","aucun");
+        tri.setItems(options);
+
+        tri.setOnAction(this::handleTriSelection);
+
+
 
     }
-
+    @FXML
+    private void handleTriSelection(ActionEvent event) {
+        String selectedTri = tri.getValue();
+        Set<Cours> sortedCours;
+        if (selectedTri.equals("Cours les plus courts")) {
+            // Triez les cours par durée (les plus courts d'abord)
+            sortedCours = liste.stream()
+                    .sorted(Comparator.comparingInt(Cours::getDuree))
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("Cours les plus longs")) {
+            // Triez les cours par durée (les plus longs d'abord)
+            sortedCours = liste.stream()
+                    .sorted(Comparator.comparingInt(Cours::getDuree).reversed())
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("Cours les plus récents")) {
+            // Triez les cours par date (les plus récents d'abord)
+            sortedCours = liste.stream()
+                    .sorted(Comparator.comparing(Cours::getDate).reversed())
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else if (selectedTri.equals("Cours les plus anciens")) {
+            // Triez les cours par date (les plus anciens d'abord)
+            sortedCours = liste.stream()
+                    .sorted(Comparator.comparing(Cours::getDate))
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+        } else {
+            refreshGrid(liste);
+            return;
+        }
+        refreshGrid(sortedCours);
+    }
     private void refreshGrid(Set<Cours> courses) {
         grid.getChildren().clear();
         int column = 0;
@@ -347,7 +481,8 @@ public class MarketController implements Initializable {
 
                 ServiceCours serviceCours = new ServiceCours();
                 serviceCours.modifier(cours);
-
+                 clearChosenCours();
+                 msg.setVisible(false);
                 liste.clear();
                 liste.addAll(getData());
                 grid.getChildren().clear();
@@ -388,18 +523,6 @@ public class MarketController implements Initializable {
 
 
 
-    public void navigatetoEvaluation(javafx.event.ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEvaluation.fxml"));
-            Parent root = loader.load();
-            AfficherEvaluation controller = loader.getController();
-            controller.setCoursId(selectedId);
-            evaluation.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-    }
 
 
     public void navigatetoEvaluationEnTantQueFormateur(javafx.event.ActionEvent actionEvent) {
@@ -411,7 +534,7 @@ public class MarketController implements Initializable {
 
             controller.setCoursId(selectedId);
 
-            evaluation.getScene().setRoot(root);
+            evaluationf.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -447,7 +570,7 @@ public class MarketController implements Initializable {
             controller.setCoursId(selectedId);
 
             // Changer la scène vers le contrôleur EvaluationController
-            evaluation.getScene().setRoot(root);
+            ajouter.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
             // Gérer les erreurs ici

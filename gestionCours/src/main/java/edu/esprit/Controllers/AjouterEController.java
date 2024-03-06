@@ -220,7 +220,14 @@ public class AjouterEController implements Initializable {
         int id_e = e.getId_e();
 
         ServiceQuestion serviceQuestion = new ServiceQuestion();
-
+        if (serviceQuestion.questionExisteParRessource(ressourceText)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Cette quetsion existe déja !");
+            alert.showAndWait();
+            return;
+        }
         serviceQuestion.ajouter(question, id_e);
 
         System.out.println("Nouvelle question ajoutée avec succès : " + question);
