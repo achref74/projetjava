@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="797.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.formation.Affichage">
+    <children>
+      <TabPane fx:id="tabPane" layoutY="-30.0" prefHeight="824.0" prefWidth="1315.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabF" text="Formation">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="776.0" prefWidth="1315.0">
+                     <children>
+                        <BorderPane prefHeight="798.0" prefWidth="1315.0">
+                           <left>
+                              <VBox prefHeight="809.0" prefWidth="430.0" style="-fx-border-style: none; -fx-background-color: #05071F;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
+                                       <children>
+                                          <Label prefHeight="50.0" prefWidth="201.0" text="Catalogue " textFill="#878787">
+                                             <font>
+                                                <Font name="Cambria Bold" size="40.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="50.0" prefWidth="192.0" text="Formation" textFill="#878787">
+                                             <font>
+                                                <Font name="Cambria" size="40.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0" stylesheets="@style.css" VBox.vgrow="NEVER">
+                                       <VBox.margin>
+                                          <Insets left="30.0" right="30.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <TextField fx:id="chercherF_C" onKeyTyped="#search" prefHeight="36.0" prefWidth="238.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Cambria" size="18.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="search-box" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </HBox>
+                                    <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+                                    <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="681.0" prefWidth="330.0" stylesheets="@style.css">
+                                       <VBox.margin>
+                                          <Insets left="50.0" right="50.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <TextField fx:id="idF" prefHeight="44.0" prefWidth="200.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
+                                          <HBox prefHeight="60.0" prefWidth="335.0">
+                                             <children>
+                                                <Label prefHeight="38.0" prefWidth="246.0" text="Nom De la Formation:" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="nomF" prefHeight="44.0" prefWidth="200.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="20.0" top="30.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <Slider fx:id="volumeSlider" layoutX="137.0" layoutY="433.0" orientation="VERTICAL" prefWidth="200">
+                                             <VBox.margin>
+                                                <Insets bottom="-148.0" left="3.0" right="-307.0" />
+                                             </VBox.margin></Slider>
+                                          <MediaView fx:id="video" fitHeight="133.0" fitWidth="230.0" onMouseClicked="#selectVideo" pickOnBounds="true" preserveRatio="true">
+
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </MediaView>
+                                          <Button fx:id="playPauseButton" layoutX="20" layoutY="410" text="Play" />
+                                          <Slider fx:id="progressSlider" layoutX="100" layoutY="440" prefHeight="14.0" prefWidth="277.0" />
+                                          <HBox alignment="CENTER" prefHeight="169.0" prefWidth="334.0">
+                                             <children>
+                                                <Label prefHeight="53.0" prefWidth="167.0" text="Description :  " textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextArea fx:id="descripF" prefHeight="131.0" prefWidth="267.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" wrapText="true">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextArea>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                             <children>
+                                                <Label prefHeight="53.0" prefWidth="167.0" text="Date  Debut: " textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="dateD" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                             <children>
+                                                <Label prefHeight="53.0" prefWidth="167.0" text="Date Fin:" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="dateF" prefHeight="26.0" prefWidth="116.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <Label fx:id="fxerrordate1" prefHeight="17.0" prefWidth="134.0" text="date fin non valide" textFill="RED" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                             <children>
+                                                <Label prefHeight="53.0" prefWidth="167.0" text="Nombre Des Cours:" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="nbrCours" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                             <children>
+                                                <Label prefHeight="53.0" prefWidth="167.0" text="  Prix" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="prixF" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <Label fx:id="fxerrorprix1" prefHeight="17.0" prefWidth="142.0" text="prix invalid" textFill="RED" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                             <children>
+                                                <Button fx:id="supprimerF" mnemonicParsing="false" prefHeight="45.0" prefWidth="114.0" styleClass="add-btn" stylesheets="@style.css" text="Supprimer" textFill="#828282">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="modifierF" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" styleClass="add-btn" stylesheets="@style.css" text="Modifier" textFill="#828282">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="offreFO" mnemonicParsing="false" onAction="#navigatetoOffreAction" prefHeight="40.0" prefWidth="110.0" styleClass="add-btn" stylesheets="@style.css" text="Offre" textFill="#828282">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <Pane prefHeight="36.0" prefWidth="334.0" />
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="chosen-fruit-card" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </VBox>
+                                    <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </left>
+                           <center>
+                              <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
+                                       <VBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label layoutX="82.0" layoutY="18.0" prefHeight="29.0" prefWidth="108.0" text="Francais" textFill="#878787" underline="true">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="24.0" />
+                                                   </padding>
+                                                </Label>
+                                                <Label layoutX="14.0" layoutY="18.0" prefHeight="29.0" prefWidth="88.0" text="langue " textFill="#878787">
+                                                   <font>
+                                                      <Font name="Cambria Bold" size="18.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="25.0" />
+                                                   </padding>
+                                                </Label>
+                                                <Button fx:id="offre" layoutX="454.0" layoutY="14.0" mnemonicParsing="false" onAction="#navigatetoOffre" prefHeight="40.0" prefWidth="120.0" styleClass="search-button" stylesheets="@style.css" text="Mes Offres" textFill="WHITE" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Pane prefHeight="84.0" prefWidth="96.0">
+                                             <children>
+                                                <Button fx:id="retour" layoutX="-15.0" layoutY="-12.0" mnemonicParsing="false" onAction="#navigatetoFormationAction" prefHeight="13.0" prefWidth="29.0" styleClass="search-button" stylesheets="@style.css" textFill="WHITE">
+                                                   <graphic>
+                                                      <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@images/left.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="9.0" />
+                                             </HBox.margin></Pane>
+                                          <Pane prefHeight="84.0" prefWidth="96.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label layoutX="650.0" layoutY="-34.0" prefHeight="62.0" prefWidth="100.0" text="Mon panier " textFill="#878787">
+                                                   <font>
+                                                      <Font name="Cambria" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children></Pane>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="20.0" right="20.0" top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <Pane prefHeight="84.0" prefWidth="96.0">
+                                       <children>
+                                          <Button fx:id="ajouterF" mnemonicParsing="false" onAction="#navigatetoAjouterFormationAction" prefHeight="40.0" prefWidth="120.0" styleClass="search-button" stylesheets="@style.css" text="Ajouter Formation" textFill="WHITE" />
+                                       </children></Pane>
+                                    <HBox alignment="CENTER" prefHeight="722.0" prefWidth="885.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <ScrollPane fx:id="scroll" prefHeight="570.0" prefWidth="785.0" styleClass="transparent" stylesheets="@style.css">
+                                             <content>
+                                                <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
+                                                   <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                                   </rowConstraints>
+                                                </GridPane>
+                                             </content>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </ScrollPane>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tabOffre" text="Offre">
+
+
+                            <content>
+                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="654.0" prefWidth="1056.0">
+                                  <children>
+                                     <VBox alignment="TOP_CENTER" prefHeight="796.0" prefWidth="237.0" style="-fx-background-color: #05071F;">
+                                        <children>
+                                           <ImageView fitHeight="116.0" fitWidth="206.0" pickOnBounds="true" preserveRatio="true">
+                                              <image>
+                                                 <Image url="@images/logo.png" />
+                                              </image>
+                                              <VBox.margin>
+                                                 <Insets bottom="5.0" top="50.0" />
+                                              </VBox.margin>
+                                           </ImageView>
+                                        </children>
+                                     </VBox>
+                                     <StackPane layoutX="241.0" layoutY="1.0" prefHeight="798.0" prefWidth="1075.0" style="-fx-background-color: #02030A;">
+                                        <children>
+
+                                           <Pane fx:id="pnlOverview" prefHeight="798.0" prefWidth="998.0" style="-fx-background-color: #e7e5e5;">
+                                              <children>
+                                    <ImageView fitHeight="853.0" fitWidth="1544.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/Back.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox fx:id="chosenFruitCard1" alignment="CENTER" layoutX="226.0" layoutY="34.0" prefHeight="660.0" prefWidth="515.0" style="-fx-background-color: #BC8F8F;" stylesheets="@style.css">
+                                       <styleClass>
+                                          <String fx:value="chosen-fruit-card" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </VBox>
+                                    <VBox alignment="CENTER" layoutX="298.0" layoutY="89.0" prefHeight="541.0" prefWidth="373.0" style="-fx-background-color: white;" stylesheets="@style.css">
+                                       <styleClass>
+                                          <String fx:value="chosen-fruit-card" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </VBox>
+                                                 <Label layoutX="55.0" layoutY="25.0" prefHeight="35.0" prefWidth="63.0" text="Offre" textFill="#e7e5e5">
+                                                    <font>
+                                                       <Font size="24.0" />
+                                                    </font>
+                                                 </Label>
+                                    <TextField fx:id="prixO" layoutX="448.0" layoutY="314.0" prefHeight="27.0" prefWidth="148.0" style="-fx-border-radius: 4em; -fx-control-inner-background: #02030A; -fx-border-color: #B7C3D7;" styleClass="transparent" stylesheets="@style.css" />
+                                    <TextArea fx:id="descripO" layoutX="449.0" layoutY="368.0" prefHeight="72.0" prefWidth="148.0" style="-fx-border-radius: 4;" stylesheets="@style.css" />
+                                    <DatePicker fx:id="dateDO" layoutX="447.0" layoutY="451.0" prefHeight="26.0" prefWidth="151.0" style="-fx-border-radius: 4em;" stylesheets="@style.css" />
+                                    <DatePicker fx:id="dateFO" layoutX="448.0" layoutY="489.0" prefHeight="26.0" prefWidth="150.0" style="-fx-border-color: #B7C3D7; -fx-border-radius: 4em;" />
+                                    <Text fill="#46637f" layoutX="355.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" textAlignment="CENTER" wrappingWidth="43.44140625">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Text>
+                                    <Text fill="#46637f" layoutX="341.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Fin">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Text>
+                                    <TextField fx:id="nomFO" layoutX="398.0" layoutY="176.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
+                                    <Button fx:id="ajouterOffre" layoutX="457.0" layoutY="566.0" mnemonicParsing="false" onAction="#navigatetoFormation" prefHeight="27.0" prefWidth="91.0" style="-fx-control-inner-background: #02030A; -fx-border-radius: 4em;" styleClass="search-button" stylesheets="@style.css" text="Ajouter" textAlignment="CENTER" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Text fill="#46637f" layoutX="335.0" layoutY="469.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Debut">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Text>
+                                    <Text fill="#46637f" layoutX="328.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER" wrappingWidth="106.8150634765625">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Text>
+                                    <TextField fx:id="idFO" layoutX="447.0" layoutY="250.0" style=" -fx-border-color: #B7C3D7; -fx-border-radius: 4em; -fx-control-inner-background: #02030A;" styleClass="transparent" stylesheets="@style.css" />
+                                    <Label fx:id="fxerrordate2" layoutX="456.0" layoutY="516.0" prefHeight="17.0" prefWidth="134.0" text="date fin non valide" textFill="RED" />
+                                    <Label fx:id="fxerrorprix2" layoutX="454.0" layoutY="345.0" prefHeight="17.0" prefWidth="142.0" text="prix invalid" textFill="RED" />
+                                    <Label layoutX="341.0" layoutY="116.0" prefHeight="50.0" prefWidth="378.0" text="Nom de la Formation" textFill="#878787">
+                                       <font>
+                                          <Font name="Cambria" size="29.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="btnFormation" layoutX="34.0" layoutY="35.0" mnemonicParsing="false" onAction="#navigatetoFormation" prefHeight="26.0" prefWidth="43.0" styleClass="search-button" stylesheets="@style.css" textFill="WHITE">
+                                       <graphic>
+                                          <ImageView fitHeight="9.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@images/left.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+
+                                              </children>
+                                              <StackPane.margin>
+                                                 <Insets />
+                                              </StackPane.margin>
+                                           </Pane>
+                                        </children>
+                                     </StackPane>
+                                  </children>
+                               </AnchorPane>
+                            </content>
+
+          </Tab>
+        </tabs>
+      </TabPane>
+    </children>
+</AnchorPane>

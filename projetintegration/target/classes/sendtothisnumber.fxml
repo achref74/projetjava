@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="978.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Sendtothisnumber">
+   <children>
+      <ImageView fitHeight="861.0" fitWidth="1391.0" layoutX="-413.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Capture.JPG" />
+         </image>
+      </ImageView>
+      <TextField fx:id="numtel" alignment="CENTER" layoutX="405.0" layoutY="207.0" prefHeight="45.0" prefWidth="384.0" promptText="numtel" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="24.0" />
+         </font></TextField>
+      <Button layoutX="539.0" layoutY="316.0" mnemonicParsing="false" onAction="#sendcode" prefHeight="57.0" prefWidth="117.0" style="-fx-background-radius: 20; -fx-text-fill: #615e49; -fx-background-color: #c3bc8e;" text="verify number">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
+      <Label alignment="CENTER" layoutX="479.0" layoutY="90.0" prefHeight="51.0" prefWidth="218.0" text="verify number" textFill="#615e49">
+         <font>
+            <Font size="27.0" />
+         </font></Label>
+      <Pane prefHeight="725.0" prefWidth="236.0" style="-fx-background-color: #05071F;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="18.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

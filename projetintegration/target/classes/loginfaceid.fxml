@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="978.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Loginfaceid">
+   <children>
+      <ImageView fitHeight="828.0" fitWidth="1446.0" layoutX="-374.0" layoutY="-14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Capture.JPG" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="im" fitHeight="150.0" fitWidth="200.0" layoutX="342.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="137.0" layoutY="204.0" mnemonicParsing="false" onAction="#capture" prefHeight="48.0" prefWidth="109.0" style="-fx-background-radius: 20; -fx-text-fill: #615e49; -fx-background-color: #c3bc8e;" text="capture">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

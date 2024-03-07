@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="350.0" style="-fx-background-radius: 20; -fx-background-color: #222222;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.FormateurCard">
+    <children>
+        <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="350.0" spacing="20.0" style="-fx-border-color: #cccccc; -fx-border-width: 0 0 2 0;">
+            <children>
+                <ImageView fx:id="fximg" fitHeight="72.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/bbb.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="20.0" />
+                    </HBox.margin>
+                </ImageView>
+                <Label fx:id="fxnom" prefHeight="35.0" prefWidth="179.0" text="TOUMI Achref" textAlignment="CENTER" textFill="#cccccc">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+                <Button mnemonicParsing="false" onAction="#delete" prefHeight="22.0" prefWidth="23.0" style="-fx-background-color: RED; -fx-background-radius: 20;" text="X">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+                </Button>
+            </children>
+        </HBox>
+        <HBox prefHeight="158.0" prefWidth="350.0" spacing="10.0">
+            <children>
+                <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="165.0" spacing="10.0">
+                    <children>
+                        <Label fx:id="fxmail" alignment="CENTER" prefHeight="18.0" prefWidth="122.0" text="achref@gmail.com" textFill="#cccccc">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Label fx:id="fxdate" alignment="CENTER" prefHeight="20.0" prefWidth="80.0" text="29/7/2002" textAlignment="CENTER" textFill="#cccccc">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="fxadr" alignment="CENTER" prefHeight="20.0" prefWidth="94.0" text="ghazzela, 1090" textAlignment="CENTER" textFill="#cccccc">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="fxnum" alignment="CENTER" prefHeight="20.0" prefWidth="63.0" text="25509768" textFill="#cccccc">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                  <Label fx:id="fxdis" alignment="CENTER" prefHeight="20.0" prefWidth="63.0" text="Dispo" textFill="#cccccc">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                    </children>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </VBox>
+                <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="164.0" spacing="10.0">
+                    <children>
+                        <Label fx:id="fxtype" alignment="CENTER" prefHeight="20.0" prefWidth="67.0" text="Formateur" textFill="#cccccc">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="fxgenre" alignment="CENTER" prefHeight="20.0" prefWidth="58.0" text="HOMME" textAlignment="CENTER" textFill="#cccccc">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="fxnivaca" alignment="CENTER" prefHeight="20.0" prefWidth="58.0" text="BAC +2" textAlignment="CENTER" textFill="#cccccc">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                  <Label fx:id="fxspec" alignment="CENTER" prefHeight="20.0" prefWidth="69.0" text="Patisserie" textAlignment="CENTER" textFill="#cccccc">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#navf" prefHeight="22.0" prefWidth="86.0" style="-fx-background-color: GREEN; -fx-background-radius: 20;" text="Detail" textFill="#cccccc">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Button>
+                    </children>
+                    <HBox.margin>
+                        <Insets top="5.0" />
+                    </HBox.margin>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</VBox>

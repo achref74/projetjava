@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.cours.AfficherEFormateur">
+    <children>
+      <ImageView fitHeight="949.0" fitWidth="1535.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Capture.JPG" />
+         </image>
+      </ImageView>
+        <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <left>
+                <VBox prefHeight="810.0" prefWidth="365.0" style="-fx-border-style: none; -fx-background-color: #05071F;" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
+                            <children>
+                                <Label prefHeight="50.0" prefWidth="505.0" text="Infos d'une Evalutaion" textFill="#878787">
+                                    <font>
+                                        <Font name="Cambria Bold" size="24.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="30.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="66.0" prefWidth="357.0" stylesheets="@style.css" VBox.vgrow="NEVER">
+                            <VBox.margin>
+                                <Insets left="30.0" right="30.0" />
+                            </VBox.margin>
+                            <children>
+                                <TextField fx:id="searchField" prefHeight="36.0" prefWidth="177.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css" text="Tapez pour rechercher ">
+                                    <HBox.margin>
+                                        <Insets left="20.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font name="Cambria" size="18.0" />
+                                    </font>
+                                </TextField>
+                                <ComboBox fx:id="tri" onAction="#handleTriSelection" prefHeight="42.0" prefWidth="92.0" promptText="Trier " style="-fx-border-radius: 30;">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Questions les moins dures" />
+                                            <String fx:value="Questions les plus dures" />
+                                            <String fx:value="aucun" />
+
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                            </children>
+                            <styleClass>
+                                <String fx:value="search-box" />
+                                <String fx:value="shadow" />
+                            </styleClass>
+                        </HBox>
+                    </children>
+                </VBox>
+            </left>
+            <center>
+                <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets left="20.0" right="20.0" />
+                            </VBox.margin>
+                            <children>
+                                <Label prefHeight="29.0" prefWidth="88.0" text="langue " textFill="#878787">
+                                    <font>
+                                        <Font name="Cambria Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                                <Label prefHeight="29.0" prefWidth="77.0" text="Francais" textFill="#878787" underline="true">
+                                    <font>
+                                        <Font name="Cambria" size="18.0" />
+                                    </font>
+                                </Label>
+                                <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS" />
+                                <Label prefHeight="62.0" prefWidth="100.0" text="Mon panier " textFill="#878787">
+                                    <font>
+                                        <Font name="Cambria" size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="910.0">
+                            <children>
+                                <Pane prefHeight="84.0" prefWidth="96.0">
+                           <children>
+                              <Button fx:id="retour" layoutX="-3.0" layoutY="18.0" mnemonicParsing="false" onAction="#retour" styleClass="search-button" stylesheets="@style.css" text="&lt;" />
+                           </children></Pane>
+                                <HBox alignment="CENTER" prefHeight="114.0" prefWidth="718.0" style="-fx-background-color: #B5C4F4;" styleClass="free-delivery-card" stylesheets="@style.css">
+                                    <children>
+                                        <VBox alignment="CENTER" prefHeight="85.0" prefWidth="321.0">
+                                            <children>
+                                                <Label fx:id="t" prefHeight="30.0" prefWidth="276.0" text="L'evaluation la plus courte est " textFill="#878787">
+                                                    <font>
+                                                        <Font name="Cambria Bold" size="18.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label prefHeight="20.0" prefWidth="253.0" textFill="#878787">
+                                                    <font>
+                                                        <Font name="Cambria" size="15.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                      <ImageView fitHeight="77.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@images/course.gif" />
+                                          </image>
+                                      </ImageView>
+                                    </children>
+                                </HBox>
+                                <Pane prefHeight="84.0" prefWidth="96.0" HBox.hgrow="ALWAYS" />
+                            </children>
+                            <VBox.margin>
+                                <Insets left="20.0" right="20.0" top="10.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <Pane prefHeight="48.0" prefWidth="909.0" />
+                        <HBox alignment="CENTER" prefHeight="645.0" prefWidth="909.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <VBox fx:id="Evaluation" alignment="CENTER" prefHeight="631.0" prefWidth="684.0" style="-fx-background-color: #BC8F8F;" stylesheets="@style.css">
+                                    <children>
+                                        <HBox prefHeight="0.0" prefWidth="919.0">
+                                            <VBox.margin>
+                                                <Insets left="20.0" top="30.0" />
+                                            </VBox.margin>
+                                            <children>
+                                                <Label prefHeight="50.0" prefWidth="220.0" text="Evaluation" textFill="#f4f3f3">
+                                                    <font>
+                                                        <Font name="Cambria" size="40.0" />
+                                                    </font>
+                                                </Label>
+                                                <VBox prefHeight="86.0" prefWidth="154.0">
+                                                    <children>
+                                                        <Button fx:id="modifier" mnemonicParsing="false" onAction="#modifier" prefHeight="40.0" prefWidth="134.0" styleClass="add-btn" stylesheets="@style.css" text="Modifier" textFill="#828282">
+                                                            <font>
+                                                                <Font name="System Bold" size="18.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <Pane prefHeight="0.0" prefWidth="178.0" />
+                                                    </children>
+                                                    <HBox.margin>
+                                                        <Insets left="30.0" />
+                                                    </HBox.margin>
+                                                </VBox>
+                                                <VBox prefHeight="86.0" prefWidth="23.0" />
+                                                <VBox prefHeight="80.0" prefWidth="149.0">
+                                                    <children>
+                                                        <Button fx:id="supprimer" mnemonicParsing="false" onAction="#supprimer" prefHeight="40.0" prefWidth="124.0" styleClass="add-btn" stylesheets="@style.css" text="Supprimer" textFill="#828282">
+                                                            <font>
+                                                                <Font name="System Bold" size="18.0" />
+                                                            </font>
+                                                        </Button>
+                                                    </children>
+                                                </VBox>
+                                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                                    <children>
+                                          <Label prefHeight="50.0" prefWidth="220.0" text="Note" textFill="#f4f3f3">
+                                             <font>
+                                                <Font name="Cambria" size="36.0" />
+                                             </font>
+                                          </Label>
+                                                        <TextField fx:id="note" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Note : " />
+                                                    </children>
+                                                </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Label prefHeight="50.0" prefWidth="220.0" text="Nom" textFill="#f4f3f3">
+                                             <font>
+                                                <Font name="Cambria" size="36.0" />
+                                             </font>
+                                          </Label>
+                                                      <TextField fx:id="nom" prefHeight="36.0" prefWidth="110.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" text="Nom : " />
+                                       </children>
+                                    </VBox>
+                                            </children>
+                                        </HBox>
+                              <Label fx:id="msg" text="0&lt;Note&lt;=20" textFill="#e70808">
+                                 <VBox.margin>
+                                    <Insets left="410.0" />
+                                 </VBox.margin>
+                              </Label>
+                                        <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                            <VBox.margin>
+                                                <Insets top="20.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="726.0" prefWidth="939.0">
+                                            <children>
+                                                <ScrollPane fx:id="scroll" prefHeight="522.0" prefWidth="684.0" styleClass="transparent" stylesheets="@style.css">
+                                                    <content>
+                                                        <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
+                                                            <rowConstraints>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                                            </rowConstraints>
+                                                        </GridPane>
+                                                    </content>
+                                                </ScrollPane>
+                                            </children>
+                                        </HBox>
+                                        <Pane prefHeight="26.0" prefWidth="863.0" />
+                                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                                    </children>
+                                    <styleClass>
+                                        <String fx:value="chosen-fruit-card" />
+                                        <String fx:value="shadow" />
+                                    </styleClass>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

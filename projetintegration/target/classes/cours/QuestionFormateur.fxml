@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="352.0" prefWidth="766.0" style="-fx-background-color: black; -fx-border-radius: 50; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.cours.QuestionFormateurController">
+   <children>
+      <ImageView fitHeight="352.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/17114424-modele-de-jeu-de-quiz-neon-quatre-options-de-reponses-pour-l-examen-des-connaissances-a-l-ecole-emission-de-television-illustrationle-10-eps-vectoriel.jpg" />
+         </image>
+      </ImageView>
+      <HBox layoutX="-1.0" layoutY="12.0" prefHeight="292.0" prefWidth="337.0">
+         <children>
+            <VBox prefHeight="210.0" prefWidth="426.0">
+               <children>
+                  <HBox prefHeight="70.0" prefWidth="346.0">
+                     <children>
+                        <Label prefHeight="35.0" prefWidth="70.0" text="Duree :" textFill="#2bf242">
+                           <font>
+                              <Font name="Maiandra GD" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="duree" prefHeight="26.0" prefWidth="80.0" style="-fx-border-width: 0; -fx-text-fill: #ff35b2;" styleClass="transparent">
+                           <font>
+                              <Font name="Maiandra GD" size="14.0" />
+                           </font>
+                        </TextField>
+                     </children></HBox>
+                  <HBox prefHeight="59.0" prefWidth="486.0">
+                     <children>
+                        <VBox prefHeight="59.0" prefWidth="338.0">
+                           <children>
+                              <Label prefHeight="23.0" prefWidth="230.0" text="Question : " textFill="#f2169b">
+                                 <font>
+                                    <Font name="Maiandra GD" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="100.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="ressource" prefHeight="10.0" prefWidth="186.0" style="-fx-border-width: 0;" styleClass="transparent">
+                                 <VBox.margin>
+                                    <Insets left="130.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Pane prefHeight="54.0" prefWidth="310.0" />
+                  <HBox prefHeight="50.0" prefWidth="205.0">
+                     <children>
+                        <VBox prefHeight="59.0" prefWidth="247.0">
+                           <children>
+                              <Label prefHeight="30.0" prefWidth="134.0" text="Correction : " textFill="#f2169b">
+                                 <font>
+                                    <Font name="Maiandra GD" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="60.0" />
+                                 </VBox.margin>
+                              </Label>
+
+                              <TextField fx:id="crx" prefHeight="23.0" prefWidth="118.0" style="-fx-border-width: 0;" styleClass="transparent">
+                                 <VBox.margin>
+                                    <Insets left="60.0" />
+                                 </VBox.margin></TextField>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="60.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="170.0" prefWidth="133.0">
+               <children>
+                  <HBox prefHeight="73.0" prefWidth="156.0" />
+                  <HBox prefHeight="58.0" prefWidth="211.0" />
+                  <HBox prefHeight="64.0" prefWidth="77.0" />
+               </children>
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </HBox>
+      <Label layoutX="14.0" layoutY="311.0" prefHeight="26.0" prefWidth="70.0" text="Points : " textFill="#5dfa3a">
+         <font>
+            <Font name="Maiandra GD" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="601.0" layoutY="244.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
+      <TextField fx:id="text1" layoutX="393.0" layoutY="66.0" prefHeight="36.0" prefWidth="160.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
+      <TextField fx:id="text3" layoutX="393.0" layoutY="244.0" prefHeight="36.0" prefWidth="160.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
+      <TextField fx:id="text2" layoutX="389.0" layoutY="157.0" prefHeight="36.0" prefWidth="160.0" style="-fx-border-width: 0;" styleClass="transparent" stylesheets="@style.css" />
+      <Button layoutX="601.0" layoutY="280.0" mnemonicParsing="false" onAction="#supprimer" text="supprimer" />
+      <CheckBox fx:id="premierchoix" layoutX="370.0" layoutY="29.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="18.0" stylesheets="@style.css" textFill="#afa5dc">
+         <font>
+            <Font name="Maiandra GD" size="10.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="deuxiemechoix" layoutX="370.0" layoutY="148.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="174.0" textFill="#afa5dc">
+         <font>
+            <Font name="Maiandra GD" size="10.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="troisiemechoix" layoutX="370.0" layoutY="209.0" mnemonicParsing="false" prefHeight="105.0" prefWidth="17.0" textFill="#afa5dc">
+         <font>
+            <Font name="Maiandra GD" size="10.0" />
+         </font>
+      </CheckBox>
+      <TextField fx:id="points" layoutX="72.0" layoutY="307.0" prefHeight="30.0" prefWidth="80.0" style="-fx-border-width: 0; -fx-text-fill: #ff35b2;" styleClass="transparent">
+         <font>
+            <Font name="Maiandra GD" size="18.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

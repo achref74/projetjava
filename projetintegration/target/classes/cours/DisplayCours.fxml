@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #05071F;" styleClass="right-bar" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.cours.DisplayCours">
+    <children>
+        <TextField fx:id="nom" layoutX="434.0" layoutY="89.0" prefHeight="38.0" prefWidth="302.0" style="-fx-background-color: #696969;" />
+        <TextField fx:id="description" layoutX="435.0" layoutY="127.0" prefHeight="38.0" prefWidth="302.0" style="-fx-background-color: #696969;" />
+        <TextField fx:id="date" layoutX="435.0" layoutY="165.0" prefHeight="38.0" prefWidth="302.0" style="-fx-background-color: #696969;" />
+        <TextField fx:id="duree" layoutX="434.0" layoutY="203.0" prefHeight="38.0" prefWidth="302.0" style="-fx-background-color: #696969;" />
+        <Button fx:id="delete" layoutX="639.0" layoutY="468.0" mnemonicParsing="false" styleClass="search_button" stylesheets="@style.css" text="delete" />
+        <Button fx:id="update" layoutX="709.0" layoutY="468.0" mnemonicParsing="false" styleClass="search_button" stylesheets="@style.css" text="update" />
+        <VBox fx:id="Vbox" layoutX="-6.0" minHeight="500.0" minWidth="422.0" prefHeight="512.0" prefWidth="424.0" style="-fx-background-color: #05071F;" />
+        <TextField fx:id="prerequis" layoutX="435.0" layoutY="241.0" prefHeight="38.0" prefWidth="302.0" style="-fx-background-color: #696969;" />
+        <Button fx:id="navigate" layoutX="523.0" layoutY="14.0" mnemonicParsing="false" styleClass="search_box" stylesheets="@style.css" text="return" />
+        <TextField fx:id="ressource" layoutX="435.0" layoutY="279.0" prefHeight="38.0" prefWidth="302.0" style="-fx-background-color: #696969;" />
+        <ImageView fitHeight="116.0" fitWidth="388.0" layoutX="499.0" layoutY="328.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/deux.JPG" />
+            </image>
+        </ImageView>
+      <Button fx:id="ajouter" layoutX="439.0" layoutY="14.0" mnemonicParsing="false" onAction="#navigatetoAjouterCoursAction" styleClass="search_button" stylesheets="@style.css" text="ajouter" />
+      <TextField fx:id="id_cours" layoutX="434.0" layoutY="50.0" prefHeight="38.0" prefWidth="302.0" style="-fx-background-color: #696969;" />
+    </children>
+</AnchorPane>

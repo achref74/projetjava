@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="18207f58-a10e-48f9-a8be-6dc604adbd07" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="JavaFXApplication" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2cSrg14ZmtaNKXmqOMCdgOCcgOH" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.MainFX.executor": "Run",
+    "Maven.gestionPersonne3A4 [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor": "Run",
+    "Maven.gestionPersonne3A4 [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "C:/Users/achre/IdeaProjects/gestionPersonne3A4/src/main/java",
+    "last_opened_file_path": "C:/projetintegration/src/main/resources/Forum",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/achre/IdeaProjects/gestionPersonne3A4/src/main/java/edu/esprit/tests/Main.java",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\projetintegration\src\main\resources\Forum" />
+      <recent name="C:\projetintegration\src\main\resources" />
+      <recent name="C:\projetintegration\src\main\java\edu\esprit" />
+      <recent name="C:\projetintegration\src\main\java\edu\esprit\controllers\Forum" />
+      <recent name="C:\projetintegration\src\main\java\edu\esprit\service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\achre\IdeaProjects\gestionPersonne3A4\src\main\java\edu\esprit\controllers" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="edu.esprit.service" />
+      <recent name="edu.esprit.tests" />
+      <recent name="edu.esprit.entities" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.MainFX">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.esprit.tests.Main" />
+      <module name="gestionPersonne3A4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.esprit.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainFX" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.esprit.tests.MainFX" />
+      <module name="gestionPersonne3A4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.esprit.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.esprit.tests.test" />
+      <module name="gestionPersonne3A4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.esprit.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainFX" />
+        <item itemvalue="Application.test" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.9-jbrsdk-17.0.9-4caba194b151-b614c381" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="18207f58-a10e-48f9-a8be-6dc604adbd07" name="Changes" comment="" />
+      <created>1708115929429</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708115929429</updated>
+      <workItem from="1708115930412" duration="10390000" />
+      <workItem from="1708164113022" duration="5871000" />
+      <workItem from="1708261740380" duration="7973000" />
+      <workItem from="1708287431522" duration="4327000" />
+      <workItem from="1708364456806" duration="17849000" />
+      <workItem from="1708455818405" duration="34699000" />
+      <workItem from="1708594418788" duration="2291000" />
+      <workItem from="1708599442536" duration="6845000" />
+      <workItem from="1708729919400" duration="2931000" />
+      <workItem from="1708774363238" duration="22937000" />
+      <workItem from="1708849935605" duration="14751000" />
+      <workItem from="1708870015301" duration="3677000" />
+      <workItem from="1708881590177" duration="13822000" />
+      <workItem from="1708958030002" duration="7256000" />
+      <workItem from="1708989372187" duration="3286000" />
+      <workItem from="1709057277371" duration="11555000" />
+      <workItem from="1709078936049" duration="5759000" />
+      <workItem from="1709124428514" duration="23356000" />
+      <workItem from="1709169218620" duration="102000" />
+      <workItem from="1709197669115" duration="6799000" />
+      <workItem from="1709242772528" duration="1139000" />
+      <workItem from="1709311731768" duration="3965000" />
+      <workItem from="1709381639835" duration="19500000" />
+      <workItem from="1709426759048" duration="210000" />
+      <workItem from="1709460353868" duration="3703000" />
+      <workItem from="1709478681803" duration="13734000" />
+      <workItem from="1709493866783" duration="5365000" />
+      <workItem from="1709503151437" duration="560000" />
+      <workItem from="1709575134518" duration="14100000" />
+      <workItem from="1709595013446" duration="802000" />
+      <workItem from="1709595922468" duration="893000" />
+      <workItem from="1709633252015" duration="9156000" />
+      <workItem from="1709669087183" duration="1450000" />
+      <workItem from="1709673741252" duration="1144000" />
+      <workItem from="1709675606802" duration="238000" />
+      <workItem from="1709730576817" duration="16973000" />
+      <workItem from="1709761043752" duration="5573000" />
+      <workItem from="1709766722221" duration="7859000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.io.FileNotFoundException" package="java.io" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/edu/esprit/controllers/formation/AjouterFormation.java</url>
+          <line>129</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

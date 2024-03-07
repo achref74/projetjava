@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="978.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ProfilFormateur">
+   <children>
+      <Pane prefHeight="725.0" prefWidth="237.0" style="-fx-background-color: #05071F;">
+         <children>
+            <ImageView fitHeight="748.0" fitWidth="1365.0" layoutX="238.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Capture.JPG" />
+               </image>
+            </ImageView>
+            <Button layoutX="29.0" layoutY="24.0" mnemonicParsing="false" onAction="#navigateToHome" prefHeight="46.0" prefWidth="101.0" style="-fx-background-radius: 30px; -fx-background-color: #0D0D3D; -fx-text-fill: #2a73ff;" text="Retourner" textFill="#2a73ff">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <ImageView fx:id="fximgcv" fitHeight="241.0" fitWidth="156.0" layoutX="50.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cvvv.jpg" />
+               </image></ImageView>
+            <Button layoutX="29.0" layoutY="80.0" mnemonicParsing="false" onAction="#navigateToadmin" prefHeight="46.0" prefWidth="101.0" style="-fx-background-radius: 30px; -fx-background-color: #05071F; -fx-text-fill: #2a73ff;" textFill="#2a73ff">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="129.0" fitWidth="214.0" layoutX="12.0" layoutY="491.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <ImageView fx:id="fximg" fitHeight="167.0" fitWidth="167.0" layoutX="154.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/bbb.png" />
+         </image>
+      </ImageView>
+      <Text fill="#2a73ff" layoutX="247.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email :" wrappingWidth="180.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fill="#2a73ff" layoutX="247.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date de naissance :" wrappingWidth="180.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fill="#2a73ff" layoutX="247.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse :" wrappingWidth="180.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fill="#2a73ff" layoutX="247.0" layoutY="566.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero De Télephone :" wrappingWidth="180.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fill="#2a73ff" layoutX="247.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type de compte :" wrappingWidth="151.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Label fx:id="fxnom" layoutX="409.0" layoutY="138.0" prefHeight="79.0" prefWidth="435.0" text="MEDDEB Achref" textFill="#b9b388">
+         <font>
+            <Font name="Calibri Bold Italic" size="38.0" />
+         </font>
+      </Label>
+      <Button layoutX="750.0" layoutY="21.0" mnemonicParsing="false" onAction="#modifierCompte" prefHeight="46.0" prefWidth="214.0" style="-fx-background-radius: 30px; -fx-background-color: #c3bc8e; -fx-text-fill: #615e49;" text="Modifier le Compte" textFill="#2a73ff">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="750.0" layoutY="82.0" mnemonicParsing="false" onAction="#changerMdp" prefHeight="46.0" prefWidth="214.0" style="-fx-background-radius: 30px; -fx-background-color: #c3bc8e; -fx-text-fill: #615e49;" text="Changer le Mot de Passe" textFill="#2a73ff">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Label layoutX="435.0" layoutY="291.0" prefHeight="32.0" prefWidth="101.0" text="Formateur" textFill="#615e49">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="fxmail" layoutX="435.0" layoutY="349.0" prefHeight="32.0" prefWidth="191.0" text="aa.bb@gmail.com" textFill="#615e49">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="fxdate" layoutX="435.0" layoutY="408.0" prefHeight="32.0" prefWidth="113.0" text="25/05/1999" textFill="#615e49">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="fxadr" layoutX="435.0" layoutY="476.0" prefHeight="32.0" prefWidth="167.0" text="ghazela, 1090" textFill="#615e49">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="fxnum" layoutX="435.0" layoutY="543.0" prefHeight="32.0" prefWidth="113.0" text="25509768" textFill="#615e49">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Text fill="#2a73ff" layoutX="626.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spécialité :" wrappingWidth="180.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fill="#2a73ff" layoutX="626.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre :" wrappingWidth="180.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fill="#2a73ff" layoutX="626.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Disponibilé :" wrappingWidth="180.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fill="#2a73ff" layoutX="626.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau académique :" wrappingWidth="161.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Label fx:id="fxnivaca" layoutX="814.0" layoutY="291.0" prefHeight="32.0" prefWidth="101.0" text="bac+2" textFill="#615e49">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="fxspec" layoutX="814.0" layoutY="344.0" prefHeight="32.0" prefWidth="161.0" text="agricole" textFill="#615e49">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="fxgenre" layoutX="814.0" layoutY="403.0" prefHeight="32.0" prefWidth="113.0" text="Homme" textFill="#615e49">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="fxdispo" layoutX="814.0" layoutY="471.0" prefHeight="32.0" prefWidth="167.0" text="Disponible" textFill="#615e49">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

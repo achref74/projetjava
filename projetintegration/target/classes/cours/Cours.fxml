@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane onMousePressed="#click" prefHeight="161.0" prefWidth="530.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.cours.CoursController">
+    <children>
+      <ImageView fitHeight="141.0" fitWidth="867.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/img.png" />
+         </image>
+      </ImageView>
+        <VBox alignment="TOP_CENTER" layoutX="3.2" prefHeight="98.0" prefWidth="507.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefHeight="30.0" prefWidth="439.0">
+                    <children>
+                        <Label prefHeight="36.0" prefWidth="65.0" text="Nom" textFill="#f4efef">
+                            <font>
+                                <Font name="Cambria" size="14.0" />
+                            </font>
+                        </Label>
+                  <Label prefHeight="36.0" prefWidth="85.0" text="Description" textFill="#f4efef">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="36.0" prefWidth="61.0" text="Date" textFill="#f4efef">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="36.0" prefWidth="70.0" text="Duree" textFill="#f4efef">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="36.0" prefWidth="82.0" text="Prerequis" textFill="#f4efef">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="36.0" prefWidth="110.0" text="Ressources " textFill="#f4efef">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="20.0" top="40.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+      <HBox layoutX="23.0" layoutY="70.0" prefHeight="36.0" prefWidth="507.0">
+         <children>
+            <Label fx:id="nom" prefHeight="36.0" prefWidth="65.0" text="Nom" textFill="#f4efef">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="description" prefHeight="36.0" prefWidth="85.0" text="Description" textFill="#f4efef">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="date" prefHeight="36.0" prefWidth="61.0" text="Date" textFill="#f4efef">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="duree" prefHeight="36.0" prefWidth="70.0" text="Duree" textFill="#f4efef">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="prerequis" prefHeight="36.0" prefWidth="82.0" text="Prerequis" textFill="#f4efef">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="ressource" prefHeight="36.0" prefWidth="110.0" text="Ressources " textFill="#f4efef">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+    </children>
+    <styleClass>
+        <String fx:value="fruit-item" />
+        <String fx:value="shadow" />
+    </styleClass>
+</AnchorPane>
